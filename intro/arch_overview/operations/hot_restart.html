@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Hot restart &mdash; envoy 1.16.0-8f0ea4 documentation</title>
+  <title>热重启 &mdash; envoy 1.16.0-b4676a documentation</title>
   
 
   
@@ -47,7 +47,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Overload manager" href="overload_manager.html" />
-    <link rel="prev" title="Runtime configuration" href="runtime.html" /> 
+    <link rel="prev" title="运行时配置" href="runtime.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-8f0ea4
+                1.16.0-b4676a
               </div>
             
           
@@ -101,32 +101,32 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../about_docs.html">关于文档</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../intro.html">Introduction</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../intro.html">介绍</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../what_is_envoy.html">What is Envoy</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">Architecture overview</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">架构概览</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../intro/intro.html">介绍</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../listeners/listeners_toc.html">Listeners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../listeners/listeners_toc.html">监听器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../http/http.html">HTTP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../upstream/upstream.html">Upstream clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../upstream/upstream.html">上游集群</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../observability/observability.html">Observability</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../security/security.html">Security</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="operations.html">Operations &amp; configuration</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../security/security.html">安全</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="operations.html">操作与配置</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="dynamic_configuration.html">xDS configuration API overview</a></li>
 <li class="toctree-l4"><a class="reference internal" href="init.html">Initialization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="draining.html">Draining</a></li>
-<li class="toctree-l4"><a class="reference internal" href="runtime.html">Runtime configuration</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Hot restart</a></li>
+<li class="toctree-l4"><a class="reference internal" href="runtime.html">运行时配置</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">热重启</a></li>
 <li class="toctree-l4"><a class="reference internal" href="overload_manager.html">Overload manager</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">Other features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">Other protocols</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../advanced/advanced.html">Advanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">其他特性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">其他协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/advanced.html">高级的</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../life_of_a_request.html">Life of a Request</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../deployment_types/deployment_types.html">Deployment types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_help.html">Getting help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../deployment_types/deployment_types.html">部署类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_help.html">获取帮助</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../start/start.html">开始</a></li>
@@ -183,13 +183,13 @@
     
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../intro.html">Introduction</a> &raquo;</li>
+          <li><a href="../../intro.html">介绍</a> &raquo;</li>
         
-          <li><a href="../arch_overview.html">Architecture overview</a> &raquo;</li>
+          <li><a href="../arch_overview.html">架构概览</a> &raquo;</li>
         
-          <li><a href="operations.html">Operations &amp; configuration</a> &raquo;</li>
+          <li><a href="operations.html">操作与配置</a> &raquo;</li>
         
-      <li>Hot restart</li>
+      <li>热重启</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -208,37 +208,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="hot-restart">
-<span id="arch-overview-hot-restart"></span><h1>Hot restart<a class="headerlink" href="#hot-restart" title="Permalink to this headline">¶</a></h1>
-<p>Ease of operation is one of the primary goals of Envoy. In addition to robust statistics and a local
-administration interface, Envoy has the ability to “hot” or “live” restart itself. This means that
-Envoy can fully reload itself (both code and configuration) without dropping any connections. The
-hot restart functionality has the following general architecture:</p>
+  <div class="section" id="arch-overview-hot-restart">
+<span id="id1"></span><h1>热重启<a class="headerlink" href="#arch-overview-hot-restart" title="Permalink to this headline">¶</a></h1>
+<p>易操作性是 Envoy 的主要目标之一。除了强大的数据统计和本地管理界面外，Envoy 还有 “热” 或者 “现场” 重启自己的能力。
+这意味着 Envoy 可以完全重新加载自己（包括代码和配置）而不丢失任何连接。热重启功能有以下通用体系结构：</p>
 <ul class="simple">
-<li><p>Statistics and some locks are kept in a shared memory region. This means that gauges will be
-consistent across both processes as restart is taking place.</p></li>
-<li><p>The two active processes communicate with each other over unix domain sockets using a basic RPC
-protocol.</p></li>
-<li><p>The new process fully initializes itself (loads the configuration, does an initial service
-discovery and health checking phase, etc.) before it asks for copies of the listen sockets from
-the old process. The new process starts listening and then tells the old process to start
-draining.</p></li>
-<li><p>During the draining phase, the old process attempts to gracefully close existing connections. How
-this is done depends on the configured filters. The drain time is configurable via the
-<a class="reference internal" href="../../../operations/cli.html#cmdoption-drain-time-s"><code class="xref std std-option docutils literal notranslate"><span class="pre">--drain-time-s</span></code></a> option and as more time passes draining becomes more aggressive.</p></li>
-<li><p>After drain sequence, the new Envoy process tells the old Envoy process to shut itself down.
-This time is configurable via the <a class="reference internal" href="../../../operations/cli.html#cmdoption-parent-shutdown-time-s"><code class="xref std std-option docutils literal notranslate"><span class="pre">--parent-shutdown-time-s</span></code></a> option.</p></li>
-<li><p>Envoy’s hot restart support was designed so that it will work correctly even if the new Envoy
-process and the old Envoy process are running inside different containers. Communication between
-the processes takes place only using unix domain sockets.</p></li>
-<li><p>An example restarter/parent process written in Python is included in the source distribution. This
-parent process is usable with standard process control utilities such as monit/runit/etc.</p></li>
+<li><p>统计数据和一些锁要保持在共享内存区。这意味着计量仪在进程重启的时候将保持一致。</p></li>
+<li><p>这两个存活的进程用简单的 RPC 协议通过 unix 域套接字进行通信。</p></li>
+<li><p>新进程在从老进程进行拷贝监听套接字之前，需要完成自己的初始化（如加载配置，执行初始化服务发现和健康检查）。然后新进程开始监听，
+并且通知老进程开始消退（draining）。</p></li>
+<li><p>在消退（draining）阶段，老进程会尝试优雅的关闭已经已有链接。具体如何关闭这取决于过滤器的配置。消退（draining）时间可以
+通过:option:<cite>–drain-time-s</cite> 来配置，并且随着时间的推移，消退（draining）会变得更迅速。</p></li>
+<li><p>在老进程消退（draining）之后，Envoy 的新进程通知老进程关闭自己。这个时间可以通过:option:<cite>–parent-shutdown-time-s</cite> 选项来配置。</p></li>
+<li><p>Envoy 的热重启设计使得即便 Envoy 的新进程和老进程运行在不同的容器内也能正确的工作。新老进程之间的通信只使用 unix 域套接字。</p></li>
+<li><p>用 Python 写的一个重启器/父进程示例包含在了 Envoy 的源码中。这个父进程可以用在标准的进程控制工具程序，比如 monit/runit 等。</p></li>
 </ul>
-<p>Envoy’s default command line options assume that only a single set of Envoy processes is running on
-a given host: an active Envoy server process and, potentially, a draining Envoy server process that
-will exit as described above. The <a class="reference internal" href="../../../operations/cli.html#cmdoption-base-id"><code class="xref std std-option docutils literal notranslate"><span class="pre">--base-id</span></code></a> or <a class="reference internal" href="../../../operations/cli.html#cmdoption-use-dynamic-base-id"><code class="xref std std-option docutils literal notranslate"><span class="pre">--use-dynamic-base-id</span></code></a> options
-may be used to allow multiple, distinctly configured Envoys to run on the same host and hot restart
-independently.</p>
+<p>Envoy 的默认命令行选项假定它在给定的主机上只启动运行一个 Envoy 进程：一个活跃的 Envoy 服务进程，可能还有一个在消退（draining）
+的 Envoy 服务进程，该进程会像上面所讲的最后退出。<a class="reference internal" href="../../../operations/cli.html#cmdoption-base-id"><code class="xref std std-option docutils literal notranslate"><span class="pre">--base-id</span></code></a> 或 <a class="reference internal" href="../../../operations/cli.html#cmdoption-use-dynamic-base-id"><code class="xref std std-option docutils literal notranslate"><span class="pre">--use-dynamic-base-id</span></code></a> 选项可能
+用于允许多个配置明确的 Envoy 在同一个主机上运行，并且可以独立的热重启。</p>
 </div>
 
 
@@ -252,7 +239,7 @@ independently.</p>
         <a href="overload_manager.html" class="btn btn-neutral float-right" title="Overload manager" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="runtime.html" class="btn btn-neutral float-left" title="Runtime configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="runtime.html" class="btn btn-neutral float-left" title="运行时配置" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

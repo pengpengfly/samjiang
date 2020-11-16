@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Architecture overview &mdash; envoy 1.16.0-8f0ea4 documentation</title>
+  <title>架构概览 &mdash; envoy 1.16.0-b4676a documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-8f0ea4
+                1.16.0-b4676a
               </div>
             
           
@@ -101,24 +101,24 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../about_docs.html">关于文档</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../intro.html">Introduction</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../intro.html">介绍</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../what_is_envoy.html">What is Envoy</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Architecture overview</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">架构概览</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="intro/intro.html">介绍</a></li>
-<li class="toctree-l3"><a class="reference internal" href="listeners/listeners_toc.html">Listeners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="listeners/listeners_toc.html">监听器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="http/http.html">HTTP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="upstream/upstream.html">Upstream clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="upstream/upstream.html">上游集群</a></li>
 <li class="toctree-l3"><a class="reference internal" href="observability/observability.html">Observability</a></li>
-<li class="toctree-l3"><a class="reference internal" href="security/security.html">Security</a></li>
-<li class="toctree-l3"><a class="reference internal" href="operations/operations.html">Operations &amp; configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="other_features/other_features.html">Other features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="other_protocols/other_protocols.html">Other protocols</a></li>
-<li class="toctree-l3"><a class="reference internal" href="advanced/advanced.html">Advanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="security/security.html">安全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="operations/operations.html">操作与配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="other_features/other_features.html">其他特性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="other_protocols/other_protocols.html">其他协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced/advanced.html">高级的</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../life_of_a_request.html">Life of a Request</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../deployment_types/deployment_types.html">Deployment types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_help.html">Getting help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment_types/deployment_types.html">部署类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_help.html">获取帮助</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../start/start.html">开始</a></li>
@@ -175,9 +175,9 @@
     
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../intro.html">Introduction</a> &raquo;</li>
+          <li><a href="../intro.html">介绍</a> &raquo;</li>
         
-      <li>Architecture overview</li>
+      <li>架构概览</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -196,79 +196,79 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="architecture-overview">
-<h1>Architecture overview<a class="headerlink" href="#architecture-overview" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="id1">
+<h1>架构概览<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro/intro.html">介绍</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="intro/terminology.html">Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro/terminology.html">术语</a></li>
 <li class="toctree-l2"><a class="reference internal" href="intro/threading_model.html">Threading model</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="listeners/listeners_toc.html">Listeners</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="listeners/listeners_toc.html">监听器</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="listeners/listeners.html">Listeners</a></li>
-<li class="toctree-l2"><a class="reference internal" href="listeners/listener_filters.html">Listener filters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="listeners/network_filters.html">Network (L3/L4) filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="listeners/listener_filters.html">监听器过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="listeners/network_filters.html">网络 (L3/L4) 过滤器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="listeners/tcp_proxy.html">TCP 代理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="listeners/udp_proxy.html">UDP proxy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="listeners/dns_filter.html">DNS Filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="listeners/udp_proxy.html">UDP 代理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="listeners/dns_filter.html">DNS 过滤器</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="http/http.html">HTTP</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="http/http_connection_management.html">HTTP connection management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="http/http_filters.html">HTTP filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http/http_filters.html">HTTP 过滤器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="http/http_routing.html">HTTP routing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="http/upgrades.html">HTTP upgrades</a></li>
 <li class="toctree-l2"><a class="reference internal" href="http/http_proxy.html">HTTP dynamic forward proxy</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="upstream/upstream.html">Upstream clusters</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="upstream/upstream.html">上游集群</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="upstream/cluster_manager.html">Cluster manager</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstream/service_discovery.html">Service discovery</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstream/health_checking.html">Health checking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstream/connection_pooling.html">Connection pooling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="upstream/load_balancing/load_balancing.html">Load Balancing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upstream/load_balancing/load_balancing.html">负载均衡</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstream/aggregate_cluster.html">Aggregate Cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstream/outlier.html">Outlier detection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="upstream/circuit_breaking.html">Circuit breaking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upstream/circuit_breaking.html">断路</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstream/upstream_filters.html">Upstream network filters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstream/load_reporting_service.html">Load Reporting Service (LRS)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="observability/observability.html">Observability</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="observability/statistics.html">Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="observability/statistics.html">统计</a></li>
 <li class="toctree-l2"><a class="reference internal" href="observability/access_logging.html">Access logging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="observability/tracing.html">Tracing</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="security/security.html">Security</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="security/security.html">安全</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="security/ssl.html">TLS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security/jwt_authn_filter.html">JSON Web Token (JWT) Authentication</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security/ext_authz_filter.html">External Authorization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security/rbac_filter.html">Role Based Access Control</a></li>
-<li class="toctree-l2"><a class="reference internal" href="security/threat_model.html">Threat model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security/threat_model.html">威胁模型</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security/external_deps.html">External dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security/google_vrp.html">Google Vulnerability Reward Program (VRP)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="operations/operations.html">Operations &amp; configuration</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="operations/operations.html">操作与配置</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="operations/dynamic_configuration.html">xDS configuration API overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operations/init.html">Initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operations/draining.html">Draining</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operations/runtime.html">Runtime configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="operations/hot_restart.html">Hot restart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations/runtime.html">运行时配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations/hot_restart.html">热重启</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operations/overload_manager.html">Overload manager</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="other_features/other_features.html">Other features</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="other_features/local_rate_limiting.html">Local rate limiting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other_features/other_features.html">其他特性</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="other_features/local_rate_limiting.html">本地限速</a></li>
 <li class="toctree-l2"><a class="reference internal" href="other_features/global_rate_limiting.html">Global rate limiting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="other_features/scripting.html">Scripting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="other_features/ip_transparency.html">IP Transparency</a></li>
 <li class="toctree-l2"><a class="reference internal" href="other_features/compression/libraries.html">Compression Libraries</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="other_protocols/other_protocols.html">Other protocols</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="other_protocols/other_protocols.html">其他协议</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="other_protocols/grpc.html">gRPC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="other_protocols/mongo.html">MongoDB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="other_protocols/dynamo.html">DynamoDB</a></li>
@@ -276,7 +276,7 @@
 <li class="toctree-l2"><a class="reference internal" href="other_protocols/postgres.html">Postgres</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="advanced/advanced.html">Advanced</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="advanced/advanced.html">高级的</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="advanced/data_sharing_between_filters.html">Sharing data between filters</a></li>
 </ul>
 </li>

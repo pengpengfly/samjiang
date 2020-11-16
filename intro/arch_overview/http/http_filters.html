@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>HTTP filters &mdash; envoy 1.16.0-8f0ea4 documentation</title>
+  <title>HTTP 过滤器 &mdash; envoy 1.16.0-b4676a documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-8f0ea4
+                1.16.0-b4676a
               </div>
             
           
@@ -101,31 +101,31 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../about_docs.html">关于文档</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../intro.html">Introduction</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../intro.html">介绍</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../what_is_envoy.html">What is Envoy</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">Architecture overview</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">架构概览</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../intro/intro.html">介绍</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../listeners/listeners_toc.html">Listeners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../listeners/listeners_toc.html">监听器</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="http.html">HTTP</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="http_connection_management.html">HTTP connection management</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">HTTP filters</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">HTTP 过滤器</a></li>
 <li class="toctree-l4"><a class="reference internal" href="http_routing.html">HTTP routing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="upgrades.html">HTTP upgrades</a></li>
 <li class="toctree-l4"><a class="reference internal" href="http_proxy.html">HTTP dynamic forward proxy</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../upstream/upstream.html">Upstream clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../upstream/upstream.html">上游集群</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../observability/observability.html">Observability</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../security/security.html">Security</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../operations/operations.html">Operations &amp; configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">Other features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">Other protocols</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../advanced/advanced.html">Advanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security.html">安全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../operations/operations.html">操作与配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">其他特性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">其他协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/advanced.html">高级的</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../life_of_a_request.html">Life of a Request</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../deployment_types/deployment_types.html">Deployment types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_help.html">Getting help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../deployment_types/deployment_types.html">部署类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_help.html">获取帮助</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../start/start.html">开始</a></li>
@@ -182,13 +182,13 @@
     
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../intro.html">Introduction</a> &raquo;</li>
+          <li><a href="../../intro.html">介绍</a> &raquo;</li>
         
-          <li><a href="../arch_overview.html">Architecture overview</a> &raquo;</li>
+          <li><a href="../arch_overview.html">架构概览</a> &raquo;</li>
         
           <li><a href="http.html">HTTP</a> &raquo;</li>
         
-      <li>HTTP filters</li>
+      <li>HTTP 过滤器</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -207,47 +207,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="http-filters">
-<span id="arch-overview-http-filters"></span><h1>HTTP filters<a class="headerlink" href="#http-filters" title="Permalink to this headline">¶</a></h1>
-<p>Much like the <a class="reference internal" href="../listeners/network_filters.html#arch-overview-network-filters"><span class="std std-ref">network level filter</span></a> stack, Envoy supports an
-HTTP level filter stack within the connection manager. Filters can be written that operate on HTTP
-level messages without knowledge of the underlying physical protocol (HTTP/1.1, HTTP/2, etc.) or
-multiplexing capabilities. There are three types of HTTP level filters:</p>
+  <div class="section" id="http">
+<span id="arch-overview-http-filters"></span><h1>HTTP 过滤器<a class="headerlink" href="#http" title="Permalink to this headline">¶</a></h1>
+<p>和 <a class="reference internal" href="../listeners/network_filters.html#arch-overview-network-filters"><span class="std std-ref">网络层的过滤器</span></a> 很像，Envoy 支持了链接管理中的 HTTP 层过滤器。
+可以开发过滤器处理 HTTP 层的消息，而不用知道底层的物理协议（比如，HTTP/1.1、HTTP/2）或者多路复用功能。HTTP 层
+的过滤器有 3 种类型：</p>
 <ul class="simple">
-<li><p><strong>Decoder</strong>: Decoder filters are invoked when the connection manager is decoding parts of the
-request stream (headers, body, and trailers).</p></li>
-<li><p><strong>Encoder</strong>: Encoder filters are invoked when the connection manager is about to encode parts of
-the response stream (headers, body, and trailers).</p></li>
-<li><p><strong>Decoder/Encoder</strong>: Decoder/Encoder filters are invoked both when the connection manager is
-decoding parts of the request stream and when the connection manager is about to encode parts of
-the response stream.</p></li>
+<li><p><strong>解码器</strong>: 解码过滤器用于链接管理器解码部分请求流（分请头，正文和 trailer 信息）。</p></li>
+<li><p><strong>编码器</strong>: 编码过滤器用于链接管理器编码部响应求流（响应头，正文和 trailer 信息）。</p></li>
+<li><p><strong>解码器/编码器</strong>: 解码/编码过滤器同时用于链接管理器解码部分请求流和编码部分相应流。</p></li>
 </ul>
-<p>The API for HTTP level filters allows the filters to operate without knowledge of the underlying
-protocol. Like network level filters, HTTP filters can stop and continue iteration to subsequent
-filters. This allows for more complex scenarios such as health check handling, calling a rate
-limiting service, buffering, routing, generating statistics for application traffic such as
-DynamoDB, etc. HTTP level filters can also share state (static and dynamic) among
-themselves within the context of a single request stream. Refer to <a class="reference internal" href="../advanced/data_sharing_between_filters.html#arch-overview-data-sharing-between-filters"><span class="std std-ref">data sharing
-between filters</span></a> for more details. Envoy already
-includes several HTTP level filters that are documented in this architecture overview as well as
-the <a class="reference internal" href="../../../configuration/http/http_filters/http_filters.html#config-http-filters"><span class="std std-ref">configuration reference</span></a>.</p>
-<div class="section" id="filter-ordering">
-<span id="arch-overview-http-filters-ordering"></span><h2>Filter ordering<a class="headerlink" href="#filter-ordering" title="Permalink to this headline">¶</a></h2>
-<p>Filter ordering in the <a class="reference internal" href="../../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-http-filters"><span class="std std-ref">http_filters field</span></a>
-matters. If filters are configured in the following order (and assuming all three filters are
-decoder/encoder filters):</p>
+<p>HTTP 层过滤器的 API 可以让过滤器处理消息而不用知道底层协议。像网络层过滤器一样，HTTP 过滤器能停止和继续
+处理后续的过滤器。这样可以处理更复杂的场景，比如处理健康检查，调用一个限流服务，缓存，路由，给像 DynamoDB 这样的应用
+收集流量统计信息等。HTTP 层的过滤器也能在单个请求流的上下文中共享状态（静态和动态）。参考这里可以了解更多：
+<a class="reference internal" href="../advanced/data_sharing_between_filters.html#arch-overview-data-sharing-between-filters"><span class="std std-ref">过滤器间的数据共享</span></a>。Envoy 已经有了几个 HTTP 层的过滤器，
+这些过滤器也记录在了架构概述中 <a class="reference internal" href="../../../configuration/http/http_filters/http_filters.html#config-http-filters"><span class="std std-ref">配置参考</span></a> 。</p>
+<div class="section" id="arch-overview-http-filters-ordering">
+<span id="id1"></span><h2>过滤器顺序<a class="headerlink" href="#arch-overview-http-filters-ordering" title="Permalink to this headline">¶</a></h2>
+<p>过滤器顺序在 <a class="reference internal" href="../../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-http-filters"><span class="std std-ref">http_filters 字段</span></a>
+中很重要。如果按照如下顺序配置过滤器（假设这 3 个过滤器都是 解码/编码过滤器）：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">http_filters</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">A</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">B</span>
-  <span class="c1"># The last configured filter has to be a terminal filter, as determined by the</span>
-  <span class="c1"># NamedHttpFilterConfigFactory::isTerminalFilter() function. This is most likely the router</span>
-  <span class="c1"># filter.</span>
+  <span class="c1"># 配置在最后的过滤器必须是一个终结过滤器，由 NamedHttpFilterConfigFactory::isTerminalFilter() 函数决定。</span>
+  <span class="c1"># 这个过滤器很可能是路由过滤器。</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">C</span>
 </pre></div>
 </div>
-<p>The connection manager will invoke decoder filters in the order: <code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code>, <code class="docutils literal notranslate"><span class="pre">C</span></code>.
-On the other hand, the connection manager will invoke encoder filters in the <strong>reverse</strong>
-order: <code class="docutils literal notranslate"><span class="pre">C</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code>, <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+<p>链接管理器将会按照这样的顺序来调用 decoder filter：<code class="docutils literal notranslate"><span class="pre">A</span></code>、<code class="docutils literal notranslate"><span class="pre">B</span></code>、<code class="docutils literal notranslate"><span class="pre">C</span></code>。
+另一方面，链接管理器将会以**相反**的顺序调用 encoder filter：<code class="docutils literal notranslate"><span class="pre">C</span></code>，<code class="docutils literal notranslate"><span class="pre">B</span></code>，<code class="docutils literal notranslate"><span class="pre">A</span></code>。</p>
 </div>
 </div>
 

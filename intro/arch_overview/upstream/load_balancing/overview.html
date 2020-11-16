@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Overview &mdash; envoy 1.16.0-8f0ea4 documentation</title>
+  <title>概述 &mdash; envoy 1.16.0-b4676a documentation</title>
   
 
   
@@ -47,7 +47,7 @@
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <link rel="next" title="Supported load balancers" href="load_balancers.html" />
-    <link rel="prev" title="Load Balancing" href="load_balancing.html" /> 
+    <link rel="prev" title="负载均衡" href="load_balancing.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-8f0ea4
+                1.16.0-b4676a
               </div>
             
           
@@ -101,36 +101,36 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../../about_docs.html">关于文档</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../../intro.html">Introduction</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../intro.html">介绍</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../../what_is_envoy.html">What is Envoy</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../../arch_overview.html">Architecture overview</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../arch_overview.html">架构概览</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../../intro/intro.html">介绍</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../listeners/listeners_toc.html">Listeners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../listeners/listeners_toc.html">监听器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../http/http.html">HTTP</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../upstream.html">Upstream clusters</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../upstream.html">上游集群</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../cluster_manager.html">Cluster manager</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../service_discovery.html">Service discovery</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../health_checking.html">Health checking</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../connection_pooling.html">Connection pooling</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="load_balancing.html">Load Balancing</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="load_balancing.html">负载均衡</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../aggregate_cluster.html">Aggregate Cluster</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../outlier.html">Outlier detection</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../circuit_breaking.html">Circuit breaking</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../circuit_breaking.html">断路</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../upstream_filters.html">Upstream network filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../load_reporting_service.html">Load Reporting Service (LRS)</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../observability/observability.html">Observability</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../security/security.html">Security</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../operations/operations.html">Operations &amp; configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../other_features/other_features.html">Other features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../other_protocols/other_protocols.html">Other protocols</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../advanced/advanced.html">Advanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/security.html">安全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../operations/operations.html">操作与配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../other_features/other_features.html">其他特性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../other_protocols/other_protocols.html">其他协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/advanced.html">高级的</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../life_of_a_request.html">Life of a Request</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../deployment_types/deployment_types.html">Deployment types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../getting_help.html">Getting help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../deployment_types/deployment_types.html">部署类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../getting_help.html">获取帮助</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../start/start.html">开始</a></li>
@@ -187,15 +187,15 @@
     
       <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../../intro.html">Introduction</a> &raquo;</li>
+          <li><a href="../../../intro.html">介绍</a> &raquo;</li>
         
-          <li><a href="../../arch_overview.html">Architecture overview</a> &raquo;</li>
+          <li><a href="../../arch_overview.html">架构概览</a> &raquo;</li>
         
-          <li><a href="../upstream.html">Upstream clusters</a> &raquo;</li>
+          <li><a href="../upstream.html">上游集群</a> &raquo;</li>
         
-          <li><a href="load_balancing.html">Load Balancing</a> &raquo;</li>
+          <li><a href="load_balancing.html">负载均衡</a> &raquo;</li>
         
-      <li>Overview</li>
+      <li>概述</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -214,56 +214,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="overview">
-<span id="arch-overview-load-balancing"></span><h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="what-is-load-balancing">
-<h2>What is Load Balancing?<a class="headerlink" href="#what-is-load-balancing" title="Permalink to this headline">¶</a></h2>
-<p>Load balancing is a way of distributing traffic between multiple hosts within a single upstream cluster in order to effectively make use of available resources. There are many different ways
-of accomplishing this, so Envoy provides several different load balancing strategies.
-At a high level, we can break these strategies into two categories: global
-load balancing and distributed load balancing.</p>
+  <div class="section" id="arch-overview-load-balancing">
+<span id="id1"></span><h1>概述<a class="headerlink" href="#arch-overview-load-balancing" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>什么是负载均衡？<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>负载均衡是一种在单个上游群集内分配流量到多个主机的方式，以便有效利用可用资源。有多种方法可以实现，因此 Envoy 提供了几种不同的负载均衡策略。从高层次上讲，我们可以将这些策略分为两类：全局负载均衡和分布式负载均衡。</p>
 </div>
-<div class="section" id="distributed-load-balancing">
-<span id="arch-overview-load-balancing-distributed-lb"></span><h2>Distributed Load Balancing<a class="headerlink" href="#distributed-load-balancing" title="Permalink to this headline">¶</a></h2>
-<p>Distributed load balancing refers to having Envoy itself determine how load should be distributed
-to the endpoints based on knowing the location of the upstream hosts.</p>
-<div class="section" id="examples">
-<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="arch-overview-load-balancing-distributed-lb">
+<span id="id3"></span><h2>分布式负载均衡<a class="headerlink" href="#arch-overview-load-balancing-distributed-lb" title="Permalink to this headline">¶</a></h2>
+<p>分布式负载平衡是指让 Envoy 自己根据了解上游主机的位置来决定如何将负载分配到端点。</p>
+<div class="section" id="id4">
+<h3>例子<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p><a class="reference internal" href="../health_checking.html#arch-overview-health-checking"><span class="std std-ref">Active health checking</span></a>: by health checking upstream
-hosts, Envoy can adjust the weights of priorities and localities to account for unavailable
-hosts.</p></li>
-<li><p><a class="reference internal" href="zone_aware.html#arch-overview-load-balancing-zone-aware-routing"><span class="std std-ref">Zone aware routing</span></a>: this can be used
-to make Envoy prefer closer endpoints without having to explicitly configure priorities in the
-control plane.</p></li>
-<li><p><a class="reference internal" href="load_balancers.html#arch-overview-load-balancing-types"><span class="std std-ref">Load balancing algorithms</span></a>: Envoy can use several
-different algorithms to use the provided weights to determine which host to select.</p></li>
+<li><p><a class="reference internal" href="../health_checking.html#arch-overview-health-checking"><span class="std std-ref">主动健康检查</span></a>：通过对上游主机进行健康检查，Envoy 可以调整优先级和位置的权重以解决不可用主机的问题。</p></li>
+<li><p><a class="reference internal" href="zone_aware.html#arch-overview-load-balancing-zone-aware-routing"><span class="std std-ref">区域感知路由</span></a>：这可用于使 Envoy 更倾向近一些的端点，而不必在控制平面中显式配置优先级。</p></li>
+<li><p><a class="reference internal" href="load_balancers.html#arch-overview-load-balancing-types"><span class="std std-ref">负载均衡算法</span></a>：Envoy 可以使用几种不同的算法来使用提供的权重来确定选择哪个主机。</p></li>
 </ul>
 </div>
 </div>
-<div class="section" id="global-load-balancing">
-<span id="arch-overview-load-balancing-global-lb"></span><h2>Global Load Balancing<a class="headerlink" href="#global-load-balancing" title="Permalink to this headline">¶</a></h2>
-<p>Global load balancing refers to having a single, global authority that decides how load should
-be distributed between hosts. For Envoy, this would be done by the control plane, which is able
-to adjust the load applied to individual endpoints by specifying various parameters, such as
-priority, locality weight, endpoint weight and endpoint health.</p>
-<p>A simple example would be to have the control plane assign hosts to different
-<a class="reference internal" href="priority.html#arch-overview-load-balancing-priority-levels"><span class="std std-ref">priorities</span></a> based on network topology
-to ensure that hosts that require fewer network hops are preferred. This is similar to
-zone-aware routing, but is handled by the control plane instead of by Envoy. A benefit of doing
-it in the control plane is that it gets around some of the
-<a class="reference internal" href="zone_aware.html#arch-overview-load-balancing-zone-aware-routing-preconditions"><span class="std std-ref">limitations</span></a> of zone aware routing.</p>
-<p>A more complicated setup could have resource usage being reported to the control plane, allowing
-it to adjust the weight of endpoints or <a class="reference internal" href="locality_weight.html#arch-overview-load-balancing-locality-weighted-lb"><span class="std std-ref">localities</span></a>
-to account for the current resource usage, attempting to route new requests to idle hosts over busy ones.</p>
+<div class="section" id="arch-overview-load-balancing-global-lb">
+<span id="id5"></span><h2>全局负载均衡<a class="headerlink" href="#arch-overview-load-balancing-global-lb" title="Permalink to this headline">¶</a></h2>
+<p>全局负载均衡是指使用一个单一的全局权限来决定如何在主机之间分配负载。对于 Envoy，这将由控制平面完成，通过指定各种参数来调整应用于各个端点的负载，例如优先级，位置权重，端点权重和端点健康状况。</p>
+<p>一个简单的例子就是让控制平面根据网络拓扑将主机分配不同的 <a class="reference internal" href="priority.html#arch-overview-load-balancing-priority-levels"><span class="std std-ref">优先级</span></a> 以确保需要较少网络跳数的主机是首选。这类似于区域感知路由，但是由控制平面而不是 Envoy 处理。在控制平面中执行此操作的好处是，它可以绕过某些区域感知路由的 <a class="reference internal" href="zone_aware.html#arch-overview-load-balancing-zone-aware-routing-preconditions"><span class="std std-ref">限制</span></a>。更为复杂的设置可能会将资源使用情况报告给控制平面，从而允许其调整端点或 <a class="reference internal" href="locality_weight.html#arch-overview-load-balancing-locality-weighted-lb"><span class="std std-ref">位置</span></a> 的权重以解决当前资源使用情况，尝试将新请求路由到空闲主机而不是繁忙主机。</p>
 </div>
-<div class="section" id="both-distributed-and-global">
-<h2>Both Distributed and Global<a class="headerlink" href="#both-distributed-and-global" title="Permalink to this headline">¶</a></h2>
-<p>Most sophisticated deployments will make use of features from both categories. For instance, global load
-balancing could be used to define the high level routing priorities and weights, while distributed load balancing
-could be used to react to changes in the system (e.g. using active health checking). By combining these you can
-get the best of both worlds: a globally aware authority that can control the flow of traffic on the macro
-level while still having the individual proxies be able to react to changes on the micro level.</p>
+<div class="section" id="id6">
+<h2>同时使用分布式和全局方式<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>大多数复杂的部署都使用这两种特性。例如，全局负载均衡可用于定义高级路由优先级和权重，而分布式负载均衡可用于对系统中的更改做出反应（例如，使用主动健康检查）。通过将它们结合起来，您可以获得两种情况的最佳效果：一个可以在宏级别上控制流量的全局感知权威，同时仍然可以使各个代理对微观级别的更改做出反应。</p>
 </div>
 </div>
 
@@ -278,7 +254,7 @@ level while still having the individual proxies be able to react to changes on t
         <a href="load_balancers.html" class="btn btn-neutral float-right" title="Supported load balancers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="load_balancing.html" class="btn btn-neutral float-left" title="Load Balancing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="load_balancing.html" class="btn btn-neutral float-left" title="负载均衡" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

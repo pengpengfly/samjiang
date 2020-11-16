@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Circuit breaking &mdash; envoy 1.16.0-8f0ea4 documentation</title>
+  <title>断路 &mdash; envoy 1.16.0-b4676a documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-8f0ea4
+                1.16.0-b4676a
               </div>
             
           
@@ -101,36 +101,36 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../about_docs.html">关于文档</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../intro.html">Introduction</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../intro.html">介绍</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../what_is_envoy.html">What is Envoy</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">Architecture overview</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">架构概览</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../intro/intro.html">介绍</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../listeners/listeners_toc.html">Listeners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../listeners/listeners_toc.html">监听器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../http/http.html">HTTP</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="upstream.html">Upstream clusters</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="upstream.html">上游集群</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="cluster_manager.html">Cluster manager</a></li>
 <li class="toctree-l4"><a class="reference internal" href="service_discovery.html">Service discovery</a></li>
 <li class="toctree-l4"><a class="reference internal" href="health_checking.html">Health checking</a></li>
 <li class="toctree-l4"><a class="reference internal" href="connection_pooling.html">Connection pooling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="load_balancing/load_balancing.html">Load Balancing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="load_balancing/load_balancing.html">负载均衡</a></li>
 <li class="toctree-l4"><a class="reference internal" href="aggregate_cluster.html">Aggregate Cluster</a></li>
 <li class="toctree-l4"><a class="reference internal" href="outlier.html">Outlier detection</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Circuit breaking</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">断路</a></li>
 <li class="toctree-l4"><a class="reference internal" href="upstream_filters.html">Upstream network filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="load_reporting_service.html">Load Reporting Service (LRS)</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../observability/observability.html">Observability</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../security/security.html">Security</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../operations/operations.html">Operations &amp; configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">Other features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">Other protocols</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../advanced/advanced.html">Advanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security.html">安全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../operations/operations.html">操作与配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">其他特性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">其他协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/advanced.html">高级的</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../life_of_a_request.html">Life of a Request</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../deployment_types/deployment_types.html">Deployment types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_help.html">Getting help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../deployment_types/deployment_types.html">部署类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_help.html">获取帮助</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../start/start.html">开始</a></li>
@@ -187,13 +187,13 @@
     
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../intro.html">Introduction</a> &raquo;</li>
+          <li><a href="../../intro.html">介绍</a> &raquo;</li>
         
-          <li><a href="../arch_overview.html">Architecture overview</a> &raquo;</li>
+          <li><a href="../arch_overview.html">架构概览</a> &raquo;</li>
         
-          <li><a href="upstream.html">Upstream clusters</a> &raquo;</li>
+          <li><a href="upstream.html">上游集群</a> &raquo;</li>
         
-      <li>Circuit breaking</li>
+      <li>断路</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -212,72 +212,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="circuit-breaking">
-<span id="arch-overview-circuit-break"></span><h1>Circuit breaking<a class="headerlink" href="#circuit-breaking" title="Permalink to this headline">¶</a></h1>
-<p>Circuit breaking is a critical component of distributed systems. It’s nearly always better to fail
-quickly and apply back pressure downstream as soon as possible. One of the main benefits of an Envoy
-mesh is that Envoy enforces circuit breaking limits at the network level as opposed to having to
-configure and code each application independently. Envoy supports various types of fully distributed
-(not coordinated) circuit breaking:</p>
+  <div class="section" id="arch-overview-circuit-break">
+<span id="id1"></span><h1>断路<a class="headerlink" href="#arch-overview-circuit-break" title="Permalink to this headline">¶</a></h1>
+<p>断路是分布式系统的重要组成部分。在分布式系统中最好是迅速失败，并尽快向下游施加反压。 Envoy 网络的主要好处之一是，Envoy 在网络级别强制执行断路限制，而不是必须独立给每个应用程序配置和编码。Envoy 支持各种类型的全分布式（非协调）断路：</p>
 <ul class="simple" id="arch-overview-circuit-break-cluster-maximum-connections">
-<li><p><strong>Cluster maximum connections</strong>: The maximum number of connections that Envoy will establish to
-all hosts in an upstream cluster. If this circuit breaker overflows the <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">upstream_cx_overflow</span></a> counter for the cluster will increment. All connections,
-whether active or draining, count against this limit. Even if this circuit breaker has overflowed,
-Envoy will ensure that a host selected by cluster load balancing has at least one connection
-allocated. This has the implication that the <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">upstream_cx_active</span></a> count for a cluster may be higher than the cluster maximum
-connection circuit breaker, with an upper bound of
-<cite>cluster maximum connections + (number of endpoints in a cluster) * (connection pools for the
-cluster)</cite>. This bound applies to the sum of connections across all workers threads. See
-<a class="reference internal" href="connection_pooling.html#arch-overview-conn-pool-how-many"><span class="std std-ref">connection pooling</span></a> for details on how many connection
-pools a cluster may have.</p></li>
-<li><p><strong>Cluster maximum pending requests</strong>: The maximum number of requests that will be queued while
-waiting for a ready connection pool connection. Requests are added to the list
-of pending requests whenever there aren’t enough upstream connections available to immediately dispatch
-the request. For HTTP/2 connections, if <a class="reference internal" href="../../../api-v3/config/core/v3/protocol.proto.html#envoy-v3-api-field-config-core-v3-http2protocoloptions-max-concurrent-streams"><span class="std std-ref">max concurrent streams</span></a>
-and <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-max-requests-per-connection"><span class="std std-ref">max requests per connection</span></a> are not
-configured, all requests will be multiplexed over the same connection so this circuit breaker
-will only be hit when no connection is already established. If this circuit breaker overflows the
-<a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">upstream_rq_pending_overflow</span></a> counter for the cluster will
-increment.</p></li>
-<li><p><strong>Cluster maximum requests</strong>: The maximum number of requests that can be outstanding to all hosts
-in a cluster at any given time. If this circuit breaker overflows the <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">upstream_rq_pending_overflow</span></a>
-counter for the cluster will increment.</p></li>
-<li><p><strong>Cluster maximum active retries</strong>: The maximum number of retries that can be outstanding to all
-hosts in a cluster at any given time. In general we recommend using <a class="reference internal" href="../../../api-v3/config/cluster/v3/circuit_breaker.proto.html#envoy-v3-api-field-config-cluster-v3-circuitbreakers-thresholds-retry-budget"><span class="std std-ref">retry budgets</span></a>; however, if static circuit breaking is preferred it should aggressively circuit break
-retries. This is so that retries for sporadic failures are allowed, but the overall retry volume cannot
-explode and cause large scale cascading failure. If this circuit breaker overflows the
-<a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">upstream_rq_retry_overflow</span></a> counter for the cluster
-will increment.</p>
+<li><p><strong>群集最大连接数</strong>：Envoy 和上游集群中所有主机建立的最大连接数。如果该断路器溢出，集群的 <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">upstream_cx_overflow</span></a> 计数器将增加。所有的连接，不管是活动的还是空闲的，都会计入这个计数器并由它来限制。即使这个断路器已经溢出，Envoy 也会确保群集负载均衡选择的主机至少有一个连接分配。这就意味着：集群的 <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">upstream_cx_active</span></a> 计数可能会高于集群最大连接断路器，其上限为`集群最大连接数 +（集群的端点数）*（集群的连接池）`。这个边界适用于所有工作者线程的连接数之和。参见 <a class="reference internal" href="connection_pooling.html#arch-overview-conn-pool-how-many"><span class="std std-ref">连接池</span></a>，了解一个集群可能有多少个连接池。</p></li>
+<li><p><strong>集群最大待处理请求</strong>：在等待就绪连接池连接时排队的最大请求数。每当没有足够的上游连接可用来立即调度请求时，请求就会被添加到待处理请求列表中。对于 HTTP/2 连接，如果 <a class="reference internal" href="../../../api-v3/config/core/v3/protocol.proto.html#envoy-v3-api-field-config-core-v3-http2protocoloptions-max-concurrent-streams"><span class="std std-ref">最大并发流</span></a> 和 <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-max-requests-per-connection"><span class="std std-ref">每个连接的最大请求数</span></a> 没有配置，所有的请求都会在同一个连接上被复用，所以只有在还没有建立连接的时候，才会触发这个断路器。如果这个断路器溢出，集群的 <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">upstream_rq_pending_overflow</span></a> 计数器将递增。</p></li>
+<li><p><strong>群集最大请求量</strong>：在任何特定时间对集群中所有主机的最大请求数。如果该断路器溢出，集群的 <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">upstream_rq_pending_overflow</span></a> 计数器将增加。</p></li>
+<li><p><strong>群集最大有效重试</strong>：集群中ß所有主机在任何特定时间内都可以进行的最大重试次数。一般来说，我们建议使用 <a class="reference internal" href="../../../api-v3/config/cluster/v3/circuit_breaker.proto.html#envoy-v3-api-field-config-cluster-v3-circuitbreakers-thresholds-retry-budget"><span class="std std-ref">重试预算</span></a>；但是，如果静态断路是首选项，则应该积极断路重试。这样可以允许零星故障的重试，但总体重试量不能爆炸，不能造成大规模的级联故障。如果这个断路器溢出，集群的 <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">upstream_rq_retry_overflow</span></a> 计数器会递增。</p>
 </li>
-<li id="arch-overview-circuit-break-cluster-maximum-connection-pools"><p><strong>Cluster maximum concurrent connection pools</strong>: The maximum number of connection pools that can be
-concurrently instantiated. Some features, such as the
-<a class="reference internal" href="../other_features/ip_transparency.html#arch-overview-ip-transparency-original-src-listener"><span class="std std-ref">Original Src Listener Filter</span></a>, can
-create an unbounded number of connection pools. When a cluster has exhausted its concurrent
-connection pools, it will attempt to reclaim an idle one. If it cannot, then the circuit breaker
-will overflow. This differs from
-<a class="reference internal" href="#arch-overview-circuit-break-cluster-maximum-connections"><span class="std std-ref">Cluster maximum connections</span></a> in that
-connection pools never time out, whereas connections typically will. Connections automatically
-clean up; connection pools do not. Note that in order for a connection pool to function it needs
-at least one upstream connection, so this value should likely be no greater than
-<a class="reference internal" href="#arch-overview-circuit-break-cluster-maximum-connections"><span class="std std-ref">Cluster maximum connections</span></a>.
-If this circuit breaker overflows the
-<a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">upstream_cx_pool_overflow</span></a> counter for the cluster
-will increment.</p></li>
+<li id="arch-overview-circuit-break-cluster-maximum-connection-pools"><p><strong>集群最大并发连接池</strong>：可并发实例化的最大连接池数量。有些功能，如 <a class="reference internal" href="../other_features/ip_transparency.html#arch-overview-ip-transparency-original-src-listener"><span class="std std-ref">源监听器过滤器</span></a>，可以创建无限制数量的连接池。当一个集群用尽了它的并发连接池，它将尝试回收一个空闲的连接池。如果不能，那么断路器将溢出。这与 <a class="reference internal" href="#arch-overview-circuit-break-cluster-maximum-connections"><span class="std std-ref">集群最大连接数</span></a> 不同的是，连接池永远不会超时，而连接通常会超时。连接会自动清理，而连接池不会。需要注意的是，为了让连接池发挥作用，它至少需要一个上游连接，所以这个值很可能不应该大于 <a class="reference internal" href="#arch-overview-circuit-break-cluster-maximum-connections"><span class="std std-ref">集群最大连接数</span></a>。如果这个断路器溢出，集群的 <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">upstream_cx_pool_overflow</span></a> 计数器将递增。</p></li>
 </ul>
-<p>Each circuit breaking limit is <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_circuit_breakers.html#config-cluster-manager-cluster-circuit-breakers"><span class="std std-ref">configurable</span></a>
-and tracked on a per upstream cluster and per priority basis. This allows different components of
-the distributed system to be tuned independently and have different limits. The live state of these
-circuit breakers, including the number of resources remaining until a circuit breaker opens, can
-be observed via <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats-circuit-breakers"><span class="std std-ref">statistics</span></a>.</p>
-<p>Workers threads share circuit breaker limits, i.e. if the active connection threshold is 500, worker
-thread 1 has 498 connections active, then worker thread 2 can only allocate 2 more connections.
-Since the implementation is eventually consistent, races between threads may allow limits to be
-potentially exceeded.</p>
-<p>Circuit breakers are enabled by default and have modest default values, e.g. 1024 connections per
-cluster. To disable circuit breakers, set the <a class="reference internal" href="../../../faq/load_balancing/disable_circuit_breaking.html#faq-disable-circuit-breaking"><span class="std std-ref">thresholds</span></a> to
-the highest allowed values.</p>
-<p>Note that circuit breaking will cause the <a class="reference internal" href="../../../configuration/http/http_filters/router_filter.html#config-http-filters-router-x-envoy-overloaded-set"><span class="std std-ref">x-envoy-overloaded</span></a> header to be set by the router filter in the
-case of HTTP requests.</p>
+<p>每个断路器的限制是 <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_circuit_breakers.html#config-cluster-manager-cluster-circuit-breakers"><span class="std std-ref">可配置的</span></a>，并按每个上游集群和每个优先级进行跟踪。这使得分布式系统的不同组件可以独立调整，并有不同的限制。可以通过 <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats-circuit-breakers"><span class="std std-ref">统计信息</span></a> 来观察这些断路器的实时状态，包括在断路器打开之前剩余的资源数量。</p>
+<p>工作线程共享断路器限制，即如果活动连接阈值为 500，工作线程 1 有 498 个活动连接，那么工作线程 2 只能再分配 2 个连接。由于实现最终是一致的，线程之间的竞赛可能会让限制可能超出。</p>
+<p>断路器是默认启用的，并且有适度的默认值，例如每个集群有 1024 个连接。要禁用断路器，请将其 <a class="reference internal" href="../../../faq/load_balancing/disable_circuit_breaking.html#faq-disable-circuit-breaking"><span class="std std-ref">阈值</span></a> 设置为允许的最高值。</p>
+<p>需要注意的是，在 HTTP 请求中，断路会导致 <a class="reference internal" href="../../../configuration/http/http_filters/router_filter.html#config-http-filters-router-x-envoy-overloaded-set"><span class="std std-ref">x-envoy-overloaded</span></a> 头被路由器过滤器设置。</p>
 </div>
 
 

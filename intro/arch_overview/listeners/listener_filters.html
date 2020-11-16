@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Listener filters &mdash; envoy 1.16.0-8f0ea4 documentation</title>
+  <title>监听器过滤器 &mdash; envoy 1.16.0-b4676a documentation</title>
   
 
   
@@ -46,7 +46,7 @@
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Network (L3/L4) filters" href="network_filters.html" />
+    <link rel="next" title="网络 (L3/L4) 过滤器" href="network_filters.html" />
     <link rel="prev" title="Listeners" href="listeners.html" /> 
 </head>
 
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-8f0ea4
+                1.16.0-b4676a
               </div>
             
           
@@ -101,32 +101,32 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../about_docs.html">关于文档</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../intro.html">Introduction</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../intro.html">介绍</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../what_is_envoy.html">What is Envoy</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">Architecture overview</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">架构概览</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../intro/intro.html">介绍</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="listeners_toc.html">Listeners</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="listeners_toc.html">监听器</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="listeners.html">Listeners</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Listener filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="network_filters.html">Network (L3/L4) filters</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">监听器过滤器</a></li>
+<li class="toctree-l4"><a class="reference internal" href="network_filters.html">网络 (L3/L4) 过滤器</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tcp_proxy.html">TCP 代理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="udp_proxy.html">UDP proxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="dns_filter.html">DNS Filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="udp_proxy.html">UDP 代理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dns_filter.html">DNS 过滤器</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../http/http.html">HTTP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../upstream/upstream.html">Upstream clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../upstream/upstream.html">上游集群</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../observability/observability.html">Observability</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../security/security.html">Security</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../operations/operations.html">Operations &amp; configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">Other features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">Other protocols</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../advanced/advanced.html">Advanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security.html">安全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../operations/operations.html">操作与配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">其他特性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">其他协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/advanced.html">高级的</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../life_of_a_request.html">Life of a Request</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../deployment_types/deployment_types.html">Deployment types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_help.html">Getting help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../deployment_types/deployment_types.html">部署类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_help.html">获取帮助</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../start/start.html">开始</a></li>
@@ -183,13 +183,13 @@
     
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../intro.html">Introduction</a> &raquo;</li>
+          <li><a href="../../intro.html">介绍</a> &raquo;</li>
         
-          <li><a href="../arch_overview.html">Architecture overview</a> &raquo;</li>
+          <li><a href="../arch_overview.html">架构概览</a> &raquo;</li>
         
-          <li><a href="listeners_toc.html">Listeners</a> &raquo;</li>
+          <li><a href="listeners_toc.html">监听器</a> &raquo;</li>
         
-      <li>Listener filters</li>
+      <li>监听器过滤器</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -208,17 +208,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="listener-filters">
-<span id="arch-overview-listener-filters"></span><h1>Listener filters<a class="headerlink" href="#listener-filters" title="Permalink to this headline">¶</a></h1>
-<p>As discussed in the <a class="reference internal" href="listeners.html#arch-overview-listeners"><span class="std std-ref">listener</span></a> section, listener filters may be
-used to manipulate connection metadata. The main purpose of listener filters is to make adding
-further system integration functions easier by not requiring changes to Envoy core functionality,
-and also make interaction between multiple such features more explicit.</p>
-<p>The API for listener filters is relatively simple since ultimately these filters operate on newly
-accepted sockets. Filters in the chain can stop and subsequently continue iteration to
-further filters. This allows for more complex scenarios such as calling a <a class="reference internal" href="../other_features/global_rate_limiting.html#arch-overview-global-rate-limit"><span class="std std-ref">rate limiting
-service</span></a>, etc. Envoy already includes several listener filters that
-are documented in this architecture overview as well as the <a class="reference internal" href="../../../configuration/listeners/listener_filters/listener_filters.html#config-listener-filters"><span class="std std-ref">configuration reference</span></a>.</p>
+  <div class="section" id="arch-overview-listener-filters">
+<span id="id1"></span><h1>监听器过滤器<a class="headerlink" href="#arch-overview-listener-filters" title="Permalink to this headline">¶</a></h1>
+<p>如 <a class="reference internal" href="listeners.html#arch-overview-listeners"><span class="std std-ref">监听器</span></a> 一节所述, 监听器过滤器可以用于操纵连接元数据。
+监听器过滤器的主要目的是更方便地添加系统集成功能，而无需更改 Envoy 核心功能，并使多个此类功能之间的交互更加明确。</p>
+<p>监听器过滤器的 API 相对简单，因为最终这些过滤器是在新接收的套接字上操作的。可停止链中的过滤器并继续执行后续的过滤器。这允许去运作更复杂的业务场景，例如调用 <a class="reference internal" href="../other_features/global_rate_limiting.html#arch-overview-global-rate-limit"><span class="std std-ref">限速服务</span></a> 等。
+Envoy 包含多个监听器过滤器，这些过滤器在架构概述以及 <a class="reference internal" href="../../../configuration/listeners/listener_filters/listener_filters.html#config-listener-filters"><span class="std std-ref">配置参考</span></a> 中都有记录。</p>
 </div>
 
 
@@ -229,7 +224,7 @@ are documented in this architecture overview as well as the <a class="reference 
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="network_filters.html" class="btn btn-neutral float-right" title="Network (L3/L4) filters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="network_filters.html" class="btn btn-neutral float-right" title="网络 (L3/L4) 过滤器" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="listeners.html" class="btn btn-neutral float-left" title="Listeners" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

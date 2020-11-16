@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Threat model &mdash; envoy 1.16.0-8f0ea4 documentation</title>
+  <title>威胁模型 &mdash; envoy 1.16.0-b4676a documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-8f0ea4
+                1.16.0-b4676a
               </div>
             
           
@@ -101,33 +101,33 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../about_docs.html">关于文档</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../intro.html">Introduction</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../intro.html">介绍</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../what_is_envoy.html">What is Envoy</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">Architecture overview</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">架构概览</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../intro/intro.html">介绍</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../listeners/listeners_toc.html">Listeners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../listeners/listeners_toc.html">监听器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../http/http.html">HTTP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../upstream/upstream.html">Upstream clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../upstream/upstream.html">上游集群</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../observability/observability.html">Observability</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="security.html">Security</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="security.html">安全</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="ssl.html">TLS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="jwt_authn_filter.html">JSON Web Token (JWT) Authentication</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ext_authz_filter.html">External Authorization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="rbac_filter.html">Role Based Access Control</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Threat model</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">威胁模型</a></li>
 <li class="toctree-l4"><a class="reference internal" href="external_deps.html">External dependencies</a></li>
 <li class="toctree-l4"><a class="reference internal" href="google_vrp.html">Google Vulnerability Reward Program (VRP)</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../operations/operations.html">Operations &amp; configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">Other features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">Other protocols</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../advanced/advanced.html">Advanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../operations/operations.html">操作与配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">其他特性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">其他协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/advanced.html">高级的</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../life_of_a_request.html">Life of a Request</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../deployment_types/deployment_types.html">Deployment types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_help.html">Getting help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../deployment_types/deployment_types.html">部署类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_help.html">获取帮助</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../start/start.html">开始</a></li>
@@ -184,13 +184,13 @@
     
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../intro.html">Introduction</a> &raquo;</li>
+          <li><a href="../../intro.html">介绍</a> &raquo;</li>
         
-          <li><a href="../arch_overview.html">Architecture overview</a> &raquo;</li>
+          <li><a href="../arch_overview.html">架构概览</a> &raquo;</li>
         
-          <li><a href="security.html">Security</a> &raquo;</li>
+          <li><a href="security.html">安全</a> &raquo;</li>
         
-      <li>Threat model</li>
+      <li>威胁模型</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -209,34 +209,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="threat-model">
-<span id="arch-overview-threat-model"></span><h1>Threat model<a class="headerlink" href="#threat-model" title="Permalink to this headline">¶</a></h1>
-<p>Below we articulate the Envoy threat model, which is of relevance to Envoy operators, developers and
-security researchers. We detail our security release process at
-<a class="reference external" href="https://github.com/envoyproxy/envoy/security/policy">https://github.com/envoyproxy/envoy/security/policy</a>.</p>
-<div class="section" id="confidentiality-integrity-and-availability">
-<h2>Confidentiality, integrity and availability<a class="headerlink" href="#confidentiality-integrity-and-availability" title="Permalink to this headline">¶</a></h2>
-<p>We consider vulnerabilities leading to the compromise of data confidentiality or integrity to be our
-highest priority concerns. Availability, in particular in areas relating to DoS and resource
-exhaustion, is also a serious security concern for Envoy operators, in particular those utilizing
-Envoy in edge deployments.</p>
-<p>We will activate the security release process for disclosures that meet the following criteria:</p>
+  <div class="section" id="arch-overview-threat-model">
+<span id="id1"></span><h1>威胁模型<a class="headerlink" href="#arch-overview-threat-model" title="Permalink to this headline">¶</a></h1>
+<p>下面我们阐述了 Envoy 威胁模型，该模型涉及到 Envoy 的运维人员、开发人员和
+安全研究人员。 我们在 <a class="reference external" href="https://github.com/envoyproxy/envoy/security/policy">https://github.com/envoyproxy/envoy/security/policy</a>
+详细介绍了安全发布流程。</p>
+<div class="section" id="id2">
+<h2>机密性、完整性和可用性<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>我们非常关心会导致数据机密性或完整性受损的漏洞。
+对于 Envoy 运维人员，尤其是在边缘部署中使用 Envoy 的运维人员，
+与 DoS 和资源耗尽相关的领域中的可用性，也是一个严重的安全问题。</p>
+<p>符合以下条件的泄露，我们将激活安全发布流程：</p>
 <ul class="simple">
-<li><p>All issues that lead to loss of data confidentiality or integrity trigger the security release process.</p></li>
-<li><p>An availability issue, such as Query-of-Death (QoD) or resource exhaustion needs to meet all of the
-following criteria to trigger the security release process:</p>
+<li><p>所有导致数据机密性或完整性丧失的问题都会触发安全发布流程。</p></li>
+<li><p>可用性问题，如死亡查询(QoD)或资源耗尽，需要满足如下所有的标准才会触发安全发布流程：</p>
 <ul>
-<li><p>A component tagged as hardened is affected (see <a class="reference internal" href="#core-and-extensions">Core and extensions</a> for the list of hardened components).</p></li>
-<li><p>The type of traffic (upstream or downstream) that exhibits the issue matches the component’s hardening tag.
-I.e. component tagged as “hardened to untrusted downstream” is affected by downstream request.</p></li>
-<li><p>A resource exhaustion issue needs to meet these additional criteria:</p>
+<li><p>被标记为硬化的组件受到影响 (查看 <a class="reference internal" href="#id4">核心和扩展</a> 来获取硬化组件列表).</p></li>
+<li><p>出问题的流量类型（上游或下游）与组件的硬化标签相匹配。
+例如：标记为 “hardened to untrusted downstream” 的组件会受到下游请求的影响。</p></li>
+<li><p>资源耗尽的问题还需要满足一些额外的标准:</p>
 <ul>
-<li><p>Not covered by an existing timeout or where applying short timeout values is impractical and either</p>
+<li><p>超过了当前配置的超时时间或者配置了过短的不切实际的超时时间，也可能是：</p>
 <ul>
-<li><p>Memory exhaustion, including out of memory conditions, where per-request memory use 100x or more above
-the configured header or high watermark limit. I.e. 10 KiB client request leading to 1 MiB bytes of
-memory consumed by Envoy;</p></li>
-<li><p>Highly asymmetric CPU utilization where Envoy uses 100x or more CPU compared to client.</p></li>
+<li><p>内存耗尽，包括内存不足的情况，每个请求的内存占用比配置的 header 或高水位限制多 100 倍或更多。 例如，10 KiB 客户端请求会导致 Envoy 占用 1 MiB 的内存；</p></li>
+<li><p>CPU 使用严重失衡，Envoy 使用比客户端多 100 倍甚至更多的 CPU。</p></li>
 </ul>
 </li>
 </ul>
@@ -244,49 +240,29 @@ memory consumed by Envoy;</p></li>
 </ul>
 </li>
 </ul>
-<p>The Envoy availability stance around CPU and memory DoS is still evolving, especially for brute force
-attacks. We acknowledge that brute force (i.e. these with amplification factor less than 100) attacks are
-likely for Envoy deployments as part of cloud infrastructure or with the use of botnets. We will continue
-to iterate and fix well known resource issues in the open, e.g. overload manager and watermark improvements.
-We will activate the security process for brute force disclosures that appear to present a risk to
-existing Envoy deployments.</p>
-<p>Note that we do not currently consider the default settings for Envoy to be safe from an availability
-perspective. It is necessary for operators to explicitly <a class="reference internal" href="../../../configuration/best_practices/edge.html#best-practices-edge"><span class="std std-ref">configure</span></a>
-watermarks, the overload manager, circuit breakers and other resource related features in Envoy to
-provide a robust availability story. We will not act on any security disclosure that relates to a
-lack of safe defaults. Over time, we will work towards improved safe-by-default configuration, but
-due to backwards compatibility and performance concerns, this will require following the breaking
-change deprecation policy.</p>
+<p>围绕 CPU 和内存 DoS 的 Envoy 可用性立场仍在不断发展，特别是针对暴力攻击。
+我们承认，对于作为云基础设施的一部分或使用僵尸网络的 Envoy 部署来说，暴力攻击（即这些放大系数小于 100 的攻击）很可能发生。
+我们将继续在社区中迭代和修复众所周知的资源问题，例如负载管理器和 watermark 改进。对当前 Envoy 部署构成风险的暴力披露问题，我们将启动安全进程。</p>
+<p>请注意，从可用性的角度来讲，目前我们并不认为 Envoy 的默认配置是安全的。
+运维人员必须显示地:ref:<cite>配置 &lt;best_practices_edge&gt;</cite> watermarks、负载管理器、断路器和其他一些与 Envoy 资源相关的特性来提供可靠的稳定性。
+对于缺乏安全默认设置的任何安全披露，我们将不采取行动。 随着时间的流逝，我们将努力改进默认的安全配置，但是由于向后兼容性和性能问题，这将需要遵循重大变更弃用策略。</p>
 </div>
-<div class="section" id="data-and-control-plane">
-<h2>Data and control plane<a class="headerlink" href="#data-and-control-plane" title="Permalink to this headline">¶</a></h2>
-<p>We divide our threat model into data and control plane, reflecting the internal division in Envoy of
-these concepts from an architectural perspective. Our highest priority in risk assessment is the
-threat posed by untrusted downstream client traffic on the data plane. This reflects the use of
-Envoy in an edge serving capacity and also the use of Envoy as an inbound destination in a service
-mesh deployment.</p>
-<p>In addition, we have an evolving position towards any vulnerability that might be exploitable by
-untrusted upstreams. We recognize that these constitute a serious security consideration, given the
-use of Envoy as an egress proxy. We will activate the security release process for disclosures that
-appear to present a risk profile that is significantly greater than the current Envoy upstream
-hardening status quo.</p>
-<p>The control plane management server is generally trusted. We do not consider wire-level exploits
-against the xDS transport protocol to be a concern as a result. However, the configuration delivered
-to Envoy over xDS may originate from untrusted sources and may not be fully sanitized. An example of
-this might be a service operator that hosts multiple tenants on an Envoy, where tenants may specify
-a regular expression on a header match in <cite>RouteConfiguration</cite>. In this case, we expect that Envoy
-is resilient against the risks posed by malicious configuration from a confidentiality, integrity
-and availability perspective, as described above.</p>
-<p>We generally assume that services utilized for side calls during the request processing, e.g.
-external authorization, credential suppliers, rate limit services, are trusted. When this is not the
-case, an extension will explicitly state this in its documentation.</p>
+<div class="section" id="id3">
+<h2>数据和控制平面<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>我们将威胁模型分为数据平面和控制平面，从架构的角度反映了 Envoy 内部对这些概念的划分。
+我们在风险评估中最优先考虑的是数据平面上不受信任的下游客户端流量所带来的威胁。这反映了在边缘服务能力中使用 Envoy，也反映了在服务网状部署中使用 Envoy 作为入站目的地。</p>
+<p>此外，我们对任何可能被不受信任的上游利用的漏洞的立场也在不断变化。我们认识到，鉴于使用 Envoy 作为出口代理，这些构成了严重的安全考虑。
+我们将启动安全发布程序，以应对似乎比目前 Envoy 上游加固现状更高的风险状况的披露。</p>
+<p>控制平面管理服务器通常是受信任的。 因此，我们不考虑针对 xDS 传输协议的线级漏洞利用。 但是，通过 xDS 传递给 Envoy 的配置可能来自不受信任的来源，并且可能没有完全清除。
+例如，服务运营商在 Envoy 上托管多个租户，租户可以在 <cite>RouteConfiguration</cite> 中的 header 匹配项上指定正则表达式。
+在这种情况下，我们期望从机密性、完整性和可用性的角度来看，Envoy 能够抵御恶意配置带来的风险，如上所述。</p>
+<p>我们通常认为在请求处理过程中，用于侧呼的服务是可信的，如外部授权、凭证供应商、速率限制服务。当情况并非如此时，将在文档中的扩展明确说明这一点。</p>
 </div>
-<div class="section" id="core-and-extensions">
-<h2>Core and extensions<a class="headerlink" href="#core-and-extensions" title="Permalink to this headline">¶</a></h2>
-<p>Anything in the Envoy core may be used in both untrusted and trusted deployments. As a consequence,
-it should be hardened with this model in mind. Security issues related to core code will usually
-trigger the security release process as described in this document.</p>
-<p>The following extensions are intended to be hardened against untrusted downstream and upstreams:</p>
+<div class="section" id="id4">
+<h2>核心和扩展<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>Envoy 核心中的任何东西都可以用于不受信任和受信任的部署。
+因此，应在考虑到这种模式的情况下对其进行加固。与核心代码有关的安全问题通常会触发本文所述的安全发布流程。</p>
+<p>强化以下扩展以防止不受信任的下游和上游：</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../../../api-v3/extensions/filters/http/decompressor/v3/decompressor.proto.html#extension-envoy-filters-http-decompressor"><span class="std std-ref">envoy.filters.http.decompressor</span></a></p></li>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/internal_redirect/allow_listed_routes/v3/allow_listed_routes_config.proto.html#extension-envoy-internal-redirect-predicates-allow-listed-routes"><span class="std std-ref">envoy.internal_redirect_predicates.allow_listed_routes</span></a></p></li>
@@ -296,8 +272,7 @@ trigger the security release process as described in this document.</p>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/transport_sockets/tls/v3/tls.proto.html#extension-envoy-transport-sockets-tls"><span class="std std-ref">envoy.transport_sockets.tls</span></a></p></li>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/transport_sockets/proxy_protocol/v3/upstream_proxy_protocol.proto.html#extension-envoy-transport-sockets-upstream-proxy-protocol"><span class="std std-ref">envoy.transport_sockets.upstream_proxy_protocol</span></a></p></li>
 </ul>
-<p>The following extensions should not be exposed to data plane attack vectors and hence are intended
-to be robust to untrusted downstreams and upstreams:</p>
+<p>以下扩展不应暴露在数据平面攻击向量中，因此旨在对不受信任的下游和上游进行加固：</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../../../api-v3/config/grpc_credential/v3/aws_iam.proto.html#extension-envoy-grpc-credentials-aws-iam"><span class="std std-ref">envoy.grpc_credentials.aws_iam</span></a> (alpha)</p></li>
 <li><p><a class="reference internal" href="../../../api-v3/config/grpc_credential/v3/file_based_metadata.proto.html#extension-envoy-grpc-credentials-file-based-metadata"><span class="std std-ref">envoy.grpc_credentials.file_based_metadata</span></a> (alpha)</p></li>
@@ -310,8 +285,7 @@ to be robust to untrusted downstreams and upstreams:</p>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/watchdog/abort_action/v3alpha/abort_action.proto.html#extension-envoy-watchdog-abort-action"><span class="std std-ref">envoy.watchdog.abort_action</span></a> (alpha)</p></li>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/watchdog/profile_action/v3alpha/profile_action.proto.html#extension-envoy-watchdog-profile-action"><span class="std std-ref">envoy.watchdog.profile_action</span></a> (alpha)</p></li>
 </ul>
-<p>The following extensions are intended to be hardened against untrusted downstreams but assume trusted
-upstreams:</p>
+<p>以下扩展是为了防范不受信任的下游，但假设上游是受信任的：</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../../../api-v3/extensions/access_loggers/file/v3/file.proto.html#extension-envoy-access-loggers-file"><span class="std std-ref">envoy.access_loggers.file</span></a></p></li>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/access_loggers/grpc/v3/als.proto.html#extension-envoy-access-loggers-http-grpc"><span class="std std-ref">envoy.access_loggers.http_grpc</span></a></p></li>
@@ -365,7 +339,7 @@ upstreams:</p>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/upstreams/http/http/v3/http_connection_pool.proto.html#extension-envoy-upstreams-http-http"><span class="std std-ref">envoy.upstreams.http.http</span></a></p></li>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/upstreams/http/tcp/v3/tcp_connection_pool.proto.html#extension-envoy-upstreams-http-tcp"><span class="std std-ref">envoy.upstreams.http.tcp</span></a></p></li>
 </ul>
-<p>The following extensions should only be used when both the downstream and upstream are trusted:</p>
+<p>以下扩展只有在下游和上游都被信任的情况下才能使用：</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../../../api-v3/extensions/clusters/aggregate/v3/cluster.proto.html#extension-envoy-clusters-aggregate"><span class="std std-ref">envoy.clusters.aggregate</span></a></p></li>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/clusters/redis/v3/redis_cluster.proto.html#extension-envoy-clusters-redis"><span class="std std-ref">envoy.clusters.redis</span></a></p></li>
@@ -389,7 +363,7 @@ upstreams:</p>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/transport_sockets/raw_buffer/v3/raw_buffer.proto.html#extension-envoy-transport-sockets-raw-buffer"><span class="std std-ref">envoy.transport_sockets.raw_buffer</span></a></p></li>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/transport_sockets/tap/v3/tap.proto.html#extension-envoy-transport-sockets-tap"><span class="std std-ref">envoy.transport_sockets.tap</span></a> (alpha)</p></li>
 </ul>
-<p>The following extensions have an unknown security posture:</p>
+<p>以下扩展的安全状态未知：</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../../../api-v3/extensions/filters/http/adaptive_concurrency/v3/adaptive_concurrency.proto.html#extension-envoy-filters-http-adaptive-concurrency"><span class="std std-ref">envoy.filters.http.adaptive_concurrency</span></a> (alpha)</p></li>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/filters/http/admission_control/v3alpha/admission_control.proto.html#extension-envoy-filters-http-admission-control"><span class="std std-ref">envoy.filters.http.admission_control</span></a> (alpha)</p></li>
@@ -405,10 +379,7 @@ upstreams:</p>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/filters/network/sni_dynamic_forward_proxy/v3alpha/sni_dynamic_forward_proxy.proto.html#extension-envoy-filters-network-sni-dynamic-forward-proxy"><span class="std std-ref">envoy.filters.network.sni_dynamic_forward_proxy</span></a> (alpha)</p></li>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/transport_sockets/quic/v3/quic_transport.proto.html#extension-envoy-transport-sockets-quic"><span class="std std-ref">envoy.transport_sockets.quic</span></a></p></li>
 </ul>
-<p>Envoy currently has two dynamic filter extensions that support loadable code; WASM and Lua. In both
-cases, we assume that the dynamically loaded code is trusted. We expect the runtime for Lua to be
-robust to untrusted data plane traffic with the assumption of a trusted script. WASM is still in
-development, but will eventually have a similar security stance.</p>
+<p>Envoy 目前具有两个支持可加载代码的动态过滤器扩展：WASM 和 Lua。在这两种情况下，我们都假定动态加载的代码是受信任的。我们期望 Lua 的运行时能够在不信任脚本的前提下对不信任的数据平面流量具有鲁棒性, WASM 仍在开发中，但最终将具有类似的安全特征。</p>
 </div>
 </div>
 

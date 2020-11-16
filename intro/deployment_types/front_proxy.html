@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Service to service plus front proxy &mdash; envoy 1.16.0-8f0ea4 documentation</title>
+  <title>服务间外加前端代理 &mdash; envoy 1.16.0-b4676a documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-8f0ea4
+                1.16.0-b4676a
               </div>
             
           
@@ -101,20 +101,20 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../about_docs.html">关于文档</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../intro.html">Introduction</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../intro.html">介绍</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../what_is_envoy.html">What is Envoy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../arch_overview/arch_overview.html">Architecture overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch_overview/arch_overview.html">架构概览</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../life_of_a_request.html">Life of a Request</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="deployment_types.html">Deployment types</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="deployment_types.html">部署类型</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="service_to_service.html">Service to service only</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Service to service plus front proxy</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#configuration-template">Configuration template</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">服务间外加前端代理</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">配置模板</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="double_proxy.html">Service to service, front proxy, and double proxy</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_help.html">Getting help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_help.html">获取帮助</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../start/start.html">开始</a></li>
@@ -171,11 +171,11 @@
     
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../intro.html">Introduction</a> &raquo;</li>
+          <li><a href="../intro.html">介绍</a> &raquo;</li>
         
-          <li><a href="deployment_types.html">Deployment types</a> &raquo;</li>
+          <li><a href="deployment_types.html">部署类型</a> &raquo;</li>
         
-      <li>Service to service plus front proxy</li>
+      <li>服务间外加前端代理</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -194,25 +194,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="service-to-service-plus-front-proxy">
-<span id="deployment-type-front-proxy"></span><h1>Service to service plus front proxy<a class="headerlink" href="#service-to-service-plus-front-proxy" title="Permalink to this headline">¶</a></h1>
-<img alt="../../_images/front_proxy.svg" src="../../_images/front_proxy.svg" /><p>The above diagram shows the <a class="reference internal" href="service_to_service.html#deployment-type-service-to-service"><span class="std std-ref">service to service</span></a>
-configuration sitting behind an Envoy cluster used as an HTTP L7 edge reverse proxy. The
-reverse proxy provides the following features:</p>
+  <div class="section" id="deployment-type-front-proxy">
+<span id="id1"></span><h1>服务间外加前端代理<a class="headerlink" href="#deployment-type-front-proxy" title="Permalink to this headline">¶</a></h1>
+<img alt="../../_images/front_proxy.svg" src="../../_images/front_proxy.svg" /><p>上图显示了作为 HTTP L7 边缘反向代理 Envoy 群集背后的 <a class="reference internal" href="service_to_service.html#deployment-type-service-to-service"><span class="std std-ref">服务到服务</span></a> 配置。反向代理提供以下功能：</p>
 <ul class="simple">
-<li><p>Terminates TLS.</p></li>
-<li><p>Supports both HTTP/1.1 and HTTP/2.</p></li>
-<li><p>Full HTTP L7 routing support.</p></li>
-<li><p>Talks to the service to service Envoy clusters via the standard <a class="reference internal" href="service_to_service.html#deployment-type-service-to-service-ingress"><span class="std std-ref">ingress port</span></a> and using the discovery service for host
-lookup. Thus, the front Envoy hosts work identically to any other Envoy host, other than the
-fact that they do not run collocated with another service. This means that are operated in the
-same way and emit the same statistics.</p></li>
+<li><p>终止 TLS。</p></li>
+<li><p>支持 HTTP/1.1 和 HTTP/2。</p></li>
+<li><p>HTTP L7 全路由支持。</p></li>
+<li><p>Envoy 集群使用 <a class="reference internal" href="service_to_service.html#deployment-type-service-to-service-ingress"><span class="std std-ref">ingress 端口</span></a> 标准进行服务到服务的通信，并使用发现服务进行主机查找。因此，前端 Envoy 主机与任何其它 Envoy 主机的工作方式相同，除了其它 Envoy 主机不与别的服务搭配运行。这意味着它们用相同的方式操作，并且数据统计也相同。</p></li>
 </ul>
-<div class="section" id="configuration-template">
-<h2>Configuration template<a class="headerlink" href="#configuration-template" title="Permalink to this headline">¶</a></h2>
-<p>The source distribution includes an example front proxy configuration that is very similar to
-the version that Lyft runs in production. See <a class="reference internal" href="../../install/ref_configs.html#install-ref-configs"><span class="std std-ref">here</span></a> for more
-information.</p>
+<div class="section" id="id2">
+<h2>配置模板<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>源代码发行版包含一个与 Lyft 在生产环境中运行的版本非常相似的前端代理配置示例。浏览 <a class="reference internal" href="../../install/ref_configs.html#install-ref-configs"><span class="std std-ref">此处</span></a> 获取更多信息。</p>
 </div>
 </div>
 

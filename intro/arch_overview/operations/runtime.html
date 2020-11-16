@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Runtime configuration &mdash; envoy 1.16.0-8f0ea4 documentation</title>
+  <title>运行时配置 &mdash; envoy 1.16.0-b4676a documentation</title>
   
 
   
@@ -46,7 +46,7 @@
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Hot restart" href="hot_restart.html" />
+    <link rel="next" title="热重启" href="hot_restart.html" />
     <link rel="prev" title="Draining" href="draining.html" /> 
 </head>
 
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-8f0ea4
+                1.16.0-b4676a
               </div>
             
           
@@ -101,32 +101,32 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../about_docs.html">关于文档</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../intro.html">Introduction</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../intro.html">介绍</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../what_is_envoy.html">What is Envoy</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">Architecture overview</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">架构概览</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../intro/intro.html">介绍</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../listeners/listeners_toc.html">Listeners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../listeners/listeners_toc.html">监听器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../http/http.html">HTTP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../upstream/upstream.html">Upstream clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../upstream/upstream.html">上游集群</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../observability/observability.html">Observability</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../security/security.html">Security</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="operations.html">Operations &amp; configuration</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../security/security.html">安全</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="operations.html">操作与配置</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="dynamic_configuration.html">xDS configuration API overview</a></li>
 <li class="toctree-l4"><a class="reference internal" href="init.html">Initialization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="draining.html">Draining</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Runtime configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="hot_restart.html">Hot restart</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">运行时配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hot_restart.html">热重启</a></li>
 <li class="toctree-l4"><a class="reference internal" href="overload_manager.html">Overload manager</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">Other features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">Other protocols</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../advanced/advanced.html">Advanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">其他特性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">其他协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/advanced.html">高级的</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../life_of_a_request.html">Life of a Request</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../deployment_types/deployment_types.html">Deployment types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_help.html">Getting help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../deployment_types/deployment_types.html">部署类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_help.html">获取帮助</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../start/start.html">开始</a></li>
@@ -183,13 +183,13 @@
     
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../intro.html">Introduction</a> &raquo;</li>
+          <li><a href="../../intro.html">介绍</a> &raquo;</li>
         
-          <li><a href="../arch_overview.html">Architecture overview</a> &raquo;</li>
+          <li><a href="../arch_overview.html">架构概览</a> &raquo;</li>
         
-          <li><a href="operations.html">Operations &amp; configuration</a> &raquo;</li>
+          <li><a href="operations.html">操作与配置</a> &raquo;</li>
         
-      <li>Runtime configuration</li>
+      <li>运行时配置</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -208,18 +208,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="runtime-configuration">
-<span id="arch-overview-runtime"></span><h1>Runtime configuration<a class="headerlink" href="#runtime-configuration" title="Permalink to this headline">¶</a></h1>
-<p>Envoy supports “runtime” configuration (also known as “feature flags” and “decider”). Configuration
-settings can be altered that will affect operation without needing to restart Envoy or change the
-primary configuration. The currently supported implementation uses a tree of file system files.
-Envoy watches for a symbolic link swap in a configured directory and reloads the tree when that
-happens. This type of system is very commonly deployed in large distributed systems. Other
-implementations would not be difficult to implement. Supported runtime configuration settings are
-documented in the relevant sections of the operations guide. Envoy will operate correctly with
-default runtime values and a “null” provider so it is not required that such a system exists to run
-Envoy.</p>
-<p>Runtime <a class="reference internal" href="../../../configuration/operations/runtime.html#config-runtime"><span class="std std-ref">configuration</span></a>.</p>
+  <div class="section" id="arch-overview-runtime">
+<span id="id1"></span><h1>运行时配置<a class="headerlink" href="#arch-overview-runtime" title="Permalink to this headline">¶</a></h1>
+<p>Envoy 支持“运行时”配置（也称为“功能标志”和“决策器”）。可以通过更改配置影响操作，而无需重新启动 Envoy 或更改主要配置。
+当前支持的实现使用文件系统文件树。Envoy 会观察配置目录中的符号链接交换，并在发生这种情况时重新加载树。
+这种类型的系统通常部署在大型分布式系统中。其他实现也不难实现。
+支持的运行时配置的相关设置在操作指南的相关章节中进行了说明。Envoy 能使用默认的运行时值和“null”提供程序正常运行，因此不需要这样的系统也可以运行 Envoy。
+运行时 <a class="reference internal" href="../../../configuration/operations/runtime.html#config-runtime"><span class="std std-ref">配置</span></a> 。</p>
 </div>
 
 
@@ -230,7 +225,7 @@ Envoy.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="hot_restart.html" class="btn btn-neutral float-right" title="Hot restart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="hot_restart.html" class="btn btn-neutral float-right" title="热重启" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="draining.html" class="btn btn-neutral float-left" title="Draining" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

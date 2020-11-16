@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DNS Filter &mdash; envoy 1.16.0-8f0ea4 documentation</title>
+  <title>DNS 过滤器 &mdash; envoy 1.16.0-b4676a documentation</title>
   
 
   
@@ -47,7 +47,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="HTTP" href="../http/http.html" />
-    <link rel="prev" title="UDP proxy" href="udp_proxy.html" /> 
+    <link rel="prev" title="UDP 代理" href="udp_proxy.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-8f0ea4
+                1.16.0-b4676a
               </div>
             
           
@@ -101,32 +101,32 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../about_docs.html">关于文档</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../intro.html">Introduction</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../intro.html">介绍</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../what_is_envoy.html">What is Envoy</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">Architecture overview</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">架构概览</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../intro/intro.html">介绍</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="listeners_toc.html">Listeners</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="listeners_toc.html">监听器</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="listeners.html">Listeners</a></li>
-<li class="toctree-l4"><a class="reference internal" href="listener_filters.html">Listener filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="network_filters.html">Network (L3/L4) filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listener_filters.html">监听器过滤器</a></li>
+<li class="toctree-l4"><a class="reference internal" href="network_filters.html">网络 (L3/L4) 过滤器</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tcp_proxy.html">TCP 代理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="udp_proxy.html">UDP proxy</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">DNS Filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="udp_proxy.html">UDP 代理</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">DNS 过滤器</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../http/http.html">HTTP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../upstream/upstream.html">Upstream clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../upstream/upstream.html">上游集群</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../observability/observability.html">Observability</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../security/security.html">Security</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../operations/operations.html">Operations &amp; configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">Other features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">Other protocols</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../advanced/advanced.html">Advanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/security.html">安全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../operations/operations.html">操作与配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">其他特性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">其他协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/advanced.html">高级的</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../life_of_a_request.html">Life of a Request</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../deployment_types/deployment_types.html">Deployment types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../getting_help.html">Getting help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../deployment_types/deployment_types.html">部署类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_help.html">获取帮助</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../start/start.html">开始</a></li>
@@ -183,13 +183,13 @@
     
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../intro.html">Introduction</a> &raquo;</li>
+          <li><a href="../../intro.html">介绍</a> &raquo;</li>
         
-          <li><a href="../arch_overview.html">Architecture overview</a> &raquo;</li>
+          <li><a href="../arch_overview.html">架构概览</a> &raquo;</li>
         
-          <li><a href="listeners_toc.html">Listeners</a> &raquo;</li>
+          <li><a href="listeners_toc.html">监听器</a> &raquo;</li>
         
-      <li>DNS Filter</li>
+      <li>DNS 过滤器</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -208,14 +208,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="dns-filter">
-<h1>DNS Filter<a class="headerlink" href="#dns-filter" title="Permalink to this headline">¶</a></h1>
-<p>Envoy supports responding to DNS requests by configuring a <a class="reference internal" href="../../../configuration/listeners/udp_filters/dns_filter.html#config-udp-listener-filters-dns-filter"><span class="std std-ref">UDP listener DNS Filter</span></a>.</p>
-<p>The DNS filter supports responding to forward queries for A and AAAA records. The answers are
-discovered from statically configured resources, clusters, or external DNS servers. The filter
-will return DNS responses up to to 512 bytes. If domains are configured with multiple addresses,
-or clusters with multiple endpoints, Envoy will return each discovered address up to the
-aforementioned size limit.</p>
+  <div class="section" id="dns">
+<h1>DNS 过滤器<a class="headerlink" href="#dns" title="Permalink to this headline">¶</a></h1>
+<p>Envoy 支持通过配置 <a class="reference internal" href="../../../configuration/listeners/udp_filters/dns_filter.html#config-udp-listener-filters-dns-filter"><span class="std std-ref">UDP 监听 DNS 过滤器</span></a> 来响应 DNS 请求。</p>
+<p>DNS 过滤器支持响应对 A 和 AAAA 记录的转发查询。从静态配置的资源、集群或外部 DNS 服务器中找到查询结果。
+过滤器将返回不超过 512 个字节的 DNS 响应。如果为域名配置了多个地址，或者集群的多个端点，Envoy
+将按照不超过上面提到的最大限制返回查找到的每个地址。</p>
 </div>
 
 
@@ -229,7 +227,7 @@ aforementioned size limit.</p>
         <a href="../http/http.html" class="btn btn-neutral float-right" title="HTTP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="udp_proxy.html" class="btn btn-neutral float-left" title="UDP proxy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="udp_proxy.html" class="btn btn-neutral float-left" title="UDP 代理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
