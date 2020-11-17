@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>HTTP upgrades &mdash; envoy 1.16.0-b4676a documentation</title>
+  <title>HTTP 升级 &mdash; envoy 1.16.0-e77d5c documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-b4676a
+                1.16.0-e77d5c
               </div>
             
           
@@ -110,7 +110,7 @@
 <li class="toctree-l4"><a class="reference internal" href="http_connection_management.html">HTTP connection management</a></li>
 <li class="toctree-l4"><a class="reference internal" href="http_filters.html">HTTP 过滤器</a></li>
 <li class="toctree-l4"><a class="reference internal" href="http_routing.html">HTTP routing</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">HTTP upgrades</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">HTTP 升级</a></li>
 <li class="toctree-l4"><a class="reference internal" href="http_proxy.html">HTTP dynamic forward proxy</a></li>
 </ul>
 </li>
@@ -188,7 +188,7 @@
         
           <li><a href="http.html">HTTP</a> &raquo;</li>
         
-      <li>HTTP upgrades</li>
+      <li>HTTP 升级</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -207,23 +207,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="http-upgrades">
-<span id="arch-overview-upgrades"></span><h1>HTTP upgrades<a class="headerlink" href="#http-upgrades" title="Permalink to this headline">¶</a></h1>
-<p>Envoy Upgrade support is intended mainly for WebSocket and CONNECT support, but may be used for
-arbitrary upgrades as well. Upgrades pass both the HTTP headers and the upgrade payload
-through an HTTP filter chain. One may configure the
-<a class="reference internal" href="../../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-upgrade-configs"><span class="std std-ref">upgrade_configs</span></a>
-with or without custom filter chains. If only the
-<a class="reference internal" href="../../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-upgradeconfig-upgrade-type"><span class="std std-ref">upgrade_type</span></a>
-is specified, both the upgrade headers, any request and response body, and HTTP data payload will
-pass through the default HTTP filter chain. To avoid the use of HTTP-only filters for upgrade payload,
-one can set up custom
-<a class="reference internal" href="../../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-upgradeconfig-filters"><span class="std std-ref">filters</span></a>
-for the given upgrade type, up to and including only using the router filter to send the HTTP
-data upstream.</p>
-<p>Upgrades can be enabled or disabled on a <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-upgrade-configs"><span class="std std-ref">per-route</span></a> basis.
-Any per-route enabling/disabling automatically overrides HttpConnectionManager configuration as
-laid out below, but custom filter chains can only be configured on a per-HttpConnectionManager basis.</p>
+  <div class="section" id="http">
+<span id="arch-overview-upgrades"></span><h1>HTTP 升级<a class="headerlink" href="#http" title="Permalink to this headline">¶</a></h1>
+<p>Envoy 升级主要用于支持 WebSocket 和 CONNECT 在 HTTP 请求中的的升级，同时也支持其他依赖于 HTTP 的升级。
+HTTP 升级在通常情况下是通过 HTTP 过滤链来传递 HTTP header 和 HTTP 升级所需的负载信息。
+除此之外也可以使用或者不使用自定义过滤链来配置 <a class="reference internal" href="../../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-upgrade-configs"><span class="std std-ref">upgrade_configs</span></a>
+如果指定了 <a class="reference internal" href="../../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-upgradeconfig-upgrade-type"><span class="std std-ref">upgrade_type</span></a>
+的类型，那么升级后的HTTP 头信息、请求体、返回体、HTTP 负载数据默认都将通过 HTTP 过滤器链。
+此外为了避免升级负载仅使用 HTTP 过滤器，可以为给定的升级类型设置自定义的过滤器，同时也只能使用路由
+<a class="reference internal" href="../../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-upgradeconfig-filters"><span class="std std-ref">filters</span></a> 将数据发往上游。</p>
+<p>HTTP 升级可以根据 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-upgrade-configs"><span class="std std-ref">每个路由</span></a> 进行启用还是禁用。
+同时任意的路由启用/禁用都会自动覆盖 HttpConnectionManager 配置信息。
+如下图所示，自定义过滤器链只能基于每个 HttpConnectionManager 进行配置。</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 34%" />
@@ -255,66 +250,42 @@ laid out below, but custom filter chains can only be configured on a per-HttpCon
 </tr>
 </tbody>
 </table>
-<p>Note that the statistics for upgrades are all bundled together so WebSocket and other upgrades
-<a class="reference internal" href="../../../configuration/http/http_conn_man/stats.html#config-http-conn-man-stats"><span class="std std-ref">statistics</span></a> are tracked by stats such as
-downstream_cx_upgrades_total and downstream_cx_upgrades_active</p>
-<div class="section" id="websocket-over-http-2-hops">
-<h2>Websocket over HTTP/2 hops<a class="headerlink" href="#websocket-over-http-2-hops" title="Permalink to this headline">¶</a></h2>
-<p>While HTTP/2 support for WebSockets is off by default, Envoy does support tunneling WebSockets over
-HTTP/2 streams for deployments that prefer a uniform HTTP/2 mesh throughout; this enables, for example,
-a deployment of the form:</p>
+<p>注意！所有升级的统计信息是绑定在一起的，例如 WebSocket 或者其他的 HTTP 升级都是通过 downstream_cx_upgrades_total 和 downstream_cx_upgrades_active 来统计信息的。</p>
+<div class="section" id="http1-2-websocket">
+<h2>越过 HTTP1.2 生成 WebSocket<a class="headerlink" href="#http1-2-websocket" title="Permalink to this headline">¶</a></h2>
+<p>默认情况下，HTTP1.2 对 WebSocket 的支持都是关闭的，但 Envoy 却支持 WebSocket 在 HTTP1.2 上进行隧道传输，以便在整个部署过程中可以使用统一的 HTTP1.2 网络。
+例如，可以这样进行部署：</p>
 <p>[Client] —- HTTP/1.1 —- [Front Envoy] —- HTTP/2 —- [Sidecar Envoy —- H1  —- App]</p>
-<p>In this case, if a client is for example using WebSocket, we want the Websocket to arrive at the
-upstream server functionally intact, which means it needs to traverse the HTTP/2 hop.</p>
-<p>This is accomplished via <a class="reference external" href="https://tools.ietf.org/html/rfc8441">Extended CONNECT (RFC8441)</a> support,
-turned on by setting <a class="reference internal" href="../../../api-v3/config/core/v3/protocol.proto.html#envoy-v3-api-field-config-core-v3-http2protocoloptions-allow-connect"><span class="std std-ref">allow_connect</span></a>
-true at the second layer Envoy. The
-WebSocket request will be transformed into an HTTP/2 CONNECT stream, with :protocol header
-indicating the original upgrade, traverse the HTTP/2 hop, and be downgraded back into an HTTP/1
-WebSocket Upgrade. This same Upgrade-CONNECT-Upgrade transformation will be performed on any
-HTTP/2 hop, with the documented flaw that the HTTP/1.1 method is always assumed to be GET.
-Non-WebSocket upgrades are allowed to use any valid HTTP method (i.e. POST) and the current
-upgrade/downgrade mechanism will drop the original method and transform the Upgrade request to
-a GET method on the final Envoy-Upstream hop.</p>
-<p>Note that the HTTP/2 upgrade path has very strict HTTP/1.1 compliance, so will not proxy WebSocket
-upgrade requests or responses with bodies.</p>
+<p>在上面的示例中，客户端需要使用 WebSocket，同时我们也希望 WebSocket 可以直接到达上游业务服务器，那就意味着只穿过 HTTP 1.2 即可到达。</p>
+<p>上述实例中的方法是通过扩展连接（ <a class="reference external" href="https://tools.ietf.org/html/rfc8441">RFC8441</a> ）支持实现的，通过在第二层 Envoy 中设置 <a class="reference internal" href="../../../api-v3/config/core/v3/protocol.proto.html#envoy-v3-api-field-config-core-v3-http2protocoloptions-allow-connect"><span class="std std-ref">allow_connect</span></a> 打开的。
+在 WebSocket 请求被转换为 HTTP CONNECT 流时，其中包含protocol 头指示原始升级、遍历 跳转 HTTP1.2 、降级回 HTTP1.1 WebSocket Upgrade。
+相同的 Upgrade-CONNECT-Upgrade 转换将会在任意 HTTP1.2 上跳转执行，即假设 HTTP1.1 中请求方法为 GET 。
+非 WebSocket 升级则允许任何有效的 HTTP 方法（例如 POST 请求），当前的升级/降级机制也会丢弃原有的请求方式，最终Envoy 会将请求转换为去往上游的 GET 方法。</p>
+<p>注意！HTTP1.2 升级会非常严格的 HTTP1.1 的路径，因此不能使用代理用于WebSocket 升级的请求和响应。</p>
 </div>
-<div class="section" id="connect-support">
-<h2>CONNECT support<a class="headerlink" href="#connect-support" title="Permalink to this headline">¶</a></h2>
-<p>Envoy CONNECT support is off by default (Envoy will send an internally generated 403 in response to
-CONNECT requests). CONNECT support can be enabled via the upgrade options described above, setting
-the upgrade value to the special keyword “CONNECT”.</p>
-<p>While for HTTP/2, CONNECT request may have a path, in general and for HTTP/1.1 CONNECT requests do
-not have a path, and can only be matched using a
-<a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-routematch-connectmatcher"><span class="std std-ref">connect_matcher</span></a></p>
-<p>Envoy can handle CONNECT in one of two ways, either proxying the CONNECT headers through as if they
-were any other request, and letting the upstream terminate the CONNECT request, or by terminating the
-CONNECT request, and forwarding the payload as raw TCP data. When CONNECT upgrade configuration is
-set up, the default behavior is to proxy the CONNECT request, treating it like any other request using
-the upgrade path.
-If termination is desired, this can be accomplished by setting
-<a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-upgradeconfig-connect-config"><span class="std std-ref">connect_config</span></a>
-If it that message is present for CONNECT requests, the router filter will strip the request headers,
-and forward the HTTP payload upstream. On receipt of initial TCP data from upstream, the router
-will synthesize 200 response headers, and then forward the TCP data as the HTTP response body.</p>
+<div class="section" id="connect">
+<h2>CONNECT 支持<a class="headerlink" href="#connect" title="Permalink to this headline">¶</a></h2>
+<p>默认情况下，Envoy 内部的 CONNECT 支持都是处于关闭状态的（Envoy 会返回403 状态码以响应 CONNECT 请求）。
+因此，可以通过上述的选项来启用 CONNECT 支持，其中将设置特殊关键字为 “ CONNECT ”。</p>
+<p>在HTTP1.2 中，CONNECT 请求可能会是一个路径，但是在HTTP1.1 中，CONNECT 请求通常是没有路径的，只能使用 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-routematch-connectmatcher"><span class="std std-ref">connect_matcher</span></a> 进行匹配。</p>
+<p>注意！当对 CONNECT 请求执行非通配符域匹配时，CONNECT 的目标是匹配主机和端口才能成功，而不是匹配 Host 或者授权信息。</p>
+<p>Envoy 可以使用两种方法来处理 CONNECT 请求，一种是代理 CONNECT 报文头，让上游终止 CONNECT 请求，就类似于其他的请求一样；或者终止 CONNECT 请求，将负载信息作为原始 TCP 信息转发。</p>
+<p>而当 CONNECT 升级配置信息被配置时，默认情况下就是使用代理连接请求，并使用升级路径将其处理为任何其他请求。</p>
+<p>如果需要终止，也可以通过设置 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-upgradeconfig-connect-config"><span class="std std-ref">connect_config</span></a> 来完成。
+如果仅仅只是针对 CONNECT 请求，路由过滤器将会去掉请求头，并将请求发往上游。
+在收到来自上游的 TCP 数据时，路由就会生成 HTTP 200 响应头信息，然后将上游返回的 TCP 数据作为 HTTP 响应体。</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This mode of CONNECT support can create major security holes if not configured correctly, as the upstream
-will be forwarded <em>unsanitized</em> headers if they are in the body payload. Please use with caution</p>
+<p>如果配置不正确，这种 CONNECT 支持连接会造成严重的安全漏洞。例如如果上游的安全漏洞存在于负载中，那么上游就会转发未经初始化的头信息。谨慎使用！</p>
 </div>
 </div>
-<div class="section" id="tunneling-tcp-over-http-2">
-<h2>Tunneling TCP over HTTP/2<a class="headerlink" href="#tunneling-tcp-over-http-2" title="Permalink to this headline">¶</a></h2>
-<p>Envoy also has support for transforming raw TCP into HTTP/2 CONNECT requests. This can be used to
-proxy multiplexed TCP over pre-warmed secure connections and amortize the cost of any TLS handshake.
-An example set up proxying SMTP would look something like this</p>
+<div class="section" id="http1-2-tcp">
+<h2>HTTP1.2 之上的TCP 隧道<a class="headerlink" href="#http1-2-tcp" title="Permalink to this headline">¶</a></h2>
+<p>Envoy 还支持将原始 TCP 请求转化为 HTTP1.2 CONNECT 请求，这是通过提前预备的安全链路来代理多路传输的 TCP 请求，并且可以分摊 TLS 握手的成本。
+例如设置代理 SMTP 的流程如下：</p>
 <p>[SMTP Upstream] — raw SMTP — [L2 Envoy]  — SMTP tunneled over HTTP/2  — [L1 Envoy]  — raw SMTP  — [Client]</p>
-<p>Examples of such a set up can be found in the Envoy example config <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/b4676a36080633b13dc505c8dedef10c1342db7a/configs/">directory</a>
-If you run <cite>bazel-bin/source/exe/envoy-static –config-path configs/encapsulate_in_connect.v3.yaml –base-id 1</cite>
-and <cite>bazel-bin/source/exe/envoy-static –config-path  configs/terminate_connect.v3.yaml</cite>
-you will be running two Envoys, the first listening for TCP traffic on port 10000 and encapsulating it in an HTTP/2
-CONNECT request, and the second listening for HTTP/2 on 10001, stripping the CONNECT headers, and forwarding the
-original TCP upstream, in this case to google.com.</p>
+<p>如果运行 bazel-bin/source/exe/envoy-static –config-path configs/encapsulate_in_connect.yaml –base-id 1 and bazel-bin/source/exe/envoy-static –config-path configs/terminate_connect.yaml 则能在示例配置 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77d5ce3a5da9294a49c592779516686292413a6/configs/">文件</a> 中找到对应的示例。
+其中将会运行两个 Envoy ，第一个会监听10000 端口 上的 TCP 流量，接着会将其封装为 HTTP1.2 请求；另一个会监听10001 端口上的 HTTP1.2 请求，去掉请求的请求头，接着将原始 TCP 请求转到上游，在本示例中是 google.com。</p>
 </div>
 </div>
 

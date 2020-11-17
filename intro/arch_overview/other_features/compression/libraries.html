@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Compression Libraries &mdash; envoy 1.16.0-b4676a documentation</title>
+  <title>压缩库 &mdash; envoy 1.16.0-e77d5c documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-b4676a
+                1.16.0-e77d5c
               </div>
             
           
@@ -116,7 +116,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../global_rate_limiting.html">Global rate limiting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../scripting.html">Scripting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ip_transparency.html">IP Transparency</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Compression Libraries</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">压缩库</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../other_protocols/other_protocols.html">其他协议</a></li>
@@ -188,7 +188,7 @@
         
           <li><a href="../other_features.html">其他特性</a> &raquo;</li>
         
-      <li>Compression Libraries</li>
+      <li>压缩库</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -207,19 +207,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="compression-libraries">
-<span id="arch-overview-compression-libraries"></span><h1>Compression Libraries<a class="headerlink" href="#compression-libraries" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="underlying-implementation">
-<h2>Underlying implementation<a class="headerlink" href="#underlying-implementation" title="Permalink to this headline">¶</a></h2>
-<p>Currently Envoy uses <a class="reference external" href="http://zlib.net">zlib</a> as a compression library.</p>
+  <div class="section" id="arch-overview-compression-libraries">
+<span id="id1"></span><h1>压缩库<a class="headerlink" href="#arch-overview-compression-libraries" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>基础实现<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>目前 Envoy 在使用 <a class="reference external" href="http://zlib.net">zlib</a> 作为压缩库。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><a class="reference external" href="https://github.com/zlib-ng/zlib-ng">zlib-ng</a> is a fork that hosts several 3rd-party
-contributions containing new optimizations. Those optimizations are considered useful for
-<a class="reference external" href="https://github.com/envoyproxy/envoy/issues/8448#issuecomment-667152013">improving compression performance</a>.
-Envoy can be built to use <a class="reference external" href="https://github.com/zlib-ng/zlib-ng">zlib-ng</a> instead of regular
-<a class="reference external" href="http://zlib.net">zlib</a> by using <code class="docutils literal notranslate"><span class="pre">--define</span> <span class="pre">zlib=ng</span></code> Bazel option. The relevant build options
-used to build <a class="reference external" href="https://github.com/zlib-ng/zlib-ng">zlib-ng</a> can be evaluated in <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/b4676a36080633b13dc505c8dedef10c1342db7a/bazel/foreign_cc/BUILD">here</a>. Currently, this option is only available on Linux.</p>
+<p><a class="reference external" href="https://github.com/zlib-ng/zlib-ng">zlib-ng</a> 是一个存在多个包含最新优化的第三方贡献 Fork 库。
+这其中的很多优化对于 <a class="reference external" href="https://github.com/envoyproxy/envoy/issues/8448#issuecomment-667152013">提高压缩性能</a> 有很大的用处。
+比如 Envoy 可以通过使用 –define zlib=ngbazel 选项，来构建 <a class="reference external" href="https://github.com/zlib-ng/zlib-ng">zlib-ng</a> 代替之前的 <a class="reference external" href="http://zlib.net">zlib</a> 。
+用于构建 <a class="reference external" href="https://github.com/zlib-ng/zlib-ng">zlib-ng</a> 的相关参数选项，可以在 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77d5ce3a5da9294a49c592779516686292413a6/bazel/foreign_cc/BUILD">这里</a> 找到。
+但是，这些参数选项目前只能在 Linux 上使用。</p>
 </div>
 </div>
 </div>
