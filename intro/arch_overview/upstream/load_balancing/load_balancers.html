@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Supported load balancers &mdash; envoy 1.16.0-e77d5c documentation</title>
+  <title>Supported load balancers &mdash; envoy 1.16.0-b142cd documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-e77d5c
+                1.16.0-b142cd
               </div>
             
           
@@ -111,7 +111,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../cluster_manager.html">Cluster manager</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../service_discovery.html">Service discovery</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../health_checking.html">Health checking</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../connection_pooling.html">Connection pooling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../connection_pooling.html">连接池</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="load_balancing.html">负载均衡</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../aggregate_cluster.html">Aggregate Cluster</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../outlier.html">Outlier detection</a></li>
@@ -308,7 +308,7 @@ when using a large ring size of 256K entries). The downside of Maglev is that it
 as ring hash. More keys will move position when hosts are removed (simulations show approximately
 double the keys will move). With that said, for many applications including Redis, Maglev is very
 likely a superior drop in replacement for ring hash. The advanced reader can use
-<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77d5ce3a5da9294a49c592779516686292413a6//test/common/upstream/load_balancer_benchmark.cc">this benchmark</a> to compare ring hash
+<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/b142cd76ef17fb61feadd1e2c3b9c3d2b5865a1b//test/common/upstream/load_balancer_benchmark.cc">this benchmark</a> to compare ring hash
 versus Maglev with different parameters.</p>
 </div>
 <div class="section" id="random">
