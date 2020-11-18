@@ -20,7 +20,7 @@ RocketMQ Proxy :ref:`configuration overview <config_network_filters_rocketmq_pro
 extensions.filters.network.rocketmq_proxy.v3.RocketmqProxy
 ----------------------------------------------------------
 
-`[extensions.filters.network.rocketmq_proxy.v3.RocketmqProxy proto] <https://github.com/envoyproxy/envoy/blob/9349def15e4ac4620cfb8ac8adc391695a22425a/api/envoy/extensions/filters/network/rocketmq_proxy/v3/rocketmq_proxy.proto#L22>`_
+`[extensions.filters.network.rocketmq_proxy.v3.RocketmqProxy proto] <https://github.com/envoyproxy/envoy/blob/4d6d23bfa5cec90e06931b4f5c233c78426faebf/api/envoy/extensions/filters/network/rocketmq_proxy/v3/rocketmq_proxy.proto#L22>`_
 
 
 .. code-block:: json
