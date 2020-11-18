@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Service discovery &mdash; envoy 1.16.0-b142cd documentation</title>
+  <title>服务发现 &mdash; envoy 1.16.0-8c62b0 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-b142cd
+                1.16.0-8c62b0
               </div>
             
           
@@ -109,7 +109,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../http/http.html">HTTP</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="upstream.html">上游集群</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="cluster_manager.html">Cluster manager</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Service discovery</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">服务发现</a></li>
 <li class="toctree-l4"><a class="reference internal" href="health_checking.html">Health checking</a></li>
 <li class="toctree-l4"><a class="reference internal" href="connection_pooling.html">连接池</a></li>
 <li class="toctree-l4"><a class="reference internal" href="load_balancing/load_balancing.html">负载均衡</a></li>
@@ -193,7 +193,7 @@
         
           <li><a href="upstream.html">上游集群</a> &raquo;</li>
         
-      <li>Service discovery</li>
+      <li>服务发现</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -212,121 +212,56 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="service-discovery">
-<span id="arch-overview-service-discovery"></span><h1>Service discovery<a class="headerlink" href="#service-discovery" title="Permalink to this headline">¶</a></h1>
-<p>When an upstream cluster is defined in the <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-msg-config-cluster-v3-cluster"><span class="std std-ref">configuration</span></a>,
-Envoy needs to know how to resolve the members of the cluster. This is known as <em>service discovery</em>.</p>
-<div class="section" id="supported-service-discovery-types">
-<span id="arch-overview-service-discovery-types"></span><h2>Supported service discovery types<a class="headerlink" href="#supported-service-discovery-types" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="static">
-<span id="arch-overview-service-discovery-types-static"></span><h3>Static<a class="headerlink" href="#static" title="Permalink to this headline">¶</a></h3>
-<p>Static is the simplest service discovery type. The configuration explicitly specifies the resolved
-network name (IP address/port, unix domain socket, etc.) of each upstream host.</p>
+  <div class="section" id="arch-overview-service-discovery">
+<span id="id1"></span><h1>服务发现<a class="headerlink" href="#arch-overview-service-discovery" title="Permalink to this headline">¶</a></h1>
+<p>当在 Envoy <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-msg-config-cluster-v3-cluster"><span class="std std-ref">配置</span></a> 中定义了一个上游集群时，Envoy 需要知道如何解析集群的成员。这被称为 <em>服务发现</em>。</p>
+<div class="section" id="arch-overview-service-discovery-types">
+<span id="id2"></span><h2>支持的服务发现类型<a class="headerlink" href="#arch-overview-service-discovery-types" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="arch-overview-service-discovery-types-static">
+<span id="id3"></span><h3>静态<a class="headerlink" href="#arch-overview-service-discovery-types-static" title="Permalink to this headline">¶</a></h3>
+<p>静态是最简单的服务发现类型。配置中明确指导了每个上游主机的解析网络名（IP 地址/端口、Unix 域套接字等）。</p>
 </div>
-<div class="section" id="strict-dns">
-<span id="arch-overview-service-discovery-types-strict-dns"></span><h3>Strict DNS<a class="headerlink" href="#strict-dns" title="Permalink to this headline">¶</a></h3>
-<p>When using strict DNS service discovery, Envoy will continuously and asynchronously resolve the
-specified DNS targets. Each returned IP address in the DNS result will be considered an explicit
-host in the upstream cluster. This means that if the query returns three IP addresses, Envoy will
-assume the cluster has three hosts, and all three should be load balanced to. If a host is removed
-from the result Envoy assumes it no longer exists and will drain traffic from any existing
-connection pools. Consequently, if a successful DNS resolution returns 0 hosts, Envoy will assume
-that the cluster does not have any hosts. Note that Envoy never synchronously resolves DNS in the
-forwarding path. At the expense of eventual consistency, there is never a worry of blocking on a
-long running DNS query.</p>
-<p>If a single DNS name resolves to the same IP multiple times, these IPs will be de-duplicated.</p>
-<p>If multiple DNS names resolve to the same IP, health checking will <em>not</em> be shared.
-This means that care should be taken if active health checking is used with DNS names that resolve
-to the same IPs: if an IP is repeated many times between DNS names it might cause undue load on the
-upstream host.</p>
-<p>If <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-respect-dns-ttl"><span class="std std-ref">respect_dns_ttl</span></a> is enabled, DNS record TTLs and
-<a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-refresh-rate"><span class="std std-ref">dns_refresh_rate</span></a> are used to control DNS refresh rate.
-For strict DNS cluster, if the minimum of all record TTLs is 0, <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-refresh-rate"><span class="std std-ref">dns_refresh_rate</span></a>
-will be used as the cluster’s DNS refresh rate. <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-refresh-rate"><span class="std std-ref">dns_refresh_rate</span></a>
-defaults to 5000ms if not specified. The <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-failure-refresh-rate"><span class="std std-ref">dns_failure_refresh_rate</span></a>
-controls the refresh frequency during failures, and, if not configured, the DNS refresh rate will be used.</p>
-<p>DNS resolving emits <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">cluster statistics</span></a> fields <em>update_attempt</em>, <em>update_success</em> and <em>update_failure</em>.</p>
+<div class="section" id="dns">
+<span id="arch-overview-service-discovery-types-strict-dns"></span><h3>严格 DNS<a class="headerlink" href="#dns" title="Permalink to this headline">¶</a></h3>
+<p>当使用严格 DNS 服务发现时，Envoy 将连续和异步解析指定的 DNS 目标。DNS 结果中的每个返回的 IP 地址将被视为上游集群中的一个显式主机。这意味着，如果查询返回三个 IP 地址，Envoy 将认为集群有三个主机，并且这三个主机都应该被负载均衡到。如果有主机从结果中被移除，Envoy 会认为它不再存在，并且会将它的流量从所有的当前连接池中驱逐。因此，如果一个成功的 DNS 解析返回 0 个主机，Envoy 将认为该集群没有任何主机。请注意，Envoy 从不同步解析转发路径中的 DNS。以牺牲最终的一致性为代价，永远不会担心在长期运行的 DNS 查询上出现阻塞。</p>
+<p>如果一个 DNS 名称多次解析到同一个 IP，这些 IP 将被去重。</p>
+<p>如果多个 DNS 名解析到同一个 IP，健康检查将 <em>不共享</em>。这意味着，在使用解析到相同 IP 的 DNS 名称做主动健康检查时需要注意：如果一个 IP 在 DNS 名称之间多次重复，可能会对上游主机造成不必要的负载。</p>
+<p>如果启用了 <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-respect-dns-ttl"><span class="std std-ref">respect_dns_ttl</span></a>，则使用 DNS 记录 TTL 和 <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-refresh-rate"><span class="std std-ref">dns_refresh_rate</span></a> 来控制 DNS 刷新率。对于严格的 DNS 集群，如果所有记录 TTL 的最小值为 0，则 <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-refresh-rate"><span class="std std-ref">dns_refresh_rate</span></a> 用于控制 DNS 刷新率。 <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-refresh-rate"><span class="std std-ref">dns_refresh_rate</span></a> 如果没有指定，默认为 5000ms。<a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-failure-refresh-rate"><span class="std std-ref">dns_failure_refresh_rate</span></a> 控制故障时的刷新频率，如果没有配置，将使用 DNS 刷新率。</p>
+<p>DNS 解析会输出 <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">集群统计</span></a> 字段 <em>update_attempt</em>、<em>update_success</em> 和 <em>update_failure</em>。</p>
 </div>
-<div class="section" id="logical-dns">
-<span id="arch-overview-service-discovery-types-logical-dns"></span><h3>Logical DNS<a class="headerlink" href="#logical-dns" title="Permalink to this headline">¶</a></h3>
-<p>Logical DNS uses a similar asynchronous resolution mechanism to strict DNS. However, instead of
-strictly taking the results of the DNS query and assuming that they comprise the entire upstream
-cluster, a logical DNS cluster only uses the first IP address returned <em>when a new connection needs
-to be initiated</em>. Thus, a single logical connection pool may contain physical connections to a
-variety of different upstream hosts. Connections are never drained,
-including on a successful DNS resolution that returns 0 hosts.</p>
-<p>This service discovery type is
-optimal for large scale web services that must be accessed via DNS. Such services typically use
-round robin DNS to return many different IP addresses. Typically a different result is returned for
-each query. If strict DNS were used in this scenario, Envoy would assume that the cluster’s members
-were changing during every resolution interval which would lead to draining connection pools,
-connection cycling, etc. Instead, with logical DNS, connections stay alive until they get cycled.
-When interacting with large scale web services, this is the best of all possible worlds:
-asynchronous/eventually consistent DNS resolution, long lived connections, and zero blocking in the
-forwarding path.</p>
-<p>If <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-respect-dns-ttl"><span class="std std-ref">respect_dns_ttl</span></a> is enabled, DNS record TTLs and
-<a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-refresh-rate"><span class="std std-ref">dns_refresh_rate</span></a> are used to control DNS refresh rate.
-For logical DNS cluster, if the TTL of first record is 0, <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-refresh-rate"><span class="std std-ref">dns_refresh_rate</span></a>
-will be used as the cluster’s DNS refresh rate. <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-refresh-rate"><span class="std std-ref">dns_refresh_rate</span></a>
-defaults to 5000ms if not specified. The <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-failure-refresh-rate"><span class="std std-ref">dns_failure_refresh_rate</span></a>
-controls the refresh frequency during failures, and, if not configured, the DNS refresh rate will be used.</p>
-<p>DNS resolving emits <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">cluster statistics</span></a> fields <em>update_attempt</em>, <em>update_success</em> and <em>update_failure</em>.</p>
+<div class="section" id="arch-overview-service-discovery-types-logical-dns">
+<span id="id4"></span><h3>逻辑 DNS<a class="headerlink" href="#arch-overview-service-discovery-types-logical-dns" title="Permalink to this headline">¶</a></h3>
+<p>逻辑 DNS 使用与严格 DNS 类似的异步解析机制。但是，这种策略并非严格基于 DNS 的查询结果，并认为它们包含整个上游集群，而是只在 <em>需要建立新连接时</em> 才使用返回的第一个 IP 地址。因此，一个逻辑连接池可能包含到各种不同上游主机的物理连接。连接永远不会被耗尽，包括在 DNS 解析成功，返回 0 个主机的情况下。</p>
+<p>这种服务发现类型是必须通过 DNS 访问的大规模网络服务的最佳选择。这类服务通常使用轮询 DNS 来返回许多不同的 IP 地址。通常情况下，每次查询都会返回不同的结果。如果在这种情况下使用严格 DNS，Envoy 会认为集群的成员在每个解析间隔期间都在变化，这将导致连接池驱逐、连接循环等。取而代之的是，使用逻辑 DNS，连接会保持存活，直到它们被循环。在与大型 Web 服务交互时，这几乎是所有可行策略中最好的方式：异步/最终一致的 DNS 解析，长期维持的连接，以及转发路径中的零阻塞。</p>
+<p>如果启用了 <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-respect-dns-ttl"><span class="std std-ref">respect_dns_ttl</span></a>，则用 DNS 记录 TTL 和 <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-refresh-rate"><span class="std std-ref">dns_refresh_rate</span></a> 来控制 DNS 刷新率。对于逻辑 DNS 集群，如果第一条记录的 TTL 为 0，则 <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-refresh-rate"><span class="std std-ref">dns_refresh_rate</span></a> 用于控制 DNS 刷新率。 <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-refresh-rate"><span class="std std-ref">dns_refresh_rate</span></a> 如果没有指定，默认为 5000ms。<a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-dns-failure-refresh-rate"><span class="std std-ref">dns_failure_refresh_rate</span></a> 控制故障时的刷新频率，如果没有配置，将使用 DNS 刷新率。</p>
+<p>DNS 解析会输出 <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats"><span class="std std-ref">集群统计</span></a> 字段 <em>update_attempt</em>、<em>update_success</em> 和 <em>update_failure</em>。</p>
 </div>
-<div class="section" id="original-destination">
-<span id="arch-overview-service-discovery-types-original-destination"></span><h3>Original destination<a class="headerlink" href="#original-destination" title="Permalink to this headline">¶</a></h3>
-<p>Original destination cluster can be used when incoming connections are redirected to Envoy either
-via an iptables REDIRECT or TPROXY target or with Proxy Protocol. In these cases requests routed
-to an original destination cluster are forwarded to upstream hosts as addressed by the redirection
-metadata, without any explicit host configuration or upstream host discovery.
-Connections to upstream hosts are pooled and unused hosts are flushed out when they have been idle longer than
-<a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-cleanup-interval"><span class="std std-ref">cleanup_interval</span></a>, which defaults to
-5000ms. If the original destination address is not available, no upstream connection is opened.
-Envoy can also pickup the original destination from a <a class="reference internal" href="load_balancing/original_dst.html#arch-overview-load-balancing-types-original-destination-request-header"><span class="std std-ref">HTTP header</span></a>.
-Original destination service discovery must be used with the original destination <a class="reference internal" href="load_balancing/original_dst.html#arch-overview-load-balancing-types-original-destination"><span class="std std-ref">load
-balancer</span></a>.</p>
+<div class="section" id="arch-overview-service-discovery-types-original-destination">
+<span id="id5"></span><h3>原始目的地<a class="headerlink" href="#arch-overview-service-discovery-types-original-destination" title="Permalink to this headline">¶</a></h3>
+<p>当传入的连接通过 iptable REDIRECT 或 TPROXY 目标或使用代理协议重定向到 Envoy 时，可以使用原始目标集群。在这些情况下，路由到原始目标集群的请求会被转发到重定向元数据所寻址的上游主机，而不需要任何明确的主机配置或上游主机发现。连接到上游主机的连接会被池化，当闲置时间超过 <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-cleanup-interval"><span class="std std-ref">cleanup_interval</span></a> 时，未使用的主机会被清理，默认值为 5000ms。如果原始目的地不可用，则不创建上行连接。Envoy 也可以从 <a class="reference internal" href="load_balancing/original_dst.html#arch-overview-load-balancing-types-original-destination-request-header"><span class="std std-ref">HTTP 头</span></a> 中获取原始目的地。原始目的地服务发现必须与原始目的地 <a class="reference internal" href="load_balancing/original_dst.html#arch-overview-load-balancing-types-original-destination"><span class="std std-ref">负载均衡</span></a> 一起使用。</p>
 </div>
-<div class="section" id="endpoint-discovery-service-eds">
-<span id="arch-overview-service-discovery-types-eds"></span><h3>Endpoint discovery service (EDS)<a class="headerlink" href="#endpoint-discovery-service-eds" title="Permalink to this headline">¶</a></h3>
-<p>The <em>endpoint discovery service</em> is a <a class="reference internal" href="../../../configuration/overview/xds_api.html#config-overview-management-server"><span class="std std-ref">xDS management server based on gRPC or REST-JSON API server</span></a> used by Envoy to fetch cluster members. The cluster members are called
-“endpoint” in Envoy terminology. For each cluster, Envoy fetch the endpoints from the discovery service. EDS is the
-preferred service discovery mechanism for a few reasons:</p>
+<div class="section" id="eds">
+<span id="arch-overview-service-discovery-types-eds"></span><h3>端点发现服务 (EDS)<a class="headerlink" href="#eds" title="Permalink to this headline">¶</a></h3>
+<p><em>端点发现服务</em> 是一个 <a class="reference internal" href="../../../configuration/overview/xds_api.html#config-overview-management-server"><span class="std std-ref">基于 gRPC 或 REST-JSON API 的 xDS 管理服务器</span></a>，Envoy 通过它来获取集群成员。在 Envoy 的术语中，集群成员被称为“端点”。对于每个集群，Envoy 从发现服务中获取端点。EDS 是首选的服务发现机制，原因有以下几点：</p>
 <ul class="simple">
-<li><p>Envoy has explicit knowledge of each upstream host (vs. routing through a DNS resolved load
-balancer) and can make more intelligent load balancing decisions.</p></li>
-<li><p>Extra attributes carried in the discovery API response for each host inform Envoy of the host’s
-load balancing weight, canary status, zone, etc. These additional attributes are used globally
-by the Envoy mesh during load balancing, statistic gathering, etc.</p></li>
+<li><p>Envoy 对每个上游主机都有明确的了解（相对于通过 DNS 解析的负载均衡器进行路由），可以做出更智能的负载均衡决策。</p></li>
+<li><p>每台主机的服务发现 API 响应中携带的额外属性会告知 Envoy 该主机的负载均衡权重、金丝雀状态、区域等。这些额外的属性在负载均衡、统计收集等过程中被 Envoy 网格全局使用。</p></li>
 </ul>
-<p>The Envoy project provides reference gRPC implementations of EDS and
-<a class="reference internal" href="../operations/dynamic_configuration.html#arch-overview-dynamic-config"><span class="std std-ref">other discovery services</span></a>
-in both <a class="reference external" href="https://github.com/envoyproxy/java-control-plane">Java</a>
-and <a class="reference external" href="https://github.com/envoyproxy/go-control-plane">Go</a>.</p>
+<p>Envoy 项目提供了 EDS 和 <a class="reference internal" href="../operations/dynamic_configuration.html#arch-overview-dynamic-config"><span class="std std-ref">其他发现服务</span></a> 的 <a class="reference external" href="https://github.com/envoyproxy/java-control-plane">Java</a> 和 <a class="reference external" href="https://github.com/envoyproxy/go-control-plane">Go</a> 语言版本的参考 gRPC 实现。</p>
 </div>
-<div class="section" id="custom-cluster">
-<span id="arch-overview-service-discovery-types-custom"></span><h3>Custom cluster<a class="headerlink" href="#custom-cluster" title="Permalink to this headline">¶</a></h3>
-<p>Envoy also supports custom cluster discovery mechanism. Custom clusters are specified using
-<a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-cluster-type"><span class="std std-ref">cluster_type field</span></a> on the cluster configuration.</p>
-<p>Generally active health checking is used in conjunction with the eventually consistent service
-discovery service data to making load balancing and routing decisions. This is discussed further in
-the following section.</p>
+<div class="section" id="arch-overview-service-discovery-types-custom">
+<span id="id6"></span><h3>自定义集群<a class="headerlink" href="#arch-overview-service-discovery-types-custom" title="Permalink to this headline">¶</a></h3>
+<p>Envoy 还支持自定义集群发现机制。自定义集群使用 <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-cluster-type"><span class="std std-ref">cluster_type 字段</span></a> 在集群配置上指定。</p>
+<p>一般情况下，主动健康检查与最终一致的服务发现服务数据一起使用，以做出负载均衡和路由决策。这将在下一节进一步讨论。</p>
 </div>
 </div>
-<div class="section" id="on-eventually-consistent-service-discovery">
-<span id="arch-overview-service-discovery-eventually-consistent"></span><h2>On eventually consistent service discovery<a class="headerlink" href="#on-eventually-consistent-service-discovery" title="Permalink to this headline">¶</a></h2>
-<p>Many existing RPC systems treat service discovery as a fully consistent process. To this end, they
-use fully consistent leader election backing stores such as Zookeeper, etcd, Consul, etc. Our
-experience has been that operating these backing stores at scale is painful.</p>
-<p>Envoy was designed from the beginning with the idea that service discovery does not require full
-consistency. Instead, Envoy assumes that hosts come and go from the mesh in an eventually consistent
-way. Our recommended way of deploying a service to service Envoy mesh configuration uses eventually
-consistent service discovery along with <a class="reference internal" href="health_checking.html#arch-overview-health-checking"><span class="std std-ref">active health checking</span></a>
-(Envoy explicitly health checking upstream cluster members) to determine cluster health. This
-paradigm has a number of benefits:</p>
+<div class="section" id="arch-overview-service-discovery-eventually-consistent">
+<span id="id7"></span><h2>关于最终一致的服务发现<a class="headerlink" href="#arch-overview-service-discovery-eventually-consistent" title="Permalink to this headline">¶</a></h2>
+<p>许多现有的 RPC 系统把服务发现当作一个完全一致的过程。为此，他们使用完全一致性的领导者选举的备份存储，如 Zookeeper、etcd、Consul 等。我们的经验是，大规模运营这些备份存储是很痛苦的。</p>
+<p>Envoy 从设计之初就考虑到服务发现不需要完全一致。相反，Envoy 假设主机以最终一致的方式从网格中来来去去。我们推荐的部署服务到服务的 Envoy 网格的方式使用最终一致的服务发现以及 <a class="reference internal" href="health_checking.html#arch-overview-health-checking"><span class="std std-ref">主动健康检查</span></a> （Envoy 明确地对上游集群成员进行健康检查）来确定集群健康状况。这种模式有很多好处：</p>
 <ul class="simple">
-<li><p>All health decisions are fully distributed. Thus, network partitions are gracefully handled
-(whether the application gracefully handles the partition is a different story).</p></li>
-<li><p>When health checking is configured for an upstream cluster, Envoy uses a 2x2 matrix to determine
-whether to route to a host:</p></li>
+<li><p>所有的健康决策都是完全分布式的。因此，网络分区会被优雅地处理（应用程序是否优雅地处理分区是另一回事）。</p></li>
+<li><p>当为上游集群配置健康检查时，Envoy 使用 2x2 矩阵来决定是否路由到主机：</p></li>
 </ul>
 <table class="colwidths-given docutils align-default">
 <colgroup>
@@ -335,36 +270,30 @@ whether to route to a host:</p></li>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Discovery Status</p></th>
-<th class="head"><p>Health Check OK</p></th>
-<th class="head"><p>Health Check Failed</p></th>
+<tr class="row-odd"><th class="head"><p>服务发现状态</p></th>
+<th class="head"><p>健康检查正常</p></th>
+<th class="head"><p>健康检查失败</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Discovered</p></td>
-<td><p>Route</p></td>
-<td><p>Don’t Route</p></td>
+<tr class="row-even"><td><p>已发现</p></td>
+<td><p>执行路由</p></td>
+<td><p>不执行路由</p></td>
 </tr>
-<tr class="row-odd"><td><p>Absent</p></td>
-<td><p>Route</p></td>
-<td><p>Don’t Route / Delete</p></td>
+<tr class="row-odd"><td><p>未发现</p></td>
+<td><p>执行路由</p></td>
+<td><p>不执行路由/移除</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="simple">
-<dt>Host discovered / health check OK</dt><dd><p>Envoy <strong>will route</strong> to the target host.</p>
+<dt>发现主机/健康检查正常</dt><dd><p>Envoy <strong>将路由</strong> 到目标主机。</p>
 </dd>
-<dt>Host absent / health check OK:</dt><dd><p>Envoy <strong>will route</strong> to the target host. This is very important since the design assumes that the
-discovery service can fail at any time. If a host continues to pass health check even after becoming
-absent from the discovery data, Envoy will still route. Although it would be impossible to add new
-hosts in this scenario, existing hosts will continue to operate normally. When the discovery service
-is operating normally again the data will eventually re-converge.</p>
+<dt>未发现主机/健康检查正常</dt><dd><p>Envoy <strong>将路由</strong> 到目标主机。这一点非常重要，因为设计中假设发现服务随时可能失败。如果一个主机在发现数据中不存在后仍然通过健康检查，Envoy 仍然会进行路由。虽然在这种情况下不可能增加新的主机，但现有的主机将继续正常运行。当发现服务再次正常运行时，数据最终会重新合并。</p>
 </dd>
-<dt>Host discovered / health check FAIL</dt><dd><p>Envoy <strong>will not route</strong> to the target host. Health check data is assumed to be more accurate than
-discovery data.</p>
+<dt>发现主机/健康检查失败</dt><dd><p>Envoy <strong>不会路由</strong> 到目标主机。健康检查数据被认为比发现数据更准确。</p>
 </dd>
-<dt>Host absent / health check FAIL</dt><dd><p>Envoy <strong>will not route and will delete</strong> the target host. This
-is the only state in which Envoy will purge host data.</p>
+<dt>未发现主机/健康检查失败</dt><dd><p>Envoy <strong>不会路由，并会移除</strong> 目标主机。这是唯一一种 Envoy 会清除主机数据的状态。</p>
 </dd>
 </dl>
 </div>
