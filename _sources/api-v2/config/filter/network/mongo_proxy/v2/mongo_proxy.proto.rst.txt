@@ -20,7 +20,7 @@ MongoDB :ref:`configuration overview <config_network_filters_mongo_proxy>`.
 config.filter.network.mongo_proxy.v2.MongoProxy
 -----------------------------------------------
 
-`[config.filter.network.mongo_proxy.v2.MongoProxy proto] <https://github.com/envoyproxy/envoy/blob/8c62b0cd2d3a2210a2df1f14488a92cbf0820466/api/envoy/config/filter/network/mongo_proxy/v2/mongo_proxy.proto#L21>`_
+`[config.filter.network.mongo_proxy.v2.MongoProxy proto] <https://github.com/envoyproxy/envoy/blob/9349def15e4ac4620cfb8ac8adc391695a22425a/api/envoy/config/filter/network/mongo_proxy/v2/mongo_proxy.proto#L21>`_
 
 
 .. code-block:: json

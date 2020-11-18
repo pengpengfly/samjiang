@@ -9,7 +9,7 @@ Aggregate cluster configuration
 config.cluster.aggregate.v2alpha.ClusterConfig
 ----------------------------------------------
 
-`[config.cluster.aggregate.v2alpha.ClusterConfig proto] <https://github.com/envoyproxy/envoy/blob/8c62b0cd2d3a2210a2df1f14488a92cbf0820466/api/envoy/config/cluster/aggregate/v2alpha/cluster.proto#L19>`_
+`[config.cluster.aggregate.v2alpha.ClusterConfig proto] <https://github.com/envoyproxy/envoy/blob/9349def15e4ac4620cfb8ac8adc391695a22425a/api/envoy/config/cluster/aggregate/v2alpha/cluster.proto#L19>`_
 
 Configuration for the aggregate cluster. See the :ref:`architecture overview
 <arch_overview_aggregate_cluster>` for more information.
