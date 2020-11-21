@@ -9,7 +9,7 @@ Proxy Protocol
 config.core.v3.ProxyProtocolConfig
 ----------------------------------
 
-`[config.core.v3.ProxyProtocolConfig proto] <https://github.com/envoyproxy/envoy/blob/fc7c004141d12dee00729ef13f0723fa3d514c30/api/envoy/config/core/v3/proxy_protocol.proto#L14>`_
+`[config.core.v3.ProxyProtocolConfig proto] <https://github.com/envoyproxy/envoy/blob/d20b5f51a7c2506bcd36dfbcb969dc1754a4b296/api/envoy/config/core/v3/proxy_protocol.proto#L14>`_
 
 
 .. code-block:: json
@@ -30,7 +30,7 @@ version
 Enum config.core.v3.ProxyProtocolConfig.Version
 -----------------------------------------------
 
-`[config.core.v3.ProxyProtocolConfig.Version proto] <https://github.com/envoyproxy/envoy/blob/fc7c004141d12dee00729ef13f0723fa3d514c30/api/envoy/config/core/v3/proxy_protocol.proto#L15>`_
+`[config.core.v3.ProxyProtocolConfig.Version proto] <https://github.com/envoyproxy/envoy/blob/d20b5f51a7c2506bcd36dfbcb969dc1754a4b296/api/envoy/config/core/v3/proxy_protocol.proto#L15>`_
 
 
 .. _envoy_v3_api_enum_value_config.core.v3.ProxyProtocolConfig.Version.V1:
