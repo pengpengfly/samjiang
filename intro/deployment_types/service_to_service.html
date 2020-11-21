@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Service to service only &mdash; envoy 1.16.0-d20b5f documentation</title>
+  <title>仅服务间部署 &mdash; envoy 1.16.0-31e6be documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-d20b5f
+                1.16.0-31e6be
               </div>
             
           
@@ -106,12 +106,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../arch_overview/arch_overview.html">架构概览</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../life_of_a_request.html">Life of a Request</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="deployment_types.html">部署类型</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Service to service only</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#service-to-service-egress-listener">Service to service egress listener</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#service-to-service-ingress-listener">Service to service ingress listener</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#optional-external-service-egress-listeners">Optional external service egress listeners</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#discovery-service-integration">Discovery service integration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#configuration-template">Configuration template</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">仅服务间部署</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#egress">服务间 Egress 监听器</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ingress">服务间 Ingress 监听器</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">可选的外部服务 Egress 监听器</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">服务发现集成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">配置模板</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="front_proxy.html">服务间外加前端代理</a></li>
@@ -179,7 +179,7 @@
         
           <li><a href="deployment_types.html">部署类型</a> &raquo;</li>
         
-      <li>Service to service only</li>
+      <li>仅服务间部署</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -198,54 +198,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="service-to-service-only">
-<span id="deployment-type-service-to-service"></span><h1>Service to service only<a class="headerlink" href="#service-to-service-only" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="deployment-type-service-to-service">
+<span id="id1"></span><h1>仅服务间部署<a class="headerlink" href="#deployment-type-service-to-service" title="Permalink to this headline">¶</a></h1>
 <a class="reference internal image-reference" href="../../_images/service_to_service.svg"><img alt="../../_images/service_to_service.svg" src="../../_images/service_to_service.svg" width="60%" /></a>
-<p>The above diagram shows the simplest Envoy deployment which uses Envoy as a communication bus for
-all traffic internal to a service oriented architecture (SOA). In this scenario, Envoy exposes
-several listeners that are used for local origin traffic as well as service-to-service traffic.</p>
-<div class="section" id="service-to-service-egress-listener">
-<h2>Service to service egress listener<a class="headerlink" href="#service-to-service-egress-listener" title="Permalink to this headline">¶</a></h2>
-<p>This is the port used by applications to talk to other services in the infrastructure. For example,
-<em>http://localhost:9001</em>. HTTP and gRPC requests use the HTTP/1.1 <em>host</em> header or the HTTP/2
-<em>:authority</em> header to indicate which remote cluster the request is destined for. Envoy handles
-service discovery, load balancing, rate limiting, etc. depending on the details in the
-configuration. Services only need to know about the local Envoy and do not need to concern
-themselves with network topology, whether they are running in development or production, etc.</p>
-<p>This listener supports both HTTP/1.1 or HTTP/2 depending on the capabilities of the application.</p>
+<p>上图展示了一种 Envoy 最简单的部署方式，将 Envoy 作为通信总线代理面向服务的体系结构（SOA）应用内部的所有流量。
+在这个场景中，Envoy 暴露了几个用于本地通讯和服务间通讯的监听器。</p>
+<div class="section" id="egress">
+<h2>服务间 Egress 监听器<a class="headerlink" href="#egress" title="Permalink to this headline">¶</a></h2>
+<p>应用使用这个端口与基础设施中的其他服务进行通讯。例如 <em>http://localhost:9001</em> 。 HTTP 和 gRPC 请求通过
+HTTP/1.1 <em>host</em> header 或者 HTTP/2 <em>:authority</em> header 来标明要访问的远程集群。 Envoy 根据配置中的详细
+规则来处理服务发现、负载均衡和限流等操作。服务只需要关心本地的 Envoy ，而不需要关心网络拓扑结构，无论它们是在开发还是生产中运行。</p>
+<p>这个监听器根据应用程序的不同可以同时支持 HTTP/1.1 或者 HTTP/2 。</p>
 <a class="reference internal image-reference" href="../../_images/service_to_service_egress_listener.svg"><img alt="../../_images/service_to_service_egress_listener.svg" src="../../_images/service_to_service_egress_listener.svg" width="40%" /></a>
 </div>
-<div class="section" id="service-to-service-ingress-listener">
-<span id="deployment-type-service-to-service-ingress"></span><h2>Service to service ingress listener<a class="headerlink" href="#service-to-service-ingress-listener" title="Permalink to this headline">¶</a></h2>
-<p>This is the port used by remote Envoys when they want to talk to the local Envoy. For example,
-<em>http://servicename:9211</em>. Envoy routes incoming requests to the local service on the configured
-port(s). Multiple application ports may be involved depending on application or load balancing
-needs (for example if the service needs both an HTTP port and a gRPC port). The local Envoy
-performs buffering, circuit breaking, etc. as needed.</p>
-<p>Our default configurations use HTTP/2 for all Envoy to Envoy communication, regardless of whether
-the application uses HTTP/1.1 or HTTP/2 when egressing out of a local Envoy. HTTP/2 provides
-better performance via long lived connections and explicit reset notifications.</p>
+<div class="section" id="ingress">
+<span id="deployment-type-service-to-service-ingress"></span><h2>服务间 Ingress 监听器<a class="headerlink" href="#ingress" title="Permalink to this headline">¶</a></h2>
+<p>这是远程 Envoy 想与本地 Envoy 通讯时使用的端口。例如 <em>http://servicename:9211</em> 。Envoy 将所有从这个端口传入的请求路由到本地服务配置的其他端口上。根据应用程序或负载均衡的需要，可能涉及多个应用程序端口（例如，如果服务需要同时监听 HTTP 端口和 gRPC 端口）。本地 Envoy 根据需要执行缓冲、熔断等操作。</p>
+<p>不管应用程序与本地 Envoy 通讯时使用 HTTP/1.1 还是 HTTP/2，Envoy 实例间的通讯都默认使用 HTTP/2。因为 HTTP/2 通过长连接和显式重置（发送 RST_STREAM 类型的 frame）等机制可以提供更好的性能。</p>
 <a class="reference internal image-reference" href="../../_images/service_to_service_ingress_listener.svg"><img alt="../../_images/service_to_service_ingress_listener.svg" src="../../_images/service_to_service_ingress_listener.svg" width="55%" /></a>
 </div>
-<div class="section" id="optional-external-service-egress-listeners">
-<h2>Optional external service egress listeners<a class="headerlink" href="#optional-external-service-egress-listeners" title="Permalink to this headline">¶</a></h2>
-<p>Generally, an explicit egress port is used for each external service that a local service wants
-to talk to. This is done because some external service SDKs do not easily support overriding the
-<em>host</em> header to allow for standard HTTP reverse proxy behavior. For example,
-<em>http://localhost:9250</em> might be allocated for connections destined for DynamoDB. Instead of using
-<em>host</em> routing for some external services and dedicated local port routing for others, we recommend
-being consistent and using local port routing for all external services.</p>
+<div class="section" id="id2">
+<h2>可选的外部服务 Egress 监听器<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>通常，对于本地服务想要通讯的每个外部服务都会显式声明一个 Egress 端口。这样做是因为一些外部服务的 SDK 不好重写 <em>host</em> header ，从而无法实现标准的反向代理行为。例如，可以为访问 DynamoDB 的连接分配 <em>http://localhost:9250</em> 端口。对于一些外部服务使用 <em>host</em> 路由，而其他服务使用专用的本地端口，我们建议对所有外部服务都是用本地端口路由。</p>
 </div>
-<div class="section" id="discovery-service-integration">
-<h2>Discovery service integration<a class="headerlink" href="#discovery-service-integration" title="Permalink to this headline">¶</a></h2>
-<p>The recommended service-to-service configuration uses an external discovery service for all cluster
-lookups. This provides Envoy with the most detailed information possible for use when performing
-load balancing, statistics gathering, etc.</p>
+<div class="section" id="id3">
+<h2>服务发现集成<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>建议服务间的 Envoy 配置使用一个额外的服务来实现所有集群的服务发现，它会向 Envoy 提供最详尽的信息来做负载均衡和统计数据采集等。</p>
 </div>
-<div class="section" id="configuration-template">
-<h2>Configuration template<a class="headerlink" href="#configuration-template" title="Permalink to this headline">¶</a></h2>
-<p>The source distribution includes <a class="reference internal" href="../../install/ref_configs.html#install-ref-configs"><span class="std std-ref">an example service-to-service configuration</span></a>
-that is very similar to the version that Lyft runs in production.</p>
+<div class="section" id="id4">
+<h2>配置模板<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>源代码发行版包含一个 <a class="reference internal" href="../../install/ref_configs.html#install-ref-configs"><span class="std std-ref">服务间的配置示例</span></a> ，这与 Lyft 在生产中运行的版本非常相似。</p>
 </div>
 </div>
 
