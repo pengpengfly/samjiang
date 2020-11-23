@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Supported load balancers &mdash; envoy 1.16.0-31e6be documentation</title>
+  <title>Supported load balancers &mdash; envoy 1.16.0-010730 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-31e6be
+                1.16.0-010730
               </div>
             
           
@@ -128,7 +128,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../advanced/advanced.html">高级的</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../life_of_a_request.html">Life of a Request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../life_of_a_request.html">请求的生命周期</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../deployment_types/deployment_types.html">部署类型</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../getting_help.html">获取帮助</a></li>
 </ul>
@@ -308,7 +308,7 @@ when using a large ring size of 256K entries). The downside of Maglev is that it
 as ring hash. More keys will move position when hosts are removed (simulations show approximately
 double the keys will move). With that said, for many applications including Redis, Maglev is very
 likely a superior drop in replacement for ring hash. The advanced reader can use
-<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/31e6be0325752e64f36370759121d56de08b6113//test/common/upstream/load_balancer_benchmark.cc">this benchmark</a> to compare ring hash
+<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/0107309f3f5b14b7c2a47a2a592ef916a0c62d41//test/common/upstream/load_balancer_benchmark.cc">this benchmark</a> to compare ring hash
 versus Maglev with different parameters.</p>
 </div>
 <div class="section" id="random">

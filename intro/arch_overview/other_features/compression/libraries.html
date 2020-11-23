@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>压缩库 &mdash; envoy 1.16.0-31e6be documentation</title>
+  <title>压缩库 &mdash; envoy 1.16.0-010730 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-31e6be
+                1.16.0-010730
               </div>
             
           
@@ -123,7 +123,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../advanced/advanced.html">高级的</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../life_of_a_request.html">Life of a Request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../life_of_a_request.html">请求的生命周期</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../deployment_types/deployment_types.html">部署类型</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../getting_help.html">获取帮助</a></li>
 </ul>
@@ -217,7 +217,7 @@
 <p><a class="reference external" href="https://github.com/zlib-ng/zlib-ng">zlib-ng</a> 是一个存在多个包含最新优化的第三方贡献 Fork 库。
 这其中的很多优化对于 <a class="reference external" href="https://github.com/envoyproxy/envoy/issues/8448#issuecomment-667152013">提高压缩性能</a> 有很大的用处。
 比如 Envoy 可以通过使用 –define zlib=ngbazel 选项，来构建 <a class="reference external" href="https://github.com/zlib-ng/zlib-ng">zlib-ng</a> 代替之前的 <a class="reference external" href="http://zlib.net">zlib</a> 。
-用于构建 <a class="reference external" href="https://github.com/zlib-ng/zlib-ng">zlib-ng</a> 的相关参数选项，可以在 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/31e6be0325752e64f36370759121d56de08b6113/bazel/foreign_cc/BUILD">这里</a> 找到。
+用于构建 <a class="reference external" href="https://github.com/zlib-ng/zlib-ng">zlib-ng</a> 的相关参数选项，可以在 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/0107309f3f5b14b7c2a47a2a592ef916a0c62d41/bazel/foreign_cc/BUILD">这里</a> 找到。
 但是，这些参数选项目前只能在 Linux 上使用。</p>
 </div>
 </div>
