@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>HTTP 升级 &mdash; envoy 1.16.0-042045 documentation</title>
+  <title>HTTP 升级 &mdash; envoy 1.16.0-e92588 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-042045
+                1.16.0-e92588
               </div>
             
           
@@ -115,7 +115,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../upstream/upstream.html">上游集群</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../observability/observability.html">Observability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../observability/observability.html">可观察性</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security.html">安全</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../operations/operations.html">操作与配置</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">其他特性</a></li>
@@ -284,7 +284,7 @@ HTTP 升级在通常情况下是通过 HTTP 过滤链来传递 HTTP header 和 H
 <p>Envoy 还支持将原始 TCP 请求转化为 HTTP1.2 CONNECT 请求，这是通过提前预备的安全链路来代理多路传输的 TCP 请求，并且可以分摊 TLS 握手的成本。
 例如设置代理 SMTP 的流程如下：</p>
 <p>[SMTP Upstream] — raw SMTP — [L2 Envoy]  — SMTP tunneled over HTTP/2  — [L1 Envoy]  — raw SMTP  — [Client]</p>
-<p>如果运行 bazel-bin/source/exe/envoy-static –config-path configs/encapsulate_in_connect.yaml –base-id 1 and bazel-bin/source/exe/envoy-static –config-path configs/terminate_connect.yaml 则能在示例配置 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/042045e6112181a397a69b4f4ccfb537123eaa18/configs/">文件</a> 中找到对应的示例。
+<p>如果运行 bazel-bin/source/exe/envoy-static –config-path configs/encapsulate_in_connect.yaml –base-id 1 and bazel-bin/source/exe/envoy-static –config-path configs/terminate_connect.yaml 则能在示例配置 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e92588da9e11de45fb0bd15bbc61f3140052d8c1/configs/">文件</a> 中找到对应的示例。
 其中将会运行两个 Envoy ，第一个会监听10000 端口 上的 TCP 流量，接着会将其封装为 HTTP1.2 请求；另一个会监听10001 端口上的 HTTP1.2 请求，去掉请求的请求头，接着将原始 TCP 请求转到上游，在本示例中是 google.com。</p>
 </div>
 </div>

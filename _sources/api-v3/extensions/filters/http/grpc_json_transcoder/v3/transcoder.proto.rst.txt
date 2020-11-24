@@ -20,7 +20,7 @@ gRPC-JSON transcoder :ref:`configuration overview <config_http_filters_grpc_json
 extensions.filters.http.grpc_json_transcoder.v3.GrpcJsonTranscoder
 ------------------------------------------------------------------
 
-`[extensions.filters.http.grpc_json_transcoder.v3.GrpcJsonTranscoder proto] <https://github.com/envoyproxy/envoy/blob/042045e6112181a397a69b4f4ccfb537123eaa18/api/envoy/extensions/filters/http/grpc_json_transcoder/v3/transcoder.proto#L18>`_
+`[extensions.filters.http.grpc_json_transcoder.v3.GrpcJsonTranscoder proto] <https://github.com/envoyproxy/envoy/blob/e92588da9e11de45fb0bd15bbc61f3140052d8c1/api/envoy/extensions/filters/http/grpc_json_transcoder/v3/transcoder.proto#L18>`_
 
 
 .. code-block:: json
@@ -187,7 +187,7 @@ convert_grpc_status
 extensions.filters.http.grpc_json_transcoder.v3.GrpcJsonTranscoder.PrintOptions
 -------------------------------------------------------------------------------
 
-`[extensions.filters.http.grpc_json_transcoder.v3.GrpcJsonTranscoder.PrintOptions proto] <https://github.com/envoyproxy/envoy/blob/042045e6112181a397a69b4f4ccfb537123eaa18/api/envoy/extensions/filters/http/grpc_json_transcoder/v3/transcoder.proto#L22>`_
+`[extensions.filters.http.grpc_json_transcoder.v3.GrpcJsonTranscoder.PrintOptions proto] <https://github.com/envoyproxy/envoy/blob/e92588da9e11de45fb0bd15bbc61f3140052d8c1/api/envoy/extensions/filters/http/grpc_json_transcoder/v3/transcoder.proto#L22>`_
 
 
 .. code-block:: json

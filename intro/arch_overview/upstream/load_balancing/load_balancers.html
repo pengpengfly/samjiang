@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Supported load balancers &mdash; envoy 1.16.0-042045 documentation</title>
+  <title>Supported load balancers &mdash; envoy 1.16.0-e92588 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-042045
+                1.16.0-e92588
               </div>
             
           
@@ -120,7 +120,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../load_reporting_service.html">负载上报服务 (LRS)</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../observability/observability.html">Observability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../observability/observability.html">可观察性</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../security/security.html">安全</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../operations/operations.html">操作与配置</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../other_features/other_features.html">其他特性</a></li>
@@ -308,7 +308,7 @@ when using a large ring size of 256K entries). The downside of Maglev is that it
 as ring hash. More keys will move position when hosts are removed (simulations show approximately
 double the keys will move). With that said, for many applications including Redis, Maglev is very
 likely a superior drop in replacement for ring hash. The advanced reader can use
-<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/042045e6112181a397a69b4f4ccfb537123eaa18//test/common/upstream/load_balancer_benchmark.cc">this benchmark</a> to compare ring hash
+<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e92588da9e11de45fb0bd15bbc61f3140052d8c1//test/common/upstream/load_balancer_benchmark.cc">this benchmark</a> to compare ring hash
 versus Maglev with different parameters.</p>
 </div>
 <div class="section" id="random">

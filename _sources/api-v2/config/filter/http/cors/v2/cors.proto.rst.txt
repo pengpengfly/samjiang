@@ -20,7 +20,7 @@ CORS Filter :ref:`configuration overview <config_http_filters_cors>`.
 config.filter.http.cors.v2.Cors
 -------------------------------
 
-`[config.filter.http.cors.v2.Cors proto] <https://github.com/envoyproxy/envoy/blob/042045e6112181a397a69b4f4ccfb537123eaa18/api/envoy/config/filter/http/cors/v2/cors.proto#L18>`_
+`[config.filter.http.cors.v2.Cors proto] <https://github.com/envoyproxy/envoy/blob/e92588da9e11de45fb0bd15bbc61f3140052d8c1/api/envoy/config/filter/http/cors/v2/cors.proto#L18>`_
 
 Cors filter config.
 

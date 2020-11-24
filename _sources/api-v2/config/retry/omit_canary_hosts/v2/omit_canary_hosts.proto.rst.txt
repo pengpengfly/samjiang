@@ -19,7 +19,7 @@ This extension may be referenced by the qualified name *envoy.retry_host_predica
 config.retry.omit_canary_hosts.v2.OmitCanaryHostsPredicate
 ----------------------------------------------------------
 
-`[config.retry.omit_canary_hosts.v2.OmitCanaryHostsPredicate proto] <https://github.com/envoyproxy/envoy/blob/042045e6112181a397a69b4f4ccfb537123eaa18/api/envoy/config/retry/omit_canary_hosts/v2/omit_canary_hosts.proto#L14>`_
+`[config.retry.omit_canary_hosts.v2.OmitCanaryHostsPredicate proto] <https://github.com/envoyproxy/envoy/blob/e92588da9e11de45fb0bd15bbc61f3140052d8c1/api/envoy/config/retry/omit_canary_hosts/v2/omit_canary_hosts.proto#L14>`_
 
 
 .. code-block:: json

@@ -9,7 +9,7 @@ SafeCrossScheme internal redirect predicate
 extensions.internal_redirect.safe_cross_scheme.v3.SafeCrossSchemeConfig
 -----------------------------------------------------------------------
 
-`[extensions.internal_redirect.safe_cross_scheme.v3.SafeCrossSchemeConfig proto] <https://github.com/envoyproxy/envoy/blob/042045e6112181a397a69b4f4ccfb537123eaa18/api/envoy/extensions/internal_redirect/safe_cross_scheme/v3/safe_cross_scheme_config.proto#L22>`_
+`[extensions.internal_redirect.safe_cross_scheme.v3.SafeCrossSchemeConfig proto] <https://github.com/envoyproxy/envoy/blob/e92588da9e11de45fb0bd15bbc61f3140052d8c1/api/envoy/extensions/internal_redirect/safe_cross_scheme/v3/safe_cross_scheme_config.proto#L22>`_
 
 An internal redirect predicate that checks the scheme between the
 downstream url and the redirect target url and allows a) same scheme

@@ -20,7 +20,7 @@ Lua :ref:`configuration overview <config_http_filters_lua>`.
 extensions.filters.http.lua.v3.Lua
 ----------------------------------
 
-`[extensions.filters.http.lua.v3.Lua proto] <https://github.com/envoyproxy/envoy/blob/042045e6112181a397a69b4f4ccfb537123eaa18/api/envoy/extensions/filters/http/lua/v3/lua.proto#L19>`_
+`[extensions.filters.http.lua.v3.Lua proto] <https://github.com/envoyproxy/envoy/blob/e92588da9e11de45fb0bd15bbc61f3140052d8c1/api/envoy/extensions/filters/http/lua/v3/lua.proto#L19>`_
 
 
 .. code-block:: json
@@ -68,7 +68,7 @@ source_codes
 extensions.filters.http.lua.v3.LuaPerRoute
 ------------------------------------------
 
-`[extensions.filters.http.lua.v3.LuaPerRoute proto] <https://github.com/envoyproxy/envoy/blob/042045e6112181a397a69b4f4ccfb537123eaa18/api/envoy/extensions/filters/http/lua/v3/lua.proto#L49>`_
+`[extensions.filters.http.lua.v3.LuaPerRoute proto] <https://github.com/envoyproxy/envoy/blob/e92588da9e11de45fb0bd15bbc61f3140052d8c1/api/envoy/extensions/filters/http/lua/v3/lua.proto#L49>`_
 
 
 .. code-block:: json
