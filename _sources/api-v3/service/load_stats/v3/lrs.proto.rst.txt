@@ -18,7 +18,7 @@ For details, take a look at the :ref:`Load Reporting Service sandbox example <in
 service.load_stats.v3.LoadStatsRequest
 --------------------------------------
 
-`[service.load_stats.v3.LoadStatsRequest proto] <https://github.com/envoyproxy/envoy/blob/0107309f3f5b14b7c2a47a2a592ef916a0c62d41/api/envoy/service/load_stats/v3/lrs.proto#L63>`_
+`[service.load_stats.v3.LoadStatsRequest proto] <https://github.com/envoyproxy/envoy/blob/042045e6112181a397a69b4f4ccfb537123eaa18/api/envoy/service/load_stats/v3/lrs.proto#L63>`_
 
 A load report Envoy sends to the management server.
 
@@ -48,7 +48,7 @@ cluster_stats
 service.load_stats.v3.LoadStatsResponse
 ---------------------------------------
 
-`[service.load_stats.v3.LoadStatsResponse proto] <https://github.com/envoyproxy/envoy/blob/0107309f3f5b14b7c2a47a2a592ef916a0c62d41/api/envoy/service/load_stats/v3/lrs.proto#L76>`_
+`[service.load_stats.v3.LoadStatsResponse proto] <https://github.com/envoyproxy/envoy/blob/042045e6112181a397a69b4f4ccfb537123eaa18/api/envoy/service/load_stats/v3/lrs.proto#L76>`_
 
 The management server sends envoy a LoadStatsResponse with all clusters it
 is interested in learning load stats about.

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Initialization &mdash; envoy 1.16.0-010730 documentation</title>
+  <title>初始化 &mdash; envoy 1.16.0-042045 documentation</title>
   
 
   
@@ -47,7 +47,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Draining" href="draining.html" />
-    <link rel="prev" title="xDS configuration API overview" href="dynamic_configuration.html" /> 
+    <link rel="prev" title="xDS 配置 API 概述" href="dynamic_configuration.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-010730
+                1.16.0-042045
               </div>
             
           
@@ -111,8 +111,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../observability/observability.html">Observability</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security.html">安全</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="operations.html">操作与配置</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="dynamic_configuration.html">xDS configuration API overview</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Initialization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dynamic_configuration.html">xDS 配置 API 概述</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">初始化</a></li>
 <li class="toctree-l4"><a class="reference internal" href="draining.html">Draining</a></li>
 <li class="toctree-l4"><a class="reference internal" href="runtime.html">运行时配置</a></li>
 <li class="toctree-l4"><a class="reference internal" href="hot_restart.html">热重启</a></li>
@@ -189,7 +189,7 @@
         
           <li><a href="operations.html">操作与配置</a> &raquo;</li>
         
-      <li>Initialization</li>
+      <li>初始化</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -208,36 +208,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="initialization">
-<span id="arch-overview-initialization"></span><h1>Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h1>
-<p>How Envoy initializes itself when it starts up is complex. This section explains at a high level
-how the process works. All of the following happens before any listeners start listening and
-accepting new connections.</p>
+  <div class="section" id="arch-overview-initialization">
+<span id="id1"></span><h1>初始化<a class="headerlink" href="#arch-overview-initialization" title="Permalink to this headline">¶</a></h1>
+<p>Envoy 在启动时的初始化是很复杂的。本章将从高层次上解释该过程是如何工作的。在所有监听器启动监听并接收新连接之前，会发生以下所有过程。</p>
 <ul class="simple">
-<li><p>During startup, the <a class="reference internal" href="../upstream/cluster_manager.html#arch-overview-cluster-manager"><span class="std std-ref">cluster manager</span></a> goes through a
-multi-phase initialization where it first initializes static/DNS clusters, then predefined
-<a class="reference internal" href="dynamic_configuration.html#arch-overview-dynamic-config-eds"><span class="std std-ref">EDS</span></a> clusters. Then it initializes
-<a class="reference internal" href="dynamic_configuration.html#arch-overview-dynamic-config-cds"><span class="std std-ref">CDS</span></a> if applicable, waits for one response (or failure)
-for a <a class="reference internal" href="../../../api-v3/config/core/v3/config_source.proto.html#envoy-v3-api-field-config-core-v3-configsource-initial-fetch-timeout"><span class="std std-ref">bounded period of time</span></a>,
-and does the same primary/secondary initialization of CDS provided clusters.</p></li>
-<li><p>If clusters use <a class="reference internal" href="../upstream/health_checking.html#arch-overview-health-checking"><span class="std std-ref">active health checking</span></a>, Envoy also does a
-single active health check round.</p></li>
-<li><p>Once cluster manager initialization is done, <a class="reference internal" href="dynamic_configuration.html#arch-overview-dynamic-config-rds"><span class="std std-ref">RDS</span></a> and
-<a class="reference internal" href="dynamic_configuration.html#arch-overview-dynamic-config-lds"><span class="std std-ref">LDS</span></a> initialize (if applicable). The server waits
-for a <a class="reference internal" href="../../../api-v3/config/core/v3/config_source.proto.html#envoy-v3-api-field-config-core-v3-configsource-initial-fetch-timeout"><span class="std std-ref">bounded period of time</span></a>
-for at least one response (or failure) for LDS/RDS requests. After which, it starts accepting connections.</p></li>
-<li><p>If LDS itself returns a listener that needs an RDS response, Envoy further waits for
-a <a class="reference internal" href="../../../api-v3/config/core/v3/config_source.proto.html#envoy-v3-api-field-config-core-v3-configsource-initial-fetch-timeout"><span class="std std-ref">bounded period of time</span></a> until an RDS
-response (or failure) is received. Note that this process takes place on every future listener
-addition via LDS and is known as <a class="reference internal" href="../../../configuration/listeners/lds.html#config-listeners-lds"><span class="std std-ref">listener warming</span></a>.</p></li>
-<li><p>After all of the previous steps have taken place, the listeners start accepting new connections.
-This flow ensures that during hot restart the new process is fully capable of accepting and
-processing new connections before the draining of the old process begins.</p></li>
+<li><p>启动期间，<a class="reference internal" href="../upstream/cluster_manager.html#arch-overview-cluster-manager"><span class="std std-ref">集群管理器</span></a> 会经过一个多阶段的初始化，首先初始化静态/DNS 集群，然后初始化预定义的 <a class="reference internal" href="dynamic_configuration.html#arch-overview-dynamic-config-eds"><span class="std std-ref">EDS</span></a> 集群。如果适用，它将初始化 <a class="reference internal" href="dynamic_configuration.html#arch-overview-dynamic-config-cds"><span class="std std-ref">CDS</span></a>，等待响应（或失败） <a class="reference internal" href="../../../api-v3/config/core/v3/config_source.proto.html#envoy-v3-api-field-config-core-v3-configsource-initial-fetch-timeout"><span class="std std-ref">一段有限的时间</span></a> ， 并为 CDS 提供的集群执行相同主/次初始化。</p></li>
+<li><p>如果集群使用 <a class="reference internal" href="../upstream/health_checking.html#arch-overview-health-checking"><span class="std std-ref">主动健康检查</span></a>，Envoy 也会执行一次主动健康检查。</p></li>
+<li><p>集群管理器初始化完成后，<a class="reference internal" href="dynamic_configuration.html#arch-overview-dynamic-config-rds"><span class="std std-ref">RDS</span></a> 和 <a class="reference internal" href="dynamic_configuration.html#arch-overview-dynamic-config-lds"><span class="std std-ref">LDS</span></a> 将进行初始化（如果适用）。服务器将等待 <a class="reference internal" href="../../../api-v3/config/core/v3/config_source.proto.html#envoy-v3-api-field-config-core-v3-configsource-initial-fetch-timeout"><span class="std std-ref">一段有限的时间</span></a> ，来接受至少一个 LDS/RDS 请求的响应（或者失败）后，服务器才开始接受连接。</p></li>
+<li><p>如果 LDS 本身返回需要 RDS 响应的监听器，则 Envoy 会进一步等待 <a class="reference internal" href="../../../api-v3/config/core/v3/config_source.proto.html#envoy-v3-api-field-config-core-v3-configsource-initial-fetch-timeout"><span class="std std-ref">一段有限的时间</span></a>，直到接收到 RDS 响应（或失败）为止。请注意，这个过程会在后续每个通过 LDS 添加的监听器进行，称为 <a class="reference internal" href="../../../configuration/listeners/lds.html#config-listeners-lds"><span class="std std-ref">监听器热身</span></a>。</p></li>
+<li><p>在完成前面的所有步骤之后，监听器开始接受新的连接。该流程可确保在热重启期间，新进程完全能够在旧进程被驱逐之前接受并处理新连接。</p></li>
 </ul>
-<p>A key design principle of initialization is that an Envoy is always guaranteed to initialize within
-<a class="reference internal" href="../../../api-v3/config/core/v3/config_source.proto.html#envoy-v3-api-field-config-core-v3-configsource-initial-fetch-timeout"><span class="std std-ref">initial_fetch_timeout</span></a>,
-with a best effort made to obtain the complete set of xDS configuration within that subject to the
-management server availability.</p>
+<p>初始化的关键设计原则是，始终确保 Envoy 在 <a class="reference internal" href="../../../api-v3/config/core/v3/config_source.proto.html#envoy-v3-api-field-config-core-v3-configsource-initial-fetch-timeout"><span class="std std-ref">初始化获取超时</span></a> 时间段内完成初始化，并在管理服务器可用性的前提下，尽最大努力获得完整的 xDS 配置集。</p>
 </div>
 
 
@@ -251,7 +232,7 @@ management server availability.</p>
         <a href="draining.html" class="btn btn-neutral float-right" title="Draining" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="dynamic_configuration.html" class="btn btn-neutral float-left" title="xDS configuration API overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dynamic_configuration.html" class="btn btn-neutral float-left" title="xDS 配置 API 概述" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

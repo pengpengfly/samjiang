@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>External dependencies &mdash; envoy 1.16.0-010730 documentation</title>
+  <title>外部依赖 &mdash; envoy 1.16.0-042045 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-010730
+                1.16.0-042045
               </div>
             
           
@@ -112,10 +112,10 @@
 <li class="toctree-l3 current"><a class="reference internal" href="security.html">安全</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="ssl.html">TLS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="jwt_authn_filter.html">JSON Web Token (JWT) Authentication</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ext_authz_filter.html">External Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_authz_filter.html">外部授权</a></li>
 <li class="toctree-l4"><a class="reference internal" href="rbac_filter.html">Role Based Access Control</a></li>
 <li class="toctree-l4"><a class="reference internal" href="threat_model.html">威胁模型</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">External dependencies</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">外部依赖</a></li>
 <li class="toctree-l4"><a class="reference internal" href="google_vrp.html">Google Vulnerability Reward Program (VRP)</a></li>
 </ul>
 </li>
@@ -190,7 +190,7 @@
         
           <li><a href="security.html">安全</a> &raquo;</li>
         
-      <li>External dependencies</li>
+      <li>外部依赖</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -209,12 +209,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="external-dependencies">
-<span id="arch-overview-external-deps"></span><h1>External dependencies<a class="headerlink" href="#external-dependencies" title="Permalink to this headline">¶</a></h1>
-<p>Below we enumerate the external dependencies that may be linked into the Envoy binary. We exclude
-dependencies that only are used in CI or developer tooling above.</p>
-<div class="section" id="data-plane-core">
-<h2>Data plane (core)<a class="headerlink" href="#data-plane-core" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="arch-overview-external-deps">
+<span id="id1"></span><h1>外部依赖<a class="headerlink" href="#arch-overview-external-deps" title="Permalink to this headline">¶</a></h1>
+<p>下面列举了可能被链接到 Envoy 二进制文件中的外部依赖项，排除了那些只在 CI 或开发者工具中使用的依赖项。</p>
+<div class="section" id="id2">
+<h2>数据平面（核心）<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 33%" />
@@ -333,8 +332,8 @@ dependencies that only are used in CI or developer tooling above.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="data-plane-extensions">
-<h2>Data plane (extensions)<a class="headerlink" href="#data-plane-extensions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>数据平面（扩展）<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="envoy-access-loggers-wasm">
 <h3>envoy.access_loggers.wasm<a class="headerlink" href="#envoy-access-loggers-wasm" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
@@ -891,8 +890,8 @@ dependencies that only are used in CI or developer tooling above.</p>
 </table>
 </div>
 </div>
-<div class="section" id="control-plane">
-<h2>Control plane<a class="headerlink" href="#control-plane" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>控制平面<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 33%" />
@@ -1016,8 +1015,8 @@ dependencies that only are used in CI or developer tooling above.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="observability-core">
-<h2>Observability (core)<a class="headerlink" href="#observability-core" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>可观测性（核心）<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 33%" />
@@ -1041,10 +1040,10 @@ dependencies that only are used in CI or developer tooling above.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="observability-extensions">
-<h2>Observability (extensions)<a class="headerlink" href="#observability-extensions" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id1">
-<h3>envoy.filters.http.aws_lambda<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h2>可观测性（扩展）<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3>envoy.filters.http.aws_lambda<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 33%" />
@@ -1068,8 +1067,8 @@ dependencies that only are used in CI or developer tooling above.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="id2">
-<h3>envoy.filters.http.aws_request_signing<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>envoy.filters.http.aws_request_signing<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 33%" />
@@ -1093,8 +1092,8 @@ dependencies that only are used in CI or developer tooling above.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="id3">
-<h3>envoy.grpc_credentials.aws_iam<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h3>envoy.grpc_credentials.aws_iam<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 33%" />
@@ -1208,8 +1207,8 @@ dependencies that only are used in CI or developer tooling above.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="id4">
-<h3>envoy.tracers.opencensus<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3>envoy.tracers.opencensus<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 33%" />
@@ -1239,8 +1238,8 @@ dependencies that only are used in CI or developer tooling above.</p>
 </table>
 </div>
 </div>
-<div class="section" id="test-only">
-<h2>Test only<a class="headerlink" href="#test-only" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h2>仅测试<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 33%" />
@@ -1304,8 +1303,8 @@ dependencies that only are used in CI or developer tooling above.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="build">
-<h2>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id12">
+<h2>构建<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 33%" />
@@ -1379,8 +1378,8 @@ dependencies that only are used in CI or developer tooling above.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="miscellaneous">
-<h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id13">
+<h2>其他<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 33%" />

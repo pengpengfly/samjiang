@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>External Authorization &mdash; envoy 1.16.0-010730 documentation</title>
+  <title>外部授权 &mdash; envoy 1.16.0-042045 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-010730
+                1.16.0-042045
               </div>
             
           
@@ -112,10 +112,10 @@
 <li class="toctree-l3 current"><a class="reference internal" href="security.html">安全</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="ssl.html">TLS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="jwt_authn_filter.html">JSON Web Token (JWT) Authentication</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">External Authorization</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">外部授权</a></li>
 <li class="toctree-l4"><a class="reference internal" href="rbac_filter.html">Role Based Access Control</a></li>
 <li class="toctree-l4"><a class="reference internal" href="threat_model.html">威胁模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="external_deps.html">External dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="external_deps.html">外部依赖</a></li>
 <li class="toctree-l4"><a class="reference internal" href="google_vrp.html">Google Vulnerability Reward Program (VRP)</a></li>
 </ul>
 </li>
@@ -190,7 +190,7 @@
         
           <li><a href="security.html">安全</a> &raquo;</li>
         
-      <li>External Authorization</li>
+      <li>外部授权</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -209,37 +209,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="external-authorization">
-<span id="arch-overview-ext-authz"></span><h1>External Authorization<a class="headerlink" href="#external-authorization" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="arch-overview-ext-authz">
+<span id="id1"></span><h1>外部授权<a class="headerlink" href="#arch-overview-ext-authz" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../../configuration/listeners/network_filters/ext_authz_filter.html#config-network-filters-ext-authz"><span class="std std-ref">Network filter configuration</span></a>.</p></li>
-<li><p><a class="reference internal" href="../../../configuration/http/http_filters/ext_authz_filter.html#config-http-filters-ext-authz"><span class="std std-ref">HTTP filter configuration</span></a>.</p></li>
+<li><p><a class="reference internal" href="../../../configuration/listeners/network_filters/ext_authz_filter.html#config-network-filters-ext-authz"><span class="std std-ref">网络层过滤器配置</span></a>。</p></li>
+<li><p><a class="reference internal" href="../../../configuration/http/http_filters/ext_authz_filter.html#config-http-filters-ext-authz"><span class="std std-ref">HTTP 过滤器配置</span></a>。</p></li>
 </ul>
-<p>The External authorization filter calls an authorization service to check if the incoming request
-is authorized or not. The filter can be either configured as a
-<a class="reference internal" href="../../../configuration/listeners/network_filters/ext_authz_filter.html#config-network-filters-ext-authz"><span class="std std-ref">network filter</span></a>, or as a
-<a class="reference internal" href="../../../configuration/http/http_filters/ext_authz_filter.html#config-http-filters-ext-authz"><span class="std std-ref">HTTP filter</span></a> or both. If the request is deemed
-unauthorized by the network filter then the connection will be closed. If the request is deemed
-unauthorized at the HTTP filter the request will be denied with 403 (Forbidden) response.</p>
+<p>外部授权过滤器调用授权服务以检查传入请求是否被授权。过滤器可以配置为 <a class="reference internal" href="../../../configuration/listeners/network_filters/ext_authz_filter.html#config-network-filters-ext-authz"><span class="std std-ref">网络层过滤器</span></a> 或 <a class="reference internal" href="../../../configuration/http/http_filters/ext_authz_filter.html#config-http-filters-ext-authz"><span class="std std-ref">HTTP 过滤器</span></a> 或同时配置两者。如果该请求被网络层过滤器视为未被授权，则连接将被关闭。如果该请求在 HTTP 过滤器中被视为未被授权，则该请求将被 403（禁止）响应拒绝。</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>It is recommended that these filters are configured as the first filter in the filter chain so
-that requests are authorized prior to rest of the filters processing the request.</p>
+<p>建议将授权过滤器配置为过滤器链中的第一个过滤器，以便在其余过滤器处理请求之前对请求进行授权处理。</p>
 </div>
-<p>The external authorization service cluster may be either statically configured or configured via
-the <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cds.html#config-cluster-manager-cds"><span class="std std-ref">Cluster Discovery Service</span></a>. If the external service is not
-available when a request comes in then whether the request is authorized or not is defined by the
-configuration setting of <em>failure_mode_allow</em> configuration in the applicable
-<a class="reference internal" href="../../../api-v3/extensions/filters/network/ext_authz/v3/ext_authz.proto.html#envoy-v3-api-msg-extensions-filters-network-ext-authz-v3-extauthz"><span class="std std-ref">network filter</span></a> or
-<a class="reference internal" href="../../../api-v3/extensions/filters/http/ext_authz/v3/ext_authz.proto.html#envoy-v3-api-msg-extensions-filters-http-ext-authz-v3-extauthz"><span class="std std-ref">HTTP filter</span></a>. If it is set to
-true then the request will be permitted (fail open) otherwise it will be denied.
-The default setting is <em>false</em>.</p>
-<div class="section" id="service-definition">
-<h2>Service Definition<a class="headerlink" href="#service-definition" title="Permalink to this headline">¶</a></h2>
-<p>The context of the traffic is passed on to an external authorization service using the service
-definition listed here.
-The content of the request that are passed to an authorization service is specified by
-<a class="reference internal" href="../../../api-v3/service/auth/v3/external_auth.proto.html#envoy-v3-api-msg-service-auth-v3-checkrequest"><span class="std std-ref">CheckRequest</span></a>.</p>
+<p>外部授权服务群集可以是静态配置的，也可以是通过 <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cds.html#config-cluster-manager-cds"><span class="std std-ref">集群服务发现</span></a> 配置的。如果在请求到达时外部服务不可用，则该请求是否被授权由 <a class="reference internal" href="../../../api-v3/extensions/filters/network/ext_authz/v3/ext_authz.proto.html#envoy-v3-api-msg-extensions-filters-network-ext-authz-v3-extauthz"><span class="std std-ref">网络层过滤器</span></a> 或 <a class="reference internal" href="../../../api-v3/extensions/filters/http/ext_authz/v3/ext_authz.proto.html#envoy-v3-api-msg-extensions-filters-http-ext-authz-v3-extauthz"><span class="std std-ref">HTTP 过滤器</span></a> 中的 <em>failure_mode_allow</em> 配置项的设置决定。如果将其设置为 true，则该请求将被放行（故障打开），否则将被拒绝。
+默认设置为 false。</p>
+<div class="section" id="id2">
+<h2>服务定义<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>与外部授权服务通信的上下文使用此处的定义
+传递给授权服务的请求内容由 <a class="reference internal" href="../../../api-v3/service/auth/v3/external_auth.proto.html#envoy-v3-api-msg-service-auth-v3-checkrequest"><span class="std std-ref">CheckRequest</span></a> 指定。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api-v3/service/auth/v3/attribute_context.proto.html">Attribute Context</a><ul>

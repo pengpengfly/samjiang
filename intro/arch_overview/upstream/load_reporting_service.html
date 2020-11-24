@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Load Reporting Service (LRS) &mdash; envoy 1.16.0-010730 documentation</title>
+  <title>负载上报服务 (LRS) &mdash; envoy 1.16.0-042045 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-010730
+                1.16.0-042045
               </div>
             
           
@@ -117,7 +117,7 @@
 <li class="toctree-l4"><a class="reference internal" href="outlier.html">Outlier detection</a></li>
 <li class="toctree-l4"><a class="reference internal" href="circuit_breaking.html">断路</a></li>
 <li class="toctree-l4"><a class="reference internal" href="upstream_filters.html">Upstream network filters</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Load Reporting Service (LRS)</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">负载上报服务 (LRS)</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../observability/observability.html">Observability</a></li>
@@ -193,7 +193,7 @@
         
           <li><a href="upstream.html">上游集群</a> &raquo;</li>
         
-      <li>Load Reporting Service (LRS)</li>
+      <li>负载上报服务 (LRS)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -212,16 +212,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="load-reporting-service-lrs">
-<span id="arch-overview-load-reporting-service"></span><h1>Load Reporting Service (LRS)<a class="headerlink" href="#load-reporting-service-lrs" title="Permalink to this headline">¶</a></h1>
-<p>The Load Reporting Service provides a mechanism by which Envoy can emit Load Reports to a management
-server at a regular cadence.</p>
-<p>This will initiate a bi-directional stream with a management server. Upon connecting, the management
-server can send a <a class="reference internal" href="../../../api-v3/service/load_stats/v3/lrs.proto.html#envoy-v3-api-msg-service-load-stats-v3-loadstatsresponse"><span class="std std-ref">LoadStatsResponse</span></a>
-to a node it is interested in getting the load reports for. Envoy in this node will start sending
-<a class="reference internal" href="../../../api-v3/service/load_stats/v3/lrs.proto.html#envoy-v3-api-msg-service-load-stats-v3-loadstatsrequest"><span class="std std-ref">LoadStatsRequest</span></a>. This is done periodically
-based on the <a class="reference internal" href="../../../api-v3/service/load_stats/v3/lrs.proto.html#envoy-v3-api-field-service-load-stats-v3-loadstatsresponse-load-reporting-interval"><span class="std std-ref">load reporting interval</span></a></p>
-<p>Envoy config with LRS can be found at <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/0107309f3f5b14b7c2a47a2a592ef916a0c62d41//examples/load-reporting-service/service-envoy-w-lrs.yaml">/examples/load-reporting-service/service-envoy-w-lrs.yaml</a>.</p>
+  <div class="section" id="lrs">
+<span id="arch-overview-load-reporting-service"></span><h1>负载上报服务 (LRS)<a class="headerlink" href="#lrs" title="Permalink to this headline">¶</a></h1>
+<p>负载上报服务提供了一种机制，使 Envoy 可以定期向管理服务器发送负载报告。</p>
+<p>这将启动一个与管理服务器的双向流。连接后，管理服务器可以发送一个 <a class="reference internal" href="../../../api-v3/service/load_stats/v3/lrs.proto.html#envoy-v3-api-msg-service-load-stats-v3-loadstatsresponse"><span class="std std-ref">LoadStatsResponse</span></a> 给它有兴趣获取负载报告的节点。这个节点中的 Envoy 将开始发送 <a class="reference internal" href="../../../api-v3/service/load_stats/v3/lrs.proto.html#envoy-v3-api-msg-service-load-stats-v3-loadstatsrequest"><span class="std std-ref">LoadStatsRequest</span></a>。这是根据 <a class="reference internal" href="../../../api-v3/service/load_stats/v3/lrs.proto.html#envoy-v3-api-field-service-load-stats-v3-loadstatsresponse-load-reporting-interval"><span class="std std-ref">负载上报时间间隔</span></a> 定期进行的。</p>
+<p>负载上报服务的配置可以参考 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/042045e6112181a397a69b4f4ccfb537123eaa18//examples/load-reporting-service/service-envoy-w-lrs.yaml">/examples/load-reporting-service/service-envoy-w-lrs.yaml</a>。</p>
 </div>
 
 

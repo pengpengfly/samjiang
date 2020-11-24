@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>xDS configuration API overview &mdash; envoy 1.16.0-010730 documentation</title>
+  <title>xDS 配置 API 概述 &mdash; envoy 1.16.0-042045 documentation</title>
   
 
   
@@ -46,7 +46,7 @@
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Initialization" href="init.html" />
+    <link rel="next" title="初始化" href="init.html" />
     <link rel="prev" title="操作与配置" href="operations.html" /> 
 </head>
 
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-010730
+                1.16.0-042045
               </div>
             
           
@@ -111,8 +111,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../observability/observability.html">Observability</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security.html">安全</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="operations.html">操作与配置</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">xDS configuration API overview</a></li>
-<li class="toctree-l4"><a class="reference internal" href="init.html">Initialization</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">xDS 配置 API 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="init.html">初始化</a></li>
 <li class="toctree-l4"><a class="reference internal" href="draining.html">Draining</a></li>
 <li class="toctree-l4"><a class="reference internal" href="runtime.html">运行时配置</a></li>
 <li class="toctree-l4"><a class="reference internal" href="hot_restart.html">热重启</a></li>
@@ -189,7 +189,7 @@
         
           <li><a href="operations.html">操作与配置</a> &raquo;</li>
         
-      <li>xDS configuration API overview</li>
+      <li>xDS 配置 API 概述</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -208,118 +208,65 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="xds-configuration-api-overview">
-<span id="arch-overview-dynamic-config"></span><h1>xDS configuration API overview<a class="headerlink" href="#xds-configuration-api-overview" title="Permalink to this headline">¶</a></h1>
-<p>Envoy is architected such that different types of configuration management approaches are possible.
-The approach taken in a deployment will be dependent on the needs of the implementor. Simple
-deployments are possible with a fully static configuration. More complicated deployments can
-incrementally add more complex dynamic configuration, the downside being that the implementor must
-provide one or more external gRPC/REST based configuration provider APIs. These APIs are
-collectively known as <a class="reference internal" href="../../../api-docs/xds_protocol.html#xds-protocol"><span class="std std-ref">“xDS”</span></a> (* discovery service). This document gives an
-overview of the options currently available.</p>
+  <div class="section" id="xds-api">
+<span id="arch-overview-dynamic-config"></span><h1>xDS 配置 API 概述<a class="headerlink" href="#xds-api" title="Permalink to this headline">¶</a></h1>
+<p>Envoy 的架构支持使用不同类型的配置管理方法。部署中采用的方法将取决于实现者的需求。简单部署可以通过全静态配置来实现。更复杂的部署可以逐步地添加更复杂的动态配置，缺点是实现者必须提供一个或多个基于 gRPC/REST的外部配置提供 API。这些 API 统称为 <a class="reference internal" href="../../../api-docs/xds_protocol.html#xds-protocol"><span class="std std-ref">“xDS”</span></a> (* 服务发现)。本文档概述了当前可用的选项。</p>
 <ul class="simple">
-<li><p>Top level configuration <a class="reference internal" href="../../../configuration/configuration.html#config"><span class="std std-ref">reference</span></a>.</p></li>
-<li><p><a class="reference internal" href="../../../install/ref_configs.html#install-ref-configs"><span class="std std-ref">Reference configurations</span></a>.</p></li>
-<li><p>Envoy <a class="reference internal" href="../../../configuration/overview/overview.html#config-overview"><span class="std std-ref">v3 API overview</span></a>.</p></li>
-<li><p><a class="reference internal" href="../../../configuration/overview/xds_api.html#config-overview-management-server"><span class="std std-ref">xDS API endpoints</span></a>.</p></li>
+<li><p>顶级配置 <a class="reference internal" href="../../../configuration/configuration.html#config"><span class="std std-ref">参考</span></a>。</p></li>
+<li><p><a class="reference internal" href="../../../install/ref_configs.html#install-ref-configs"><span class="std std-ref">参考配置</span></a>。</p></li>
+<li><p>Envoy <a class="reference internal" href="../../../configuration/overview/overview.html#config-overview"><span class="std std-ref">v3 API 概述</span></a>。</p></li>
+<li><p><a class="reference internal" href="../../../configuration/overview/xds_api.html#config-overview-management-server"><span class="std std-ref">xDS API 端点</span></a>。</p></li>
 </ul>
-<div class="section" id="fully-static">
-<h2>Fully static<a class="headerlink" href="#fully-static" title="Permalink to this headline">¶</a></h2>
-<p>In a fully static configuration, the implementor provides a set of <a class="reference internal" href="../../../configuration/listeners/listeners.html#config-listeners"><span class="std std-ref">listeners</span></a> (and <a class="reference internal" href="../../../api-v3/config/listener/v3/listener_components.proto.html#envoy-v3-api-msg-config-listener-v3-filter"><span class="std std-ref">filter chains</span></a>), <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_manager.html#config-cluster-manager"><span class="std std-ref">clusters</span></a>, etc. Dynamic host discovery is only possible via DNS based
-<a class="reference internal" href="../upstream/service_discovery.html#arch-overview-service-discovery"><span class="std std-ref">service discovery</span></a>. Configuration reloads must take place
-via the built in <a class="reference internal" href="hot_restart.html#arch-overview-hot-restart"><span class="std std-ref">hot restart</span></a> mechanism.</p>
-<p>Though simplistic, fairly complicated deployments can be created using static configurations and
-graceful hot restarts.</p>
+<div class="section" id="id1">
+<h2>全静态<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>在全静态配置中，实现者提供一组:ref:<cite>监听器 &lt;config_listeners&gt;</cite> （和 <a class="reference internal" href="../../../api-v3/config/listener/v3/listener_components.proto.html#envoy-v3-api-msg-config-listener-v3-filter"><span class="std std-ref">过滤器链</span></a>）、<a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_manager.html#config-cluster-manager"><span class="std std-ref">集群</span></a> 等。动态主机发现仅能通过基于 DNS 的 <a class="reference internal" href="../upstream/service_discovery.html#arch-overview-service-discovery"><span class="std std-ref">服务发现</span></a>。配置重载必须通过内置的 <a class="reference internal" href="hot_restart.html#arch-overview-hot-restart"><span class="std std-ref">热重启</span></a> 机制进行。</p>
+<p>虽然简单，但可以使用静态配置和优雅的热重启来创建相当复杂的部署。</p>
 </div>
 <div class="section" id="eds">
 <span id="arch-overview-dynamic-config-eds"></span><h2>EDS<a class="headerlink" href="#eds" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="../upstream/service_discovery.html#arch-overview-service-discovery-types-eds"><span class="std std-ref">Endpoint Discovery Service (EDS) API</span></a> provides
-a more advanced mechanism by which Envoy can discover members of an upstream cluster. Layered on top
-of a static configuration, EDS allows an Envoy deployment to circumvent the limitations of DNS
-(maximum records in a response, etc.) as well as consume more information used in load balancing and
-routing (e.g., canary status, zone, etc.).</p>
+<p><a class="reference internal" href="../upstream/service_discovery.html#arch-overview-service-discovery-types-eds"><span class="std std-ref">端点发现服务（EDS） API</span></a> 提供了一种更先进的机制，通过它 Envoy 可以发现上游集群的成员。在静态配置基础上，EDS 允许 Envoy 部署避开 DNS 的限制（响应中的最大记录等），并使用更多信息用于负载均衡和路由（例如，灰度发布、区域等）。</p>
 </div>
 <div class="section" id="cds">
 <span id="arch-overview-dynamic-config-cds"></span><h2>CDS<a class="headerlink" href="#cds" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cds.html#config-cluster-manager-cds"><span class="std std-ref">Cluster Discovery Service (CDS) API</span></a> layers on a mechanism by
-which Envoy can discover upstream clusters used during routing. Envoy will gracefully add, update,
-and remove clusters as specified by the API. This API allows implementors to build a topology in
-which Envoy does not need to be aware of all upstream clusters at initial configuration time.
-Typically, when doing HTTP routing along with CDS (but without route discovery service),
-implementors will make use of the router’s ability to forward requests to a cluster specified in an
-<a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-cluster-header"><span class="std std-ref">HTTP request header</span></a>.</p>
-<p>Although it is possible to use CDS without EDS by specifying fully static clusters, we recommend
-still using the EDS API for clusters specified via CDS. Internally, when a cluster definition is
-updated, the operation is graceful. However, all existing connection pools will be drained and
-reconnected. EDS does not suffer from this limitation. When hosts are added and removed via EDS, the
-existing hosts in the cluster are unaffected.</p>
+<p><a class="reference internal" href="../../../configuration/upstream/cluster_manager/cds.html#config-cluster-manager-cds"><span class="std std-ref">集群发现服务（CDS） API</span></a> 是 Envoy 的一种机制，在路由期间可以用来发现使用的上游集群。Envoy 将优雅地添加、更新和删除由 API 指定的集群。该 API 允许实现者构建一个拓扑，在这个拓扑中，Envoy 不需要在初始配置时就知道所有上游群集。通常，当使用 CDS 进行 HTTP 路由时（但没有路由发现服务），实现者将利用路由器将请求转发到 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-cluster-header"><span class="std std-ref">HTTP request header</span></a> 中指定的集群。尽管可以通过指定全静态集群来使用不带 EDS 的 CDS，i但是对于用 CDS 指定的集群，我们依旧建议使用 EDS API。在内部更新集群定义时，操作是优雅的。但是，所有现有的连接池都将被排空并重新连接。EDS 不受此限制。当通过 EDS 添加和删除主机时，群集中的现有主机不受影响。</p>
 </div>
 <div class="section" id="rds">
 <span id="arch-overview-dynamic-config-rds"></span><h2>RDS<a class="headerlink" href="#rds" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="../../../configuration/http/http_conn_man/rds.html#config-http-conn-man-rds"><span class="std std-ref">Route Discovery Service (RDS) API</span></a> layers on a mechanism by
-which Envoy can discover the entire route configuration for an HTTP connection manager filter at
-runtime. The route configuration will be gracefully swapped in without affecting existing requests.
-This API, when used alongside EDS and CDS, allows implementors to build a complex routing topology
-(<a class="reference internal" href="../../../configuration/http/http_conn_man/traffic_splitting.html#config-http-conn-man-route-table-traffic-splitting"><span class="std std-ref">traffic shifting</span></a>, blue/green
-deployment, etc).</p>
+<p>ref:<cite>路由发现服务（RDS） API &lt;config_http_conn_man_rds&gt;</cite> 是 Envoy 的一种机制，可以在运行时发现用于 HTTP 连接管理器过滤器的整个路由配置。路由配置将优雅地交换，而不会影响现有的请求。该 API 与 EDS 和 CDS 一起使用时，允许执行者构建复杂的路由拓扑（ <a class="reference internal" href="../../../configuration/http/http_conn_man/traffic_splitting.html#config-http-conn-man-route-table-traffic-splitting"><span class="std std-ref">流量转移</span></a>、蓝/绿部署等），除了获取新的 Envoy 二进制文件外，不需要任何 Envoy 重启。</p>
 </div>
 <div class="section" id="vhds">
 <h2>VHDS<a class="headerlink" href="#vhds" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="../../../configuration/http/http_conn_man/vhds.html#config-http-conn-man-vhds"><span class="std std-ref">Virtual Host Discovery Service</span></a> allows the virtual hosts belonging
-to a route configuration to be requested as needed separately from the route configuration itself. This
-API is typically used in deployments in which there are a large number of virtual hosts in a route
-configuration.</p>
+<p><a class="reference internal" href="../../../configuration/http/http_conn_man/vhds.html#config-http-conn-man-vhds"><span class="std std-ref">虚拟主机发现服务</span></a> 允许根据需要分别请求属于路由配置的虚拟主机和路由配置。该 API 通常用于路由配置中存在大量虚拟主机的部署中。</p>
 </div>
 <div class="section" id="srds">
 <h2>SRDS<a class="headerlink" href="#srds" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="../http/http_routing.html#arch-overview-http-routing-route-scope"><span class="std std-ref">Scoped Route Discovery Service (SRDS) API</span></a> allows
-a route table to be broken up into multiple pieces. This API is typically used in deployments of
-HTTP routing with massive route tables in which simple linear searches are not feasible.</p>
+<p><a class="reference internal" href="../http/http_routing.html#arch-overview-http-routing-route-scope"><span class="std std-ref">作用域路由发现服务（SRDS） API</span></a> 允许将路由表划分成多个部分。该 API 通常用于具有大量路由表的 HTTP 路由部署中，在这种情况下，简单的线性搜索是不可行的。</p>
 </div>
 <div class="section" id="lds">
 <span id="arch-overview-dynamic-config-lds"></span><h2>LDS<a class="headerlink" href="#lds" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="../../../configuration/listeners/lds.html#config-listeners-lds"><span class="std std-ref">Listener Discovery Service (LDS) API</span></a> layers on a mechanism by which
-Envoy can discover entire listeners at runtime. This includes all filter stacks, up to and including
-HTTP filters with embedded references to <a class="reference internal" href="../../../configuration/http/http_conn_man/rds.html#config-http-conn-man-rds"><span class="std std-ref">RDS</span></a>. Adding LDS into
-the mix allows almost every aspect of Envoy to be dynamically configured. Hot restart should
-only be required for very rare configuration changes (admin, tracing driver, etc.), certificate
-rotation, or binary updates.</p>
+<p><a class="reference internal" href="../../../configuration/listeners/lds.html#config-listeners-lds"><span class="std std-ref">监听器发现服务（LDS） API</span></a> 是 Envoy 的一种机制，可以在运行时发现整个监听器。这包括所有的过滤器堆栈，并包含带有内嵌到 <a class="reference internal" href="../../../configuration/http/http_conn_man/rds.html#config-http-conn-man-rds"><span class="std std-ref">RDS</span></a> 应用的 HTTP 过滤器。将 LDS 添加到组合中，几乎可以动态配置 Envoy 的每个方面。仅在非常少见的配置更改（管理员、追踪驱动程序等）、证书更换或二进制更新时才需要热重启。</p>
 </div>
 <div class="section" id="sds">
 <h2>SDS<a class="headerlink" href="#sds" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="../../../configuration/security/secret.html#config-secret-discovery-service"><span class="std std-ref">Secret Discovery Service (SDS) API</span></a> layers on a mechanism
-by which Envoy can discover cryptographic secrets (certificate plus private key, TLS session
-ticket keys) for its listeners, as well as configuration of peer certificate validation logic
-(trusted root certs, revocations, etc).</p>
+<p><a class="reference internal" href="../../../configuration/security/secret.html#config-secret-discovery-service"><span class="std std-ref">加密发现服务（SDS） API</span></a> 是 Envoy 的一种机制，通过该机制，Envoy 可以为其监听器发现加密数据（证书加私钥、TLS session 密钥），以及配置对等证书验证逻辑（可信根证书、撤销等）。</p>
 </div>
 <div class="section" id="rtds">
 <h2>RTDS<a class="headerlink" href="#rtds" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="../../../configuration/operations/runtime.html#config-runtime-rtds"><span class="std std-ref">RunTime Discovery Service (RTDS) API</span></a> allows
-<a class="reference internal" href="../../../configuration/operations/runtime.html#config-runtime"><span class="std std-ref">runtime</span></a> layers to be fetched via an xDS API. This may be favorable to,
-or augmented by, file system layers.</p>
+<p><a class="reference internal" href="../../../configuration/operations/runtime.html#config-runtime-rtds"><span class="std std-ref">运行时发现服务（RTDS） API</span></a> 允许通过 xDS API 来获取 <a class="reference internal" href="../../../configuration/operations/runtime.html#config-runtime"><span class="std std-ref">运行时</span></a>。这可能有利于文件系统层，或说是对文件系统层的增强。</p>
 </div>
 <div class="section" id="ecds">
 <h2>ECDS<a class="headerlink" href="#ecds" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="../../../configuration/overview/extension.html#config-overview-extension-discovery"><span class="std std-ref">Extension Config Discovery Service (ECDS) API</span></a>
-allows extension configurations (e.g. HTTP filter configuration) to be served independently from
-the listener. This is useful when building systems that are more appropriately split from the
-primary control plane such as WAF, fault testing, etc.</p>
+<p><a class="reference internal" href="../../../configuration/overview/extension.html#config-overview-extension-discovery"><span class="std std-ref">扩展配置发现服务（ECDS） API</span></a> 允许对独立于监听器的配置进行扩展（如 HTTP 过滤器配置）。当构建更适合与主控制平面分开的系统（例如 WAF、故障测试等）时，此功能很有用。</p>
 </div>
-<div class="section" id="aggregated-xds-ads">
-<h2>Aggregated xDS (“ADS”)<a class="headerlink" href="#aggregated-xds-ads" title="Permalink to this headline">¶</a></h2>
-<p>EDS, CDS, etc. are each separate services, with different REST/gRPC service names, e.g.
-StreamListeners, StreamSecrets. For users looking to enforce the order in which resources of
-different types reach Envoy, there is aggregated xDS, a single gRPC service that carries all
-resource types in a single gRPC stream. (ADS is only supported by gRPC).
-<a class="reference internal" href="../../../configuration/overview/xds_api.html#config-overview-ads"><span class="std std-ref">More details about ADS</span></a>.</p>
+<div class="section" id="xds-ads">
+<h2>聚合的 xDS (“ADS”)<a class="headerlink" href="#xds-ads" title="Permalink to this headline">¶</a></h2>
+<p>EDS、CDS 等都是单独的服务，具有不同的 REST/gRPC 服务名称，例如 StreamListeners、StreamSecrets。对于那些希望能够控制不同类型的资源到达 Envoy 顺序的用户，聚合 xDS 是一个不错的选择，它是一个单一的 gRPC 服务，单个 gRPC 流中承载所有资源类型（仅 gRPC 支持 ADS）。
+<a class="reference internal" href="../../../configuration/overview/xds_api.html#config-overview-ads"><span class="std std-ref">有关 ADS 的更多详细信息</span></a> 。</p>
 </div>
-<div class="section" id="delta-grpc-xds">
-<span id="arch-overview-dynamic-config-delta"></span><h2>Delta gRPC xDS<a class="headerlink" href="#delta-grpc-xds" title="Permalink to this headline">¶</a></h2>
-<p>Standard xDS is “state-of-the-world”: every update must contain every resource, with the absence of
-a resource from an update implying that the resource is gone. Envoy supports a “delta” variant of
-xDS (including ADS), where updates only contain resources added/changed/removed. Delta xDS is a
-new protocol, with request/response APIs different from SotW.
-<a class="reference internal" href="../../../configuration/overview/xds_api.html#config-overview-delta"><span class="std std-ref">More details about delta</span></a>.</p>
+<div class="section" id="grpc-xds">
+<span id="arch-overview-dynamic-config-delta"></span><h2>增量 gRPC xDS<a class="headerlink" href="#grpc-xds" title="Permalink to this headline">¶</a></h2>
+<p>标准的 xDS 是每个更新都必须包含所有的资源，而更新中没有资源信息意味着该资源已消失。Envoy 支持 xDS（包括 ADS）的”增量（delta）”变体，其更新仅包含添加/更改/删除的资源信息。增量 xDS 是一个新的协议，其请求/响应 API 与 SotW 不同。
+<a class="reference internal" href="../../../configuration/overview/xds_api.html#config-overview-delta"><span class="std std-ref">有关增量（Delta）的更多详细信息</span></a> 。</p>
 </div>
 </div>
 
@@ -331,7 +278,7 @@ new protocol, with request/response APIs different from SotW.
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="init.html" class="btn btn-neutral float-right" title="Initialization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="init.html" class="btn btn-neutral float-right" title="初始化" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="operations.html" class="btn btn-neutral float-left" title="操作与配置" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

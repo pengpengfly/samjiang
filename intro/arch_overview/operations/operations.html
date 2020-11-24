@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>操作与配置 &mdash; envoy 1.16.0-010730 documentation</title>
+  <title>操作与配置 &mdash; envoy 1.16.0-042045 documentation</title>
   
 
   
@@ -46,7 +46,7 @@
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="xDS configuration API overview" href="dynamic_configuration.html" />
+    <link rel="next" title="xDS 配置 API 概述" href="dynamic_configuration.html" />
     <link rel="prev" title="Google Vulnerability Reward Program (VRP)" href="../security/google_vrp.html" /> 
 </head>
 
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-010730
+                1.16.0-042045
               </div>
             
           
@@ -111,8 +111,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../observability/observability.html">Observability</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../security/security.html">安全</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">操作与配置</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="dynamic_configuration.html">xDS configuration API overview</a></li>
-<li class="toctree-l4"><a class="reference internal" href="init.html">Initialization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dynamic_configuration.html">xDS 配置 API 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="init.html">初始化</a></li>
 <li class="toctree-l4"><a class="reference internal" href="draining.html">Draining</a></li>
 <li class="toctree-l4"><a class="reference internal" href="runtime.html">运行时配置</a></li>
 <li class="toctree-l4"><a class="reference internal" href="hot_restart.html">热重启</a></li>
@@ -210,8 +210,8 @@
 <h1>操作与配置<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="dynamic_configuration.html">xDS configuration API overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dynamic_configuration.html#fully-static">Fully static</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamic_configuration.html">xDS 配置 API 概述</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dynamic_configuration.html#id1">全静态</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dynamic_configuration.html#eds">EDS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dynamic_configuration.html#cds">CDS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dynamic_configuration.html#rds">RDS</a></li>
@@ -221,11 +221,11 @@
 <li class="toctree-l2"><a class="reference internal" href="dynamic_configuration.html#sds">SDS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dynamic_configuration.html#rtds">RTDS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dynamic_configuration.html#ecds">ECDS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dynamic_configuration.html#aggregated-xds-ads">Aggregated xDS (“ADS”)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dynamic_configuration.html#delta-grpc-xds">Delta gRPC xDS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dynamic_configuration.html#xds-ads">聚合的 xDS (“ADS”)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dynamic_configuration.html#grpc-xds">增量 gRPC xDS</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="init.html">Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="init.html">初始化</a></li>
 <li class="toctree-l1"><a class="reference internal" href="draining.html">Draining</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runtime.html">运行时配置</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hot_restart.html">热重启</a></li>
@@ -245,7 +245,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dynamic_configuration.html" class="btn btn-neutral float-right" title="xDS configuration API overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dynamic_configuration.html" class="btn btn-neutral float-right" title="xDS 配置 API 概述" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../security/google_vrp.html" class="btn btn-neutral float-left" title="Google Vulnerability Reward Program (VRP)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
