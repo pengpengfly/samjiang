@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>JSON Web Token (JWT) Authentication &mdash; envoy 1.16.0-5547f7 documentation</title>
+  <title>JSON Web Token（JWT）认证 &mdash; envoy 1.16.0-144674 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-5547f7
+                1.16.0-144674
               </div>
             
           
@@ -111,7 +111,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../observability/observability.html">可观察性</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="security.html">安全</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="ssl.html">TLS</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">JSON Web Token (JWT) Authentication</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">JSON Web Token（JWT）认证</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ext_authz_filter.html">外部授权</a></li>
 <li class="toctree-l4"><a class="reference internal" href="rbac_filter.html">Role Based Access Control</a></li>
 <li class="toctree-l4"><a class="reference internal" href="threat_model.html">威胁模型</a></li>
@@ -190,7 +190,7 @@
         
           <li><a href="security.html">安全</a> &raquo;</li>
         
-      <li>JSON Web Token (JWT) Authentication</li>
+      <li>JSON Web Token（JWT）认证</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -209,29 +209,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="json-web-token-jwt-authentication">
-<span id="arch-overview-jwt-authn"></span><h1>JSON Web Token (JWT) Authentication<a class="headerlink" href="#json-web-token-jwt-authentication" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="json-web-token-jwt">
+<span id="arch-overview-jwt-authn"></span><h1>JSON Web Token（JWT）认证<a class="headerlink" href="#json-web-token-jwt" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../../configuration/http/http_filters/jwt_authn_filter.html#config-http-filters-jwt-authn"><span class="std std-ref">HTTP filter configuration</span></a>.</p></li>
+<li><p><a class="reference internal" href="../../../configuration/http/http_filters/jwt_authn_filter.html#config-http-filters-jwt-authn"><span class="std std-ref">HTTP 过滤器配置</span></a>。</p></li>
 </ul>
-<p>The JSON Web Token (JWT) Authentication filter checks if the incoming request has a valid
-<a class="reference external" href="https://tools.ietf.org/html/rfc7519">JSON Web Token (JWT)</a>. It checks the validity of the JWT by
-verifying the JWT signature, audiences and issuer based on the
-<a class="reference internal" href="../../../configuration/http/http_filters/jwt_authn_filter.html#config-http-filters-jwt-authn"><span class="std std-ref">HTTP filter configuration</span></a>. The JWT Authentication filter
-could be configured to either reject the request with invalid JWT immediately or defer the decision
-to later filters by passing the JWT payload to other filters.</p>
-<p>The JWT Authentication filter supports to check the JWT under various conditions of the request, it
-could be configured to check JWT only on specific paths so that you could allowlist some paths from
-the JWT authentication, which is useful if a path is accessible publicly and doesn’t require any JWT
-authentication.</p>
-<p>The JWT Authentication filter supports to extract the JWT from various locations of the request and
-could combine multiple JWT requirements for the same request. The
-<a class="reference external" href="https://tools.ietf.org/html/rfc7517">JSON Web Key Set (JWKS)</a> needed for the JWT signature
-verification could be either specified inline in the filter config or fetched from remote server
-via HTTP/HTTPS.</p>
-<p>The JWT Authentication filter also supports to write the payloads of the successfully verified JWT
-to <a class="reference internal" href="../advanced/data_sharing_between_filters.html#arch-overview-data-sharing-between-filters"><span class="std std-ref">Dynamic State</span></a> so that later filters could use
-it to make their own decisions based on the JWT payloads.</p>
+<p>JSON Web Token (JWT) 认证过滤器检查传入的请求是否具有有效的 JSON Web Token (JWT)。它通过基于 <a class="reference internal" href="../../../configuration/http/http_filters/jwt_authn_filter.html#config-http-filters-jwt-authn"><span class="std std-ref">HTTP 过滤器配置</span></a> 来验证 JWT 签名、受众和发行者来检查 JWT 的有效性。JWT 认证过滤器可以配置为立即拒绝无效的 JWT 请求，或者继续将 JWT 有效负载传递给其它过滤器，由后续的过滤器来决定是否拒绝。</p>
+<p>JWT 认证过滤器支持在请求的各种条件下检查 JWT，可以将其配置为仅在特定路径上检查 JWT，这样您就可以允许列出来自 JWT 认证的一些路径，如果路径是可公开访问的，并且不需要任何 JWT 认证，那么这将非常有用。</p>
+<p>JWT 认证过滤器支持从请求的不同位置提取 JWT，并且可以合并针对同一请求的多个 JWT 要求。JWT 签名验证所需的 <a class="reference external" href="https://tools.ietf.org/html/rfc7517">JSON Web Key Set (JWKS)</a> 可以在过滤器配置中内联指定，也可以通过 HTTP/HTTPS 从远程服务器获取。</p>
+<p>JWT 认证过滤器还支持将成功验证的 JWT 的有效载荷写入 <a class="reference internal" href="../advanced/data_sharing_between_filters.html#arch-overview-data-sharing-between-filters"><span class="std std-ref">动态状态</span></a>，以便后续的过滤器可以使用它来基于 JWT 有效负载做出自己的决定。</p>
 </div>
 
 
