@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>HTTP routing &mdash; envoy 1.16.0-e70148 documentation</title>
+  <title>HTTP 路由 &mdash; envoy 1.16.0-acdee0 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-e70148
+                1.16.0-acdee0
               </div>
             
           
@@ -109,7 +109,7 @@
 <li class="toctree-l3 current"><a class="reference internal" href="http.html">HTTP</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="http_connection_management.html">HTTP connection management</a></li>
 <li class="toctree-l4"><a class="reference internal" href="http_filters.html">HTTP 过滤器</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">HTTP routing</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">HTTP 路由</a></li>
 <li class="toctree-l4"><a class="reference internal" href="upgrades.html">HTTP 升级</a></li>
 <li class="toctree-l4"><a class="reference internal" href="http_proxy.html">HTTP 动态转发代理</a></li>
 </ul>
@@ -188,7 +188,7 @@
         
           <li><a href="http.html">HTTP</a> &raquo;</li>
         
-      <li>HTTP routing</li>
+      <li>HTTP 路由</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -207,60 +207,40 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="http-routing">
-<span id="arch-overview-http-routing"></span><h1>HTTP routing<a class="headerlink" href="#http-routing" title="Permalink to this headline">¶</a></h1>
-<p>Envoy includes an HTTP <a class="reference internal" href="../../../configuration/http/http_filters/router_filter.html#config-http-filters-router"><span class="std std-ref">router filter</span></a> which can be installed to
-perform advanced routing tasks. This is useful both for handling edge traffic (traditional reverse
-proxy request handling) as well as for building a service to service Envoy mesh (typically via
-routing on the host/authority HTTP header to reach a particular upstream service cluster). Envoy
-also has the ability to be configured as forward proxy. In the forward proxy configuration, mesh
-clients can participate by appropriately configuring their http proxy to be an Envoy. At a high
-level the router takes an incoming HTTP request, matches it to an upstream cluster, acquires a
-<a class="reference internal" href="../upstream/connection_pooling.html#arch-overview-conn-pool"><span class="std std-ref">connection pool</span></a> to a host in the upstream cluster, and forwards the
-request. The router filter supports the following features:</p>
+  <div class="section" id="http">
+<span id="arch-overview-http-routing"></span><h1>HTTP 路由<a class="headerlink" href="#http" title="Permalink to this headline">¶</a></h1>
+<p>Envoy 包含一个可以被安装用来执行高级路由任务的 HTTP <a class="reference internal" href="../../../configuration/http/http_filters/router_filter.html#config-http-filters-router"><span class="std std-ref">路由过滤器</span></a>。这对于处理边缘流量（传统的反向代理请求处理）以及构建服务间的 Envoy 网格
+（通常通过基于 host/authority HTTP 请求头的路由访问特定的上游服务集群）都是有用的。Envoy 还可以配置为转发代理。在转发代理配置中，网格客户端可以通过适当地将其 http 代理配置为 Envoy 来参与。
+在高层面上，路由器接收传入的 HTTP 请求，将其与上游集群匹配，获取连接到上游集群中一个主机的 <a class="reference internal" href="../upstream/connection_pooling.html#arch-overview-conn-pool"><span class="std std-ref">连接池</span></a>，然后转发该请求。 路由过滤器支持以下功能：</p>
 <ul class="simple">
-<li><p>Virtual hosts that map domains/authorities to a set of routing rules.</p></li>
-<li><p>Prefix and exact path matching rules (both <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routematch-case-sensitive"><span class="std std-ref">case sensitive</span></a> and case insensitive). Regex/slug
-matching is not currently supported, mainly because it makes it difficult/impossible to
-programmatically determine whether routing rules conflict with each other. For this reason we
-don’t recommend regex/slug routing at the reverse proxy level, however we may add support in the
-future depending on demand.</p></li>
-<li><p><a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-virtualhost-require-tls"><span class="std std-ref">TLS redirection</span></a> at the virtual host
-level.</p></li>
-<li><p><a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-redirectaction-path-redirect"><span class="std std-ref">Path</span></a>/<a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-redirectaction-host-redirect"><span class="std std-ref">host</span></a> redirection at the route level.</p></li>
-<li><p><a class="reference internal" href="#arch-overview-http-routing-direct-response"><span class="std std-ref">Direct (non-proxied) HTTP responses</span></a>
-at the route level.</p></li>
-<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/http/aws_request_signing/v3/aws_request_signing.proto.html#envoy-v3-api-field-extensions-filters-http-aws-request-signing-v3-awsrequestsigning-host-rewrite"><span class="std std-ref">Explicit host rewriting</span></a>.</p></li>
-<li><p><a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-auto-host-rewrite"><span class="std std-ref">Automatic host rewriting</span></a> based on
-the DNS name of the selected upstream host.</p></li>
-<li><p><a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-redirectaction-prefix-rewrite"><span class="std std-ref">Prefix rewriting</span></a>.</p></li>
-<li><p><a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-regex-rewrite"><span class="std std-ref">Path rewriting using a regular expression and capture groups</span></a>.</p></li>
-<li><p><a class="reference internal" href="#arch-overview-http-routing-retry"><span class="std std-ref">Request retries</span></a> specified either via HTTP header or via
-route configuration.</p></li>
-<li><p>Request timeout specified either via <a class="reference internal" href="../../../configuration/http/http_filters/router_filter.html#config-http-filters-router-headers-consumed"><span class="std std-ref">HTTP
-header</span></a> or via <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-timeout"><span class="std std-ref">route configuration</span></a>.</p></li>
-<li><p><a class="reference internal" href="#arch-overview-http-routing-hedging"><span class="std std-ref">Request hedging</span></a> for retries in response to a request (per try) timeout.</p></li>
-<li><p>Traffic shifting from one upstream cluster to another via <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routematch-runtime-fraction"><span class="std std-ref">runtime values</span></a> (see <a class="reference internal" href="../../../configuration/http/http_conn_man/traffic_splitting.html#config-http-conn-man-route-table-traffic-splitting"><span class="std std-ref">traffic shifting/splitting</span></a>).</p></li>
-<li><p>Traffic splitting across multiple upstream clusters using <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-weighted-clusters"><span class="std std-ref">weight/percentage-based routing</span></a> (see <a class="reference internal" href="../../../configuration/http/http_conn_man/traffic_splitting.html#config-http-conn-man-route-table-traffic-splitting-split"><span class="std std-ref">traffic shifting/splitting</span></a>).</p></li>
-<li><p>Arbitrary header matching <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-headermatcher"><span class="std std-ref">routing rules</span></a>.</p></li>
-<li><p>Virtual cluster specifications. A virtual cluster is specified at the virtual host level and is
-used by Envoy to generate additional statistics on top of the standard cluster level ones. Virtual
-clusters can use regex matching.</p></li>
-<li><p><a class="reference internal" href="#arch-overview-http-routing-priority"><span class="std std-ref">Priority</span></a> based routing.</p></li>
-<li><p><a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-hash-policy"><span class="std std-ref">Hash policy</span></a> based routing.</p></li>
-<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-http-protocol-options"><span class="std std-ref">Absolute urls</span></a> are supported for non-tls forward proxies.</p></li>
+<li><p>将 domains/authorities 映射到一组路由规则的虚拟主机。</p></li>
+<li><p>前缀和精确路径匹配规则（ 支持 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routematch-case-sensitive"><span class="std std-ref">大小写敏感</span></a> 和大小写不敏感）。当前不支持正则表达式/首字母匹配，主要是因为它很难以
+编程方式确定路由规则是否相互冲突。 因此，我们不建议在反向代理级别上进行正则表达式/首字母路由，但是将来可能会根据需求增加支持。</p></li>
+<li><p>虚拟主机级别的 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-virtualhost-require-tls"><span class="std std-ref">TLS 重定向</span></a>。</p></li>
+<li><p>路径级别的 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-redirectaction-path-redirect"><span class="std std-ref">路径</span></a>/<a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-redirectaction-host-redirect"><span class="std std-ref">主机</span></a> 重定向。</p></li>
+<li><p>在路由级别上 <a class="reference internal" href="#arch-overview-http-routing-direct-response"><span class="std std-ref">直接（非代理）HTTP响应</span></a>。</p></li>
+<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/http/aws_request_signing/v3/aws_request_signing.proto.html#envoy-v3-api-field-extensions-filters-http-aws-request-signing-v3-awsrequestsigning-host-rewrite"><span class="std std-ref">显式主机重写</span></a> 。</p></li>
+<li><p>根据所选上游主机的 DNS 名称 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-auto-host-rewrite"><span class="std std-ref">自动重写主机</span></a> 。</p></li>
+<li><p><a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-redirectaction-prefix-rewrite"><span class="std std-ref">前缀重写</span></a> 。</p></li>
+<li><p><a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-regex-rewrite"><span class="std std-ref">使用正则表达式和捕获组进行路径重写</span></a> 。</p></li>
+<li><p>通过 HTTP 请求头或路由配置指定的 <a class="reference internal" href="#arch-overview-http-routing-retry"><span class="std std-ref">请求重试</span></a> 。</p></li>
+<li><p>通过 <a class="reference internal" href="../../../configuration/http/http_filters/router_filter.html#config-http-filters-router-headers-consumed"><span class="std std-ref">HTTP请求头</span></a> 或 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-timeout"><span class="std std-ref">路由配置</span></a> 指定请求超时。</p></li>
+<li><p><a class="reference internal" href="#arch-overview-http-routing-hedging"><span class="std std-ref">请求对冲</span></a>，重启以响应请求（每次尝试）超时。</p></li>
+<li><p>流量通过 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routematch-runtime-fraction"><span class="std std-ref">运行时值</span></a> 从一个上游集群转移到另一个上游集群（请参阅 <a class="reference internal" href="../../../configuration/http/http_conn_man/traffic_splitting.html#config-http-conn-man-route-table-traffic-splitting"><span class="std std-ref">流量转移/拆分</span></a>）。</p></li>
+<li><p>使用基于权重/百分比的路由跨多个上游集群进行流量拆分（请参阅 <a class="reference internal" href="../../../configuration/http/http_conn_man/traffic_splitting.html#config-http-conn-man-route-table-traffic-splitting-split"><span class="std std-ref">流量转移/拆分</span></a>）。</p></li>
+<li><p>任意头匹配的 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-headermatcher"><span class="std std-ref">路由规则</span></a> 。</p></li>
+<li><p>虚拟集群规范。虚拟集群是在虚拟主机级别上指定的，Envoy 使用它在标准集群级别的基础上生成其他统计信息。虚拟集群可以使用正则表达式进行匹配。</p></li>
+<li><p>基于 <a class="reference internal" href="#arch-overview-http-routing-priority"><span class="std std-ref">优先级</span></a> 的路由。</p></li>
+<li><p>基于 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-hash-policy"><span class="std std-ref">哈希策略</span></a> 的路由。</p></li>
+<li><p>非 tls 前向代理支持 <a class="reference internal" href="../../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-http-protocol-options"><span class="std std-ref">绝对 URL</span></a> 。</p></li>
 </ul>
-<div class="section" id="route-scope">
-<span id="arch-overview-http-routing-route-scope"></span><h2>Route Scope<a class="headerlink" href="#route-scope" title="Permalink to this headline">¶</a></h2>
-<p>Scoped routing enables Envoy to put constraints on search space of domains and route rules.
-A <a class="reference internal" href="../../../api-v2/api/v2/scoped_route.proto.html#envoy-api-msg-scopedrouteconfiguration"><span class="std std-ref">Route Scope</span></a> associates a key with a <a class="reference internal" href="#arch-overview-http-routing-route-table"><span class="std std-ref">route table</span></a>.
-For each request, a scope key is computed dynamically by the HTTP connection manager to pick the <a class="reference internal" href="../../../api-v2/api/v2/route.proto.html#envoy-api-msg-routeconfiguration"><span class="std std-ref">route table</span></a>.
-RouteConfiguration associated with scope can be loaded on demand with <a class="reference internal" href="../../../api-v3/extensions/filters/http/on_demand/v3/on_demand.proto.html#envoy-v3-api-msg-extensions-filters-http-on-demand-v3-ondemand"><span class="std std-ref">v3 API reference</span></a> configured and on demand filed in protobuf set to true.</p>
-<p>The Scoped RDS (SRDS) API contains a set of <a class="reference internal" href="../../../api-v3/config/route/v3/scoped_route.proto.html#envoy-v3-api-msg-config-route-v3-scopedrouteconfiguration"><span class="std std-ref">Scopes</span></a> resources, each defining independent routing configuration,
-along with a <a class="reference internal" href="../../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-msg-extensions-filters-network-http-connection-manager-v3-scopedroutes-scopekeybuilder"><span class="std std-ref">ScopeKeyBuilder</span></a>
-defining the key construction algorithm used by Envoy to look up the scope corresponding to each request.</p>
-<p>For example, for the following scoped route configuration, Envoy will look into the “addr” header value, split the header value by “;” first, and use the first value for key ‘x-foo-key’ as the scope key.
-If the “addr” header value is “foo=1;x-foo-key=127.0.0.1;x-bar-key=1.1.1.1”, then “127.0.0.1” will be computed as the scope key to look up for corresponding route configuration.</p>
+<div class="section" id="arch-overview-http-routing-route-scope">
+<span id="id1"></span><h2>路由作用域<a class="headerlink" href="#arch-overview-http-routing-route-scope" title="Permalink to this headline">¶</a></h2>
+<p>作用域内路由使 Envoy 可以对域和路由规则的搜索空间施加约束。<a class="reference internal" href="../../../api-v2/api/v2/scoped_route.proto.html#envoy-api-msg-scopedrouteconfiguration"><span class="std std-ref">路由作用域</span></a> 将关键字与 <a class="reference internal" href="#arch-overview-http-routing-route-table"><span class="std std-ref">路由表</span></a> 关联。
+对于每个请求，HTTP 连接管理器会动态计算作用域键值来进行路由表的选择。可以在配置了 <a class="reference internal" href="../../../api-v3/extensions/filters/http/on_demand/v3/on_demand.proto.html#envoy-v3-api-msg-extensions-filters-http-on-demand-v3-ondemand"><span class="std std-ref">v3 API参考</span></a> 的情况下按需加载与作用域
+关联的 RouteConfiguration ，并且可以将 protobuf 中设置为 true 的按需加载。</p>
+<p>作用域 RDS（SRDS）API 包含一组 <a class="reference internal" href="../../../api-v3/config/route/v3/scoped_route.proto.html#envoy-v3-api-msg-config-route-v3-scopedrouteconfiguration"><span class="std std-ref">作用域</span></a> 资源，每个资源定义了独立的路由配置，同时一个 <a class="reference internal" href="../../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-msg-extensions-filters-network-http-connection-manager-v3-scopedroutes-scopekeybuilder"><span class="std std-ref">ScopeKeyBuilder</span></a> 定义了 Envoy 用于查找与每个请求相对应作用域的密钥构造算法。</p>
+<p>例如，对于以下作用域的路由配置，Envoy 将查看“addr”请求头的值，并将请求头值通过“;”分割，并将键“x-foo-key”的第一个值用作作用域的键。如果“addr”请求头的值为“foo=1; x-foo-key=127.0.0.1; x-bar-key=1.1.1.1”，则将“ 127.0.0.1”计算后作为作用域关键字，以查找相应的路由配置。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">scope_by_addr</span>
 <span class="nt">fragments</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="nt">header_value_extractor</span><span class="p">:</span>
@@ -271,98 +251,52 @@ If the “addr” header value is “foo=1;x-foo-key=127.0.0.1;x-bar-key=1.1.1.1
         <span class="nt">separator</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">=</span>
 </pre></div>
 </div>
-<p id="arch-overview-http-routing-route-table">For a key to match a <a class="reference internal" href="../../../api-v3/config/route/v3/scoped_route.proto.html#envoy-v3-api-msg-config-route-v3-scopedrouteconfiguration"><span class="std std-ref">ScopedRouteConfiguration</span></a>, the number of fragments in the computed key has to match that of
-the <a class="reference internal" href="../../../api-v3/config/route/v3/scoped_route.proto.html#envoy-v3-api-msg-config-route-v3-scopedrouteconfiguration"><span class="std std-ref">ScopedRouteConfiguration</span></a>.
-Then fragments are matched in order. A missing fragment(treated as NULL) in the built key makes the request unable to match any scope,
-i.e. no route entry can be found for the request.</p>
+<p id="arch-overview-http-routing-route-table">为了使关键字与 <a class="reference internal" href="../../../api-v3/config/route/v3/scoped_route.proto.html#envoy-v3-api-msg-config-route-v3-scopedrouteconfiguration"><span class="std std-ref">ScopedRouteConfiguration</span></a> 匹配，计算键中的分片数量必须与 <a class="reference internal" href="../../../api-v3/config/route/v3/scoped_route.proto.html#envoy-v3-api-msg-config-route-v3-scopedrouteconfiguration"><span class="std std-ref">ScopedRouteConfiguration</span></a> 的数量相匹配。然后按顺序匹配片段。内置关键字中缺少片段（视为 NULL）会使请求无法匹配任何作用域，即找不到该请求的路由项。</p>
 </div>
-<div class="section" id="route-table">
-<h2>Route table<a class="headerlink" href="#route-table" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="../../../configuration/http/http_conn_man/http_conn_man.html#config-http-conn-man"><span class="std std-ref">configuration</span></a> for the HTTP connection manager owns the <a class="reference internal" href="../../../api-v3/config/route/v3/route.proto.html#envoy-v3-api-msg-config-route-v3-routeconfiguration"><span class="std std-ref">route
-table</span></a> that is used by all configured HTTP filters. Although the
-router filter is the primary consumer of the route table, other filters also have access in case
-they want to make decisions based on the ultimate destination of the request. For example, the built
-in rate limit filter consults the route table to determine whether the global rate limit service
-should be called based on the route. The connection manager makes sure that all calls to acquire a
-route are stable for a particular request, even if the decision involves randomness (e.g. in the
-case of a runtime configuration route rule).</p>
+<div class="section" id="id2">
+<h2>路由表<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>HTTP 连接管理器的 <a class="reference internal" href="../../../configuration/http/http_conn_man/http_conn_man.html#config-http-conn-man"><span class="std std-ref">配置</span></a> 中拥有所有已配置的 HTTP 过滤器使用的 <a class="reference internal" href="../../../api-v3/config/route/v3/route.proto.html#envoy-v3-api-msg-config-route-v3-routeconfiguration"><span class="std std-ref">路由表</span></a>。尽管路由过滤器
+是路由表的主要使用者，但其他过滤器也可以访问，以防它们要根据请求的最终目的地进行决策。例如内置的速率限制过滤器将查询路由表，以确定是否应基于该路由来调用全局速率限制服务。即使决定涉及随
+机性（例如在运行时配置路由规则的情况下），连接管理器也要确保所有获取路由的调用对于特定请求都是稳定的。</p>
 </div>
-<div class="section" id="retry-semantics">
-<span id="arch-overview-http-routing-retry"></span><h2>Retry semantics<a class="headerlink" href="#retry-semantics" title="Permalink to this headline">¶</a></h2>
-<p>Envoy allows retries to be configured both in the <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-retry-policy"><span class="std std-ref">route configuration</span></a> as well as for specific requests via <a class="reference internal" href="../../../configuration/http/http_filters/router_filter.html#config-http-filters-router-headers-consumed"><span class="std std-ref">request
-headers</span></a>. The following configurations are possible:</p>
+<div class="section" id="arch-overview-http-routing-retry">
+<span id="id3"></span><h2>重试语义<a class="headerlink" href="#arch-overview-http-routing-retry" title="Permalink to this headline">¶</a></h2>
+<p>Envoy 允许在 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-routeaction-retry-policy"><span class="std std-ref">路由配置</span></a> 以及通过 <a class="reference internal" href="../../../configuration/http/http_filters/router_filter.html#config-http-filters-router-headers-consumed"><span class="std std-ref">请求头</span></a> 的特定请求中配置重试。
+有以下可用的配置：</p>
 <ul class="simple">
-<li><p><strong>Maximum number of retries</strong>: Envoy will continue to retry any number of times. The intervals between
-retries are decided either by an exponential backoff algorithm (the default), or based on feedback
-from the upstream server via headers (if present). Additionally, <em>all retries are contained within the
-overall request timeout</em>. This avoids long request times due to a large number of retries.</p></li>
-<li><p><strong>Retry conditions</strong>: Envoy can retry on different types of conditions depending on application
-requirements. For example, network failure, all 5xx response codes, idempotent 4xx response codes,
-etc.</p></li>
-<li><p><strong>Retry budgets</strong>: Envoy can limit the proportion of active requests via <a class="reference internal" href="../../../api-v3/config/cluster/v3/circuit_breaker.proto.html#envoy-v3-api-field-config-cluster-v3-circuitbreakers-thresholds-retry-budget"><span class="std std-ref">retry budgets</span></a> that can be retries to
-prevent their contribution to large increases in traffic volume.</p></li>
-<li><p><strong>Host selection retry plugins</strong>: Envoy can be configured to apply additional logic to the host
-selection logic when selecting hosts for retries. Specifying a
-<a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-retrypolicy-retry-host-predicate"><span class="std std-ref">retry host predicate</span></a>
-allows for reattempting host selection when certain hosts are selected (e.g. when an already
-attempted host is selected), while a
-<a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-retrypolicy-retry-priority"><span class="std std-ref">retry priority</span></a> can be
-configured to adjust the priority load used when selecting a priority for retries.</p></li>
+<li><p><strong>最大重试次数</strong>：Envoy 将继续重试任何次数。重试之间的时间间隔可以通过指数退避算法（默认），也可以基于上游服务器通过请求头（如果存在）的反馈来确定。此外 <em>所有重试都包含在整个请求超时内</em>。
+这避免了由于大量重试而导致请求时间较长。</p></li>
+<li><p><strong>重试条件</strong>：Envoy 可以根据应用要求在不同类型的条件下重试。例如网络故障、所有 5xx 响应代码、幂等 4xx 响应代码等。</p></li>
+<li><p><strong>重试限额</strong>：Envoy 可以通过可重试的 <a class="reference internal" href="../../../api-v3/config/cluster/v3/circuit_breaker.proto.html#envoy-v3-api-field-config-cluster-v3-circuitbreakers-thresholds-retry-budget"><span class="std std-ref">重试限额</span></a> 来限制活动请求的比例，以防止其造成流量的大幅增长。</p></li>
+<li><p><strong>主机选择重试插件</strong>：可以将 Envoy 配置为在选择主机进行重试时将附加逻辑应用于主机选择逻辑。指定 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-retrypolicy-retry-host-predicate"><span class="std std-ref">重试主机谓词</span></a>
+可以在选择某些主机时（例如在选择已尝试的主机时）重新尝试选择主机，通过配置 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-retrypolicy-retry-priority"><span class="std std-ref">重试优先级</span></a> 来调整选择重试优先级时
+使用的优​​先级负载。</p></li>
 </ul>
-<p>Note that Envoy retries requests when <a class="reference internal" href="../../../configuration/http/http_filters/router_filter.html#config-http-filters-router-x-envoy-overloaded-set"><span class="std std-ref">x-envoy-overloaded</span></a> is present. It is recommended to either configure
-<a class="reference internal" href="../../../api-v2/api/v2/cluster/circuit_breaker.proto.html#envoy-api-field-cluster-circuitbreakers-thresholds-retry-budget"><span class="std std-ref">retry budgets (preferred)</span></a> or set
-<a class="reference internal" href="../upstream/circuit_breaking.html#arch-overview-circuit-break"><span class="std std-ref">maximum active retries circuit breaker</span></a> to an appropriate value to avoid retry storms.</p>
+<p>请注意，存在 <a class="reference internal" href="../../../configuration/http/http_filters/router_filter.html#config-http-filters-router-x-envoy-overloaded-set"><span class="std std-ref">x-envoy-overloaded</span></a> 时 Envoy 重试请求。建议配置 <a class="reference internal" href="../../../api-v2/api/v2/cluster/circuit_breaker.proto.html#envoy-api-field-cluster-circuitbreakers-thresholds-retry-budget"><span class="std std-ref">重试策略（首选）</span></a> 或将 <a class="reference internal" href="../upstream/circuit_breaking.html#arch-overview-circuit-break"><span class="std std-ref">最大活动重试熔断器</span></a> 设置为适当的值以避免重试风暴。</p>
 </div>
-<div class="section" id="request-hedging">
-<span id="arch-overview-http-routing-hedging"></span><h2>Request Hedging<a class="headerlink" href="#request-hedging" title="Permalink to this headline">¶</a></h2>
-<p>Envoy supports request hedging which can be enabled by specifying a <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-hedgepolicy"><span class="std std-ref">hedge
-policy</span></a>. This means that Envoy will race
-multiple simultaneous upstream requests and return the response associated with
-the first acceptable response headers to the downstream. The retry policy is
-used to determine whether a response should be returned or whether more
-responses should be awaited.</p>
-<p>Currently hedging can only be performed in response to a request timeout. This
-means that a retry request will be issued without canceling the initial
-timed-out request and a late response will be awaited. The first “good”
-response according to retry policy will be returned downstream.</p>
-<p>The implementation ensures that the same upstream request is not retried twice.
-This might otherwise occur if a request times out and then results in a 5xx
-response, creating two retriable events.</p>
+<div class="section" id="arch-overview-http-routing-hedging">
+<span id="id4"></span><h2>请求对冲<a class="headerlink" href="#arch-overview-http-routing-hedging" title="Permalink to this headline">¶</a></h2>
+<p>Envoy 支持请求对冲，可以通过指定 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-hedgepolicy"><span class="std std-ref">对冲策略</span></a> 来启用。这意味着 Envoy 将争用多个同时发生的上游请求，并将与第一个可接受的响应头相关联的响应返回到下游。
+重试策略用于确定是否应返回响应或是否应等待更多响应。</p>
+<p>当前对冲功能只能在响应请求超时来执行。这意味着将在不取消初始超时请求的情况下发出重试请求，并且将等待延迟响应。根据重试策略的第一个“good”响应将在下游返回。</p>
+<p>该实现确保相同的上游请求不会重试两次。可能会发生请求超时导致得5xx响应并创建两个可重试事件。</p>
 </div>
-<div class="section" id="priority-routing">
-<span id="arch-overview-http-routing-priority"></span><h2>Priority routing<a class="headerlink" href="#priority-routing" title="Permalink to this headline">¶</a></h2>
-<p>Envoy supports priority routing at the <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-route"><span class="std std-ref">route</span></a> level.
-The current priority implementation uses different <a class="reference internal" href="../upstream/connection_pooling.html#arch-overview-conn-pool"><span class="std std-ref">connection pool</span></a>
-and <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_circuit_breakers.html#config-cluster-manager-cluster-circuit-breakers"><span class="std std-ref">circuit breaking</span></a> settings for each
-priority level. This means that even for HTTP/2 requests, two physical connections will be used to
-an upstream host. In the future Envoy will likely support true HTTP/2 priority over a single
-connection.</p>
-<p>The currently supported priorities are <em>default</em> and <em>high</em>.</p>
+<div class="section" id="arch-overview-http-routing-priority">
+<span id="id5"></span><h2>优先路由<a class="headerlink" href="#arch-overview-http-routing-priority" title="Permalink to this headline">¶</a></h2>
+<p>Envoy 在 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-route"><span class="std std-ref">路由</span></a> 级别支持优先级路由。当前的优先级实现为每个优先级使用不同的 <a class="reference internal" href="../upstream/connection_pooling.html#arch-overview-conn-pool"><span class="std std-ref">连接池</span></a> 和 <a class="reference internal" href="../../../configuration/upstream/cluster_manager/cluster_circuit_breakers.html#config-cluster-manager-cluster-circuit-breakers"><span class="std std-ref">熔断机制</span></a> 。
+这意味着即使对于 HTTP/2 请求，两个物理连接也将用于一个上游主机。将来 Envoy 可能会在单个连接上支持真正的 HTTP/2 优先级。</p>
+<p>当前支持的优先级为 <em>default</em> 和 <em>high</em> 。</p>
 </div>
-<div class="section" id="direct-responses">
-<span id="arch-overview-http-routing-direct-response"></span><h2>Direct responses<a class="headerlink" href="#direct-responses" title="Permalink to this headline">¶</a></h2>
-<p>Envoy supports the sending of “direct” responses. These are preconfigured HTTP responses
-that do not require proxying to an upstream server.</p>
-<p>There are two ways to specify a direct response in a Route:</p>
+<div class="section" id="arch-overview-http-routing-direct-response">
+<span id="id6"></span><h2>直接响应<a class="headerlink" href="#arch-overview-http-routing-direct-response" title="Permalink to this headline">¶</a></h2>
+<p>Envoy 支持发送 “direct” 响应。这些是预先配置的 HTTP 响应，不需要代理到上游服务器。</p>
+<p>有两种方法可以在路由中指定直接响应：</p>
 <ul class="simple">
-<li><p>Set the <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-route-direct-response"><span class="std std-ref">direct_response</span></a> field.
-This works for all HTTP response statuses.</p></li>
-<li><p>Set the <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-route-redirect"><span class="std std-ref">redirect</span></a> field. This works for
-redirect response statuses only, but it simplifies the setting of the <em>Location</em> header.</p></li>
+<li><p>设置 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-route-direct-response"><span class="std std-ref">direct_response</span></a> 字段。这适用于所有 HTTP 响应状态。</p></li>
+<li><p>设置 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-route-redirect"><span class="std std-ref">redirect</span></a> 字段。这仅适用于重定向响应状态，但简化了 <em>Location</em> 请求头的设置。</p></li>
 </ul>
-<p>A direct response has an HTTP status code and an optional body. The Route configuration
-can specify the response body inline or specify the pathname of a file containing the
-body. If the Route configuration specifies a file pathname, Envoy will read the file
-upon configuration load and cache the contents.</p>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>If a response body is specified, it must be no more than 4KB in size, regardless of
-whether it is provided inline or in a file. Envoy currently holds the entirety of the
-body in memory, so the 4KB limit is intended to keep the proxy’s memory footprint
-from growing too large.</p>
-</div>
-<p>If <strong>response_headers_to_add</strong> has been set for the Route or the enclosing Virtual Host,
-Envoy will include the specified headers in the direct HTTP response.</p>
+<p>直接响应包含 HTTP 状态码和可选的正文。路由配置可以内联指定响应主体，也可以指定包含主体的文件的路径名。如果路由配置指定了文件路径名，则 Envoy 将在配置加载时读取文件并缓存内容。</p>
+<p>如果已为路由或封闭的虚拟主机设置了 <strong>response_headers_to_add</strong>，Envoy 将在直接 HTTP 响应中包括指定的请求头。</p>
 </div>
 </div>
 

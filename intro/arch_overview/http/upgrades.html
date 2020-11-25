@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>HTTP 升级 &mdash; envoy 1.16.0-e70148 documentation</title>
+  <title>HTTP 升级 &mdash; envoy 1.16.0-acdee0 documentation</title>
   
 
   
@@ -47,7 +47,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="HTTP 动态转发代理" href="http_proxy.html" />
-    <link rel="prev" title="HTTP routing" href="http_routing.html" /> 
+    <link rel="prev" title="HTTP 路由" href="http_routing.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-e70148
+                1.16.0-acdee0
               </div>
             
           
@@ -109,7 +109,7 @@
 <li class="toctree-l3 current"><a class="reference internal" href="http.html">HTTP</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="http_connection_management.html">HTTP connection management</a></li>
 <li class="toctree-l4"><a class="reference internal" href="http_filters.html">HTTP 过滤器</a></li>
-<li class="toctree-l4"><a class="reference internal" href="http_routing.html">HTTP routing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="http_routing.html">HTTP 路由</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">HTTP 升级</a></li>
 <li class="toctree-l4"><a class="reference internal" href="http_proxy.html">HTTP 动态转发代理</a></li>
 </ul>
@@ -284,7 +284,7 @@ HTTP 升级在通常情况下是通过 HTTP 过滤链来传递 HTTP header 和 H
 <p>Envoy 还支持将原始 TCP 请求转化为 HTTP1.2 CONNECT 请求，这是通过提前预备的安全链路来代理多路传输的 TCP 请求，并且可以分摊 TLS 握手的成本。
 例如设置代理 SMTP 的流程如下：</p>
 <p>[SMTP Upstream] — raw SMTP — [L2 Envoy]  — SMTP tunneled over HTTP/2  — [L1 Envoy]  — raw SMTP  — [Client]</p>
-<p>如果运行 bazel-bin/source/exe/envoy-static –config-path configs/encapsulate_in_connect.yaml –base-id 1 and bazel-bin/source/exe/envoy-static –config-path configs/terminate_connect.yaml 则能在示例配置 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e70148fd842ab4e1ef20f31da39b19eb6bf90b4f/configs/">文件</a> 中找到对应的示例。
+<p>如果运行 bazel-bin/source/exe/envoy-static –config-path configs/encapsulate_in_connect.yaml –base-id 1 and bazel-bin/source/exe/envoy-static –config-path configs/terminate_connect.yaml 则能在示例配置 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/acdee0f04050d3186470b1699b5deedfafa7d160/configs/">文件</a> 中找到对应的示例。
 其中将会运行两个 Envoy ，第一个会监听10000 端口 上的 TCP 流量，接着会将其封装为 HTTP1.2 请求；另一个会监听10001 端口上的 HTTP1.2 请求，去掉请求的请求头，接着将原始 TCP 请求转到上游，在本示例中是 google.com。</p>
 </div>
 </div>
@@ -300,7 +300,7 @@ HTTP 升级在通常情况下是通过 HTTP 过滤链来传递 HTTP header 和 H
         <a href="http_proxy.html" class="btn btn-neutral float-right" title="HTTP 动态转发代理" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="http_routing.html" class="btn btn-neutral float-left" title="HTTP routing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="http_routing.html" class="btn btn-neutral float-left" title="HTTP 路由" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
