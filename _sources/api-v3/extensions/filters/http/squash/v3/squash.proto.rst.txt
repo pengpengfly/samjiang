@@ -20,7 +20,7 @@ Squash :ref:`configuration overview <config_http_filters_squash>`.
 extensions.filters.http.squash.v3.Squash
 ----------------------------------------
 
-`[extensions.filters.http.squash.v3.Squash proto] <https://github.com/envoyproxy/envoy/blob/144674e3be247e0aec2a99792937d260cf3a67f9/api/envoy/extensions/filters/http/squash/v3/squash.proto#L21>`_
+`[extensions.filters.http.squash.v3.Squash proto] <https://github.com/envoyproxy/envoy/blob/e70148fd842ab4e1ef20f31da39b19eb6bf90b4f/api/envoy/extensions/filters/http/squash/v3/squash.proto#L21>`_
 
 
 .. code-block:: json

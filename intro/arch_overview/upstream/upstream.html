@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>上游集群 &mdash; envoy 1.16.0-144674 documentation</title>
+  <title>上游集群 &mdash; envoy 1.16.0-e70148 documentation</title>
   
 
   
@@ -47,7 +47,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="集群管理器" href="cluster_manager.html" />
-    <link rel="prev" title="HTTP dynamic forward proxy" href="../http/http_proxy.html" /> 
+    <link rel="prev" title="HTTP 动态转发代理" href="../http/http_proxy.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-144674
+                1.16.0-e70148
               </div>
             
           
@@ -114,7 +114,7 @@
 <li class="toctree-l4"><a class="reference internal" href="connection_pooling.html">连接池</a></li>
 <li class="toctree-l4"><a class="reference internal" href="load_balancing/load_balancing.html">负载均衡</a></li>
 <li class="toctree-l4"><a class="reference internal" href="aggregate_cluster.html">聚合集群</a></li>
-<li class="toctree-l4"><a class="reference internal" href="outlier.html">Outlier detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="outlier.html">异常点检测</a></li>
 <li class="toctree-l4"><a class="reference internal" href="circuit_breaking.html">断路</a></li>
 <li class="toctree-l4"><a class="reference internal" href="upstream_filters.html">Upstream network filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="load_reporting_service.html">负载上报服务 (LRS)</a></li>
@@ -249,7 +249,7 @@
 <li class="toctree-l2"><a class="reference internal" href="load_balancing/locality_weight.html">Locality weighted load balancing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="load_balancing/overprovisioning.html">Overprovisioning Factor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="load_balancing/panic_threshold.html">Panic threshold</a></li>
-<li class="toctree-l2"><a class="reference internal" href="load_balancing/original_dst.html">Original destination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load_balancing/original_dst.html">原始目的地</a></li>
 <li class="toctree-l2"><a class="reference internal" href="load_balancing/zone_aware.html">Zone aware routing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="load_balancing/subsets.html">Load Balancer Subsets</a></li>
 </ul>
@@ -260,12 +260,12 @@
 <li class="toctree-l2"><a class="reference internal" href="aggregate_cluster.html#id4">负载均衡示例</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="outlier.html">Outlier detection</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="outlier.html#ejection-algorithm">Ejection algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="outlier.html#detection-types">Detection types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outlier.html">异常点检测</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="outlier.html#id2">驱逐算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier.html#id3">检测类型</a></li>
 <li class="toctree-l2"><a class="reference internal" href="outlier.html#grpc">gRPC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="outlier.html#ejection-event-logging">Ejection event logging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="outlier.html#configuration-reference">Configuration reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier.html#arch-overview-outlier-detection-logging">驱逐事件记录</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier.html#id9">配置参考</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="circuit_breaking.html">断路</a></li>
@@ -286,7 +286,7 @@
         <a href="cluster_manager.html" class="btn btn-neutral float-right" title="集群管理器" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../http/http_proxy.html" class="btn btn-neutral float-left" title="HTTP dynamic forward proxy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../http/http_proxy.html" class="btn btn-neutral float-left" title="HTTP 动态转发代理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

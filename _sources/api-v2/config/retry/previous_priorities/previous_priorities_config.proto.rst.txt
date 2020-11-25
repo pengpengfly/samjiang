@@ -9,7 +9,7 @@ Previous priorities retry selector
 config.retry.previous_priorities.PreviousPrioritiesConfig
 ---------------------------------------------------------
 
-`[config.retry.previous_priorities.PreviousPrioritiesConfig proto] <https://github.com/envoyproxy/envoy/blob/144674e3be247e0aec2a99792937d260cf3a67f9/api/envoy/config/retry/previous_priorities/previous_priorities_config.proto#L39>`_
+`[config.retry.previous_priorities.PreviousPrioritiesConfig proto] <https://github.com/envoyproxy/envoy/blob/e70148fd842ab4e1ef20f31da39b19eb6bf90b4f/api/envoy/config/retry/previous_priorities/previous_priorities_config.proto#L39>`_
 
 A retry host selector that attempts to spread retries between priorities, even if certain
 priorities would not normally be attempted due to higher priorities being available.
