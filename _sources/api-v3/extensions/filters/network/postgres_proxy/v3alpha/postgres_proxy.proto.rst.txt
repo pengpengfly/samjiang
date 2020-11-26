@@ -24,7 +24,7 @@ Postgres Proxy :ref:`configuration overview
 extensions.filters.network.postgres_proxy.v3alpha.PostgresProxy
 ---------------------------------------------------------------
 
-`[extensions.filters.network.postgres_proxy.v3alpha.PostgresProxy proto] <https://github.com/envoyproxy/envoy/blob/acdee0f04050d3186470b1699b5deedfafa7d160/api/envoy/extensions/filters/network/postgres_proxy/v3alpha/postgres_proxy.proto#L22>`_
+`[extensions.filters.network.postgres_proxy.v3alpha.PostgresProxy proto] <https://github.com/envoyproxy/envoy/blob/99d4988490926392775660dfc176195a6c90e27d/api/envoy/extensions/filters/network/postgres_proxy/v3alpha/postgres_proxy.proto#L22>`_
 
 
 .. code-block:: json

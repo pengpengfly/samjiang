@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Overprovisioning Factor &mdash; envoy 1.16.0-acdee0 documentation</title>
+  <title>超额供给因数 &mdash; envoy 1.16.0-99d498 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-acdee0
+                1.16.0-99d498
               </div>
             
           
@@ -195,7 +195,7 @@
         
           <li><a href="load_balancing.html">负载均衡</a> &raquo;</li>
         
-      <li>Overprovisioning Factor</li>
+      <li>超额供给因数</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -214,14 +214,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="overprovisioning-factor">
-<span id="arch-overview-load-balancing-overprovisioning-factor"></span><h1>Overprovisioning Factor<a class="headerlink" href="#overprovisioning-factor" title="Permalink to this headline">¶</a></h1>
-<p>Priority levels and localities are considered overprovisioned with
-<a class="reference internal" href="../../../../api-v3/config/endpoint/v3/endpoint.proto.html#envoy-v3-api-field-config-endpoint-v3-clusterloadassignment-policy-overprovisioning-factor"><span class="std std-ref">this percentage</span></a>.
-Envoy doesn’t consider a priority level or locality unavailable until the
-fraction of available hosts multiplied by the overprovisioning factor drops
-below 100. The default value is 140 (in percentage, which means 140%), so a priority level or locality will not be
-considered unavailable until the percentage of available endpoints goes below 72%.</p>
+  <div class="section" id="arch-overview-load-balancing-overprovisioning-factor">
+<span id="id1"></span><h1>超额供给因数<a class="headerlink" href="#arch-overview-load-balancing-overprovisioning-factor" title="Permalink to this headline">¶</a></h1>
+<p>超额供给因数是流量在优先级和区域纬度被 <a class="reference internal" href="../../../../api-v3/config/endpoint/v3/endpoint.proto.html#envoy-v3-api-field-config-endpoint-v3-clusterloadassignment-policy-overprovisioning-factor"><span class="std std-ref">超额供给的百分比值</span></a>。在可用主机数量和超额供给因数的乘积降至 100 以下之前，Envoy 不会认为某个优先级或区域不可用。默认值是 140（以百分比为单位，即 140%），因此在可用端点的百分比低于 72% 之前，优先级或区域不会被视为不可用。</p>
 </div>
 
 

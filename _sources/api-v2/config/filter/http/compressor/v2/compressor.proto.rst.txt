@@ -9,7 +9,7 @@ Compressor
 config.filter.http.compressor.v2.Compressor
 -------------------------------------------
 
-`[config.filter.http.compressor.v2.Compressor proto] <https://github.com/envoyproxy/envoy/blob/acdee0f04050d3186470b1699b5deedfafa7d160/api/envoy/config/filter/http/compressor/v2/compressor.proto#L21>`_
+`[config.filter.http.compressor.v2.Compressor proto] <https://github.com/envoyproxy/envoy/blob/99d4988490926392775660dfc176195a6c90e27d/api/envoy/config/filter/http/compressor/v2/compressor.proto#L21>`_
 
 
 .. code-block:: json
