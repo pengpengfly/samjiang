@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Listeners &mdash; envoy 1.16.0-8f3b99 documentation</title>
+  <title>监听器 &mdash; envoy 1.16.0-f35212 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-8f3b99
+                1.16.0-f35212
               </div>
             
           
@@ -106,7 +106,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">架构概览</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../intro/intro.html">介绍</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="listeners_toc.html">监听器</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Listeners</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">监听器</a></li>
 <li class="toctree-l4"><a class="reference internal" href="listener_filters.html">监听器过滤器</a></li>
 <li class="toctree-l4"><a class="reference internal" href="network_filters.html">网络 (L3/L4) 过滤器</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tcp_proxy.html">TCP 代理</a></li>
@@ -189,7 +189,7 @@
         
           <li><a href="listeners_toc.html">监听器</a> &raquo;</li>
         
-      <li>Listeners</li>
+      <li>监听器</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -208,36 +208,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="listeners">
-<span id="arch-overview-listeners"></span><h1>Listeners<a class="headerlink" href="#listeners" title="Permalink to this headline">¶</a></h1>
-<p>The Envoy configuration supports any number of listeners within a single process. Generally we
-recommend running a single Envoy per machine regardless of the number of configured listeners. This
-allows for easier operation and a single source of statistics. Envoy supports both TCP and UDP
-listeners.</p>
+  <div class="section" id="arch-overview-listeners">
+<span id="id1"></span><h1>监听器<a class="headerlink" href="#arch-overview-listeners" title="Permalink to this headline">¶</a></h1>
+<p>Envoy 支持单个进程中配置任意数量的监听器。通常情况下，部署 Envoy 的数量与监听器数量无关，建议每台机器部署一个 Envoy 即可。这使得操作会更加简便，而且每台机器只有一个监控数据来源。Envoy 同时支持 TCP 和 UDP 监听器。</p>
 <div class="section" id="tcp">
 <h2>TCP<a class="headerlink" href="#tcp" title="Permalink to this headline">¶</a></h2>
-<p>Each listener is independently configured with some number <a class="reference internal" href="../../../api-v3/config/listener/v3/listener_components.proto.html#envoy-v3-api-msg-config-listener-v3-filterchain"><span class="std std-ref">filter chains</span></a>, where an individual chain is selected based on its
-<a class="reference internal" href="../../../api-v3/config/listener/v3/listener_components.proto.html#envoy-v3-api-msg-config-listener-v3-filterchainmatch"><span class="std std-ref">match criteria</span></a>. An individual filter chain is
-composed of one or more network level (L3/L4) <a class="reference internal" href="network_filters.html#arch-overview-network-filters"><span class="std std-ref">filters</span></a>. When
-a new connection is received on a listener, the appropriate filter chain is selected, and the
-configured connection local filter stack is instantiated and begins processing subsequent events.
-The generic listener architecture is used to perform the vast majority of different proxy tasks that
-Envoy is used for (e.g., <a class="reference internal" href="../other_features/global_rate_limiting.html#arch-overview-global-rate-limit"><span class="std std-ref">rate limiting</span></a>, <a class="reference internal" href="../security/ssl.html#arch-overview-ssl-auth-filter"><span class="std std-ref">TLS client
-authentication</span></a>, <a class="reference internal" href="../http/http_connection_management.html#arch-overview-http-conn-man"><span class="std std-ref">HTTP connection management</span></a>, MongoDB <a class="reference internal" href="../other_protocols/mongo.html#arch-overview-mongo"><span class="std std-ref">sniffing</span></a>, raw <a class="reference internal" href="tcp_proxy.html#arch-overview-tcp-proxy"><span class="std std-ref">TCP proxy</span></a>, etc.).</p>
-<p>Listeners are optionally also configured with some number of <a class="reference internal" href="listener_filters.html#arch-overview-listener-filters"><span class="std std-ref">listener filters</span></a>. These filters are processed before the network level filters,
-and have the opportunity to manipulate the connection metadata, usually to influence how the
-connection is processed by later filters or clusters.</p>
-<p>Listeners can also be fetched dynamically via the <a class="reference internal" href="../../../configuration/listeners/lds.html#config-listeners-lds"><span class="std std-ref">listener discovery service (LDS)</span></a>.</p>
-<p>Listener <a class="reference internal" href="../../../configuration/listeners/listeners.html#config-listeners"><span class="std std-ref">configuration</span></a>.</p>
+<p>每个监听器都独立配置了多个 <a class="reference internal" href="../../../api-v3/config/listener/v3/listener_components.proto.html#envoy-v3-api-msg-config-listener-v3-filterchain"><span class="std std-ref">过滤器链</span></a>，其中根据其 <a class="reference internal" href="../../../api-v3/config/listener/v3/listener_components.proto.html#envoy-v3-api-msg-config-listener-v3-filterchainmatch"><span class="std std-ref">匹配条件</span></a> 选择某个过滤器链。
+一个独立的过滤器链由一个或多个网络层(L3/L4) <a class="reference internal" href="network_filters.html#arch-overview-network-filters"><span class="std std-ref">过滤器</span></a> 组成。
+当监听器上接收到新连接时，会选择适当的过滤器链，接着实例化配置的本地筛选器堆栈和处理后续事件。
+通用监听器系统架构通常用于处理各不相同的代理任务，例如 Envoy 用于（ <a class="reference internal" href="../other_features/global_rate_limiting.html#arch-overview-global-rate-limit"><span class="std std-ref">限速</span></a>、<a class="reference internal" href="../security/ssl.html#arch-overview-ssl-auth-filter"><span class="std std-ref">TLS 客户端身份验证</span></a>、<a class="reference internal" href="../http/http_connection_management.html#arch-overview-http-conn-man"><span class="std std-ref">HTTP 连接管理</span></a>、MongoDB <a class="reference internal" href="../other_protocols/mongo.html#arch-overview-mongo"><span class="std std-ref">嗅探</span></a>、原始 <a class="reference internal" href="tcp_proxy.html#arch-overview-tcp-proxy"><span class="std std-ref">TCP 代理</span></a> 等）。</p>
+<p>监听器还可以选择配置一些 <a class="reference internal" href="listener_filters.html#arch-overview-listener-filters"><span class="std std-ref">监听过滤器</span></a>。
+这些过滤器在网络层过滤器之前处理，并且有机会去操作连接元数据，这样通常是为了影响后续过滤器或集群如何处理连接。</p>
+<p>还可以通过 <a class="reference internal" href="../../../configuration/listeners/lds.html#config-listeners-lds"><span class="std std-ref">监听器发现服务 (LDS)</span></a> 动态获取监听器。</p>
+<p>监听器 <a class="reference internal" href="../../../configuration/listeners/listeners.html#config-listeners"><span class="std std-ref">配置</span></a> 。</p>
 </div>
 <div class="section" id="udp">
 <span id="arch-overview-listeners-udp"></span><h2>UDP<a class="headerlink" href="#udp" title="Permalink to this headline">¶</a></h2>
-<p>Envoy also supports UDP listeners and specifically <a class="reference internal" href="../../../configuration/listeners/udp_filters/udp_filters.html#config-udp-listener-filters"><span class="std std-ref">UDP listener filters</span></a>. UDP listener filters are instantiated once per worker and are global
-to that worker. Each listener filter processes each UDP datagram that is received by the worker
-listening on the port. In practice, UDP listeners are configured with the SO_REUSEPORT kernel option
-which will cause the kernel to consistently hash each UDP 4-tuple to the same worker. This allows a
-UDP listener filter to be “session” oriented if it so desires. A built-in example of this
-functionality is the <a class="reference internal" href="../../../configuration/listeners/udp_filters/udp_proxy.html#config-udp-listener-filters-udp-proxy"><span class="std std-ref">UDP proxy</span></a> listener filter.</p>
+<p>Envoy 还支持 UDP 监听器和 <a class="reference internal" href="../../../configuration/listeners/udp_filters/udp_filters.html#config-udp-listener-filters"><span class="std std-ref">UDP 监听过滤器</span></a> 。
+每个工作线程都会实例化一次 UDP 监听过滤器，并且 UDP 监听过滤器对于工作线程来讲是全局可见的。
+每个工作线程监听端口接收到的 UDP 数据报文由监听过滤器处理。
+实际上，UDP 监听器配置有一个 <code class="docutils literal notranslate"><span class="pre">SO_REUSEPORT</span></code> 内核选项，这将导致内核会将属于同一个 UDP 四个元组的 UDP 报文分配给同一个工作线程。
+这就允许 UDP 监听过滤器在需要时可以打开会话保持功能。
+这个功能的一个内置示例就是 <a class="reference internal" href="../../../configuration/listeners/udp_filters/udp_proxy.html#config-udp-listener-filters-udp-proxy"><span class="std std-ref">UDP 代理</span></a> 监听过滤器。</p>
 </div>
 </div>
 
