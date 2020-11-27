@@ -9,7 +9,7 @@ Number matcher
 type.matcher.v3.DoubleMatcher
 -----------------------------
 
-`[type.matcher.v3.DoubleMatcher proto] <https://github.com/envoyproxy/envoy/blob/99d4988490926392775660dfc176195a6c90e27d/api/envoy/type/matcher/v3/number.proto#L18>`_
+`[type.matcher.v3.DoubleMatcher proto] <https://github.com/envoyproxy/envoy/blob/8f3b996e394f7d799cdad472834e2385a8a3447e/api/envoy/type/matcher/v3/number.proto#L18>`_
 
 Specifies the way to match a double value.
 

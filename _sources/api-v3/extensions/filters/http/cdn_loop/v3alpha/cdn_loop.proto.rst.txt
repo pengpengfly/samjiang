@@ -22,7 +22,7 @@ This extension may be referenced by the qualified name *envoy.filters.http.cdn_l
 extensions.filters.http.cdn_loop.v3alpha.CdnLoopConfig
 ------------------------------------------------------
 
-`[extensions.filters.http.cdn_loop.v3alpha.CdnLoopConfig proto] <https://github.com/envoyproxy/envoy/blob/99d4988490926392775660dfc176195a6c90e27d/api/envoy/extensions/filters/http/cdn_loop/v3alpha/cdn_loop.proto#L19>`_
+`[extensions.filters.http.cdn_loop.v3alpha.CdnLoopConfig proto] <https://github.com/envoyproxy/envoy/blob/8f3b996e394f7d799cdad472834e2385a8a3447e/api/envoy/extensions/filters/http/cdn_loop/v3alpha/cdn_loop.proto#L19>`_
 
 CDN-Loop Header filter config. See the :ref:`configuration overview
 <config_http_filters_cdn_loop>` for more information.

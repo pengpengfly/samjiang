@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>压缩库 &mdash; envoy 1.16.0-99d498 documentation</title>
+  <title>压缩库 &mdash; envoy 1.16.0-8f3b99 documentation</title>
   
 
   
@@ -47,7 +47,7 @@
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <link rel="next" title="其他协议" href="../../other_protocols/other_protocols.html" />
-    <link rel="prev" title="IP Transparency" href="../ip_transparency.html" /> 
+    <link rel="prev" title="IP 透明性" href="../ip_transparency.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-99d498
+                1.16.0-8f3b99
               </div>
             
           
@@ -115,7 +115,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../local_rate_limiting.html">本地限速</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../global_rate_limiting.html">Global rate limiting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../scripting.html">脚本</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ip_transparency.html">IP Transparency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ip_transparency.html">IP 透明性</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">压缩库</a></li>
 </ul>
 </li>
@@ -217,7 +217,7 @@
 <p><a class="reference external" href="https://github.com/zlib-ng/zlib-ng">zlib-ng</a> 是一个存在多个包含最新优化的第三方贡献 Fork 库。
 这其中的很多优化对于 <a class="reference external" href="https://github.com/envoyproxy/envoy/issues/8448#issuecomment-667152013">提高压缩性能</a> 有很大的用处。
 比如 Envoy 可以通过使用 –define zlib=ngbazel 选项，来构建 <a class="reference external" href="https://github.com/zlib-ng/zlib-ng">zlib-ng</a> 代替之前的 <a class="reference external" href="http://zlib.net">zlib</a> 。
-用于构建 <a class="reference external" href="https://github.com/zlib-ng/zlib-ng">zlib-ng</a> 的相关参数选项，可以在 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/99d4988490926392775660dfc176195a6c90e27d/bazel/foreign_cc/BUILD">这里</a> 找到。
+用于构建 <a class="reference external" href="https://github.com/zlib-ng/zlib-ng">zlib-ng</a> 的相关参数选项，可以在 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/8f3b996e394f7d799cdad472834e2385a8a3447e/bazel/foreign_cc/BUILD">这里</a> 找到。
 但是，这些参数选项目前只能在 Linux 上使用。</p>
 </div>
 </div>
@@ -234,7 +234,7 @@
         <a href="../../other_protocols/other_protocols.html" class="btn btn-neutral float-right" title="其他协议" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../ip_transparency.html" class="btn btn-neutral float-left" title="IP Transparency" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../ip_transparency.html" class="btn btn-neutral float-left" title="IP 透明性" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
