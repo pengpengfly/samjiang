@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Locality weighted load balancing &mdash; envoy 1.16.0-de5196 documentation</title>
+  <title>区域性加权负载均衡 &mdash; envoy 1.16.0-00552c documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-de5196
+                1.16.0-00552c
               </div>
             
           
@@ -195,7 +195,7 @@
         
           <li><a href="load_balancing.html">负载均衡</a> &raquo;</li>
         
-      <li>Locality weighted load balancing</li>
+      <li>区域性加权负载均衡</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -214,36 +214,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="locality-weighted-load-balancing">
-<span id="arch-overview-load-balancing-locality-weighted-lb"></span><h1>Locality weighted load balancing<a class="headerlink" href="#locality-weighted-load-balancing" title="Permalink to this headline">¶</a></h1>
-<p>One approach to determining how to weight assignments across different zones
-and geographical locations is by using explicit weights supplied via EDS in the
-<a class="reference internal" href="../../../../api-v3/config/endpoint/v3/endpoint_components.proto.html#envoy-v3-api-msg-config-endpoint-v3-localitylbendpoints"><span class="std std-ref">LocalityLbEndpoints</span></a> message.
-This approach is mutually exclusive with
-<a class="reference internal" href="zone_aware.html#arch-overview-load-balancing-zone-aware-routing"><span class="std std-ref">zone aware routing</span></a>, since
-in the case of locality aware LB, we rely on the management server to provide the
-locality weighting, rather than the Envoy-side heuristics used in zone aware
-routing.</p>
-<p>When all endpoints are available, the locality is picked using a weighted
-round-robin schedule, where the locality weight is used for weighting. When some
-endpoints in a locality are unavailable, we adjust the locality weight to reflect
-this. As with <a class="reference internal" href="priority.html#arch-overview-load-balancing-priority-levels"><span class="std std-ref">priority levels</span></a>, we assume an
-<a class="reference internal" href="overprovisioning.html#arch-overview-load-balancing-overprovisioning-factor"><span class="std std-ref">over-provision factor</span></a>
-(default value 1.4), which means we do not perform any weight
-adjustment when only a small number of endpoints in a locality are unavailable.</p>
-<p>Assume a simple set-up with 2 localities X and Y, where X has a locality weight
-of 1 and Y has a locality weight of 2, L=Y 100% available,
-with default overprovisioning factor 1.4.</p>
+  <div class="section" id="arch-overview-load-balancing-locality-weighted-lb">
+<span id="id1"></span><h1>区域性加权负载均衡<a class="headerlink" href="#arch-overview-load-balancing-locality-weighted-lb" title="Permalink to this headline">¶</a></h1>
+<p>在不同区域和地理位置之间进行权重分配的一种方法是使用 <a class="reference internal" href="../../../../api-v3/config/endpoint/v3/endpoint_components.proto.html#envoy-v3-api-msg-config-endpoint-v3-localitylbendpoints"><span class="std std-ref">LocalityLbEndpoints</span></a> 消息中通过 EDS 提供的显示权重。这种方法与 <a class="reference internal" href="zone_aware.html#arch-overview-load-balancing-zone-aware-routing"><span class="std std-ref">区域感知路由</span></a> 是相互排斥的，因为在区域感知负载均衡的情况下，我们依靠管理服务器提供区域权重，而不是在区域感知路由中使用 Envoy 端内置的启发式算法。</p>
+<p>当所有端点都可用时，我们会使用加权循环调度来挑选区域性，其中区域性权重被用于加权。当一个区域中的某些端点不可用时，我们会调整区域权重以反映这一点。与 <a class="reference internal" href="priority.html#arch-overview-load-balancing-priority-levels"><span class="std std-ref">优先级</span></a> 处理一样，我们设定一个 <a class="reference internal" href="overprovisioning.html#arch-overview-load-balancing-overprovisioning-factor"><span class="std std-ref">超额供给因数（Overprovisioning Factor）</span></a> （默认值为 1.4），这意味着当一个区域中只有少数端点不可用时，我们不执行任何权重调整。</p>
+<p>假设一个简单的设置中，有 2 个区域 X 和 Y，其中 X 的区域权重为 1，Y 的区域权重为 2，L=Y 100% 可用，默认超额供给因数为 1.4。</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 34%" />
 <col style="width: 33%" />
-<col style="width: 34%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>L=X healthy endpoints</p></th>
-<th class="head"><p>Percent of traffic to L=X</p></th>
-<th class="head"><p>Percent of traffic to L=Y</p></th>
+<tr class="row-odd"><th class="head"><p>L=X 的健康端点</p></th>
+<th class="head"><p>L=X 的流量占比</p></th>
+<th class="head"><p>L=Y 的流量占比</p></th>
 </tr>
 </thead>
 <tbody>
@@ -273,26 +258,20 @@ with default overprovisioning factor 1.4.</p>
 </tr>
 </tbody>
 </table>
-<p>To sum this up in pseudo algorithms:</p>
+<p>我们通过伪代码来总结一下算法：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">availability</span><span class="p">(</span><span class="n">L_X</span><span class="p">)</span> <span class="o">=</span> <span class="mi">140</span> <span class="o">*</span> <span class="n">available_X_upstreams</span> <span class="o">/</span> <span class="n">total_X_upstreams</span>
 <span class="n">effective_weight</span><span class="p">(</span><span class="n">L_X</span><span class="p">)</span> <span class="o">=</span> <span class="n">locality_weight_X</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">availability</span><span class="p">(</span><span class="n">L_X</span><span class="p">))</span>
 <span class="n">load</span> <span class="n">to</span> <span class="n">L_X</span> <span class="o">=</span> <span class="n">effective_weight</span><span class="p">(</span><span class="n">L_X</span><span class="p">)</span> <span class="o">/</span> <span class="n">Σ_c</span><span class="p">(</span><span class="n">effective_weight</span><span class="p">(</span><span class="n">L_c</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>Note that the locality weighted pick takes place after the priority level is
-picked. The load balancer follows these steps:</p>
+<p>需要注意的是，区域加权选取是在优先级选取之后进行的。负载均衡器按照以下步骤执行选择：</p>
 <ol class="arabic simple">
-<li><p>Pick <a class="reference internal" href="priority.html#arch-overview-load-balancing-priority-levels"><span class="std std-ref">priority level</span></a>.</p></li>
-<li><p>Pick locality (as described in this section) within priority level from (1).</p></li>
-<li><p>Pick endpoint using cluster specified load balancer within locality from (2).</p></li>
+<li><p>按 <a class="reference internal" href="priority.html#arch-overview-load-balancing-priority-levels"><span class="std std-ref">优先级</span></a> 进行初选。</p></li>
+<li><p>从（1）的结果中按本节所述的算法选取符合条件的区域。</p></li>
+<li><p>从（2）的结果中按集群指定的负载均衡策略选取目标端点。</p></li>
 </ol>
-<p>Locality weighted load balancing is configured by setting
-<a class="reference internal" href="../../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-commonlbconfig-locality-weighted-lb-config"><span class="std std-ref">locality_weighted_lb_config</span></a> in the
-cluster configuration and by providing weights via <a class="reference internal" href="../../../../api-v3/config/endpoint/v3/endpoint_components.proto.html#envoy-v3-api-field-config-endpoint-v3-localitylbendpoints-load-balancing-weight"><span class="std std-ref">load_balancing_weight</span></a> and
-identifying the location of the upstream hosts via <a class="reference internal" href="../../../../api-v3/config/endpoint/v3/endpoint_components.proto.html#envoy-v3-api-field-config-endpoint-v3-localitylbendpoints-locality"><span class="std std-ref">locality</span></a> in
-<a class="reference internal" href="../../../../api-v3/config/endpoint/v3/endpoint_components.proto.html#envoy-v3-api-msg-config-endpoint-v3-localitylbendpoints"><span class="std std-ref">LocalityLbEndpoints</span></a>.</p>
-<p>This feature is not compatible with <a class="reference internal" href="subsets.html#arch-overview-load-balancer-subsets"><span class="std std-ref">load balancer subsetting</span></a>, since it is not straightforward to
-reconcile locality level weighting with sensible weights for individual subsets.</p>
+<p>区域性加权负载均衡可以通过集群配置中的 <a class="reference internal" href="../../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-commonlbconfig-locality-weighted-lb-config"><span class="std std-ref">locality_weighted_lb_config</span></a> 进行设置，其中通过 <a class="reference internal" href="../../../../api-v3/config/endpoint/v3/endpoint_components.proto.html#envoy-v3-api-field-config-endpoint-v3-localitylbendpoints-load-balancing-weight"><span class="std std-ref">load_balancing_weight</span></a> 设置权重，并通过 <a class="reference internal" href="../../../../api-v3/config/endpoint/v3/endpoint_components.proto.html#envoy-v3-api-field-config-endpoint-v3-localitylbendpoints-locality"><span class="std std-ref">locality</span></a> 中的 <a class="reference internal" href="../../../../api-v3/config/endpoint/v3/endpoint_components.proto.html#envoy-v3-api-msg-config-endpoint-v3-localitylbendpoints"><span class="std std-ref">LocalityLbEndpoints</span></a> 确定上游主机的位置。</p>
+<p>该功能与 <a class="reference internal" href="subsets.html#arch-overview-load-balancer-subsets"><span class="std std-ref">负载均衡器子集（Load Balancer Subsets）</span></a> 不兼容，因为要将局部性的权重与单个子集的合理权重协调起来并不直接有效。</p>
 </div>
 
 

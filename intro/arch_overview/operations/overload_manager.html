@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Overload manager &mdash; envoy 1.16.0-de5196 documentation</title>
+  <title>过载管理 &mdash; envoy 1.16.0-00552c documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-de5196
+                1.16.0-00552c
               </div>
             
           
@@ -116,7 +116,7 @@
 <li class="toctree-l4"><a class="reference internal" href="draining.html">Draining</a></li>
 <li class="toctree-l4"><a class="reference internal" href="runtime.html">运行时配置</a></li>
 <li class="toctree-l4"><a class="reference internal" href="hot_restart.html">热重启</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Overload manager</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">过载管理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">其他特性</a></li>
@@ -189,7 +189,7 @@
         
           <li><a href="operations.html">操作与配置</a> &raquo;</li>
         
-      <li>Overload manager</li>
+      <li>过载管理</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -208,32 +208,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="overload-manager">
-<span id="arch-overview-overload-manager"></span><h1>Overload manager<a class="headerlink" href="#overload-manager" title="Permalink to this headline">¶</a></h1>
-<p>The overload manager is an extensible component for protecting the Envoy server from overload
-with respect to various system resources (such as memory, cpu or file descriptors) due to too
-many client connections or requests. This is distinct from
-<a class="reference internal" href="../upstream/circuit_breaking.html#arch-overview-circuit-break"><span class="std std-ref">circuit breaking</span></a> which is primarily aimed at protecting
-upstream services.</p>
-<p>The overload manager is <a class="reference internal" href="../../../configuration/operations/overload_manager/overload_manager.html#config-overload-manager"><span class="std std-ref">configured</span></a> by specifying a set of
-resources to monitor and a set of overload actions that will be taken when some of those
-resources exceed certain pressure thresholds.</p>
-<div class="section" id="architecture">
-<h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h2>
-<p>The overload manager works by periodically polling the <em>pressure</em> of a set of <strong>resources</strong>,
-feeding those through <strong>triggers</strong>, and taking <strong>actions</strong> based on the triggers. The set of
-resource monitors, triggers, and actions are specified at startup.</p>
-<div class="section" id="resources">
-<h3>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h3>
-<p>A resource is a thing that can be monitored by the overload manager, and whose <em>pressure</em> is
-represented by a real value in the range [0, 1]. The pressure of a resource is evaluated by a
-<em>resource monitor</em>. See the <a class="reference internal" href="../../../configuration/operations/overload_manager/overload_manager.html#config-overload-manager"><span class="std std-ref">configuration page</span></a> for setting up
-resource monitors.</p>
+  <div class="section" id="arch-overview-overload-manager">
+<span id="id1"></span><h1>过载管理<a class="headerlink" href="#arch-overview-overload-manager" title="Permalink to this headline">¶</a></h1>
+<p>过载管理是一个用于保护 Envoy 服务器避免因太多的客户端连接或请求而导致各种资源(例如内存、CPU 或文件描述符)负载太重的可扩展组件。注意它与 <a class="reference internal" href="../upstream/circuit_breaking.html#arch-overview-circuit-break"><span class="std std-ref">熔断器</span></a> 不同，后者的主要目的是用于保护上游服务。</p>
+<p>过载管理是可以 <a class="reference internal" href="../../../configuration/operations/overload_manager/overload_manager.html#config-overload-manager"><span class="std std-ref">配置</span></a> 的，可以配置一组资源来监视，并定义当资源的压力超过阈值时该如何操作。</p>
+<div class="section" id="id2">
+<h2>架构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>过载管理的工作机制是：周期性地检测**资源**的*压力*并把值传递给**触发器**，由触发器来执行**操作**。资源监视器、触发器和动作都是在启动时就配置好的。</p>
+<div class="section" id="id3">
+<h3>资源<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>资源可以被过载管理监视，它们的*压力*表示为 [0,1] 这个区间的值。资源的压力是由*资源监视器*评估计算的。从 <a class="reference internal" href="../../../configuration/operations/overload_manager/overload_manager.html#config-overload-manager"><span class="std std-ref">配置</span></a> 页面可以查看资源监视器的配置。</p>
 </div>
-<div class="section" id="triggers">
-<h3>Triggers<a class="headerlink" href="#triggers" title="Permalink to this headline">¶</a></h3>
-<p>Triggers are evaluated on each resource pressure update, and convert a resource pressure value
-into an action state. An action state has a value in the range [0, 1], and is categorized into one of two groups:</p>
+<div class="section" id="id4">
+<h3>触发器<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>触发器负责在每一次资源压力更新时进行评测，并把压力转换为一个操作状态。操作状态有一个处于 [0,1] 之间的值，并分为以下两组:</p>
 <table class="colwidths-given docutils align-default" id="arch-overview-overload-manager-triggers-state">
 <colgroup>
 <col style="width: 25%" />
@@ -241,31 +229,27 @@ into an action state. An action state has a value in the range [0, 1], and is ca
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>action state</p></th>
-<th class="head"><p>value</p></th>
-<th class="head"><p>description</p></th>
+<tr class="row-odd"><th class="head"><p>操作状态</p></th>
+<th class="head"><p>值</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>scaling</p></td>
 <td><p>[0, 1)</p></td>
-<td><p>the resource pressure is below the configured saturation point; action may be taken</p></td>
+<td><p>资源的压力低于配置项中的阈值，操作可能会被执行</p></td>
 </tr>
 <tr class="row-odd"><td><p>saturated</p></td>
 <td><p>1</p></td>
-<td><p>the resource pressure is at or above the configured saturation point; drastic action should be taken</p></td>
+<td><p>资源的压力等于或高于配置项中的阈值，操作一定会被执行</p></td>
 </tr>
 </tbody>
 </table>
-<p>When a resource pressure value is updated, the relevant triggers are reevaluated. For each action
-with at least one trigger, the resulting action state is the maximum value over the configured
-triggers. What effect the action state has depends on the action’s configuration and implementation.</p>
+<p>只要资源压力值更新后，相关的触发器就会再次进行评估。每个操作至少关联着一个触发器，操作状态的值的计算结果是超过阈值的那个最大值。操作状态产生的效果取决于操作的配置和具体实现。</p>
 </div>
-<div class="section" id="actions">
-<h3>Actions<a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h3>
-<p>When a trigger changes state, the value is sent to registered actions, which can then affect how
-connections and requests are processed. Each action interprets the input states differently, and
-some may ignore the <em>scaling</em> state altogether, taking effect only when <em>saturated</em>.</p>
+<div class="section" id="id5">
+<h3>操作<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>当一个触发器改变了状态，值就会被发送给注册好的操作，这会影响连接和请求的处理方式。每个操作对输入状态有不同的解析方式，有些可能会完全忽略 <em>scaling</em> 状态，只有 <em>saturated</em> 的才处理。</p>
 </div>
 </div>
 </div>
