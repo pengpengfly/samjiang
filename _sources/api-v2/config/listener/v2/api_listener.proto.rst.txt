@@ -9,7 +9,7 @@ API listener
 config.listener.v2.ApiListener
 ------------------------------
 
-`[config.listener.v2.ApiListener proto] <https://github.com/envoyproxy/envoy/blob/6f961590a3107052a0fe01f6b1fbf3720c2b3d73/api/envoy/config/listener/v2/api_listener.proto#L19>`_
+`[config.listener.v2.ApiListener proto] <https://github.com/envoyproxy/envoy/blob/03f13f3fb9c377f8a670af411de5f6c76fdf1d95/api/envoy/config/listener/v2/api_listener.proto#L19>`_
 
 Describes a type of API listener, which is used in non-proxy clients. The type of API
 exposed to the non-proxy application depends on the type of API listener.

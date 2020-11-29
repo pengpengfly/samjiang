@@ -22,7 +22,7 @@ This extension may be referenced by the qualified name *envoy.transport_sockets.
 config.transport_socket.tap.v2alpha.Tap
 ---------------------------------------
 
-`[config.transport_socket.tap.v2alpha.Tap proto] <https://github.com/envoyproxy/envoy/blob/6f961590a3107052a0fe01f6b1fbf3720c2b3d73/api/envoy/config/transport_socket/tap/v2alpha/tap.proto#L24>`_
+`[config.transport_socket.tap.v2alpha.Tap proto] <https://github.com/envoyproxy/envoy/blob/03f13f3fb9c377f8a670af411de5f6c76fdf1d95/api/envoy/config/transport_socket/tap/v2alpha/tap.proto#L24>`_
 
 Configuration for tap transport socket. This wraps another transport socket, providing the
 ability to interpose and record in plain text any traffic that is surfaced to Envoy.
