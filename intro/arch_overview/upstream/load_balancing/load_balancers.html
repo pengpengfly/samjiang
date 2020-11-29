@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Supported load balancers &mdash; envoy 1.16.0-00552c documentation</title>
+  <title>Supported load balancers &mdash; envoy 1.16.0-6f9615 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-00552c
+                1.16.0-6f9615
               </div>
             
           
@@ -134,7 +134,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../start/start.html">开始</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../install/install.html">Building and installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install/install.html">构建和安装</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../version_history/version_history.html">Version history</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration/configuration.html">Configuration reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../operations/operations.html">Operations and administration</a></li>
@@ -308,7 +308,7 @@ when using a large ring size of 256K entries). The downside of Maglev is that it
 as ring hash. More keys will move position when hosts are removed (simulations show approximately
 double the keys will move). With that said, for many applications including Redis, Maglev is very
 likely a superior drop in replacement for ring hash. The advanced reader can use
-<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/00552cb60eaa8c72b09a712c75918eea730fdc47//test/common/upstream/load_balancer_benchmark.cc">this benchmark</a> to compare ring hash
+<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/6f961590a3107052a0fe01f6b1fbf3720c2b3d73//test/common/upstream/load_balancer_benchmark.cc">this benchmark</a> to compare ring hash
 versus Maglev with different parameters.</p>
 </div>
 <div class="section" id="random">
