@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>What is Envoy &mdash; envoy 1.16.0-03f13f documentation</title>
+  <title>Envoy 是什么？ &mdash; envoy 1.16.0-00af8f documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-03f13f
+                1.16.0-00af8f
               </div>
             
           
@@ -102,7 +102,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../about_docs.html">关于文档</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="intro.html">介绍</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">What is Envoy</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Envoy 是什么？</a></li>
 <li class="toctree-l2"><a class="reference internal" href="arch_overview/arch_overview.html">架构概览</a></li>
 <li class="toctree-l2"><a class="reference internal" href="life_of_a_request.html">请求的生命周期</a></li>
 <li class="toctree-l2"><a class="reference internal" href="deployment_types/deployment_types.html">部署类型</a></li>
@@ -165,7 +165,7 @@
         
           <li><a href="intro.html">介绍</a> &raquo;</li>
         
-      <li>What is Envoy</li>
+      <li>Envoy 是什么？</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -184,90 +184,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="what-is-envoy">
-<h1>What is Envoy<a class="headerlink" href="#what-is-envoy" title="Permalink to this headline">¶</a></h1>
-<p>Envoy is an L7 proxy and communication bus designed for large modern service oriented architectures.
-The project was born out of the belief that:</p>
+  <div class="section" id="envoy">
+<h1>Envoy 是什么？<a class="headerlink" href="#envoy" title="Permalink to this headline">¶</a></h1>
+<p>Envoy 是为面向大型现代服务架构而设计的 L7 代理和通信总线。该项目源于以下理念：</p>
 <blockquote>
-<div><p><em>The network should be transparent to applications. When network and application problems do occur
-it should be easy to determine the source of the problem.</em></p>
+<div><p><em>对于应用来说网络应该是透明的。当网络和应用出现故障时，应该非常容易定位问题发生的根源。</em></p>
 </div></blockquote>
-<p>In practice, achieving the previously stated goal is incredibly difficult. Envoy attempts to do so
-by providing the following high level features:</p>
-<p><strong>Out of process architecture:</strong> Envoy is a self contained process that is designed to run
-alongside every application server. All of the Envoys form a transparent communication mesh in which
-each application sends and receives messages to and from localhost and is unaware of the network
-topology. The out of process architecture has two substantial benefits over the traditional library
-approach to service to service communication:</p>
-<ul class="simple">
-<li><p>Envoy works with any application language. A single Envoy deployment can form a mesh between
-Java, C++, Go, PHP, Python, etc. It is becoming increasingly common for service oriented
-architectures to use multiple application frameworks and languages. Envoy transparently bridges
-the gap.</p></li>
-<li><p>As anyone that has worked with a large service oriented architecture knows, deploying library
-upgrades can be incredibly painful. Envoy can be deployed and upgraded quickly across an
-entire infrastructure transparently.</p></li>
+<p>事实上，实现上述的目标非常困难。Envoy 试图通过提供以下高级功能来实现这一目标：</p>
+<p><strong>进程外架构</strong>：Envoy 是一个独立进程，伴随每个应用服务运行。所有的 Envoy 形成一个透明的通信网格，每个应用与 localhost 收发信息，对网络的拓扑结构无感知。在服务间通信的场景下，进程外架构对比传统软件库的方式有两大优势：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Envoy 适用于任何应用编程语言。Envoy 部署可以在 Java、C++、Go、PHP、Python 等不同语言编写的应用之间形成一个网格。在面向服务架构中，使用多种应用框架和编程语言变得越来越普遍。Envoy 弥合了它们之间的差异。</p></li>
+<li><p>任何与面向大型服务架构打过交道的人都知道部署和升级软件库非常的痛苦。Envoy 可以透明地在整个基础架构上快速部署和升级。</p></li>
 </ul>
-<p><strong>L3/L4 filter architecture:</strong> At its core, Envoy is an L3/L4 network proxy. A pluggable
-<a class="reference internal" href="arch_overview/listeners/network_filters.html#arch-overview-network-filters"><span class="std std-ref">filter</span></a> chain mechanism allows filters to be written to
-perform different TCP/UDP proxy tasks and inserted into the main server. Filters have already been
-written to support various tasks such as raw <a class="reference internal" href="arch_overview/listeners/tcp_proxy.html#arch-overview-tcp-proxy"><span class="std std-ref">TCP proxy</span></a>, <a class="reference internal" href="arch_overview/listeners/udp_proxy.html#arch-overview-udp-proxy"><span class="std std-ref">UDP
-proxy</span></a>, <a class="reference internal" href="arch_overview/http/http_connection_management.html#arch-overview-http-conn-man"><span class="std std-ref">HTTP proxy</span></a>, <a class="reference internal" href="arch_overview/security/ssl.html#arch-overview-ssl-auth-filter"><span class="std std-ref">TLS client
-certificate authentication</span></a>, <a class="reference internal" href="arch_overview/other_protocols/redis.html#arch-overview-redis"><span class="std std-ref">Redis</span></a>,
-<a class="reference internal" href="arch_overview/other_protocols/mongo.html#arch-overview-mongo"><span class="std std-ref">MongoDB</span></a>, <a class="reference internal" href="arch_overview/other_protocols/postgres.html#arch-overview-postgres"><span class="std std-ref">Postgres</span></a>, etc.</p>
-<p><strong>HTTP L7 filter architecture:</strong> HTTP is such a critical component of modern application
-architectures that Envoy <a class="reference internal" href="arch_overview/http/http_filters.html#arch-overview-http-filters"><span class="std std-ref">supports</span></a> an additional HTTP L7 filter
-layer. HTTP filters can be plugged into the HTTP connection management subsystem that perform
-different tasks such as <a class="reference internal" href="../configuration/http/http_filters/buffer_filter.html#config-http-filters-buffer"><span class="std std-ref">buffering</span></a>, <a class="reference internal" href="arch_overview/other_features/global_rate_limiting.html#arch-overview-global-rate-limit"><span class="std std-ref">rate limiting</span></a>, <a class="reference internal" href="arch_overview/http/http_routing.html#arch-overview-http-routing"><span class="std std-ref">routing/forwarding</span></a>, sniffing
-Amazon’s <a class="reference internal" href="arch_overview/other_protocols/dynamo.html#arch-overview-dynamo"><span class="std std-ref">DynamoDB</span></a>, etc.</p>
-<p><strong>First class HTTP/2 support:</strong> When operating in HTTP mode, Envoy <a class="reference internal" href="arch_overview/http/http_connection_management.html#arch-overview-http-protocols"><span class="std std-ref">supports</span></a> both HTTP/1.1 and HTTP/2. Envoy can operate as a transparent
-HTTP/1.1 to HTTP/2 proxy in both directions. This means that any combination of HTTP/1.1 and HTTP/2
-clients and target servers can be bridged. The recommended service to service configuration uses
-HTTP/2 between all Envoys to create a mesh of persistent connections that requests and responses can
-be multiplexed over.</p>
-<p><strong>HTTP L7 routing:</strong> When operating in HTTP mode, Envoy supports a
-<a class="reference internal" href="arch_overview/http/http_routing.html#arch-overview-http-routing"><span class="std std-ref">routing</span></a> subsystem that is capable of routing and redirecting
-requests based on path, authority, content type, <a class="reference internal" href="arch_overview/operations/runtime.html#arch-overview-runtime"><span class="std std-ref">runtime</span></a> values, etc.
-This functionality is most useful when using Envoy as a front/edge proxy but is also leveraged when
-building a service to service mesh.</p>
-<p><strong>gRPC support:</strong> <a class="reference external" href="https://www.grpc.io/">gRPC</a> is an RPC framework from Google that uses HTTP/2
-as the underlying multiplexed transport. Envoy <a class="reference internal" href="arch_overview/other_protocols/grpc.html#arch-overview-grpc"><span class="std std-ref">supports</span></a> all of the
-HTTP/2 features required to be used as the routing and load balancing substrate for gRPC requests
-and responses. The two systems are very complementary.</p>
-<p><strong>Service discovery and dynamic configuration:</strong> Envoy optionally consumes a layered set of
-<a class="reference internal" href="arch_overview/operations/dynamic_configuration.html#arch-overview-dynamic-config"><span class="std std-ref">dynamic configuration APIs</span></a> for centralized management.
-The layers provide an Envoy with dynamic updates about: hosts within a backend cluster, the
-backend clusters themselves, HTTP routing, listening sockets, and cryptographic material.
-For a simpler deployment, backend host discovery can be
-<a class="reference internal" href="arch_overview/upstream/service_discovery.html#arch-overview-service-discovery-types-strict-dns"><span class="std std-ref">done through DNS resolution</span></a>
-(or even
-<a class="reference internal" href="arch_overview/upstream/service_discovery.html#arch-overview-service-discovery-types-static"><span class="std std-ref">skipped entirely</span></a>),
-with the further layers replaced by static config files.</p>
-<p><strong>Health checking:</strong> The <a class="reference internal" href="arch_overview/upstream/service_discovery.html#arch-overview-service-discovery-eventually-consistent"><span class="std std-ref">recommended</span></a>
-way of building an Envoy mesh is to treat service discovery as an eventually consistent process.
-Envoy includes a <a class="reference internal" href="arch_overview/upstream/health_checking.html#arch-overview-health-checking"><span class="std std-ref">health checking</span></a> subsystem which can
-optionally perform active health checking of upstream service clusters. Envoy then uses the union of
-service discovery and health checking information to determine healthy load balancing targets. Envoy
-also supports passive health checking via an <a class="reference internal" href="arch_overview/upstream/outlier.html#arch-overview-outlier-detection"><span class="std std-ref">outlier detection</span></a> subsystem.</p>
-<p><strong>Advanced load balancing:</strong> <a class="reference internal" href="arch_overview/upstream/load_balancing/overview.html#arch-overview-load-balancing"><span class="std std-ref">Load balancing</span></a> among different
-components in a distributed system is a complex problem. Because Envoy is a self contained proxy
-instead of a library, it is able to implement advanced load balancing techniques in a single place
-and have them be accessible to any application. Currently Envoy includes support for <a class="reference internal" href="arch_overview/http/http_routing.html#arch-overview-http-routing-retry"><span class="std std-ref">automatic
-retries</span></a>, <a class="reference internal" href="arch_overview/upstream/circuit_breaking.html#arch-overview-circuit-break"><span class="std std-ref">circuit breaking</span></a>,
-<a class="reference internal" href="arch_overview/other_features/global_rate_limiting.html#arch-overview-global-rate-limit"><span class="std std-ref">global rate limiting</span></a> via an external rate limiting service,
-<a class="reference internal" href="../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-routeaction-requestmirrorpolicy"><span class="std std-ref">request shadowing</span></a>, and
-<a class="reference internal" href="arch_overview/upstream/outlier.html#arch-overview-outlier-detection"><span class="std std-ref">outlier detection</span></a>. Future support is planned for request
-racing.</p>
-<p><strong>Front/edge proxy support:</strong> There is substantial benefit in using the same software at the edge
-(observability, management, identical service discovery and load balancing algorithms, etc.). Envoy
-has a feature set that makes it well suited as an edge proxy for most modern web application use
-cases. This includes <a class="reference internal" href="arch_overview/security/ssl.html#arch-overview-ssl"><span class="std std-ref">TLS</span></a> termination, HTTP/1.1 and HTTP/2 <a class="reference internal" href="arch_overview/http/http_connection_management.html#arch-overview-http-protocols"><span class="std std-ref">support</span></a>, as well as HTTP L7 <a class="reference internal" href="arch_overview/http/http_routing.html#arch-overview-http-routing"><span class="std std-ref">routing</span></a>.</p>
-<p><strong>Best in class observability:</strong> As stated above, the primary goal of Envoy is to make the network
-transparent. However, problems occur both at the network level and at the application level. Envoy
-includes robust <a class="reference internal" href="arch_overview/observability/statistics.html#arch-overview-statistics"><span class="std std-ref">statistics</span></a> support for all subsystems. <a class="reference external" href="https://github.com/etsy/statsd">statsd</a> (and compatible providers) is the currently supported statistics
-sink, though plugging in a different one would not be difficult. Statistics are also viewable via
-the <a class="reference internal" href="../operations/admin.html#operations-admin-interface"><span class="std std-ref">administration</span></a> port. Envoy also supports distributed
-<a class="reference internal" href="arch_overview/observability/tracing.html#arch-overview-tracing"><span class="std std-ref">tracing</span></a> via thirdparty providers.</p>
+</div></blockquote>
+<p><strong>L3/L4 filter 架构</strong>：Envoy 的核心是一个 L3/L4 网络代理。可插拔的 <a class="reference internal" href="arch_overview/listeners/network_filters.html#arch-overview-network-filters"><span class="std std-ref">filter</span></a> 链机制允许开发 filter 来执行不同 TCP/UDP 代理任务并将其插入到主服务中。现已有多个支持各种任务的 filter，如原始的 <a class="reference internal" href="arch_overview/listeners/tcp_proxy.html#arch-overview-tcp-proxy"><span class="std std-ref">TCP 代理</span></a>、<a class="reference internal" href="arch_overview/listeners/udp_proxy.html#arch-overview-udp-proxy"><span class="std std-ref">UDP 代理</span></a>、<a class="reference internal" href="arch_overview/http/http_connection_management.html#arch-overview-http-conn-man"><span class="std std-ref">HTTP 代理</span></a>、<a class="reference internal" href="arch_overview/security/ssl.html#arch-overview-ssl-auth-filter"><span class="std std-ref">TLS 客户端证书认证</span></a>、<a class="reference internal" href="arch_overview/other_protocols/redis.html#arch-overview-redis"><span class="std std-ref">Redis</span></a>、<a class="reference internal" href="arch_overview/other_protocols/mongo.html#arch-overview-mongo"><span class="std std-ref">MongoDB</span></a> 和 <a class="reference internal" href="arch_overview/other_protocols/postgres.html#arch-overview-postgres"><span class="std std-ref">Postgres</span></a> 等。</p>
+<p><strong>HTTP L7 filter 架构</strong>：HTTP 是现代应用架构中的关键组件，Envoy <a class="reference internal" href="arch_overview/http/http_filters.html#arch-overview-http-filters"><span class="std std-ref">支持</span></a> 额外的 HTTP L7 filter 层。可以将 HTTP filter 插入执行不同任务的 HTTP 连接管理子系统中，如 <a class="reference internal" href="../configuration/http/http_filters/buffer_filter.html#config-http-filters-buffer"><span class="std std-ref">缓存</span></a>、<a class="reference internal" href="arch_overview/other_features/global_rate_limiting.html#arch-overview-global-rate-limit"><span class="std std-ref">限速</span></a>、<a class="reference internal" href="arch_overview/http/http_routing.html#arch-overview-http-routing"><span class="std std-ref">路由/转发</span></a>、嗅探 Amazon 的 <a class="reference internal" href="arch_overview/other_protocols/dynamo.html#arch-overview-dynamo"><span class="std std-ref">DynamoDB</span></a> 等。</p>
+<p><strong>顶级 HTTP/2 支持</strong>：当以 HTTP 模式运行时，Envoy 同时 <a class="reference internal" href="arch_overview/http/http_connection_management.html#arch-overview-http-protocols"><span class="std std-ref">支持</span></a> HTTP/1.1 和 HTTP/2。Envoy 可以作为 HTTP/1.1 和 HTTP/2 之间的双向透明代理。这意味着任意 HTTP/1.1 和 HTTP/2 客户端和目标服务器的组合都可以桥接在一起。建议配置所有服务之间的 Envoy 使用 HTTP/2 来创建持久连接的网格，以便可以实现请求和响应的多路复用。</p>
+<p><strong>HTTP L7 路由</strong>：当以 HTTP 模式运行时，Envoy 支持一种 <a class="reference internal" href="arch_overview/http/http_routing.html#arch-overview-http-routing"><span class="std std-ref">路由</span></a> 子系统，能够根据路径、权限、内容类型、<a class="reference internal" href="arch_overview/operations/runtime.html#arch-overview-runtime"><span class="std std-ref">运行时</span></a> 参数值等对请求进行路由和重定向。这项功能在将 Envoy 用作前端/边缘代理时非常有用，同时在构建服务网格时也会使用此功能。</p>
+<p><strong>gRPC 支持</strong>：<a class="reference external" href="https://www.grpc.io/">gRPC</a> 是一个来自 Google 的 RPC 框架，它使用 HTTP/2 作为底层多路复用传输协议。Envoy <a class="reference internal" href="arch_overview/other_protocols/grpc.html#arch-overview-grpc"><span class="std std-ref">支持</span></a> 被 gRPC 请求和响应的作为路由和负载均衡底层的所有 HTTP/2 功能。这两个系统是非常互补的。</p>
+<p><strong>服务发现和动态配置</strong>：Envoy 可以选择使用一组分层的 <a class="reference internal" href="arch_overview/operations/dynamic_configuration.html#arch-overview-dynamic-config"><span class="std std-ref">动态配置 API</span></a> 来实现集中化管理。这些层为 Envoy 提供了以下内容的动态更新：后端集群内的主机、后端集群本身、HTTP 路由、监听套接字和加密材料。对于更简单的部署，可以 <a class="reference internal" href="arch_overview/upstream/service_discovery.html#arch-overview-service-discovery-types-strict-dns"><span class="std std-ref">通过 DNS 解析</span></a> （甚至 <a class="reference internal" href="arch_overview/upstream/service_discovery.html#arch-overview-service-discovery-types-static"><span class="std std-ref">完全跳过</span></a> ）发现后端主机，使用静态配置文件将替代深层配置。</p>
+<p><strong>健康检查</strong>：<a class="reference internal" href="arch_overview/upstream/service_discovery.html#arch-overview-service-discovery-eventually-consistent"><span class="std std-ref">推荐</span></a> 使用将服务发现视为最终一致的过程的方式来建立 Envoy 网格。Envoy 包含了一个 <a class="reference internal" href="arch_overview/upstream/health_checking.html#arch-overview-health-checking"><span class="std std-ref">健康检查</span></a>，可以选择对上游服务集群执行主动健康检查。然后，Envoy 联合使用服务发现和健康检查信息来确定健康的负载均衡目标。Envoy 还通过 <a class="reference internal" href="arch_overview/upstream/outlier.html#arch-overview-outlier-detection"><span class="std std-ref">异常检查</span></a> 子系统支持被动健康检查。</p>
+<p><strong>高级负载均衡</strong>：<cite>负载均衡 &lt;arch_overview_load_balancing&gt;`是分布式系统中不同组件之间的一个复杂问题。由于 Envoy 是一个独立代理而不是软件库，因此可以独立实现高级负载均衡以供任何应用程序访问。目前，Envoy 支持 :ref:`自动重试 &lt;arch_overview_http_routing_retry&gt;</cite>、<a class="reference internal" href="arch_overview/upstream/circuit_breaking.html#arch-overview-circuit-break"><span class="std std-ref">熔断</span></a>、通过外部速率限制服务的 <a class="reference internal" href="arch_overview/other_features/global_rate_limiting.html#arch-overview-global-rate-limit"><span class="std std-ref">全局限速</span></a>、<a class="reference internal" href="../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-routeaction-requestmirrorpolicy"><span class="std std-ref">请求映射</span></a>
+和 <a class="reference internal" href="arch_overview/upstream/outlier.html#arch-overview-outlier-detection"><span class="std std-ref">异常检测</span></a>。未来还计划支持请求竞争。</p>
+<p><strong>前端/边缘代理支持</strong>：在边缘使用相同的软件大有好处（可观察性、管理、相同的服务发现和负载均衡算法等）。Envoy 包含足够多的功能，可作为大多数现代 Web 应用程序的边缘代理。包括 <a class="reference internal" href="arch_overview/security/ssl.html#arch-overview-ssl"><span class="std std-ref">TLS</span></a> 终止、HTTP/1.1 和 HTTP/2 <a class="reference internal" href="arch_overview/http/http_connection_management.html#arch-overview-http-protocols"><span class="std std-ref">支持</span></a>，以及 HTTP L7 <a class="reference internal" href="arch_overview/http/http_routing.html#arch-overview-http-routing"><span class="std std-ref">路由</span></a>。</p>
+<p><strong>最佳的可观察性</strong>：如上所述，Envoy 的主要目标是让网络透明化。然而，在网络层面和应用层面都有可能出现问题。Envoy 包含对所有子系统的强大 <a class="reference internal" href="arch_overview/observability/statistics.html#arch-overview-statistics"><span class="std std-ref">统计</span></a> 支持。目前支持 <cite>statsd &lt;https://github.com/etsy/statsd&gt;`_（和兼容程序）作为统计信息接收器，但是插入不同的接收器并不困难。统计信息也可以通过 :ref:`管理 &lt;operations_admin_interface&gt;</cite> 端口查看。通过第三方提供商，Envoy 还支持分布式 <a class="reference internal" href="arch_overview/observability/tracing.html#arch-overview-tracing"><span class="std std-ref">追踪</span></a>。</p>
 </div>
 
 
