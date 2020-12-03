@@ -69,7 +69,7 @@ enforce access control based on dynamic metadata in a request. See :ref:`Permiss
 type.matcher.MetadataMatcher
 ----------------------------
 
-`[type.matcher.MetadataMatcher proto] <https://github.com/envoyproxy/envoy/blob/b4a0ec4a8de5df84d78ca24526942fedb8e382a3/api/envoy/type/matcher/metadata.proto#L76>`_
+`[type.matcher.MetadataMatcher proto] <https://github.com/envoyproxy/envoy/blob/74daf975bc5a30d413d1c706cb5c48c8d844b92f/api/envoy/type/matcher/metadata.proto#L76>`_
 
 
 .. code-block:: json
@@ -103,7 +103,7 @@ value
 type.matcher.MetadataMatcher.PathSegment
 ----------------------------------------
 
-`[type.matcher.MetadataMatcher.PathSegment proto] <https://github.com/envoyproxy/envoy/blob/b4a0ec4a8de5df84d78ca24526942fedb8e382a3/api/envoy/type/matcher/metadata.proto#L80>`_
+`[type.matcher.MetadataMatcher.PathSegment proto] <https://github.com/envoyproxy/envoy/blob/74daf975bc5a30d413d1c706cb5c48c8d844b92f/api/envoy/type/matcher/metadata.proto#L80>`_
 
 Specifies the segment in a path to retrieve value from Metadata.
 Note: Currently it's not supported to retrieve a value from a list in Metadata. This means that
