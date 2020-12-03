@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Lua Filter &mdash; envoy 1.16.0-00af8f documentation</title>
+  <title>Lua 过滤器 &mdash; envoy 1.16.0-b4a0ec documentation</title>
   
 
   
@@ -76,7 +76,7 @@
             
             
               <div class="version">
-                1.16.0-00af8f
+                1.16.0-b4a0ec
               </div>
             
           
@@ -119,8 +119,8 @@
 <li class="toctree-l3"><a class="reference internal" href="jaeger_native_tracing.html">Jaeger Native Tracing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="jaeger_tracing.html">Jaeger Tracing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="load_reporting_service.html">Load Reporting Service (LRS)</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Lua Filter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#running-the-sandboxes">Running the Sandboxes</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Lua 过滤器</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">运行沙盒</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="mysql.html">MySQL Filter</a></li>
@@ -185,7 +185,7 @@
         
           <li><a href="../start.html">开始</a> &raquo;</li>
         
-      <li>Lua Filter</li>
+      <li>Lua 过滤器</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -204,15 +204,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="lua-filter">
-<span id="install-sandboxes-lua"></span><h1>Lua Filter<a class="headerlink" href="#lua-filter" title="Permalink to this headline">¶</a></h1>
-<p>In this example, we show how a Lua filter can be used with the Envoy
-proxy. The Envoy proxy configuration includes a Lua
-filter that contains two functions namely
-<code class="docutils literal notranslate"><span class="pre">envoy_on_request(request_handle)</span></code> and
-<code class="docutils literal notranslate"><span class="pre">envoy_on_response(response_handle)</span></code> as documented <a class="reference internal" href="../../configuration/http/http_filters/lua_filter.html#config-http-filters-lua"><span class="std std-ref">here</span></a>.</p>
-<div class="section" id="running-the-sandboxes">
-<h2>Running the Sandboxes<a class="headerlink" href="#running-the-sandboxes" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="lua">
+<span id="install-sandboxes-lua"></span><h1>Lua 过滤器<a class="headerlink" href="#lua" title="Permalink to this headline">¶</a></h1>
+<p>在这个例子中，我们会展示 Lua 过滤器在 Envoy 代理中是如何使用的。 Envoy 代理配置包括一个 Lua 过滤器，此过滤器包含了在 <a class="reference internal" href="../../configuration/http/http_filters/lua_filter.html#config-http-filters-lua"><span class="std std-ref">这个</span></a> 文档中记录的两个函数，即 <code class="docutils literal notranslate"><span class="pre">envoy_on_request(request_handle)</span></code> 和 <code class="docutils literal notranslate"><span class="pre">envoy_on_response(response_handle)</span></code> 。</p>
+<div class="section" id="id1">
+<h2>运行沙盒<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>The following documentation runs through the setup of Envoy described above.</p>
 <div class="section" id="step-1-install-docker">
 <h3>Step 1: Install Docker<a class="headerlink" href="#step-1-install-docker" title="Permalink to this headline">¶</a></h3>
@@ -247,8 +243,8 @@ filter that contains two functions namely
 </div>
 </div>
 </div>
-<div class="section" id="step-3-build-the-sandbox">
-<h3>Step 3: Build the sandbox<a class="headerlink" href="#step-3-build-the-sandbox" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h3>步骤 3：构建沙盒<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">pwd</span>
 <span class="go">envoy/examples/lua</span>
 <span class="gp">$</span> docker-compose pull
@@ -262,10 +258,10 @@ filter that contains two functions namely
 </pre></div>
 </div>
 </div>
-<div class="section" id="step-4-send-a-request-to-the-service">
-<h3>Step 4: Send a request to the service<a class="headerlink" href="#step-4-send-a-request-to-the-service" title="Permalink to this headline">¶</a></h3>
-<p>The output from the <code class="docutils literal notranslate"><span class="pre">curl</span></code> command below should include the headers <code class="docutils literal notranslate"><span class="pre">foo</span></code>.</p>
-<p>Terminal 1</p>
+<div class="section" id="step-4">
+<h3>Step 4: 给服务发送请求<a class="headerlink" href="#step-4" title="Permalink to this headline">¶</a></h3>
+<p>下面 <code class="docutils literal notranslate"><span class="pre">curl</span></code> 命令的输出结果应该包含头部 <code class="docutils literal notranslate"><span class="pre">foo</span></code> 。</p>
+<p>终端 1</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> curl -v localhost:8000
 
 <span class="go">   Trying ::1...</span>
