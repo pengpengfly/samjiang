@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Front Proxy &mdash; envoy 1.16.0-74daf9 documentation</title>
+  <title>前端代理 &mdash; envoy 1.16.0-a39584 documentation</title>
   
 
   
@@ -76,7 +76,7 @@
             
             
               <div class="version">
-                1.16.0-74daf9
+                1.16.0-a39584
               </div>
             
           
@@ -114,8 +114,8 @@
 <li class="toctree-l3"><a class="reference internal" href="csrf.html">CSRF Filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ext_authz.html">External Authorization Filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fault_injection.html">Fault Injection Filter</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Front Proxy</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#running-the-sandbox">Running the Sandbox</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">前端代理</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">运行沙盒</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="grpc_bridge.html">gRPC Bridge</a></li>
@@ -124,7 +124,7 @@
 <li class="toctree-l3"><a class="reference internal" href="load_reporting_service.html">Load Reporting Service (LRS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lua.html">Lua 过滤器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mysql.html">MySQL Filter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="redis.html">Redis Filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="redis.html">Redis 过滤器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="zipkin_tracing.html">Zipkin Tracing</a></li>
 </ul>
 </li>
@@ -185,7 +185,7 @@
         
           <li><a href="../start.html">开始</a> &raquo;</li>
         
-      <li>Front Proxy</li>
+      <li>前端代理</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -204,35 +204,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="front-proxy">
-<span id="install-sandboxes-front-proxy"></span><h1>Front Proxy<a class="headerlink" href="#front-proxy" title="Permalink to this headline">¶</a></h1>
-<p>To get a flavor of what Envoy has to offer as a front proxy, we are releasing a <a class="reference external" href="https://docs.docker.com/compose/">docker compose</a>
-sandbox that deploys a front Envoy and a couple of services (simple Flask apps) colocated with a
-running service Envoy. The three containers will be deployed inside a virtual network called
-<code class="docutils literal notranslate"><span class="pre">envoymesh</span></code>.</p>
-<p>Below you can see a graphic showing the docker compose deployment:</p>
+  <div class="section" id="install-sandboxes-front-proxy">
+<span id="id1"></span><h1>前端代理<a class="headerlink" href="#install-sandboxes-front-proxy" title="Permalink to this headline">¶</a></h1>
+<p>为了帮助大家了解如何使用 Envoy 作为前端代理，我们发布了一个 <a class="reference external" href="https://docs.docker.com/compose/">docker compose</a> 沙盒，该沙盒中部署了一个前端 Envoy 和几个后端服务，每个后端由 Envoy 和应用（简单的 Flask 应用）合并部署在一起组成。这三个容器将被部署在名为 <code class="docutils literal notranslate"><span class="pre">envoymesh</span></code> 的虚拟网络中。</p>
+<p>下面是使用 docker compose 部署的架构图：</p>
 <a class="reference internal image-reference" href="../../_images/docker_compose_front_proxy.svg"><img alt="../../_images/docker_compose_front_proxy.svg" src="../../_images/docker_compose_front_proxy.svg" width="100%" /></a>
-<p>All incoming requests are routed via the front Envoy, which is acting as a reverse proxy sitting on
-the edge of the <code class="docutils literal notranslate"><span class="pre">envoymesh</span></code> network. Port <code class="docutils literal notranslate"><span class="pre">8080</span></code>, <code class="docutils literal notranslate"><span class="pre">8443</span></code>, and <code class="docutils literal notranslate"><span class="pre">8001</span></code> are exposed by docker
-compose (see <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/74daf975bc5a30d413d1c706cb5c48c8d844b92f//examples/front-proxy/docker-compose.yaml">/examples/front-proxy/docker-compose.yaml</a>) to handle <code class="docutils literal notranslate"><span class="pre">HTTP</span></code>, <code class="docutils literal notranslate"><span class="pre">HTTPS</span></code> calls
-to the services and requests to <code class="docutils literal notranslate"><span class="pre">/admin</span></code> respectively.</p>
-<p>Moreover, notice that all traffic routed by the front Envoy to the service containers is actually
-routed to the service Envoys (routes setup in <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/74daf975bc5a30d413d1c706cb5c48c8d844b92f//examples/front-proxy/front-envoy.yaml">/examples/front-proxy/front-envoy.yaml</a>).</p>
-<p>In turn the service Envoys route the request to the Flask app via the loopback
-address (routes setup in <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/74daf975bc5a30d413d1c706cb5c48c8d844b92f//examples/front-proxy/service-envoy.yaml">/examples/front-proxy/service-envoy.yaml</a>). This
-setup illustrates the advantage of running service Envoys collocated with your services: all
-requests are handled by the service Envoy, and efficiently routed to your services.</p>
-<div class="section" id="running-the-sandbox">
-<h2>Running the Sandbox<a class="headerlink" href="#running-the-sandbox" title="Permalink to this headline">¶</a></h2>
-<p>The following documentation runs through the setup of Envoy described above.</p>
-<div class="section" id="step-1-install-docker">
-<h3>Step 1: Install Docker<a class="headerlink" href="#step-1-install-docker" title="Permalink to this headline">¶</a></h3>
-<p>Ensure that you have a recent versions of <code class="docutils literal notranslate"><span class="pre">docker</span></code> and <code class="docutils literal notranslate"><span class="pre">docker-compose</span></code> installed.</p>
-<p>A simple way to achieve this is via the <a class="reference external" href="https://www.docker.com/products/docker-desktop">Docker Desktop</a>.</p>
+<p>所有的入向请求都通过前端 Envoy 进行路由，该 Envoy 相当于 <code class="docutils literal notranslate"><span class="pre">envoymesh</span></code> 网络边缘的反向代理。docker compose（参阅：<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/a39584a71d7efbd89d6515c38318c0fbb5ac9623//examples/front-proxy/docker-compose.yaml">/examples/front-proxy/docker-compose.yaml</a>）暴露了 <code class="docutils literal notranslate"><span class="pre">8080</span></code>，<code class="docutils literal notranslate"><span class="pre">8443</span></code> 端口来接受 <code class="docutils literal notranslate"><span class="pre">HTTP</span></code>，<code class="docutils literal notranslate"><span class="pre">HTTPS</span></code> 请求，并根据路径分别将它们路由到对应的服务上，以及通过 <code class="docutils literal notranslate"><span class="pre">8001</span></code> 端口来接受 Envoy 自带的 <code class="docutils literal notranslate"><span class="pre">admin</span></code> 服务。</p>
+<p>此外请注意，所有流量实际上从前端 Envoy 路由到服务容器的 Envoy 上（参阅 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/a39584a71d7efbd89d6515c38318c0fbb5ac9623//examples/front-proxy/front-envoy.yaml">/examples/front-proxy/front-envoy.yaml</a> 中的路由设置）。</p>
+<p>然后，Envoy 通过 loopback 地址（参阅 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/a39584a71d7efbd89d6515c38318c0fbb5ac9623//examples/front-proxy/service-envoy.yaml">/examples/front-proxy/service-envoy.yaml</a> 中的路由设置）将请求路由到 Flask 应用程序。这种设置演示了将 Envoy 与你的服务合并部署的优势：所有请求都由 Envoy 处理，并有效地路由到你的服务。</p>
+<div class="section" id="id2">
+<h2>运行沙盒<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>以下文档说明了上述对于 Envoy 容器编译环境进行设置的过程。</p>
+<div class="section" id="docker">
+<h3>步骤 1：安装 Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h3>
+<p>确保你已安装较新版本的 <code class="docutils literal notranslate"><span class="pre">docker</span></code> 和 <code class="docutils literal notranslate"><span class="pre">docker-compose</span></code> 。</p>
+<p>一个最简单的方法来完成此事就是使用 <a class="reference external" href="https://www.docker.com/products/docker-desktop">Docker Desktop</a> 。</p>
 </div>
-<div class="section" id="step-2-clone-the-envoy-repo">
-<h3>Step 2: Clone the Envoy repo<a class="headerlink" href="#step-2-clone-the-envoy-repo" title="Permalink to this headline">¶</a></h3>
-<p>If you have not cloned the Envoy repo, clone it with:</p>
+<div class="section" id="envoy">
+<h3>步骤 2：克隆 Envoy 仓库<a class="headerlink" href="#envoy" title="Permalink to this headline">¶</a></h3>
+<p>如果你还没有克隆 Envoy 仓库，用如下方式进行克隆：</p>
 <div class="sphinx-tabs docutils container">
 <div class="ui top attached tabular menu sphinx-menu docutils container">
 <div class="active item sphinx-data-tab-U1NI docutils container">
@@ -258,8 +248,8 @@ requests are handled by the service Envoy, and efficiently routed to your servic
 </div>
 </div>
 </div>
-<div class="section" id="step-3-start-all-of-our-containers">
-<h3>Step 3: Start all of our containers<a class="headerlink" href="#step-3-start-all-of-our-containers" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>步骤 3：启动所有容器<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">pwd</span>
 <span class="go">envoy/examples/front-proxy</span>
 <span class="gp">$</span> docker-compose build --pull
@@ -274,10 +264,10 @@ requests are handled by the service Envoy, and efficiently routed to your servic
 </pre></div>
 </div>
 </div>
-<div class="section" id="step-4-test-envoy-s-routing-capabilities">
-<h3>Step 4: Test Envoy’s routing capabilities<a class="headerlink" href="#step-4-test-envoy-s-routing-capabilities" title="Permalink to this headline">¶</a></h3>
-<p>You can now send a request to both services via the <code class="docutils literal notranslate"><span class="pre">front-envoy</span></code>.</p>
-<p>For <code class="docutils literal notranslate"><span class="pre">service1</span></code>:</p>
+<div class="section" id="id4">
+<h3>步骤 4：测试 Envoy 的路由能力<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>你现在可以通过 <code class="docutils literal notranslate"><span class="pre">front-envoy</span></code> 向两个服务发送请求。</p>
+<p>向 <code class="docutils literal notranslate"><span class="pre">service1</span></code> 发请求：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> curl -v localhost:8080/service/1
 <span class="go">*   Trying ::1...</span>
 <span class="go">* TCP_NODELAY set</span>
@@ -297,7 +287,7 @@ requests are handled by the service Envoy, and efficiently routed to your servic
 <span class="go">Hello from behind Envoy (service 1)! hostname: 36418bc3c824 resolvedhostname: 192.168.160.4</span>
 </pre></div>
 </div>
-<p>For <code class="docutils literal notranslate"><span class="pre">service2</span></code>:</p>
+<p>向 <code class="docutils literal notranslate"><span class="pre">service2</span></code> 发请求：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> curl -v localhost:8080/service/2
 <span class="go">*   Trying ::1...</span>
 <span class="go">* TCP_NODELAY set</span>
@@ -317,9 +307,8 @@ requests are handled by the service Envoy, and efficiently routed to your servic
 <span class="go">Hello from behind Envoy (service 2)! hostname: ea6165ee4fee resolvedhostname: 192.168.160.2</span>
 </pre></div>
 </div>
-<p>Notice that each request, while sent to the front Envoy, was correctly routed to the respective
-application.</p>
-<p>We can also use <code class="docutils literal notranslate"><span class="pre">HTTPS</span></code> to call services behind the front Envoy. For example, calling <code class="docutils literal notranslate"><span class="pre">service1</span></code>:</p>
+<p>能看到，每个请求在发送给前端 Envoy 后被正确路由到相应的应用程序。</p>
+<p>我们也可以通过 <code class="docutils literal notranslate"><span class="pre">HTTPS</span></code> 请求前端 Envoy 后的服务。例如，向 <code class="docutils literal notranslate"><span class="pre">service1</span></code>：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> curl https://localhost:8443/service/1 -k -v
 <span class="go">*   Trying ::1...</span>
 <span class="go">* TCP_NODELAY set</span>
@@ -363,16 +352,15 @@ application.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="step-5-test-envoy-s-load-balancing-capabilities">
-<h3>Step 5: Test Envoy’s load balancing capabilities<a class="headerlink" href="#step-5-test-envoy-s-load-balancing-capabilities" title="Permalink to this headline">¶</a></h3>
-<p>Now let’s scale up our <code class="docutils literal notranslate"><span class="pre">service1</span></code> nodes to demonstrate the load balancing abilities of Envoy:</p>
+<div class="section" id="id5">
+<h3>步骤 5：测试 Envoy 的负载均衡能力<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>现在增加 <code class="docutils literal notranslate"><span class="pre">service1</span></code> 的节点数量来演示 Envoy 的负载均衡能力：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> docker-compose scale <span class="nv">service1</span><span class="o">=</span><span class="m">3</span>
 <span class="go">Creating and starting example_service1_2 ... done</span>
 <span class="go">Creating and starting example_service1_3 ... done</span>
 </pre></div>
 </div>
-<p>Now if we send a request to <code class="docutils literal notranslate"><span class="pre">service1</span></code> multiple times, the front Envoy will load balance the
-requests by doing a round robin of the three <code class="docutils literal notranslate"><span class="pre">service1</span></code> machines:</p>
+<p>现在，如果我们多次向 <code class="docutils literal notranslate"><span class="pre">service1</span></code> 发送请求，前端 Envoy 将通过 round-robin 轮询三台 <code class="docutils literal notranslate"><span class="pre">service1</span></code> 机器来实现负载均衡：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> curl -v localhost:8080/service/1
 <span class="go">*   Trying ::1...</span>
 <span class="go">* TCP_NODELAY set</span>
@@ -428,12 +416,9 @@ requests by doing a round robin of the three <code class="docutils literal notra
 </pre></div>
 </div>
 </div>
-<div class="section" id="step-6-enter-containers-and-curl-services">
-<h3>Step 6: enter containers and curl services<a class="headerlink" href="#step-6-enter-containers-and-curl-services" title="Permalink to this headline">¶</a></h3>
-<p>In addition of using <code class="docutils literal notranslate"><span class="pre">curl</span></code> from your host machine, you can also enter the
-containers themselves and <code class="docutils literal notranslate"><span class="pre">curl</span></code> from inside them. To enter a container you
-can use <code class="docutils literal notranslate"><span class="pre">docker-compose</span> <span class="pre">exec</span> <span class="pre">&lt;container_name&gt;</span> <span class="pre">/bin/bash</span></code>. For example we can
-enter the <code class="docutils literal notranslate"><span class="pre">front-envoy</span></code> container, and <code class="docutils literal notranslate"><span class="pre">curl</span></code> for services locally:</p>
+<div class="section" id="curl">
+<h3>步骤 6：进入容器并 curl 服务<a class="headerlink" href="#curl" title="Permalink to this headline">¶</a></h3>
+<p>除了使用主机上的 <code class="docutils literal notranslate"><span class="pre">curl</span></code> 外，你还可以进入容器并从容器里面 <code class="docutils literal notranslate"><span class="pre">curl</span></code>。要进入容器，可以使用 <code class="docutils literal notranslate"><span class="pre">docker-compose</span> <span class="pre">exec</span> <span class="pre">&lt;container_name&gt;</span> <span class="pre">/bin/bash</span></code> 命令。例如，我们可以进入 <code class="docutils literal notranslate"><span class="pre">front-envoy</span></code> 容器，并在本地 <code class="docutils literal notranslate"><span class="pre">curl</span></code> 服务：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> docker-compose <span class="nb">exec</span> front-envoy /bin/bash
 <span class="gp">root@81288499f9d7:/#</span> curl localhost:8080/service/1
 <span class="go">Hello from behind Envoy (service 1)! hostname: 85ac151715c6 resolvedhostname: 172.19.0.3</span>
@@ -446,16 +431,16 @@ enter the <code class="docutils literal notranslate"><span class="pre">front-env
 </pre></div>
 </div>
 </div>
-<div class="section" id="step-7-enter-container-and-curl-admin">
-<h3>Step 7: enter container and curl admin<a class="headerlink" href="#step-7-enter-container-and-curl-admin" title="Permalink to this headline">¶</a></h3>
-<p>When Envoy runs it also attaches an <code class="docutils literal notranslate"><span class="pre">admin</span></code> to your desired port.</p>
-<p>In the example configs the admin is bound to port <code class="docutils literal notranslate"><span class="pre">8001</span></code>.</p>
-<p>We can <code class="docutils literal notranslate"><span class="pre">curl</span></code> it to gain useful information:</p>
+<div class="section" id="curl-admin">
+<h3>步骤7：进入容器并 curl admin<a class="headerlink" href="#curl-admin" title="Permalink to this headline">¶</a></h3>
+<p>当 Envoy 启动时，也会同时启动一个 <code class="docutils literal notranslate"><span class="pre">admin</span></code> 服务并绑定指定的端口。</p>
+<p>在示例配置中 <code class="docutils literal notranslate"><span class="pre">admin</span></code> 绑定到了 <code class="docutils literal notranslate"><span class="pre">8001</span></code> 端口。</p>
+<p>我们可以通过 <code class="docutils literal notranslate"><span class="pre">curl</span></code> 它获得有用的信息：</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">/server_info</span></code> provides information about the Envoy version you are running.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/stats</span></code> provides statistics about the  Envoy server.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/server_info</span></code> 提供正在运行的 Envoy 版本的信息。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/stats</span></code> 提供 Envoy 服务相关的统计数据。</p></li>
 </ul>
-<p>In the example we can we can enter the <code class="docutils literal notranslate"><span class="pre">front-envoy</span></code> container to query admin:</p>
+<p>在下面的例子里，我们进入 <code class="docutils literal notranslate"><span class="pre">front-envoy</span></code> 容器并查询 <code class="docutils literal notranslate"><span class="pre">admin</span></code> 服务：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> docker-compose <span class="nb">exec</span> front-envoy /bin/bash
 <span class="gp">root@e654c2c83277:/#</span> curl localhost:8001/server_info
 </pre></div>
@@ -524,8 +509,7 @@ enter the <code class="docutils literal notranslate"><span class="pre">front-env
 <span class="go">...</span>
 </pre></div>
 </div>
-<p>Notice that we can get the number of members of upstream clusters, number of requests fulfilled by
-them, information about http ingress, and a plethora of other useful stats.</p>
+<p>能看到，我们可以获取上游集群的成员数量，它们完成的请求数量，有关 http 入口的信息以及大量其他有用的统计数据。</p>
 </div>
 </div>
 </div>

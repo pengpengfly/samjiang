@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Lua 过滤器 &mdash; envoy 1.16.0-74daf9 documentation</title>
+  <title>Lua 过滤器 &mdash; envoy 1.16.0-a39584 documentation</title>
   
 
   
@@ -76,7 +76,7 @@
             
             
               <div class="version">
-                1.16.0-74daf9
+                1.16.0-a39584
               </div>
             
           
@@ -114,7 +114,7 @@
 <li class="toctree-l3"><a class="reference internal" href="csrf.html">CSRF Filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ext_authz.html">External Authorization Filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fault_injection.html">Fault Injection Filter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="front_proxy.html">Front Proxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="front_proxy.html">前端代理</a></li>
 <li class="toctree-l3"><a class="reference internal" href="grpc_bridge.html">gRPC Bridge</a></li>
 <li class="toctree-l3"><a class="reference internal" href="jaeger_native_tracing.html">Jaeger Native Tracing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="jaeger_tracing.html">Jaeger Tracing</a></li>
@@ -124,7 +124,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="mysql.html">MySQL Filter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="redis.html">Redis Filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="redis.html">Redis 过滤器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="zipkin_tracing.html">Zipkin Tracing</a></li>
 </ul>
 </li>
@@ -209,15 +209,15 @@
 <p>在这个例子中，我们会展示 Lua 过滤器在 Envoy 代理中是如何使用的。 Envoy 代理配置包括一个 Lua 过滤器，此过滤器包含了在 <a class="reference internal" href="../../configuration/http/http_filters/lua_filter.html#config-http-filters-lua"><span class="std std-ref">这个</span></a> 文档中记录的两个函数，即 <code class="docutils literal notranslate"><span class="pre">envoy_on_request(request_handle)</span></code> 和 <code class="docutils literal notranslate"><span class="pre">envoy_on_response(response_handle)</span></code> 。</p>
 <div class="section" id="id1">
 <h2>运行沙盒<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>The following documentation runs through the setup of Envoy described above.</p>
-<div class="section" id="step-1-install-docker">
-<h3>Step 1: Install Docker<a class="headerlink" href="#step-1-install-docker" title="Permalink to this headline">¶</a></h3>
-<p>Ensure that you have a recent versions of <code class="docutils literal notranslate"><span class="pre">docker</span></code> and <code class="docutils literal notranslate"><span class="pre">docker-compose</span></code> installed.</p>
-<p>A simple way to achieve this is via the <a class="reference external" href="https://www.docker.com/products/docker-desktop">Docker Desktop</a>.</p>
+<p>以下文档说明了上述对于 Envoy 容器编译环境进行设置的过程。</p>
+<div class="section" id="docker">
+<h3>步骤 1：安装 Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h3>
+<p>确保你已安装较新版本的 <code class="docutils literal notranslate"><span class="pre">docker</span></code> 和 <code class="docutils literal notranslate"><span class="pre">docker-compose</span></code> 。</p>
+<p>一个最简单的方法来完成此事就是使用 <a class="reference external" href="https://www.docker.com/products/docker-desktop">Docker Desktop</a> 。</p>
 </div>
-<div class="section" id="step-2-clone-the-envoy-repo">
-<h3>Step 2: Clone the Envoy repo<a class="headerlink" href="#step-2-clone-the-envoy-repo" title="Permalink to this headline">¶</a></h3>
-<p>If you have not cloned the Envoy repo, clone it with:</p>
+<div class="section" id="envoy">
+<h3>步骤 2：克隆 Envoy 仓库<a class="headerlink" href="#envoy" title="Permalink to this headline">¶</a></h3>
+<p>如果你还没有克隆 Envoy 仓库，用如下方式进行克隆：</p>
 <div class="sphinx-tabs docutils container">
 <div class="ui top attached tabular menu sphinx-menu docutils container">
 <div class="active item sphinx-data-tab-U1NI docutils container">
