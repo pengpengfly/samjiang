@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>开始 &mdash; envoy 1.16.0-a39584 documentation</title>
+  <title>开始 &mdash; envoy 1.16.0-9e5bb2 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-a39584
+                1.16.0-9e5bb2
               </div>
             
           
@@ -111,12 +111,12 @@
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/cors.html">CORS Filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/csrf.html">CSRF Filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/ext_authz.html">External Authorization Filter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="sandboxes/fault_injection.html">Fault Injection Filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sandboxes/fault_injection.html">故障注入过滤器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/front_proxy.html">前端代理</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/grpc_bridge.html">gRPC Bridge</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/jaeger_native_tracing.html">Jaeger Native Tracing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/jaeger_tracing.html">Jaeger Tracing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="sandboxes/load_reporting_service.html">Load Reporting Service (LRS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sandboxes/load_reporting_service.html">负载报告服务 (LRS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/lua.html">Lua 过滤器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/mysql.html">MySQL Filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/redis.html">Redis 过滤器</a></li>
@@ -211,10 +211,10 @@ feature of the API, which is most useful for simple requirements. For more compl
 more detailed explanation of the configuration file and execution steps for
 the same configuration.</p>
 <p>A very minimal Envoy configuration that can be used to validate basic plain HTTP
-proxying is available in <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/a39584a71d7efbd89d6515c38318c0fbb5ac9623/configs/google_com_proxy.v2.yaml">configs/google_com_proxy.v2.yaml</a>. This is not
+proxying is available in <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/9e5bb2ea2cdef48d671fe7b2d7c05027ea10a9aa/configs/google_com_proxy.v2.yaml">configs/google_com_proxy.v2.yaml</a>. This is not
 intended to represent a realistic Envoy deployment:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ docker pull envoyproxy/envoy-dev:a39584a71d7efbd89d6515c38318c0fbb5ac9623
-$ docker run --rm -d -p 10000:10000 envoyproxy/envoy-dev:a39584a71d7efbd89d6515c38318c0fbb5ac9623
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ docker pull envoyproxy/envoy-dev:9e5bb2ea2cdef48d671fe7b2d7c05027ea10a9aa
+$ docker run --rm -d -p 10000:10000 envoyproxy/envoy-dev:9e5bb2ea2cdef48d671fe7b2d7c05027ea10a9aa
 $ curl -v localhost:10000
 </pre></div>
 </div>
@@ -294,7 +294,7 @@ The <a class="reference internal" href="../configuration/overview/overview.html#
 <h2>Using the Envoy Docker Image<a class="headerlink" href="#using-the-envoy-docker-image" title="Permalink to this headline">¶</a></h2>
 <p>Create a simple Dockerfile to execute Envoy, which assumes that envoy.yaml (described above) is in your local directory.
 You can refer to the <a class="reference internal" href="../operations/cli.html#operations-cli"><span class="std std-ref">Command line options</span></a>.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FROM envoyproxy/envoy-dev:a39584a71d7efbd89d6515c38318c0fbb5ac9623
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FROM envoyproxy/envoy-dev:9e5bb2ea2cdef48d671fe7b2d7c05027ea10a9aa
 COPY envoy.yaml /etc/envoy/envoy.yaml
 </pre></div>
 </div>
@@ -369,8 +369,8 @@ features. The following sandboxes are available:</p>
 <li class="toctree-l2"><a class="reference internal" href="sandboxes/ext_authz.html#running-the-sandbox">Running the Sandbox</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="sandboxes/fault_injection.html">Fault Injection Filter</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="sandboxes/fault_injection.html#running-the-sandboxes">Running the Sandboxes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sandboxes/fault_injection.html">故障注入过滤器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sandboxes/fault_injection.html#id2">运行沙盒</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sandboxes/front_proxy.html">前端代理</a><ul>
@@ -391,8 +391,8 @@ features. The following sandboxes are available:</p>
 <li class="toctree-l2"><a class="reference internal" href="sandboxes/jaeger_tracing.html#running-the-sandbox">Running the Sandbox</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="sandboxes/load_reporting_service.html">Load Reporting Service (LRS)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="sandboxes/load_reporting_service.html#running-the-sandbox">Running the Sandbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sandboxes/load_reporting_service.html">负载报告服务 (LRS)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sandboxes/load_reporting_service.html#id1">运行沙盒</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sandboxes/lua.html">Lua 过滤器</a><ul>

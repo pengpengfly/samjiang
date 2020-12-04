@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>构建 &mdash; envoy 1.16.0-a39584 documentation</title>
+  <title>构建 &mdash; envoy 1.16.0-9e5bb2 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-a39584
+                1.16.0-9e5bb2
               </div>
             
           
@@ -195,25 +195,25 @@
             
   <div class="section" id="building">
 <span id="id1"></span><h1>构建<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h1>
-<p>Envoy 使用 Bazel 来构建系统。为了更简单地初始化构建和快速开始，我们提供了一个 Ubuntu 16 的基础镜像容器，这个容器包含了需要构建和 <em>静态链接</em> Envoy 的所有工具，详情可查看 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/a39584a71d7efbd89d6515c38318c0fbb5ac9623/ci/README.md">ci/README.md</a>。</p>
-<p>为了能够手动构建，可参照 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/a39584a71d7efbd89d6515c38318c0fbb5ac9623/bazel/README.md">bazel/README.md</a> 中的使用说明。</p>
+<p>Envoy 使用 Bazel 来构建系统。为了更简单地初始化构建和快速开始，我们提供了一个 Ubuntu 16 的基础镜像容器，这个容器包含了需要构建和 <em>静态链接</em> Envoy 的所有工具，详情可查看 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/9e5bb2ea2cdef48d671fe7b2d7c05027ea10a9aa/ci/README.md">ci/README.md</a>。</p>
+<p>为了能够手动构建，可参照 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/9e5bb2ea2cdef48d671fe7b2d7c05027ea10a9aa/bazel/README.md">bazel/README.md</a> 中的使用说明。</p>
 <div class="section" id="install-requirements">
 <span id="id2"></span><h2>必备条件<a class="headerlink" href="#install-requirements" title="Permalink to this headline">¶</a></h2>
 <p>Envoy 最初实在 Ubuntu 14.04 LTS 上开发和部署的。它可以在任何最近的 Linux 上运行，包括 Ubuntu 18.04 LTS。</p>
 <p>构建 Envoy 需要具备以下条件：
 * GCC 7+ 或者 Clang/LLVM 7+ (支持 C++14)。 使用 Clang 时，Clang/LLVM 9+ 时首选 (如下)。
-* 这些 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/a39584a71d7efbd89d6515c38318c0fbb5ac9623/bazel/repository_locations.bzl">Bazel 原生</a> 依赖。</p>
-<p>关于执行手工构建的更多信息，请看链接 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/a39584a71d7efbd89d6515c38318c0fbb5ac9623/ci/README.md">CI</a> 和 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/a39584a71d7efbd89d6515c38318c0fbb5ac9623/bazel/README.md">Bazel</a> 中的文档。
+* 这些 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/9e5bb2ea2cdef48d671fe7b2d7c05027ea10a9aa/bazel/repository_locations.bzl">Bazel 原生</a> 依赖。</p>
+<p>关于执行手工构建的更多信息，请看链接 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/9e5bb2ea2cdef48d671fe7b2d7c05027ea10a9aa/ci/README.md">CI</a> 和 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/9e5bb2ea2cdef48d671fe7b2d7c05027ea10a9aa/bazel/README.md">Bazel</a> 中的文档。
 需要注意的是 Clang/LLVM 8 或者更低版本，Envoy 可能需要用 <cite>–define tcmalloc=gperftools</cite> 参数来构建，因为新的 tcmalloc 代码不能够保证用较低版本的 Clang 来编译。</p>
 </div>
 <div class="section" id="install-binaries">
 <span id="id3"></span><h2>预制二进制<a class="headerlink" href="#install-binaries" title="Permalink to this headline">¶</a></h2>
 <p>当我们发布官方版本时，我们会用版本号来构建镜像并给它打标签。可以在下面的仓库中找到这些镜像：</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy/tags/">envoyproxy/envoy</a>：在 Ubuntu Bionic 基础之上发布消除符号的二进制包。</p></li>
-<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy-debug/tags/">envoyproxy/envoy-debug</a>: 在 Ubuntu Bionic 基础之上发布带有调试符号的二进制包。</p></li>
-<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy-alpine/tags/">envoyproxy/envoy-alpine</a>: 在 <strong>glibc</strong> alpine 基础之上发布消除符号的二进制包。</p></li>
-<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy-alpine-debug/tags/">envoyproxy/envoy-alpine-debug</a>: <em>为了支持 envoyproxy/envoy-debug，此仓库已被弃用</em>。 在 <strong>glibc</strong> alpine 基础之上发布带有调试符号的二进制包。</p></li>
+<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy/tags/">envoyproxy/envoy</a>：在 Ubuntu Bionic 基础之上发布消除符号的二进制文件。</p></li>
+<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy-debug/tags/">envoyproxy/envoy-debug</a>: 在 Ubuntu Bionic 基础之上发布带有调试符号的二进制文件。</p></li>
+<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy-alpine/tags/">envoyproxy/envoy-alpine</a>: 在 <strong>glibc</strong> alpine 基础之上发布消除符号的二进制文件。</p></li>
+<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy-alpine-debug/tags/">envoyproxy/envoy-alpine-debug</a>: <em>为了支持 envoyproxy/envoy-debug，此仓库已被弃用</em>。 在 <strong>glibc</strong> alpine 基础之上发布带有调试符号的二进制文件。</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -221,18 +221,18 @@
 </div>
 <p>针对每一个主分支提交，我们额外地创建了一套开发 Docker 镜像。在下面的仓库中可以找到这些镜像：</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy-dev/tags/">envoyproxy/envoy-dev</a>: 在 Ubuntu Bionic 基础之上发布消除符号的二进制&gt;包。</p></li>
-<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy-debug-dev/tags/">envoyproxy/envoy-debug-dev</a>: 在 Ubuntu Bionic 基础之上发布带有&gt;调试符号的二进制包。</p></li>
-<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy-alpine-dev/tags/">envoyproxy/envoy-alpine-dev</a>: 在 <strong>glibc</strong> alpine 基础之上发布消除符号的二进制包。</p></li>
-<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy-alpine-debug-dev/tags/">envoyproxy/envoy-alpine-debug-dev</a>: <em>为了支持 envoyproxy/envoy-debug-dev，此仓库已被弃用</em>。在 <strong>glibc</strong> alpine 基础之上发布带有调试符号的二进制包。</p></li>
+<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy-dev/tags/">envoyproxy/envoy-dev</a>: 在 Ubuntu Bionic 基础之上发布消除符号的二进制文件。</p></li>
+<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy-debug-dev/tags/">envoyproxy/envoy-debug-dev</a>: 在 Ubuntu Bionic 基础之上发布带有调试符号的二进制文件。</p></li>
+<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy-alpine-dev/tags/">envoyproxy/envoy-alpine-dev</a>: 在 <strong>glibc</strong> alpine 基础之上发布消除符号的二进制文件。</p></li>
+<li><p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy-alpine-debug-dev/tags/">envoyproxy/envoy-alpine-debug-dev</a>: <em>为了支持 envoyproxy/envoy-debug-dev，此仓库已被弃用</em>。在 <strong>glibc</strong> alpine 基础之上发布带有调试符号的二进制文件。</p></li>
 </ul>
 <p>在上述的 <em>dev</em> 仓库中，<em>latest</em> 标签指向主分支中通过测试的最近的 Envoy SHA。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Envoy 项目始终视主分支（master）为版本发布的候选分支，很多组织使用主分支在生产中进行追踪和部署。我们鼓励大家做同样的   事情，以便在开发流程中能够尽早的报告遇到的问题。</p>
 </div>
-<p>可以在 <a class="reference external" href="https://www.getenvoy.io/">GetEnvoy.io</a> 找到为不同平台打包的 Envoy 预制二进制包。</p>
-<p>我们将会根据社区对 CI、打包方面的兴趣来生成额外的二进制包类型。针对不同平台的预制二进制包，请开一个 <a class="reference external" href="https://github.com/tetratelabs/getenvoy/issues">GetEnvoy issue</a> 。</p>
+<p>可以在 <a class="reference external" href="https://www.getenvoy.io/">GetEnvoy.io</a> 找到为不同平台打包的 Envoy 预制二进制文件。</p>
+<p>我们将会根据社区对 CI、打包方面的兴趣来生成额外的二进制文件类型。针对不同平台的预制二进制文件，请开一个 <a class="reference external" href="https://github.com/tetratelabs/getenvoy/issues">GetEnvoy issue</a> 。</p>
 <div class="section" id="arm64">
 <span id="arm-binaries"></span><h3>ARM64 二进制<a class="headerlink" href="#arm64" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://hub.docker.com/r/envoyproxy/envoy/tags/">envoyproxy/envoy</a>,
@@ -244,7 +244,7 @@
 </div>
 <div class="section" id="envoy">
 <h2>修改 Envoy<a class="headerlink" href="#envoy" title="Permalink to this headline">¶</a></h2>
-<p>如果你对于修改 Envoy 和测试你的改变感兴趣，一种方式就是使用 Docker。这个指导将讲述如何构建你自己的 Envoy 二进制包，并且把包放在一个 Ubuntu 容器中。</p>
+<p>如果你对于修改 Envoy 和测试你的改变感兴趣，一种方式就是使用 Docker。这个指导将讲述如何构建你自己的 Envoy 二进制文件，并且把包放在一个 Ubuntu 容器中。</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="sandboxes/local_docker_build.html">构建一个 Envoy Docker 镜像</a></li>
