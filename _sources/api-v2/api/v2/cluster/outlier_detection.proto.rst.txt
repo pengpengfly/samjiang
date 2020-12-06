@@ -9,7 +9,7 @@ Outlier detection
 cluster.OutlierDetection
 ------------------------
 
-`[cluster.OutlierDetection proto] <https://github.com/envoyproxy/envoy/blob/9e5bb2ea2cdef48d671fe7b2d7c05027ea10a9aa/api/envoy/api/v2/cluster/outlier_detection.proto#L24>`_
+`[cluster.OutlierDetection proto] <https://github.com/envoyproxy/envoy/blob/ef4aaf1425cac11a72c86b3e3659cf5cb7bf4e12/api/envoy/api/v2/cluster/outlier_detection.proto#L24>`_
 
 See the :ref:`architecture overview <arch_overview_outlier_detection>` for
 more information on outlier detection.
