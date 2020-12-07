@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Access logging &mdash; envoy 1.16.0-014775 documentation</title>
+  <title>Access logging &mdash; envoy 1.16.0-62b469 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-014775
+                1.16.0-62b469
               </div>
             
           
@@ -123,7 +123,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../security/security.html">安全</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../operations/operations.html">Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../other_features/other_features.html">Other features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../other_features/other_features.html">其他特性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../other_protocols/other_protocols.html">其他协议</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../advanced/advanced.html">Advanced</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../best_practices/best_practices.html">配置最佳实践</a></li>
@@ -571,7 +571,7 @@ none of the headers are present ‘-‘ symbol will be in the log.</p>
 where NAMESPACE is the filter namespace used when setting the metadata, KEY is an optional
 lookup up key in the namespace with the option of specifying nested keys separated by ‘:’,
 and Z is an optional parameter denoting string truncation up to Z characters long. Dynamic Metadata
-can be set by filters using the <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/014775423b9ce31c60395aae77b1b5fd795a80e3/include/envoy/stream_info/stream_info.h">StreamInfo</a> API:
+can be set by filters using the <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/62b469f6da190686d498ee992d2337b7cfd3e6cf/include/envoy/stream_info/stream_info.h">StreamInfo</a> API:
 <em>setDynamicMetadata</em>. The data will be logged as a JSON string. For example, for the following dynamic metadata:</p>
 <p><code class="docutils literal notranslate"><span class="pre">com.test.my_filter:</span> <span class="pre">{&quot;test_key&quot;:</span> <span class="pre">&quot;foo&quot;,</span> <span class="pre">&quot;test_object&quot;:</span> <span class="pre">{&quot;inner_key&quot;:</span> <span class="pre">&quot;bar&quot;}}</span></code></p>
 <ul class="simple">

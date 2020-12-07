@@ -20,7 +20,7 @@ Cross-Site Request Forgery :ref:`configuration overview <config_http_filters_csr
 config.filter.http.csrf.v2.CsrfPolicy
 -------------------------------------
 
-`[config.filter.http.csrf.v2.CsrfPolicy proto] <https://github.com/envoyproxy/envoy/blob/014775423b9ce31c60395aae77b1b5fd795a80e3/api/envoy/config/filter/http/csrf/v2/csrf.proto#L22>`_
+`[config.filter.http.csrf.v2.CsrfPolicy proto] <https://github.com/envoyproxy/envoy/blob/62b469f6da190686d498ee992d2337b7cfd3e6cf/api/envoy/config/filter/http/csrf/v2/csrf.proto#L22>`_
 
 CSRF filter config.
 
