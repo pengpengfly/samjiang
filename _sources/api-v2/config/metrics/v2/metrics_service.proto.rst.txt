@@ -9,7 +9,7 @@ Metrics service
 config.metrics.v2.MetricsServiceConfig
 --------------------------------------
 
-`[config.metrics.v2.MetricsServiceConfig proto] <https://github.com/envoyproxy/envoy/blob/62b469f6da190686d498ee992d2337b7cfd3e6cf/api/envoy/config/metrics/v2/metrics_service.proto#L20>`_
+`[config.metrics.v2.MetricsServiceConfig proto] <https://github.com/envoyproxy/envoy/blob/5f9b192b8e4bbedeeb154c59f6a45d6007c60329/api/envoy/config/metrics/v2/metrics_service.proto#L20>`_
 
 Metrics Service is configured as a built-in *envoy.stat_sinks.metrics_service* :ref:`StatsSink
 <envoy_api_msg_config.metrics.v2.StatsSink>`. This opaque configuration will be used to create

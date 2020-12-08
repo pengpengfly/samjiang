@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>开始 &mdash; envoy 1.16.0-62b469 documentation</title>
+  <title>开始 &mdash; envoy 1.16.0-5f9b19 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-62b469
+                1.16.0-5f9b19
               </div>
             
           
@@ -108,7 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#using-the-envoy-docker-image">Using the Envoy Docker Image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sandboxes">Sandboxes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/cache.html">Cache Filter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="sandboxes/cors.html">CORS Filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sandboxes/cors.html">CORS 过滤器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/csrf.html">CSRF Filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/ext_authz.html">External Authorization Filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/fault_injection.html">故障注入过滤器</a></li>
@@ -211,10 +211,10 @@ feature of the API, which is most useful for simple requirements. For more compl
 more detailed explanation of the configuration file and execution steps for
 the same configuration.</p>
 <p>A very minimal Envoy configuration that can be used to validate basic plain HTTP
-proxying is available in <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/62b469f6da190686d498ee992d2337b7cfd3e6cf/configs/google_com_proxy.v2.yaml">configs/google_com_proxy.v2.yaml</a>. This is not
+proxying is available in <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/5f9b192b8e4bbedeeb154c59f6a45d6007c60329/configs/google_com_proxy.v2.yaml">configs/google_com_proxy.v2.yaml</a>. This is not
 intended to represent a realistic Envoy deployment:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ docker pull envoyproxy/envoy-dev:62b469f6da190686d498ee992d2337b7cfd3e6cf
-$ docker run --rm -d -p 10000:10000 envoyproxy/envoy-dev:62b469f6da190686d498ee992d2337b7cfd3e6cf
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ docker pull envoyproxy/envoy-dev:5f9b192b8e4bbedeeb154c59f6a45d6007c60329
+$ docker run --rm -d -p 10000:10000 envoyproxy/envoy-dev:5f9b192b8e4bbedeeb154c59f6a45d6007c60329
 $ curl -v localhost:10000
 </pre></div>
 </div>
@@ -294,7 +294,7 @@ The <a class="reference internal" href="../configuration/overview/overview.html#
 <h2>Using the Envoy Docker Image<a class="headerlink" href="#using-the-envoy-docker-image" title="Permalink to this headline">¶</a></h2>
 <p>Create a simple Dockerfile to execute Envoy, which assumes that envoy.yaml (described above) is in your local directory.
 You can refer to the <a class="reference internal" href="../operations/cli.html#operations-cli"><span class="std std-ref">Command line options</span></a>.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FROM envoyproxy/envoy-dev:62b469f6da190686d498ee992d2337b7cfd3e6cf
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FROM envoyproxy/envoy-dev:5f9b192b8e4bbedeeb154c59f6a45d6007c60329
 COPY envoy.yaml /etc/envoy/envoy.yaml
 </pre></div>
 </div>
@@ -357,8 +357,8 @@ features. The following sandboxes are available:</p>
 <li class="toctree-l2"><a class="reference internal" href="sandboxes/cache.html#running-the-sandbox">Running the Sandbox</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="sandboxes/cors.html">CORS Filter</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="sandboxes/cors.html#running-the-sandboxes">Running the Sandboxes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sandboxes/cors.html">CORS 过滤器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sandboxes/cors.html#id1">运行沙盒</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sandboxes/csrf.html">CSRF Filter</a><ul>
