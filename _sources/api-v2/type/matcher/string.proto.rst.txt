@@ -9,7 +9,7 @@ String matcher
 type.matcher.StringMatcher
 --------------------------
 
-`[type.matcher.StringMatcher proto] <https://github.com/envoyproxy/envoy/blob/6357a34da3f51c243bf23e669e075cd79f5ed43d/api/envoy/type/matcher/string.proto#L19>`_
+`[type.matcher.StringMatcher proto] <https://github.com/envoyproxy/envoy/blob/830458738630b9f39ff9244cb8e29efa1f6b875a/api/envoy/type/matcher/string.proto#L19>`_
 
 Specifies the way to match a string.
 
@@ -110,7 +110,7 @@ ignore_case
 type.matcher.ListStringMatcher
 ------------------------------
 
-`[type.matcher.ListStringMatcher proto] <https://github.com/envoyproxy/envoy/blob/6357a34da3f51c243bf23e669e075cd79f5ed43d/api/envoy/type/matcher/string.proto#L76>`_
+`[type.matcher.ListStringMatcher proto] <https://github.com/envoyproxy/envoy/blob/830458738630b9f39ff9244cb8e29efa1f6b875a/api/envoy/type/matcher/string.proto#L76>`_
 
 Specifies a list of ways to match a string.
 

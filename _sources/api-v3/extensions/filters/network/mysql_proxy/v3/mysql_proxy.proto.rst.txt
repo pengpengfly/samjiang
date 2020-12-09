@@ -20,7 +20,7 @@ MySQL Proxy :ref:`configuration overview <config_network_filters_mysql_proxy>`.
 extensions.filters.network.mysql_proxy.v3.MySQLProxy
 ----------------------------------------------------
 
-`[extensions.filters.network.mysql_proxy.v3.MySQLProxy proto] <https://github.com/envoyproxy/envoy/blob/6357a34da3f51c243bf23e669e075cd79f5ed43d/api/envoy/extensions/filters/network/mysql_proxy/v3/mysql_proxy.proto#L17>`_
+`[extensions.filters.network.mysql_proxy.v3.MySQLProxy proto] <https://github.com/envoyproxy/envoy/blob/830458738630b9f39ff9244cb8e29efa1f6b875a/api/envoy/extensions/filters/network/mysql_proxy/v3/mysql_proxy.proto#L17>`_
 
 
 .. code-block:: json

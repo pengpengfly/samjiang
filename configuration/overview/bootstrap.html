@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Bootstrap configuration &mdash; envoy 1.16.0-6357a3 documentation</title>
+  <title>Bootstrap 配置 &mdash; envoy 1.16.0-830458 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-6357a3
+                1.16.0-830458
               </div>
             
           
@@ -109,7 +109,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="overview.html">概览</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="versioning.html">Versioning</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Bootstrap configuration</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Bootstrap 配置</a></li>
 <li class="toctree-l3"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l3"><a class="reference internal" href="extension.html">Extension configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="xds_api.html">xDS API endpoints</a></li>
@@ -124,7 +124,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../operations/operations.html">Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../other_features/other_features.html">其他特性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../other_protocols/other_protocols.html">其他协议</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../advanced/advanced.html">Advanced</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../advanced/advanced.html">高级配置</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../best_practices/best_practices.html">配置最佳实践</a></li>
 </ul>
 </li>
@@ -182,7 +182,7 @@
         
           <li><a href="overview.html">概览</a> &raquo;</li>
         
-      <li>Bootstrap configuration</li>
+      <li>Bootstrap 配置</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -201,23 +201,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="bootstrap-configuration">
-<span id="config-overview-bootstrap"></span><h1>Bootstrap configuration<a class="headerlink" href="#bootstrap-configuration" title="Permalink to this headline">¶</a></h1>
-<p>To use the xDS API, it’s necessary to supply a bootstrap configuration file. This
-provides static server configuration and configures Envoy to access <a class="reference internal" href="../../intro/arch_overview/operations/dynamic_configuration.html#arch-overview-dynamic-config"><span class="std std-ref">dynamic
-configuration if needed</span></a>. This is supplied on the command-line via
-the <a class="reference internal" href="../../operations/cli.html#cmdoption-c"><code class="xref std std-option docutils literal notranslate"><span class="pre">-c</span></code></a> flag, i.e.:</p>
+  <div class="section" id="bootstrap">
+<span id="config-overview-bootstrap"></span><h1>Bootstrap 配置<a class="headerlink" href="#bootstrap" title="Permalink to this headline">¶</a></h1>
+<p>要使用 xDS API，须提供一份 bootstrap 配置文件。它提供了静态的服务器配置，并配置 Envoy 来访问 <a class="reference internal" href="../../intro/arch_overview/operations/dynamic_configuration.html#arch-overview-dynamic-config"><span class="std std-ref">动态配置（如有需要）</span></a> 。在命令行中可以通过选项 <cite>-c</cite> 来提供，例如：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./envoy -c &lt;path to config&gt;.{json,yaml,pb,pb_text}</span>
 </pre></div>
 </div>
-<p>where the extension reflects the underlying config representation.</p>
-<p>The <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-bootstrap"><span class="std std-ref">Bootstrap</span></a> message is the root of the
-configuration. A key concept in the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-bootstrap"><span class="std std-ref">Bootstrap</span></a>
-message is the distinction between static and dynamic resources. Resources such
-as a <a class="reference internal" href="../../api-v3/config/listener/v3/listener.proto.html#envoy-v3-api-msg-config-listener-v3-listener"><span class="std std-ref">Listener</span></a> or <a class="reference internal" href="../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-msg-config-cluster-v3-cluster"><span class="std std-ref">Cluster</span></a> may be supplied either statically in
-<a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-static-resources"><span class="std std-ref">static_resources</span></a> or have
-an xDS service such as <a class="reference internal" href="../listeners/lds.html#config-listeners-lds"><span class="std std-ref">LDS</span></a> or <a class="reference internal" href="../upstream/cluster_manager/cds.html#config-cluster-manager-cds"><span class="std std-ref">CDS</span></a> configured in
-<a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-dynamic-resources"><span class="std std-ref">dynamic_resources</span></a>.</p>
+<p>其中扩展反映了底层配置关系。</p>
+<p><a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-bootstrap"><span class="std std-ref">Bootstrap</span></a> 消息是配置的根。在 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-bootstrap"><span class="std std-ref">Bootstrap</span></a> 消息中有一个重要的概念就是静态和动态资源之间的区别。比如 <a class="reference internal" href="../../api-v3/config/listener/v3/listener.proto.html#envoy-v3-api-msg-config-listener-v3-listener"><span class="std std-ref">监听器</span></a> 或 <a class="reference internal" href="../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-msg-config-cluster-v3-cluster"><span class="std std-ref">集群</span></a> 之类的资源或在 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-static-resources"><span class="std std-ref">static_resources</span></a> 中静态提供，或由配置在 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-dynamic-resources"><span class="std std-ref">dynamic_resources</span></a> 中的诸如 <a class="reference internal" href="../listeners/lds.html#config-listeners-lds"><span class="std std-ref">LDS</span></a> 或 <a class="reference internal" href="../upstream/cluster_manager/cds.html#config-cluster-manager-cds"><span class="std std-ref">CDS</span></a> 之类的 xDS 服务提供。</p>
 </div>
 
 

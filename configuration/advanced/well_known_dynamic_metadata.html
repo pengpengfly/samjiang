@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Well Known Dynamic Metadata &mdash; envoy 1.16.0-6357a3 documentation</title>
+  <title>Well Known Dynamic Metadata &mdash; envoy 1.16.0-830458 documentation</title>
   
 
   
@@ -47,7 +47,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="配置最佳实践" href="../best_practices/best_practices.html" />
-    <link rel="prev" title="Advanced" href="advanced.html" /> 
+    <link rel="prev" title="高级配置" href="advanced.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-6357a3
+                1.16.0-830458
               </div>
             
           
@@ -115,7 +115,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../operations/operations.html">Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../other_features/other_features.html">其他特性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../other_protocols/other_protocols.html">其他协议</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="advanced.html">Advanced</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="advanced.html">高级配置</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Well Known Dynamic Metadata</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#shared-dynamic-metadata">Shared Dynamic Metadata</a></li>
 </ul>
@@ -177,7 +177,7 @@
         
           <li><a href="../configuration.html">配置参考</a> &raquo;</li>
         
-          <li><a href="advanced.html">Advanced</a> &raquo;</li>
+          <li><a href="advanced.html">高级配置</a> &raquo;</li>
         
       <li>Well Known Dynamic Metadata</li>
     
@@ -201,8 +201,8 @@
   <div class="section" id="well-known-dynamic-metadata">
 <span id="id1"></span><h1>Well Known Dynamic Metadata<a class="headerlink" href="#well-known-dynamic-metadata" title="Permalink to this headline">¶</a></h1>
 <p>Filters can emit dynamic metadata via the <em>setDynamicMetadata</em> routine in the
-<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/6357a34da3f51c243bf23e669e075cd79f5ed43d/include/envoy/stream_info/stream_info.h">StreamInfo</a> interface on a
-<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/6357a34da3f51c243bf23e669e075cd79f5ed43d/include/envoy/network/connection.h">Connection</a>. This metadata emitted by a filter can be
+<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/830458738630b9f39ff9244cb8e29efa1f6b875a/include/envoy/stream_info/stream_info.h">StreamInfo</a> interface on a
+<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/830458738630b9f39ff9244cb8e29efa1f6b875a/include/envoy/network/connection.h">Connection</a>. This metadata emitted by a filter can be
 consumed by other filters and useful features can be built by stacking such filters. For example,
 a logging filter can consume dynamic metadata from an RBAC filter to log details about runtime
 shadow rule behavior. Another example is where an RBAC filter permits/restricts MySQL/MongoDB operations
@@ -271,7 +271,7 @@ by looking at the operational metadata emitted by the MongoDB filter.</p>
         <a href="../best_practices/best_practices.html" class="btn btn-neutral float-right" title="配置最佳实践" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="advanced.html" class="btn btn-neutral float-left" title="Advanced" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="advanced.html" class="btn btn-neutral float-left" title="高级配置" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
