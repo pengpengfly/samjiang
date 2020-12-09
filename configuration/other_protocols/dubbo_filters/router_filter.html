@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Router &mdash; envoy 1.16.0-5f9b19 documentation</title>
+  <title>路由 &mdash; envoy 1.16.0-6357a3 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-5f9b19
+                1.16.0-6357a3
               </div>
             
           
@@ -117,7 +117,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../other_protocols.html">其他协议</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../thrift_filters/thrift_filters.html">Thrift 过滤器</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="dubbo_filters.html">Dubbo 过滤器</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Router</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">路由</a></li>
 </ul>
 </li>
 </ul>
@@ -182,7 +182,7 @@
         
           <li><a href="dubbo_filters.html">Dubbo 过滤器</a> &raquo;</li>
         
-      <li>Router</li>
+      <li>路由</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -201,14 +201,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="router">
-<span id="config-dubbo-filters-router"></span><h1>Router<a class="headerlink" href="#router" title="Permalink to this headline">¶</a></h1>
-<p>The router filter implements Dubbo forwarding. It will be used in almost all Dubbo proxying
-scenarios. The filter’s main job is to follow the instructions specified in the configured
-<a class="reference internal" href="../../../api-v3/extensions/filters/network/dubbo_proxy/v3/route.proto.html#envoy-v3-api-msg-extensions-filters-network-dubbo-proxy-v3-routeconfiguration"><span class="std std-ref">route table</span></a>.</p>
+  <div class="section" id="config-dubbo-filters-router">
+<span id="id1"></span><h1>路由<a class="headerlink" href="#config-dubbo-filters-router" title="Permalink to this headline">¶</a></h1>
+<p>路由过滤器实现了 Dubbo 转发。几乎所有的 Dubbo 代理场景中都会用到它。过滤器的主要工作是遵从配置在 <a class="reference internal" href="../../../api-v3/extensions/filters/network/dubbo_proxy/v3/route.proto.html#envoy-v3-api-msg-extensions-filters-network-dubbo-proxy-v3-routeconfiguration"><span class="std std-ref">路由表</span></a> 中指定的指令。</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../../api-v3/config/filter/thrift/router/v2alpha1/router.proto.html#envoy-v3-api-msg-config-filter-thrift-router-v2alpha1-router"><span class="std std-ref">v3 API reference</span></a></p></li>
-<li><p>This filter should be configured with the name <em>envoy.filters.dubbo.router</em>.</p></li>
+<li><p><a class="reference internal" href="../../../api-v3/config/filter/thrift/router/v2alpha1/router.proto.html#envoy-v3-api-msg-config-filter-thrift-router-v2alpha1-router"><span class="std std-ref">v3 API 参考</span></a></p></li>
+<li><p>此过滤器的名称应该被配置为 <em>envoy.filters.dubbo.router</em>。</p></li>
 </ul>
 </div>
 
