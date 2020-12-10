@@ -9,7 +9,7 @@ Datadog tracer
 config.trace.v3.DatadogConfig
 -----------------------------
 
-`[config.trace.v3.DatadogConfig proto] <https://github.com/envoyproxy/envoy/blob/830458738630b9f39ff9244cb8e29efa1f6b875a/api/envoy/config/trace/v3/datadog.proto#L19>`_
+`[config.trace.v3.DatadogConfig proto] <https://github.com/envoyproxy/envoy/blob/9b38bfbafc6f9b319e73012ec6a01247dae46768/api/envoy/config/trace/v3/datadog.proto#L19>`_
 
 Configuration for the Datadog tracer.
 
