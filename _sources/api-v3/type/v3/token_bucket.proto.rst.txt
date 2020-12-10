@@ -9,7 +9,7 @@ Token bucket
 type.v3.TokenBucket
 -------------------
 
-`[type.v3.TokenBucket proto] <https://github.com/envoyproxy/envoy/blob/9b38bfbafc6f9b319e73012ec6a01247dae46768/api/envoy/type/v3/token_bucket.proto#L19>`_
+`[type.v3.TokenBucket proto] <https://github.com/envoyproxy/envoy/blob/a3dfc4b918b670adb7c9de7ca3ed8686fcff9cde/api/envoy/type/v3/token_bucket.proto#L19>`_
 
 Configures a token bucket, typically used for rate limiting.
 

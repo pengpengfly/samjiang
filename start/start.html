@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>开始 &mdash; envoy 1.16.0-9b38bf documentation</title>
+  <title>开始 &mdash; envoy 1.16.0-a3dfc4 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-9b38bf
+                1.16.0-a3dfc4
               </div>
             
           
@@ -103,10 +103,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../about_docs.html">关于文档</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/intro.html">介绍</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">开始</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">快速开始运行简单样例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#simple-configuration">Simple Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#using-the-envoy-docker-image">Using the Envoy Docker Image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sandboxes">Sandboxes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">快速开始运行简单示例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">简单配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#envoy-docker">使用 Envoy Docker 镜像</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">沙盒</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/cache.html">Cache Filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/cors.html">CORS 过滤器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/csrf.html">CSRF Filter</a></li>
@@ -199,49 +199,35 @@
             
   <div class="section" id="start">
 <span id="id1"></span><h1>开始<a class="headerlink" href="#start" title="Permalink to this headline">¶</a></h1>
-<p>This section gets you started with a very simple configuration and provides some example configurations.</p>
-<p>The fastest way to get started using Envoy is <a class="reference internal" href="../install/building.html#install-binaries"><span class="std std-ref">installing pre-built binaries</span></a>.
-You can also <a class="reference internal" href="../install/building.html#building"><span class="std std-ref">build it</span></a> from source.</p>
-<p>These examples use the <a class="reference internal" href="../api-v2/api.html#envoy-api-reference"><span class="std std-ref">v3 Envoy API</span></a>, but use only the static configuration
-feature of the API, which is most useful for simple requirements. For more complex requirements
-<a class="reference internal" href="../intro/arch_overview/operations/dynamic_configuration.html#arch-overview-dynamic-config"><span class="std std-ref">Dynamic Configuration</span></a> is supported.</p>
+<p>本节让你从一个非常简单的配置开始，并提供了一些配置示例。</p>
+<p>开始使用 Envoy 的最快速方式就是 <a class="reference internal" href="../install/building.html#install-binaries"><span class="std std-ref">安装预制的二进制文件</span></a>。你也可以选择从源码进行 <a class="reference internal" href="../install/building.html#building"><span class="std std-ref">构建</span></a>。</p>
+<p>这些示例使用 <a class="reference internal" href="../api-v2/api.html#envoy-api-reference"><span class="std std-ref">v3 Envoy API</span></a>，但是仅仅使用了 API 的静态配置特性，这些对于简单需求来讲是最有用的。<a class="reference internal" href="../intro/arch_overview/operations/dynamic_configuration.html#arch-overview-dynamic-config"><span class="std std-ref">动态配置</span></a> 支持更多的复杂需求。</p>
 <div class="section" id="id2">
-<h2>快速开始运行简单样例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>These instructions run from files in the Envoy repo. The sections below give a
-more detailed explanation of the configuration file and execution steps for
-the same configuration.</p>
-<p>A very minimal Envoy configuration that can be used to validate basic plain HTTP
-proxying is available in <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/9b38bfbafc6f9b319e73012ec6a01247dae46768/configs/google_com_proxy.v2.yaml">configs/google_com_proxy.v2.yaml</a>. This is not
-intended to represent a realistic Envoy deployment:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ docker pull envoyproxy/envoy-dev:9b38bfbafc6f9b319e73012ec6a01247dae46768
-$ docker run --rm -d -p 10000:10000 envoyproxy/envoy-dev:9b38bfbafc6f9b319e73012ec6a01247dae46768
+<h2>快速开始运行简单示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>这些指导说明使用 Envoy 仓库中的文件来运行示例。下面的章节对配置文件和相同配置下的执行步骤做了更详细的解释。</p>
+<p>在 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/a3dfc4b918b670adb7c9de7ca3ed8686fcff9cde/configs/google_com_proxy.v2.yaml">configs/google_com_proxy.v2.yaml</a>  中提供了一个非常简单的 Envoy 配置，可以用来验证基本的纯 HTTP 代理。但这并不代表真实的 Envoy 部署：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ docker pull envoyproxy/envoy-dev:a3dfc4b918b670adb7c9de7ca3ed8686fcff9cde
+$ docker run --rm -d -p 10000:10000 envoyproxy/envoy-dev:a3dfc4b918b670adb7c9de7ca3ed8686fcff9cde
 $ curl -v localhost:10000
 </pre></div>
 </div>
-<p>The Docker image used will contain the latest version of Envoy
-and a basic Envoy configuration. This basic configuration tells
-Envoy to route incoming requests to *.google.com.</p>
+<p>使用的 Docker 镜像将包含最新版本的 Envoy 和一个基本的 Envoy 配置。这个基本的配置告诉 Envoy 将传入请求路由到 *.google.com。</p>
 </div>
-<div class="section" id="simple-configuration">
-<h2>Simple Configuration<a class="headerlink" href="#simple-configuration" title="Permalink to this headline">¶</a></h2>
-<p>Envoy can be configured using a single YAML file passed in as an argument on the command line.</p>
-<p>The <a class="reference internal" href="../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-admin"><span class="std std-ref">admin message</span></a> is required to configure
-the administration server. The <cite>address</cite> key specifies the
-listening <a class="reference internal" href="../api-v3/config/core/v3/address.proto.html#envoy-v3-api-file-envoy-config-core-v3-address-proto"><span class="std std-ref">address</span></a>
-which in this case is simply <cite>0.0.0.0:9901</cite>.</p>
+<div class="section" id="id3">
+<h2>简单配置<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>可以在命令行中以参数的形式传入一个简单的 YAML 文件来配置 Envoy。</p>
+<p>需要 <a class="reference internal" href="../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-admin"><span class="std std-ref">管理信息</span></a> 来配置管理服务器。<cite>address</cite> 键指定了监听 <a class="reference internal" href="../api-v3/config/core/v3/address.proto.html#envoy-v3-api-file-envoy-config-core-v3-address-proto"><span class="std std-ref">地址</span></a>，在这个例子中是 <cite>0.0.0.0:9901</cite>。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">admin</span><span class="p">:</span>
   <span class="nt">access_log_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/tmp/admin_access.log</span>
   <span class="nt">address</span><span class="p">:</span>
     <span class="nt">socket_address</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> address</span><span class="p">:</span> <span class="nv">0.0.0.0</span><span class="p p-Indicator">,</span><span class="nt"> port_value</span><span class="p">:</span> <span class="nv">9901</span> <span class="p p-Indicator">}</span>
 </pre></div>
 </div>
-<p>The <a class="reference internal" href="../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-static-resources"><span class="std std-ref">static_resources</span></a> contains everything that is configured statically when Envoy starts,
-as opposed to the means of configuring resources dynamically when Envoy is running.
-The <a class="reference internal" href="../configuration/overview/overview.html#config-overview"><span class="std std-ref">v2 API Overview</span></a> describes this.</p>
+<p><a class="reference internal" href="../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-static-resources"><span class="std std-ref">static_resources</span></a> 包含了当 Envoy 启动时静态配置的一切资源，与之相反的是当 Envoy 运行时动态配置的资源。<a class="reference internal" href="../configuration/overview/overview.html#config-overview"><span class="std std-ref">v2 API 概览</span></a> 描述了这些。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">static_resources</span><span class="p">:</span>
 </pre></div>
 </div>
-<p>The specification of the <a class="reference internal" href="../api-v3/config/listener/v3/listener.proto.html#envoy-v3-api-file-envoy-config-listener-v3-listener-proto"><span class="std std-ref">listeners</span></a>.</p>
+<p><a class="reference internal" href="../api-v3/config/listener/v3/listener.proto.html#envoy-v3-api-file-envoy-config-listener-v3-listener-proto"><span class="std std-ref">监听器</span></a> 说明。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">listeners</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">listener_0</span>
   <span class="nt">address</span><span class="p">:</span>
@@ -265,7 +251,7 @@ The <a class="reference internal" href="../configuration/overview/overview.html#
         <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">envoy.filters.http.router</span>
 </pre></div>
 </div>
-<p>The specification of the <a class="reference internal" href="../api-v3/service/cluster/v3/cds.proto.html#envoy-v3-api-file-envoy-service-cluster-v3-cds-proto"><span class="std std-ref">clusters</span></a>.</p>
+<p><a class="reference internal" href="../api-v3/service/cluster/v3/cds.proto.html#envoy-v3-api-file-envoy-service-cluster-v3-cds-proto"><span class="std std-ref">集群</span></a> 说明。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">clusters</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">service_google</span>
   <span class="nt">connect_timeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.25s</span>
@@ -290,67 +276,54 @@ The <a class="reference internal" href="../configuration/overview/overview.html#
 </pre></div>
 </div>
 </div>
-<div class="section" id="using-the-envoy-docker-image">
-<h2>Using the Envoy Docker Image<a class="headerlink" href="#using-the-envoy-docker-image" title="Permalink to this headline">¶</a></h2>
-<p>Create a simple Dockerfile to execute Envoy, which assumes that envoy.yaml (described above) is in your local directory.
-You can refer to the <a class="reference internal" href="../operations/cli.html#operations-cli"><span class="std std-ref">Command line options</span></a>.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FROM envoyproxy/envoy-dev:9b38bfbafc6f9b319e73012ec6a01247dae46768
+<div class="section" id="envoy-docker">
+<h2>使用 Envoy Docker 镜像<a class="headerlink" href="#envoy-docker" title="Permalink to this headline">¶</a></h2>
+<p>创建一个简单的 Dockerfile 运行 Envoy，这需要假定在你本地的目录中有 envoy.yaml （如上描述）文件。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FROM envoyproxy/envoy-dev:a3dfc4b918b670adb7c9de7ca3ed8686fcff9cde
 COPY envoy.yaml /etc/envoy/envoy.yaml
 </pre></div>
 </div>
-<p>Build the Docker image that runs your configuration using:</p>
+<p>使用你的配置并用如下命令构建 Docker 镜像:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker build -t envoy:v1 .
 </pre></div>
 </div>
-<p>And now you can execute it with:</p>
+<p>现在，你可以用如下命令启动 Envoy 容器了:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker run -d --name envoy -p 9901:9901 -p 10000:10000 envoy:v1
 </pre></div>
 </div>
-<p>And finally, test it using:</p>
+<p>最后，你可以用如下命令来进行测试:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ curl -v localhost:10000
 </pre></div>
 </div>
-<p>If you would like to use Envoy with docker-compose you can overwrite the provided configuration file
-by using a volume.</p>
-<p>By default the Docker image will run as the <code class="docutils literal notranslate"><span class="pre">envoy</span></code> user created at build time.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">uid</span></code> and <code class="docutils literal notranslate"><span class="pre">gid</span></code> of this user can be set at runtime using the <code class="docutils literal notranslate"><span class="pre">ENVOY_UID</span></code> and <code class="docutils literal notranslate"><span class="pre">ENVOY_GID</span></code>
-environment variables. This can be done, for example, on the Docker command line:</p>
+<p>如果你想用 docker-compose 来使用 Envoy，你可以用一个 volume 来覆写提供的配置文件。</p>
+<p>默认情况下，Docker 镜像将以构建时创建的 <code class="docutils literal notranslate"><span class="pre">envoy</span></code> 用户来运行。</p>
+<p><code class="docutils literal notranslate"><span class="pre">envoy</span></code> 用户的 <code class="docutils literal notranslate"><span class="pre">uid</span></code> 和 <code class="docutils literal notranslate"><span class="pre">gid</span></code> 可以在运行时使用 <code class="docutils literal notranslate"><span class="pre">ENVOY_UID</span></code> 和 <code class="docutils literal notranslate"><span class="pre">ENVOY_GID</span></code> 这两个环境变量来设定。这也可以在 Docker 命令行中来完成设定，比如:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker run -d --name envoy -e ENVOY_UID=777 -e ENVOY_GID=777 -p 9901:9901 -p 10000:10000 envoy:v1
 </pre></div>
 </div>
-<p>This can be useful if you wish to restrict or provide access to <code class="docutils literal notranslate"><span class="pre">unix</span></code> sockets inside the container, or
-for controlling access to an <code class="docutils literal notranslate"><span class="pre">envoy</span></code> socket from outside of the container.</p>
-<p>If you wish to run the container as the <code class="docutils literal notranslate"><span class="pre">root</span></code> user you can set <code class="docutils literal notranslate"><span class="pre">ENVOY_UID</span></code> to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">envoy</span></code> image sends application logs to <code class="docutils literal notranslate"><span class="pre">/dev/stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">/dev/stderr</span></code> by default, and these
-can be viewed in the container log.</p>
-<p>If you send application, admin or access logs to a file output, the <code class="docutils literal notranslate"><span class="pre">envoy</span></code> user will require the
-necessary permissions to write to this file. This can be achieved by setting the <code class="docutils literal notranslate"><span class="pre">ENVOY_UID</span></code> and/or
-by making the file writeable by the envoy user.</p>
-<p>For example, to mount a log folder from the host and make it writable, you can:</p>
+<p>如果你想对容器内部的 <code class="docutils literal notranslate"><span class="pre">unix</span></code> 套接字进行限制或者提供访问，抑或从容器外部控制 <code class="docutils literal notranslate"><span class="pre">envoy</span></code> 套接字的访问，这种方式是非常有用的。</p>
+<p>如果你想以 <code class="docutils literal notranslate"><span class="pre">root</span></code> 用户来运行容器，你可以将 <code class="docutils literal notranslate"><span class="pre">ENVOY_UID</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">0</span></code>。</p>
+<p>默认情况下，<code class="docutils literal notranslate"><span class="pre">envoy</span></code> 镜像会把应用程序的日志发送到 <code class="docutils literal notranslate"><span class="pre">/dev/stdout</span></code> 和 <code class="docutils literal notranslate"><span class="pre">/dev/stderr</span></code> ，这样就可以在容器日志中看到了。</p>
+<p>如果你把应用程序日志、管理和访问日志输出到一个文件，<code class="docutils literal notranslate"><span class="pre">envoy</span></code> 用户将需要足够的权限来写这个文件。这个可以通过设置 <code class="docutils literal notranslate"><span class="pre">ENVOY_UID</span></code> 和/或者通过将文件变成 envoy 用户可写的方法来实现。</p>
+<p>例如，在主机上挂载一个日志文件夹并且让它是可写的，你可以采取如下操作：</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ mkdir logs
 $ chown 777 logs
 $ docker run -d -v `pwd`/logs:/var/log --name envoy -e ENVOY_UID=777 -p 9901:9901 -p 10000:10000 envoy:v1
 </pre></div>
 </div>
 <p>You can then configure <code class="docutils literal notranslate"><span class="pre">envoy</span></code> to log to files in <code class="docutils literal notranslate"><span class="pre">/var/log</span></code></p>
-<p>The default <code class="docutils literal notranslate"><span class="pre">envoy</span></code> <code class="docutils literal notranslate"><span class="pre">uid</span></code> and <code class="docutils literal notranslate"><span class="pre">gid</span></code> are <code class="docutils literal notranslate"><span class="pre">101</span></code>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">envoy</span></code> user also needs to have permission to access any required configuration files mounted
-into the container.</p>
-<p>If you are running in an environment with a strict <code class="docutils literal notranslate"><span class="pre">umask</span></code> setting, you may need to provide envoy with
-access either by setting the <code class="docutils literal notranslate"><span class="pre">uid</span></code> or <code class="docutils literal notranslate"><span class="pre">gid</span></code> of the file, or by making the configuration file readable
-by the envoy user.</p>
-<p>One method of doing this without changing any file permissions or running as root inside the container
-is to start the container with the host user’s <code class="docutils literal notranslate"><span class="pre">uid</span></code>, for example:</p>
+<p>随后，你可以配置 <code class="docutils literal notranslate"><span class="pre">envoy</span></code> 将日志文件输出在 <code class="docutils literal notranslate"><span class="pre">/var/log</span></code> 文件里。</p>
+<p><code class="docutils literal notranslate"><span class="pre">envoy</span></code> <code class="docutils literal notranslate"><span class="pre">uid</span></code> 和 <code class="docutils literal notranslate"><span class="pre">gid</span></code> 的默认值都是 <code class="docutils literal notranslate"><span class="pre">101</span></code> 。</p>
+<p><code class="docutils literal notranslate"><span class="pre">envoy</span></code> 用户还需要权限能够去访问被挂载到容器内部的任何需要的配置文件。</p>
+<p>如果你运行的环境中有一个严格的 <code class="docutils literal notranslate"><span class="pre">umask</span></code> 设置，你可能需要通过设置文件的 <code class="docutils literal notranslate"><span class="pre">uid</span></code> 或 <code class="docutils literal notranslate"><span class="pre">gid</span></code> 来给 envoy 提供访问权限，或者将配置文件设置为对 envoy 用户可读的。</p>
+<p>有一种可以不用改变任何文件的权限或者在容器内部使用 root 用户的方法就是在启动容器的时候使用宿主机用户的 <code class="docutils literal notranslate"><span class="pre">uid</span></code> ，例如：</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ docker run -d --name envoy -e ENVOY_UID=`id -u` -p 9901:9901 -p 10000:10000 envoy:v1
 </pre></div>
 </div>
 </div>
-<div class="section" id="sandboxes">
-<h2>Sandboxes<a class="headerlink" href="#sandboxes" title="Permalink to this headline">¶</a></h2>
-<p>We’ve created a number of sandboxes using Docker Compose that set up different
-environments to test out Envoy’s features and show sample configurations. As we
-gauge peoples’ interests we will add more sandboxes demonstrating different
-features. The following sandboxes are available:</p>
+<div class="section" id="id4">
+<h2>沙盒<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>我们已经创建了一些使用 Docker 组件的沙盒环境，来设定不同的环境以进行 Envoy 特性的测试和示例配置的展示。随着我们对人们兴趣的判定，我们将添加更多的沙盒来验证不同的特性，如下是一些可用的沙盒：</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="sandboxes/cache.html">Cache Filter</a><ul>

@@ -22,7 +22,7 @@ This extension may be referenced by the qualified name *envoy.filters.http.cache
 config.filter.http.cache.v2alpha.CacheConfig
 --------------------------------------------
 
-`[config.filter.http.cache.v2alpha.CacheConfig proto] <https://github.com/envoyproxy/envoy/blob/9b38bfbafc6f9b319e73012ec6a01247dae46768/api/envoy/config/filter/http/cache/v2alpha/cache.proto#L24>`_
+`[config.filter.http.cache.v2alpha.CacheConfig proto] <https://github.com/envoyproxy/envoy/blob/a3dfc4b918b670adb7c9de7ca3ed8686fcff9cde/api/envoy/config/filter/http/cache/v2alpha/cache.proto#L24>`_
 
 
 .. code-block:: json
