@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Sharing data between filters &mdash; envoy 1.16.0-a3dfc4 documentation</title>
+  <title>过滤器之间的数据共享 &mdash; envoy 1.16.0-23c177 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-a3dfc4
+                1.16.0-23c177
               </div>
             
           
@@ -114,7 +114,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../other_features/other_features.html">其他特性</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../other_protocols/other_protocols.html">其他协议</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="advanced.html">高级的</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Sharing data between filters</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">过滤器之间的数据共享</a></li>
 </ul>
 </li>
 </ul>
@@ -184,7 +184,7 @@
         
           <li><a href="advanced.html">高级的</a> &raquo;</li>
         
-      <li>Sharing data between filters</li>
+      <li>过滤器之间的数据共享</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -203,83 +203,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="sharing-data-between-filters">
-<span id="arch-overview-data-sharing-between-filters"></span><h1>Sharing data between filters<a class="headerlink" href="#sharing-data-between-filters" title="Permalink to this headline">¶</a></h1>
-<p>Envoy provides the following mechanisms for the transfer of configuration,
-metadata and per-request/connection state to, from and between filters, as
-well as to other core subsystems (e.g., access logging).</p>
-<div class="section" id="static-state">
-<h2>Static State<a class="headerlink" href="#static-state" title="Permalink to this headline">¶</a></h2>
-<p>Static state is any immutable state specified at configuration load time
-(e.g., through xDS). There are three categories of static state:</p>
-<div class="section" id="metadata">
-<h3>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h3>
-<p>Several parts of Envoy configuration (e.g. listeners, routes, clusters)
-contain a <a class="reference internal" href="../../../api-v3/config/core/v3/base.proto.html#envoy-v3-api-msg-config-core-v3-metadata"><span class="std std-ref">metadata</span></a> where arbitrary
-key-value pairs can be encoded. The typical pattern is to use the filter
-names in reverse DNS format as the key and encode filter specific
-configuration metadata in the value. This metadata is immutable and shared
-across all requests/connections. Such config metadata is usually provided
-during bootstrap time or as part of xDS. For example, weighted clusters in
-HTTP routes use the metadata to indicate the labels on the endpoints
-corresponding to the weighted cluster. Another example, the subset load
-balancer uses the metadata from the route entry corresponding to the
-weighted cluster to select appropriate endpoints in a cluster</p>
+  <div class="section" id="arch-overview-data-sharing-between-filters">
+<span id="id1"></span><h1>过滤器之间的数据共享<a class="headerlink" href="#arch-overview-data-sharing-between-filters" title="Permalink to this headline">¶</a></h1>
+<p>Envoy 提供将过滤器之间以及其他核心子系统之间的配置、元数据和每个请求/连接状态进行传输（例如访问日志记录）的机制。</p>
+<div class="section" id="id2">
+<h2>静态<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>静态状态是在加载配置时指定的任何不可变状态（例如通过 xDS）。静态状态分为三类：</p>
+<div class="section" id="id3">
+<h3>元数据<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Envoy 配置的几个部分（例如监听器、路由、集群）包含可以在其中对任意键值对进行编码的 <a class="reference internal" href="../../../api-v3/config/core/v3/base.proto.html#envoy-v3-api-msg-config-core-v3-metadata"><span class="std std-ref">元数据</span></a>。典型的模式是使用反向 DNS 格式的过滤器名称作为键，并在值中编码特定于过滤器的配置元数据。
+此元数据是不可变的，并在所有请求/连接之间共享。此类配置元数据通常在引导期间或作为 xDS 的一部分提供。例如 HTTP 路由中的权重集群使用元数据来指示端点上与该权重集群相对应的标签。
+另一个示例，负载均衡器子集使用与权重集群相对应的路由条目中的的元数据来选择集群中适当的端点。</p>
 </div>
-<div class="section" id="typed-metadata">
-<h3>Typed Metadata<a class="headerlink" href="#typed-metadata" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="../../../api-v3/config/core/v3/base.proto.html#envoy-v3-api-msg-config-core-v3-metadata"><span class="std std-ref">Metadata</span></a> as such is untyped. Before
-acting on the metadata, callers typically convert it to a typed class
-object. The cost of conversion becomes non-negligible when performed
-repeatedly (e.g., for each request stream or connection). Typed Metadata
-solves this problem by allowing filters to register a one time conversion
-logic for a specific key. Incoming config metadata (via xDS) is converted
-to class objects at config load time. Filters can then obtain a typed
-variant of the metadata at runtime (per request or connection), thereby
-eliminating the need for filters to repeatedly convert from
-<cite>ProtobufWkt::Struct</cite> to some internal object during request/connection
-processing.</p>
-<p>For example, a filter that desires to have a convenience wrapper class over
-an opaque metadata with key <cite>xxx.service.policy</cite> in <cite>ClusterInfo</cite> could
-register a factory <cite>ServicePolicyFactory</cite> that inherits from
-<cite>ClusterTypedMetadataFactory</cite>. The factory translates the <cite>ProtobufWkt::Struct</cite>
-into an instance of <cite>ServicePolicy</cite> class (inherited from
-<cite>FilterState::Object</cite>). When a <cite>Cluster</cite> is created, the associated
-<cite>ServicePolicy</cite> instance will be created and cached. Note that typed
-metadata is not a new source of metadata. It is obtained from metadata that
-is specified as part of the configuration. A <cite>FilterState::Object</cite> implements
-<cite>serializeAsProto</cite> method can be configured in access loggers to log it.</p>
+<div class="section" id="id4">
+<h3>类型化的元数据<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>这样的 <a class="reference internal" href="../../../api-v3/config/core/v3/base.proto.html#envoy-v3-api-msg-config-core-v3-metadata"><span class="std std-ref">元数据</span></a> 是无类型的。在对元数据进行操作之前，调用者通常会将其转换为类型化的类对象。当重复执行转换时（例如对于每个请求流
+或连接），转换的成本变得不可忽视。类型化的元数据通过允许过滤器为特定键注册一个一次性转换逻辑来解决此问题。传入的配置元数据（例如 xDS）在配置加载时转换为类对象。过滤器随后可以在运行时
+（按请求或连接）获取元数据的类型化变体，从而消除了在请求/连接处理期间过滤器从 <cite>ProtobufWkt::Struct</cite> 反复转换为某个内部对象的需求。</p>
+<p>例如如果一个过滤器希望在 <cite>ClusterInfo</cite> 中的键为 <cite>xxx.service.policy</cite> 的不透明元数据上具有便捷包装类，则可以注册一个继承自 <cite>ClusterTypedMetadataFactory</cite> 的工厂
+<cite>ServicePolicyFactory</cite>。工厂将 <cite>ProtobufWkt::Struct</cite> 转换为 <cite>ServicePolicy</cite> 类的实例（从 <cite>FilterState::Object</cite> 继承）。创建 Cluster 时，将创建并缓存关联的 ServicePolicy 实例。
+注意，类型化的元数据不是元数据的新来源。它是从配置中指定的元数据中获取的。可以在访问记录器中配置一个 <cite>FilterState::Object</cite> 实现 <cite>serializeAsProto</cite> 方法来对其进行记录。</p>
 </div>
-<div class="section" id="http-per-route-filter-configuration">
-<h3>HTTP Per-Route Filter Configuration<a class="headerlink" href="#http-per-route-filter-configuration" title="Permalink to this headline">¶</a></h3>
-<p>In HTTP routes, <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-virtualhost-typed-per-filter-config"><span class="std std-ref">typed_per_filter_config</span></a> allows HTTP filters
-to have virtualhost/route-specific configuration in addition to a global
-filter config common to all virtual hosts. This configuration is converted
-and embedded into the route table. It is up to the HTTP filter
-implementation to treat the route-specific filter config as a replacement
-to global config or an enhancement. For example, the HTTP fault filter uses
-this technique to provide per-route fault configuration.</p>
-<p><cite>typed_per_filter_config</cite> is a <cite>map&lt;string, google.protobuf.Any&gt;</cite>. The Connection
-manager iterates over this map and invokes the filter factory interface
-<cite>createRouteSpecificFilterConfigTyped</cite> to parse/validate the struct value and
-convert it into a typed class object that’s stored with the route
-itself. HTTP filters can then query the route-specific filter config during
-request processing.</p>
+<div class="section" id="http">
+<h3>HTTP 每路由过滤器配置<a class="headerlink" href="#http" title="Permalink to this headline">¶</a></h3>
+<p>在HTTP路由中，除了所有虚拟主机通用的全局过滤器配置之外， <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-virtualhost-typed-per-filter-config"><span class="std std-ref">typed_per_filter_config</span></a> 允许
+HTTP 过滤器具有特定于虚拟主机/路由的配置。此配置将转换并嵌入到路由表中。将特定于路由的过滤器配置视为全局配置的替代或增强功能，取决于HTTP过滤器的实现。例如 HTTP 故障过滤器使用
+此技术来提供每个路由的故障配置。</p>
+<p><cite>typed_per_filter_config</cite> 是一个 <cite>map&lt;string, google.protobuf.Any&gt;</cite>。连接管理器会对此映射进行迭代，并调用过滤器工厂接口 <cite>createRouteSpecificFilterConfigTyped</cite> 来解析/验证
+结构值，并将其转换为与路由本身一起存储的类型化类对象。然后 HTTP 过滤器可以在请求处理期间查询特定于路由的过滤器配置。</p>
 </div>
 </div>
-<div class="section" id="dynamic-state">
-<h2>Dynamic State<a class="headerlink" href="#dynamic-state" title="Permalink to this headline">¶</a></h2>
-<p>Dynamic state is generated per network connection or per HTTP
-stream. Dynamic state can be mutable if desired by the filter generating
-the state.</p>
-<p><cite>Envoy::Network::Connection</cite> and <cite>Envoy::Http::Filter</cite> provide a
-<cite>StreamInfo</cite> object that contains information about the current TCP
-connection and HTTP stream (i.e., HTTP request/response pair)
-respectively. <cite>StreamInfo</cite> contains a set of fixed attributes as part of
-the class definition (e.g., HTTP protocol, requested server name, etc.). In
-addition, it provides a facility to store typed objects in a map
-(<cite>map&lt;string, FilterState::Object&gt;</cite>). The state stored per filter can be
-either write-once (immutable), or write-many (mutable).</p>
+<div class="section" id="id5">
+<h2>动态<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>动态的状态是由每个网络连接或每个 HTTP 流生成的。如果生成状态的过滤器需要，动态状态是可变的。</p>
+<p><cite>Envoy::Network::Connection</cite> 和 <cite>Envoy::Http::Filter</cite> 提供一个 <cite>StreamInfo</cite> 对象，该对象分别包含有关当前 TCP 连接和 HTTP 流（即 HTTP 请求/响应对）的信息。<cite>StreamInfo</cite> 包
+含一组固定属性，作为类定义的一部分（例如 HTTP 协议、请求的服务器名称等）。另外它提供了在映射中存储类型化对象的功能（<cite>map&lt;string, FilterState::Object&gt;</cite>）。每个过滤器存储
+的状态可以是一次写入（不可变）或多次写入（可变）。</p>
 </div>
 </div>
 
