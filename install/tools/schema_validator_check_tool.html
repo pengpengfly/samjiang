@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Schema Validator check tool &mdash; envoy 1.16.0-e9d3eb documentation</title>
+  <title>Schema 验证器检查工具 &mdash; envoy 1.16.0-73050f documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-e9d3eb
+                1.16.0-73050f
               </div>
             
           
@@ -109,7 +109,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="tools.html">工具</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="config_load_check_tool.html">Config load check tool</a></li>
 <li class="toctree-l3"><a class="reference internal" href="route_table_check_tool.html">Route table check tool</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Schema Validator check tool</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Schema 验证器检查工具</a></li>
 </ul>
 </li>
 </ul>
@@ -170,7 +170,7 @@
         
           <li><a href="tools.html">工具</a> &raquo;</li>
         
-      <li>Schema Validator check tool</li>
+      <li>Schema 验证器检查工具</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -189,38 +189,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="schema-validator-check-tool">
-<span id="install-tools-schema-validator-check-tool"></span><h1>Schema Validator check tool<a class="headerlink" href="#schema-validator-check-tool" title="Permalink to this headline">¶</a></h1>
-<p>The schema validator tool validates that the passed in configuration conforms to
-a given schema. The configuration may be JSON or YAML. To validate the entire
-config, please refer to the
-<a class="reference internal" href="config_load_check_tool.html#install-tools-config-load-check-tool"><span class="std std-ref">config load check tool</span></a>.</p>
+  <div class="section" id="schema">
+<span id="install-tools-schema-validator-check-tool"></span><h1>Schema 验证器检查工具<a class="headerlink" href="#schema" title="Permalink to this headline">¶</a></h1>
+<p>Schema 验证器检查工具验证传入的配置是否符合给定的 schema。配置可以是 JSON 或者 YAML。为了验证全部的配置，可以参考 <a class="reference internal" href="config_load_check_tool.html#install-tools-config-load-check-tool"><span class="std std-ref">配置加载检查工具</span></a>。</p>
 <dl>
-<dt>Input</dt><dd><p>The tool expects two inputs:</p>
+<dt>输入</dt><dd><p>这个工具共有两个输入：</p>
 <ol class="arabic simple">
-<li><p>The schema type to check the passed in configuration against. The supported types are:</p></li>
+<li><p>传入配置的 schema 类型会被检查。支持的类型有：</p></li>
 </ol>
 <blockquote>
 <div><ul class="simple">
-<li><p><cite>route</cite> - for <a class="reference internal" href="../../api-v3/config/route/v3/route.proto.html#envoy-v3-api-msg-config-route-v3-routeconfiguration"><span class="std std-ref">route configuration</span></a> validation.</p></li>
-<li><p><cite>discovery_response</cite> for <a class="reference internal" href="../../api-v3/service/discovery/v3/discovery.proto.html#envoy-v3-api-msg-service-discovery-v3-discoveryresponse"><span class="std std-ref">discovery response</span></a> validation.</p></li>
+<li><p><cite>route</cite> - 用于 <a class="reference internal" href="../../api-v3/config/route/v3/route.proto.html#envoy-v3-api-msg-config-route-v3-routeconfiguration"><span class="std std-ref">路由配置</span></a> 验证。</p></li>
+<li><p><cite>discovery_response</cite> - 用于 <a class="reference internal" href="../../api-v3/service/discovery/v3/discovery.proto.html#envoy-v3-api-msg-service-discovery-v3-discoveryresponse"><span class="std std-ref">发现响应</span></a> 验证。</p></li>
 </ul>
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>The path to the configuration file.</p></li>
+<li><p>配置文件的路径。</p></li>
 </ol>
 </dd>
-<dt>Output</dt><dd><p>If the configuration conforms to the schema, the tool will exit with status
-EXIT_SUCCESS. If the configuration does not conform to the schema, an error
-message is outputted detailing what doesn’t conform to the schema. The tool
-will exit with status EXIT_FAILURE.</p>
+<dt>输出</dt><dd><p>如果配置符合 schema，工具将以 EXIT_SUCCESS 的状态退出。如果配置不符合 schema，会输出一条错误信息，并且会详细说明不符合 schema 的内容。同时工具会以 EXIT_FAILURE 的状态退出。</p>
 </dd>
-<dt>Building</dt><dd><p>The tool can be built locally using Bazel.</p>
+<dt>构建</dt><dd><p>这个工具可以使用 Bazel 在本地构建。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bazel</span> <span class="n">build</span> <span class="o">//</span><span class="n">test</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">schema_validator</span><span class="p">:</span><span class="n">schema_validator_tool</span>
 </pre></div>
 </div>
 </dd>
-<dt>Running</dt><dd><p>The tool takes a path as described above.</p>
+<dt>运行中</dt><dd><p>这个工具会使用上面描述的路径。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bazel</span><span class="o">-</span><span class="nb">bin</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">schema_validator</span><span class="o">/</span><span class="n">schema_validator_tool</span>  <span class="o">--</span><span class="n">schema</span><span class="o">-</span><span class="nb">type</span> <span class="n">SCHEMA_TYPE</span>  <span class="o">--</span><span class="n">config</span><span class="o">-</span><span class="n">path</span> <span class="n">PATH</span>
 </pre></div>
 </div>
