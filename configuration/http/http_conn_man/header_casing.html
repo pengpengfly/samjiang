@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>HTTP/1.1 Header Casing &mdash; envoy 1.16.0-88b496 documentation</title>
+  <title>HTTP/1.1 头部大小写转换 &mdash; envoy 1.16.0-b7b2a5 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-88b496
+                1.16.0-b7b2a5
               </div>
             
           
@@ -113,7 +113,7 @@
 <li class="toctree-l4"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l4"><a class="reference internal" href="route_matching.html">Route matching</a></li>
 <li class="toctree-l4"><a class="reference internal" href="traffic_splitting.html">Traffic Shifting/Splitting</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">HTTP/1.1 Header Casing</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">HTTP/1.1 头部大小写转换</a></li>
 <li class="toctree-l4"><a class="reference internal" href="headers.html">HTTP header manipulation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="header_sanitizing.html">HTTP header sanitizing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="local_reply.html">Local reply modification</a></li>
@@ -127,7 +127,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../http_filters/http_filters.html">HTTP filters</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../upstream/upstream.html">Upstream clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../upstream/upstream.html">上游集群</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../observability/observability.html">可观测性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../security/security.html">安全</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../operations/operations.html">操作</a></li>
@@ -193,7 +193,7 @@
         
           <li><a href="http_conn_man.html">HTTP connection manager</a> &raquo;</li>
         
-      <li>HTTP/1.1 Header Casing</li>
+      <li>HTTP/1.1 头部大小写转换</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -212,15 +212,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="http-1-1-header-casing">
-<h1>HTTP/1.1 Header Casing<a class="headerlink" href="#http-1-1-header-casing" title="Permalink to this headline">¶</a></h1>
-<p>When handling HTTP/1.1, Envoy will normalize the header keys to be all lowercase. While this is
-compliant with the HTTP/1.1 spec, in practice this can result in issues when migrating
-existing systems that might rely on specific header casing.</p>
-<p>To support these use cases, Envoy allows configuring a formatting scheme for the headers, which
-will have Envoy transform the header keys during serialization. To configure this formatting on
-response headers, specify the format in the <a class="reference internal" href="../../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-http-protocol-options"><span class="std std-ref">http_protocol_options</span></a>.
-To configure this for upstream request headers, specify the formatting on the <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-http-protocol-options"><span class="std std-ref">Cluster</span></a>.</p>
+  <div class="section" id="http-1-1">
+<h1>HTTP/1.1 头部大小写转换<a class="headerlink" href="#http-1-1" title="Permalink to this headline">¶</a></h1>
+<p>在处理 HTTP/1.1 请求时，Envoy 会将头部键名都改成小写字母，以统一标准化。这种行为是符合 HTTP/1.1 标准的，但在实践中可能会给迁移已有系统带来问题，因为它们的某些头部是大小写敏感的。</p>
+<p>为了支持此类场景，Envoy 允许配置头部格式规格，并在序列化头部键名时生效。如果需要为响应头部配置格式，请在 <a class="reference internal" href="../../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-http-protocol-options"><span class="std std-ref">http_protocol_options</span></a> 中配置。如果需要为上游请求头部配置格式，请在 <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-http-protocol-options"><span class="std std-ref">Cluster</span></a> 中配置。</p>
 </div>
 
 

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ZooKeeper proxy &mdash; envoy 1.16.0-88b496 documentation</title>
+  <title>ZooKeeper 代理 &mdash; envoy 1.16.0-b7b2a5 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-88b496
+                1.16.0-b7b2a5
               </div>
             
           
@@ -108,7 +108,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../configuration.html">配置参考</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../overview/overview.html">概览</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../listeners.html">Listeners</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview.html">概览</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../stats.html">Statistics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../runtime.html">Runtime</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../listener_filters/listener_filters.html">Listener filters</a></li>
@@ -131,7 +131,7 @@
 <li class="toctree-l4"><a class="reference internal" href="thrift_proxy_filter.html">Thrift proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sni_cluster_filter.html">Upstream Cluster from SNI</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sni_dynamic_forward_proxy_filter.html">SNI dynamic forward proxy</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">ZooKeeper proxy</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">ZooKeeper 代理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../udp_filters/udp_filters.html">UDP 监听器过滤器</a></li>
@@ -139,7 +139,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../http/http.html">HTTP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../upstream/upstream.html">Upstream clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../upstream/upstream.html">上游集群</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../observability/observability.html">可观测性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../security/security.html">安全</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../operations/operations.html">操作</a></li>
@@ -205,7 +205,7 @@
         
           <li><a href="network_filters.html">Network filters</a> &raquo;</li>
         
-      <li>ZooKeeper proxy</li>
+      <li>ZooKeeper 代理</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -224,23 +224,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="zookeeper-proxy">
-<span id="config-network-filters-zookeeper-proxy"></span><h1>ZooKeeper proxy<a class="headerlink" href="#zookeeper-proxy" title="Permalink to this headline">¶</a></h1>
-<p>The ZooKeeper proxy filter decodes the client protocol for
-<a class="reference external" href="https://zookeeper.apache.org/">Apache ZooKeeper</a>. It decodes the requests,
-responses and events in the payload. Most opcodes known in
-<a class="reference external" href="https://github.com/apache/zookeeper/blob/master/zookeeper-server/src/main/java/org/apache/zookeeper/ZooDefs.java">ZooKeeper 3.5</a>
-are supported. The unsupported ones are related to SASL authentication.</p>
+  <div class="section" id="zookeeper">
+<span id="config-network-filters-zookeeper-proxy"></span><h1>ZooKeeper 代理<a class="headerlink" href="#zookeeper" title="Permalink to this headline">¶</a></h1>
+<p>ZooKeeper 代理过滤器解码 <a class="reference external" href="https://zookeeper.apache.org/">Apache ZooKeeper</a> 的客户端协议。它能够对负载中的请求、响应、事件进行解码。其中支持 <a class="reference external" href="https://github.com/apache/zookeeper/blob/master/zookeeper-server/src/main/java/org/apache/zookeeper/ZooDefs.java">ZooKeeper 3.5</a>  中已知的大多数操作码。不支持的那就是与 SALS 认证有关。</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>The zookeeper_proxy filter is experimental and is currently under active
-development. Capabilities will be expanded over time and the
-configuration structures are likely to change.</p>
+<p>ZooKeeper 代理过滤器目前在积极的开发中，还处于试验阶段。随着时间的推移，功能将会得到扩展，并且配置结构也可能会发生变化。</p>
 </div>
-<div class="section" id="configuration">
-<span id="config-network-filters-zookeeper-proxy-config"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>The ZooKeeper proxy filter should be chained with the TCP proxy filter as shown
-in the configuration snippet below:</p>
+<div class="section" id="config-network-filters-zookeeper-proxy-config">
+<span id="id1"></span><h2>配置<a class="headerlink" href="#config-network-filters-zookeeper-proxy-config" title="Permalink to this headline">¶</a></h2>
+<p>ZooKeeper 代理过滤器应该与 TCP 代理过滤器相连接，如下面的配置片段所示：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">filter_chains</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="nt">filters</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">envoy.filters.network.zookeeper_proxy</span>
@@ -255,10 +248,9 @@ in the configuration snippet below:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="statistics">
-<span id="config-network-filters-zookeeper-proxy-stats"></span><h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
-<p>Every configured ZooKeeper proxy filter has statistics rooted at <em>&lt;stat_prefix&gt;.zookeeper.</em>. The
-following counters are available:</p>
+<div class="section" id="config-network-filters-zookeeper-proxy-stats">
+<span id="id2"></span><h2>统计<a class="headerlink" href="#config-network-filters-zookeeper-proxy-stats" title="Permalink to this headline">¶</a></h2>
+<p>每一个ZooKeeper 代理过滤器的配置都有一个基于 <em>&lt;stat_prefix&gt;.zookeeper.</em> 的统计信息。可用的计数器如下：</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -266,227 +258,226 @@ following counters are available:</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>decoder_error</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of times a message wasn’t decoded</p></td>
+<td><p>消息未解码的次数</p></td>
 </tr>
 <tr class="row-odd"><td><p>request_bytes</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of bytes in decoded request messages</p></td>
+<td><p>解码请求信息中的字节数</p></td>
 </tr>
 <tr class="row-even"><td><p>connect_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of regular connect (non-readonly) requests</p></td>
+<td><p>常规连接（非只读）请求数</p></td>
 </tr>
 <tr class="row-odd"><td><p>connect_readonly_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of connect requests with the readonly flag set</p></td>
+<td><p>设置了 readonly 标志的连接请求数</p></td>
 </tr>
 <tr class="row-even"><td><p>ping_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of ping requests</p></td>
+<td><p>Ping 请求的数量</p></td>
 </tr>
 <tr class="row-odd"><td><p>auth.&lt;type&gt;_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of auth requests for a given type</p></td>
+<td><p>给定类型的身份认证的请求数量</p></td>
 </tr>
 <tr class="row-even"><td><p>getdata_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of getdata requests</p></td>
+<td><p>获取请求数据的数量</p></td>
 </tr>
 <tr class="row-odd"><td><p>create_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of create requests</p></td>
+<td><p>create 请求数</p></td>
 </tr>
 <tr class="row-even"><td><p>create2_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of create2 requests</p></td>
+<td><p>create2 请求数</p></td>
 </tr>
 <tr class="row-odd"><td><p>setdata_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of setdata requests</p></td>
+<td><p>setdata 请求数</p></td>
 </tr>
 <tr class="row-even"><td><p>getchildren_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of getchildren requests</p></td>
+<td><p>getchildren 请求数</p></td>
 </tr>
 <tr class="row-odd"><td><p>getchildren2_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of getchildren2 requests</p></td>
+<td><p>getchildren2 请求数</p></td>
 </tr>
 <tr class="row-even"><td><p>remove_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of delete requests</p></td>
+<td><p>删除请求数</p></td>
 </tr>
 <tr class="row-odd"><td><p>exists_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of stat requests</p></td>
+<td><p>统计请求数</p></td>
 </tr>
 <tr class="row-even"><td><p>getacl_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of getacl requests</p></td>
+<td><p>getacl 请求数</p></td>
 </tr>
 <tr class="row-odd"><td><p>setacl_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of setacl requests</p></td>
+<td><p>setacl 请求数</p></td>
 </tr>
 <tr class="row-even"><td><p>sync_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of sync requests</p></td>
+<td><p>同步请求数</p></td>
 </tr>
 <tr class="row-odd"><td><p>multi_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of multi transaction requests</p></td>
+<td><p>多笔交易请求数</p></td>
 </tr>
 <tr class="row-even"><td><p>reconfig_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of reconfig requests</p></td>
+<td><p>重新配置请求数</p></td>
 </tr>
 <tr class="row-odd"><td><p>close_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of close requests</p></td>
+<td><p>关闭请求数</p></td>
 </tr>
 <tr class="row-even"><td><p>setwatches_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of setwatches requests</p></td>
+<td><p>setwatches 请求数</p></td>
 </tr>
 <tr class="row-odd"><td><p>checkwatches_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of checkwatches requests</p></td>
+<td><p>checkwatches 请求数</p></td>
 </tr>
 <tr class="row-even"><td><p>removewatches_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of removewatches requests</p></td>
+<td><p>removewatches 请求数</p></td>
 </tr>
 <tr class="row-odd"><td><p>check_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of check requests</p></td>
+<td><p>检查请求数</p></td>
 </tr>
 <tr class="row-even"><td><p>response_bytes</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of bytes in decoded response messages</p></td>
+<td><p>解码响应消息中的字节数</p></td>
 </tr>
 <tr class="row-odd"><td><p>connect_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of connect responses</p></td>
+<td><p>连接响应数</p></td>
 </tr>
 <tr class="row-even"><td><p>ping_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of ping responses</p></td>
+<td><p>Ping 响应数</p></td>
 </tr>
 <tr class="row-odd"><td><p>auth_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of auth responses</p></td>
+<td><p>认证响应数</p></td>
 </tr>
 <tr class="row-even"><td><p>watch_event</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of watch events fired by the server</p></td>
+<td><p>服务器触发的监视事件的数量</p></td>
 </tr>
 <tr class="row-odd"><td><p>getdata_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of getdata responses</p></td>
+<td><p>getdata 响应数</p></td>
 </tr>
 <tr class="row-even"><td><p>create_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of create responses</p></td>
+<td><p>create 响应数</p></td>
 </tr>
 <tr class="row-odd"><td><p>create2_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of create2 responses</p></td>
+<td><p>create2 响应数</p></td>
 </tr>
 <tr class="row-even"><td><p>createcontainer_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of createcontainer responses</p></td>
+<td><p>createcontainer 响应数</p></td>
 </tr>
 <tr class="row-odd"><td><p>createttl_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of createttl responses</p></td>
+<td><p>createttl 响应数</p></td>
 </tr>
 <tr class="row-even"><td><p>setdata_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of setdata responses</p></td>
+<td><p>setdata 响应数</p></td>
 </tr>
 <tr class="row-odd"><td><p>getchildren_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of getchildren responses</p></td>
+<td><p>getchildren 响应数</p></td>
 </tr>
 <tr class="row-even"><td><p>getchildren2_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of getchildren2 responses</p></td>
+<td><p>getchildren2 响应数</p></td>
 </tr>
 <tr class="row-odd"><td><p>getephemerals_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of getephemerals responses</p></td>
+<td><p>getephemerals 响应数</p></td>
 </tr>
 <tr class="row-even"><td><p>getallchildrennumber_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of getallchildrennumber responses</p></td>
+<td><p>getallchildrennumber 响应数</p></td>
 </tr>
 <tr class="row-odd"><td><p>remove_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of remove responses</p></td>
+<td><p>删除响应数</p></td>
 </tr>
 <tr class="row-even"><td><p>exists_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of exists responses</p></td>
+<td><p>存在响应数</p></td>
 </tr>
 <tr class="row-odd"><td><p>getacl_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of getacl responses</p></td>
+<td><p>getacl 响应数</p></td>
 </tr>
 <tr class="row-even"><td><p>setacl_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of setacl responses</p></td>
+<td><p>setacl 响应数</p></td>
 </tr>
 <tr class="row-odd"><td><p>sync_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of sync responses</p></td>
+<td><p>同步响应数</p></td>
 </tr>
 <tr class="row-even"><td><p>multi_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of multi responses</p></td>
+<td><p>多笔交易响应数</p></td>
 </tr>
 <tr class="row-odd"><td><p>reconfig_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of reconfig responses</p></td>
+<td><p>重新配置响应数</p></td>
 </tr>
 <tr class="row-even"><td><p>close_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of close responses</p></td>
+<td><p>关闭响应数</p></td>
 </tr>
 <tr class="row-odd"><td><p>setauth_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of setauth responses</p></td>
+<td><p>setauth 响应数</p></td>
 </tr>
 <tr class="row-even"><td><p>setwatches_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of setwatches responses</p></td>
+<td><p>setwatches 响应数</p></td>
 </tr>
 <tr class="row-odd"><td><p>checkwatches_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of checkwatches responses</p></td>
+<td><p>checkwatches 响应数</p></td>
 </tr>
 <tr class="row-even"><td><p>removewatches_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of removewatches responses</p></td>
+<td><p>removewatches 响应数</p></td>
 </tr>
 <tr class="row-odd"><td><p>check_resp</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of check responses</p></td>
+<td><p>检查响应数</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="per-opcode-latency-statistics">
-<span id="config-network-filters-zookeeper-proxy-latency-stats"></span><h2>Per opcode latency statistics<a class="headerlink" href="#per-opcode-latency-statistics" title="Permalink to this headline">¶</a></h2>
-<p>The filter will gather latency statistics in the <em>&lt;stat_prefix&gt;.zookeeper.&lt;opcode&gt;_response_latency</em> namespace.
-Latency stats are in milliseconds:</p>
+<div class="section" id="config-network-filters-zookeeper-proxy-latency-stats">
+<span id="id3"></span><h2>操作码延迟统计信息<a class="headerlink" href="#config-network-filters-zookeeper-proxy-latency-stats" title="Permalink to this headline">¶</a></h2>
+<p>过滤器将在 <em>&lt;stat_prefix&gt;.zookeeper.&lt;opcode&gt;_response_latency</em> 命名空间中收集延迟统计信息。延迟统计信息以毫秒为单位：</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -494,126 +485,126 @@ Latency stats are in milliseconds:</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>connect_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-odd"><td><p>ping_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-even"><td><p>auth_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-odd"><td><p>watch_event</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-even"><td><p>getdata_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-odd"><td><p>create_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-even"><td><p>create2_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-odd"><td><p>createcontainer_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-even"><td><p>createttl_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-odd"><td><p>setdata_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-even"><td><p>getchildren_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-odd"><td><p>getchildren2_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-even"><td><p>getephemerals_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-odd"><td><p>getallchildrennumber_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-even"><td><p>remove_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-odd"><td><p>exists_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-even"><td><p>getacl_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-odd"><td><p>setacl_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-even"><td><p>sync_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-odd"><td><p>multi_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-even"><td><p>reconfig_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-odd"><td><p>close_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-even"><td><p>setauth_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-odd"><td><p>setwatches_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-even"><td><p>checkwatches_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-odd"><td><p>removewatches_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 <tr class="row-even"><td><p>check_response_latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Opcode execution time in milliseconds</p></td>
+<td><p>操作码执行时间（毫秒）</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="dynamic-metadata">
-<span id="config-network-filters-zookeeper-proxy-dynamic-metadata"></span><h2>Dynamic Metadata<a class="headerlink" href="#dynamic-metadata" title="Permalink to this headline">¶</a></h2>
-<p>The ZooKeeper filter emits the following dynamic metadata for each message parsed:</p>
+<div class="section" id="config-network-filters-zookeeper-proxy-dynamic-metadata">
+<span id="id4"></span><h2>动态元数据<a class="headerlink" href="#config-network-filters-zookeeper-proxy-dynamic-metadata" title="Permalink to this headline">¶</a></h2>
+<p>ZooKeeper 过滤器分析每一个消息都会释放出以下动态元数据：</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -621,63 +612,63 @@ Latency stats are in milliseconds:</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>&lt;path&gt;</p></td>
 <td><p>string</p></td>
-<td><p>The path associated with the request, response or event</p></td>
+<td><p>与请求、响应和事件关联的路径</p></td>
 </tr>
 <tr class="row-odd"><td><p>&lt;opname&gt;</p></td>
 <td><p>string</p></td>
-<td><p>The opname for the request, response or event</p></td>
+<td><p>与请求、响应和事件关联的操作名称</p></td>
 </tr>
 <tr class="row-even"><td><p>&lt;create_type&gt;</p></td>
 <td><p>string</p></td>
-<td><p>The string representation of the flags applied to the znode</p></td>
+<td><p>用于 znode 标志的字符串表示形式</p></td>
 </tr>
 <tr class="row-odd"><td><p>&lt;bytes&gt;</p></td>
 <td><p>string</p></td>
-<td><p>The size of the request message in bytes</p></td>
+<td><p>以字节为单位欸的请求消息的大小</p></td>
 </tr>
 <tr class="row-even"><td><p>&lt;watch&gt;</p></td>
 <td><p>string</p></td>
-<td><p>True if a watch is being set, false otherwise</p></td>
+<td><p>如果设置监听则为 True，否则为 False</p></td>
 </tr>
 <tr class="row-odd"><td><p>&lt;version&gt;</p></td>
 <td><p>string</p></td>
-<td><p>The version parameter, if any, given with the request</p></td>
+<td><p>请求中给定的 version 参数（如果有）</p></td>
 </tr>
 <tr class="row-even"><td><p>&lt;timeout&gt;</p></td>
 <td><p>string</p></td>
-<td><p>The timeout parameter in a connect response</p></td>
+<td><p>连接响应中的超时参数</p></td>
 </tr>
 <tr class="row-odd"><td><p>&lt;protocol_version&gt;</p></td>
 <td><p>string</p></td>
-<td><p>The protocol version in a connect response</p></td>
+<td><p>连接响应中的协议版本</p></td>
 </tr>
 <tr class="row-even"><td><p>&lt;readonly&gt;</p></td>
 <td><p>string</p></td>
-<td><p>The readonly flag in a connect response</p></td>
+<td><p>连接响应中的 readonly 标志</p></td>
 </tr>
 <tr class="row-odd"><td><p>&lt;zxid&gt;</p></td>
 <td><p>string</p></td>
-<td><p>The zxid field in a response header</p></td>
+<td><p>响应头中的 zxid 字段</p></td>
 </tr>
 <tr class="row-even"><td><p>&lt;error&gt;</p></td>
 <td><p>string</p></td>
-<td><p>The error field in a response header</p></td>
+<td><p>响应头中的 error 字段</p></td>
 </tr>
 <tr class="row-odd"><td><p>&lt;client_state&gt;</p></td>
 <td><p>string</p></td>
-<td><p>The state field in a watch event</p></td>
+<td><p>监听事件中的 state 字段</p></td>
 </tr>
 <tr class="row-even"><td><p>&lt;event_type&gt;</p></td>
 <td><p>string</p></td>
-<td><p>The event type in a a watch event</p></td>
+<td><p>监听事件中的事件类型</p></td>
 </tr>
 </tbody>
 </table>

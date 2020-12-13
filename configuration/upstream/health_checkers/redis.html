@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Redis &mdash; envoy 1.16.0-88b496 documentation</title>
+  <title>Redis &mdash; envoy 1.16.0-b7b2a5 documentation</title>
   
 
   
@@ -47,7 +47,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="可观测性" href="../../observability/observability.html" />
-    <link rel="prev" title="Health checkers" href="health_checkers.html" /> 
+    <link rel="prev" title="健康检查器" href="health_checkers.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-88b496
+                1.16.0-b7b2a5
               </div>
             
           
@@ -109,9 +109,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../overview/overview.html">概览</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../listeners/listeners.html">Listeners</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../http/http.html">HTTP</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../upstream.html">Upstream clusters</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cluster_manager/cluster_manager.html">Cluster manager</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="health_checkers.html">Health checkers</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../upstream.html">上游集群</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../cluster_manager/cluster_manager.html">集群管理器</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="health_checkers.html">健康检查器</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Redis</a></li>
 </ul>
 </li>
@@ -178,9 +178,9 @@
         
           <li><a href="../../configuration.html">配置参考</a> &raquo;</li>
         
-          <li><a href="../upstream.html">Upstream clusters</a> &raquo;</li>
+          <li><a href="../upstream.html">上游集群</a> &raquo;</li>
         
-          <li><a href="health_checkers.html">Health checkers</a> &raquo;</li>
+          <li><a href="health_checkers.html">健康检查器</a> &raquo;</li>
         
       <li>Redis</li>
     
@@ -203,15 +203,8 @@
             
   <div class="section" id="redis">
 <span id="config-health-checkers-redis"></span><h1>Redis<a class="headerlink" href="#redis" title="Permalink to this headline">¶</a></h1>
-<p>The Redis health checker is a custom health checker (with <code class="code docutils literal notranslate"><span class="pre">envoy.health_checkers.redis</span></code> as name)
-which checks Redis upstream hosts. It sends a Redis PING command and expect a PONG response. The upstream
-Redis server can respond with anything other than PONG to cause an immediate active health check failure.
-Optionally, Envoy can perform EXISTS on a user-specified key. If the key does not exist it is considered a
-passing health check. This allows the user to mark a Redis instance for maintenance by setting the
-specified <a class="reference internal" href="../../../api-v3/config/health_checker/redis/v2/redis.proto.html#envoy-v3-api-field-config-health-checker-redis-v2-redis-key"><span class="std std-ref">key</span></a> to any value and waiting
-for traffic to drain.</p>
-<p>An example setting for <a class="reference internal" href="../../../api-v3/config/core/v3/health_check.proto.html#envoy-v3-api-msg-config-core-v3-healthcheck-customhealthcheck"><span class="std std-ref">custom_health_check</span></a> as a
-Redis health checker is shown below:</p>
+<p>Redis 健康检查器是一个用于检查 Redis 上游主机的定制健康检查器（名为 <code class="code docutils literal notranslate"><span class="pre">envoy.health_checkers.redis</span></code>）。通过发送 Redis PING 命令并期望 PONG 响应进行工作。上游 Redis 服务器可以通过 PONG 以外的任何响应来立即导致运行健康检查失败。或者，Envoy 可以在用户指定的密钥上执行 EXISTS。如果密钥不存在，则将其视为通过健康检查。这允许用户通过将指定的 <a class="reference internal" href="../../../api-v3/config/health_checker/redis/v2/redis.proto.html#envoy-v3-api-field-config-health-checker-redis-v2-redis-key"><span class="std std-ref">密钥</span></a> 设置为任意值并等待流量排空来标记 Redis 实例以进行维护。</p>
+<p><a class="reference internal" href="../../../api-v3/config/core/v3/health_check.proto.html#envoy-v3-api-msg-config-core-v3-healthcheck-customhealthcheck"><span class="std std-ref">custom_health_check</span></a> 作为 Redis 运行状况健康检查器的一个配置示例如下:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">custom_health_check</span><span class="p">:</span>
   <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">envoy.health_checkers.redis</span>
     <span class="l l-Scalar l-Scalar-Plain">typed_config</span><span class="p p-Indicator">:</span>
@@ -220,7 +213,7 @@ Redis health checker is shown below:</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../../api-v3/config/core/v3/health_check.proto.html#envoy-v3-api-msg-config-core-v3-healthcheck-customhealthcheck"><span class="std std-ref">v3 API reference</span></a></p></li>
+<li><p><a class="reference internal" href="../../../api-v3/config/core/v3/health_check.proto.html#envoy-v3-api-msg-config-core-v3-healthcheck-customhealthcheck"><span class="std std-ref">v3 API 参考</span></a></p></li>
 </ul>
 </div>
 
@@ -235,7 +228,7 @@ Redis health checker is shown below:</p>
         <a href="../../observability/observability.html" class="btn btn-neutral float-right" title="可观测性" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="health_checkers.html" class="btn btn-neutral float-left" title="Health checkers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="health_checkers.html" class="btn btn-neutral float-left" title="健康检查器" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

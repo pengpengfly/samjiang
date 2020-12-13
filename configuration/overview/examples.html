@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Examples &mdash; envoy 1.16.0-88b496 documentation</title>
+  <title>示例 &mdash; envoy 1.16.0-b7b2a5 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-88b496
+                1.16.0-b7b2a5
               </div>
             
           
@@ -110,10 +110,10 @@
 <li class="toctree-l3"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="versioning.html">Versioning</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bootstrap.html">Bootstrap 配置</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Examples</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#static">Static</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mostly-static-with-dynamic-eds">Mostly static with dynamic EDS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dynamic">Dynamic</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">示例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">静态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#eds">大多是拥有动态 EDS 的静态配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">动态</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="extension.html">Extension configuration</a></li>
@@ -123,7 +123,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../listeners/listeners.html">Listeners</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../http/http.html">HTTP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../upstream/upstream.html">Upstream clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../upstream/upstream.html">上游集群</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../observability/observability.html">可观测性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../security/security.html">安全</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../operations/operations.html">操作</a></li>
@@ -187,7 +187,7 @@
         
           <li><a href="overview.html">概览</a> &raquo;</li>
         
-      <li>Examples</li>
+      <li>示例</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -206,13 +206,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="examples">
-<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
-<p>Below we will use YAML representation of the config protos and a running example
-of a service proxying HTTP from 127.0.0.1:10000 to 127.0.0.2:1234.</p>
-<div class="section" id="static">
-<h2>Static<a class="headerlink" href="#static" title="Permalink to this headline">¶</a></h2>
-<p>A minimal fully static bootstrap config is provided below:</p>
+  <div class="section" id="id1">
+<h1>示例<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>下面是我们将使用 YAML 表示的配置原型，以及从 127.0.0.1:10000 到 127.0.0.2:1234 的服务代理 HTTP 的运行示例。</p>
+<div class="section" id="id2">
+<h2>静态<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>下面提供了一个最小的完全静态 bootstrap 配置：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">admin</span><span class="p">:</span>
   <span class="nt">access_log_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/tmp/admin_access.log</span>
   <span class="nt">address</span><span class="p">:</span>
@@ -257,12 +256,9 @@ of a service proxying HTTP from 127.0.0.1:10000 to 127.0.0.2:1234.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="mostly-static-with-dynamic-eds">
-<h2>Mostly static with dynamic EDS<a class="headerlink" href="#mostly-static-with-dynamic-eds" title="Permalink to this headline">¶</a></h2>
-<p>A bootstrap config that continues from the above example with <a class="reference internal" href="../../intro/arch_overview/operations/dynamic_configuration.html#arch-overview-dynamic-config-eds"><span class="std std-ref">dynamic endpoint
-discovery</span></a> via an
-<a class="reference internal" href="../../api-v3/service/endpoint/v3/eds.proto.html#envoy-v3-api-file-envoy-service-endpoint-v3-eds-proto"><span class="std std-ref">EDS</span></a> gRPC management server listening
-on 127.0.0.1:5678 is provided below:</p>
+<div class="section" id="eds">
+<h2>大多是拥有动态 EDS 的静态配置<a class="headerlink" href="#eds" title="Permalink to this headline">¶</a></h2>
+<p>下面提供了一个 bootstrap 配置，该配置从以上示例开始，通过监听 127.0.0.3:5678 的 <a class="reference internal" href="../../api-v3/service/endpoint/v3/eds.proto.html#envoy-v3-api-file-envoy-service-endpoint-v3-eds-proto"><span class="std std-ref">EDS</span></a> gRPC 管理服务器进行 <a class="reference internal" href="../../intro/arch_overview/operations/dynamic_configuration.html#arch-overview-dynamic-config-eds"><span class="std std-ref">动态端点发现</span></a>：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">admin</span><span class="p">:</span>
   <span class="nt">access_log_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/tmp/admin_access.log</span>
   <span class="nt">address</span><span class="p">:</span>
@@ -325,14 +321,9 @@ on 127.0.0.1:5678 is provided below:</p>
                 <span class="nt">port_value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5678</span>
 </pre></div>
 </div>
-<p>Notice above that <em>xds_cluster</em> is defined to point Envoy at the management server. Even in
-an otherwise completely dynamic configurations, some static resources need to
-be defined to point Envoy at its xDS management server(s).</p>
-<p>It’s important to set appropriate <a class="reference internal" href="../../api-v3/config/core/v3/address.proto.html#envoy-v3-api-msg-config-core-v3-tcpkeepalive"><span class="std std-ref">TCP Keep-Alive options</span></a>
-in the <cite>tcp_keepalive</cite> block. This will help detect TCP half open connections to the xDS management
-server and re-establish a full connection.</p>
-<p>In the above example, the EDS management server could then return a proto encoding of a
-<a class="reference internal" href="../../api-v3/service/discovery/v3/discovery.proto.html#envoy-v3-api-msg-service-discovery-v3-discoveryresponse"><span class="std std-ref">DiscoveryResponse</span></a>:</p>
+<p>注意上面 <em>xds_cluster</em> 被定义为指向 Envoy 管理服务器。即使在完全动态的配置中，也需要定义一些静态资源，从而将 Envoy 指向其 xDS 管理服务器。</p>
+<p>在 <cite>tcp_keepalive</cite> 块中设置适当的 <a class="reference internal" href="../../api-v3/config/core/v3/address.proto.html#envoy-v3-api-msg-config-core-v3-tcpkeepalive"><span class="std std-ref">TCP Keep-Alive 选项</span></a> 非常重要。这将有助于检测与 xDS 管理服务器的 TCP 半开连接，并重新建立完整连接。</p>
+<p>在上面的例子中，EDS 管理服务器可以返回一个 proto 编码的 <a class="reference internal" href="../../api-v3/service/discovery/v3/discovery.proto.html#envoy-v3-api-msg-service-discovery-v3-discoveryresponse"><span class="std std-ref">DiscoveryResponse</span></a>：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version_info</span><span class="p">:</span> <span class="s">&quot;0&quot;</span>
 <span class="nt">resources</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="s">&quot;@type&quot;</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment</span>
@@ -346,15 +337,11 @@ server and re-establish a full connection.</p>
             <span class="nt">port_value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1234</span>
 </pre></div>
 </div>
-<p>The versioning and type URL scheme that appear above are explained in more
-detail in the <a class="reference internal" href="../../api-docs/xds_protocol.html#xds-protocol-streaming-grpc-subscriptions"><span class="std std-ref">streaming gRPC subscription protocol</span></a>
-documentation.</p>
+<p>上面显示的版本控制和类型 URL 方案在 <a class="reference internal" href="../../api-docs/xds_protocol.html#xds-protocol-streaming-grpc-subscriptions"><span class="std std-ref">流式 gRPC 订阅协议</span></a> 文档中有更详细的解释。</p>
 </div>
-<div class="section" id="dynamic">
-<h2>Dynamic<a class="headerlink" href="#dynamic" title="Permalink to this headline">¶</a></h2>
-<p>A fully dynamic bootstrap configuration, in which all resources other than
-those belonging to the management server are discovered via xDS is provided
-below:</p>
+<div class="section" id="id3">
+<h2>动态<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>下面提供了完全动态的 bootstrap 配置，其中除了属于管理服务器资源外的所有资源都是通过 xDS 发现的：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">admin</span><span class="p">:</span>
   <span class="nt">access_log_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/tmp/admin_access.log</span>
   <span class="nt">address</span><span class="p">:</span>
@@ -397,7 +384,7 @@ below:</p>
                 <span class="nt">port_value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5678</span>
 </pre></div>
 </div>
-<p>The management server could respond to LDS requests with:</p>
+<p>管理服务器将如下响应 LDS 请求：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version_info</span><span class="p">:</span> <span class="s">&quot;0&quot;</span>
 <span class="nt">resources</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="s">&quot;@type&quot;</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">type.googleapis.com/envoy.config.listener.v3.Listener</span>
@@ -425,7 +412,7 @@ below:</p>
         <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">envoy.filters.http.router</span>
 </pre></div>
 </div>
-<p>The management server could respond to RDS requests with:</p>
+<p>管理服务将如下响应 RDS 请求：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version_info</span><span class="p">:</span> <span class="s">&quot;0&quot;</span>
 <span class="nt">resources</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="s">&quot;@type&quot;</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">type.googleapis.com/envoy.config.route.v3.RouteConfiguration</span>
@@ -438,7 +425,7 @@ below:</p>
       <span class="nt">route</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> cluster</span><span class="p">:</span> <span class="nv">some_service</span> <span class="p p-Indicator">}</span>
 </pre></div>
 </div>
-<p>The management server could respond to CDS requests with:</p>
+<p>管理服务器将如下响应 CDS 请求：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version_info</span><span class="p">:</span> <span class="s">&quot;0&quot;</span>
 <span class="nt">resources</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="s">&quot;@type&quot;</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">type.googleapis.com/envoy.config.cluster.v3.Cluster</span>
@@ -455,7 +442,7 @@ below:</p>
               <span class="nt">cluster_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">xds_cluster</span>
 </pre></div>
 </div>
-<p>The management server could respond to EDS requests with:</p>
+<p>管理服务器将如下响应 EDS 请求：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version_info</span><span class="p">:</span> <span class="s">&quot;0&quot;</span>
 <span class="nt">resources</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="s">&quot;@type&quot;</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment</span>

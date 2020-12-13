@@ -20,7 +20,7 @@ Configuration for File Based Metadata Grpc Credentials Plugin
 config.grpc_credential.v3.FileBasedMetadataConfig
 -------------------------------------------------
 
-`[config.grpc_credential.v3.FileBasedMetadataConfig proto] <https://github.com/envoyproxy/envoy/blob/88b4960c5d686b4f4f8a70222321ee72c1bb8866/api/envoy/config/grpc_credential/v3/file_based_metadata.proto#L19>`_
+`[config.grpc_credential.v3.FileBasedMetadataConfig proto] <https://github.com/envoyproxy/envoy/blob/b7b2a53731a7d4f198e7639214e585e4194ffb1f/api/envoy/config/grpc_credential/v3/file_based_metadata.proto#L19>`_
 
 
 .. code-block:: json

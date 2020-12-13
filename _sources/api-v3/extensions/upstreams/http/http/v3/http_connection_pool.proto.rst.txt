@@ -9,7 +9,7 @@ Http Connection Pool
 extensions.upstreams.http.http.v3.HttpConnectionPoolProto
 ---------------------------------------------------------
 
-`[extensions.upstreams.http.http.v3.HttpConnectionPoolProto proto] <https://github.com/envoyproxy/envoy/blob/88b4960c5d686b4f4f8a70222321ee72c1bb8866/api/envoy/extensions/upstreams/http/http/v3/http_connection_pool.proto#L15>`_
+`[extensions.upstreams.http.http.v3.HttpConnectionPoolProto proto] <https://github.com/envoyproxy/envoy/blob/b7b2a53731a7d4f198e7639214e585e4194ffb1f/api/envoy/extensions/upstreams/http/http/v3/http_connection_pool.proto#L15>`_
 
 A connection pool which forwards downstream HTTP as HTTP to upstream.
 

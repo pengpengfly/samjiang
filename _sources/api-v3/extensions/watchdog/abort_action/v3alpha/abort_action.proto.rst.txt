@@ -29,7 +29,7 @@ from the watchdog's thread.
 extensions.watchdog.abort_action.v3alpha.AbortActionConfig
 ----------------------------------------------------------
 
-`[extensions.watchdog.abort_action.v3alpha.AbortActionConfig proto] <https://github.com/envoyproxy/envoy/blob/88b4960c5d686b4f4f8a70222321ee72c1bb8866/api/envoy/extensions/watchdog/abort_action/v3alpha/abort_action.proto#L27>`_
+`[extensions.watchdog.abort_action.v3alpha.AbortActionConfig proto] <https://github.com/envoyproxy/envoy/blob/b7b2a53731a7d4f198e7639214e585e4194ffb1f/api/envoy/extensions/watchdog/abort_action/v3alpha/abort_action.proto#L27>`_
 
 This is currently only implemented for systems that support kill to send
 signals.
