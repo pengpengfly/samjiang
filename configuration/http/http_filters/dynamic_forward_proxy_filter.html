@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Dynamic forward proxy &mdash; envoy 1.16.0-73050f documentation</title>
+  <title>动态转发代理 &mdash; envoy 1.16.0-88b496 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-73050f
+                1.16.0-88b496
               </div>
             
           
@@ -121,7 +121,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cors_filter.html">CORS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="csrf_filter.html">CSRF</a></li>
 <li class="toctree-l4"><a class="reference internal" href="decompressor_filter.html">Decompressor</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Dynamic forward proxy</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">动态转发代理</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dynamodb_filter.html">DynamoDB</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ext_authz_filter.html">External Authorization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="fault_filter.html">Fault Injection</a></li>
@@ -215,7 +215,7 @@
         
           <li><a href="http_filters.html">HTTP filters</a> &raquo;</li>
         
-      <li>Dynamic forward proxy</li>
+      <li>动态转发代理</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -234,35 +234,34 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="dynamic-forward-proxy">
-<span id="config-http-filters-dynamic-forward-proxy"></span><h1>Dynamic forward proxy<a class="headerlink" href="#dynamic-forward-proxy" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="config-http-filters-dynamic-forward-proxy">
+<span id="id1"></span><h1>动态转发代理<a class="headerlink" href="#config-http-filters-dynamic-forward-proxy" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>HTTP dynamic forward proxy <a class="reference internal" href="../../../intro/arch_overview/http/http_proxy.html#arch-overview-http-dynamic-forward-proxy"><span class="std std-ref">architecture overview</span></a></p></li>
-<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/http/dynamic_forward_proxy/v3/dynamic_forward_proxy.proto.html#envoy-v3-api-msg-extensions-filters-http-dynamic-forward-proxy-v3-filterconfig"><span class="std std-ref">v3 API reference</span></a></p></li>
-<li><p>This filter should be configured with the name <em>envoy.filters.http.dynamic_forward_proxy</em></p></li>
+<li><p>HTTP 动态转发代理 <a class="reference internal" href="../../../intro/arch_overview/http/http_proxy.html#arch-overview-http-dynamic-forward-proxy"><span class="std std-ref">架构总览</span></a></p></li>
+<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/http/dynamic_forward_proxy/v3/dynamic_forward_proxy.proto.html#envoy-v3-api-msg-extensions-filters-http-dynamic-forward-proxy-v3-filterconfig"><span class="std std-ref">v3 API 参考</span></a></p></li>
+<li><p>此过滤器的名称应该被配置为 <em>envoy.filters.http.dynamic_forward_proxy</em></p></li>
 </ul>
-<p>The following is a complete configuration that configures both the
-<a class="reference internal" href="../../../api-v3/extensions/filters/http/dynamic_forward_proxy/v3/dynamic_forward_proxy.proto.html#envoy-v3-api-msg-extensions-filters-http-dynamic-forward-proxy-v3-filterconfig"><span class="std std-ref">dynamic forward proxy HTTP filter</span></a>
-as well as the <a class="reference internal" href="../../../api-v3/extensions/clusters/dynamic_forward_proxy/v3/cluster.proto.html#envoy-v3-api-msg-extensions-clusters-dynamic-forward-proxy-v3-clusterconfig"><span class="std std-ref">dynamic forward proxy cluster</span></a>. Both filter and cluster
-must be configured together and point to the same DNS cache parameters for Envoy to operate as an
-HTTP dynamic forward proxy.</p>
-<p>This filter supports <a class="reference internal" href="../../../api-v3/extensions/filters/http/dynamic_forward_proxy/v3/dynamic_forward_proxy.proto.html#envoy-v3-api-msg-extensions-filters-http-dynamic-forward-proxy-v3-filterconfig"><span class="std std-ref">host rewrite</span></a>
-via the <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-virtualhost-typed-per-filter-config"><span class="std std-ref">virtual host’s typed_per_filter_config</span></a> or the
-<a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-route-typed-per-filter-config"><span class="std std-ref">route’s typed_per_filter_config</span></a>. This can be used to rewrite
-the host header with the provided value before DNS lookup, thus allowing to route traffic to the rewritten
-host when forwarding. See the example below within the configured routes.</p>
+<p>下面是一份完整的配置，配置包含
+<a class="reference internal" href="../../../api-v3/extensions/filters/http/dynamic_forward_proxy/v3/dynamic_forward_proxy.proto.html#envoy-v3-api-msg-extensions-filters-http-dynamic-forward-proxy-v3-filterconfig"><span class="std std-ref">动态转发代理 HTTP 过滤器</span></a>
+和 <a class="reference internal" href="../../../api-v3/extensions/clusters/dynamic_forward_proxy/v3/cluster.proto.html#envoy-v3-api-msg-extensions-clusters-dynamic-forward-proxy-v3-clusterconfig"><span class="std std-ref">动态转发代理集群</span></a>。
+过滤器和集群必须一起配置，并且指向相同的 DNS 缓存参数，这样 Envoy 才能作为 HTTP 动态转发代理运作。</p>
+<p>此过滤器支持 <a class="reference internal" href="../../../api-v3/extensions/filters/http/dynamic_forward_proxy/v3/dynamic_forward_proxy.proto.html#envoy-v3-api-msg-extensions-filters-http-dynamic-forward-proxy-v3-filterconfig"><span class="std std-ref">主机地址重写</span></a>，
+通过配置 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-virtualhost-typed-per-filter-config"><span class="std std-ref">虚拟主机的 typed_per_filter_config 配置</span></a> 或者
+<a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-field-config-route-v3-route-typed-per-filter-config"><span class="std std-ref">路由的 typed_per_filter_config 配置</span></a> 来实现。
+这可以被用在进行 DNS 查找前重写主机头为指定值，因此允许在转发时将流量路由到重写后的主机地址。
+参阅以下示例，其中包含已配置的路由。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Configuring a <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-transport-socket"><span class="std std-ref">transport_socket with name envoy.transport_sockets.tls</span></a> on the cluster with
-<em>trusted_ca</em> certificates instructs Envoy to use TLS when connecting to upstream hosts and verify
-the certificate chain. Additionally, Envoy will automatically perform SAN verification for the
-resolved host name as well as specify the host name via SNI.</p>
+<p>使用 <em>trusted_ca</em> 证书在集群上配置一项
+<a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-transport-socket"><span class="std std-ref">transport_socket 和名称 envoy.transport_sockets.tls</span></a>，
+可指示 Envoy 在连接上游主机和验证证书链时使用 TLS。
+此外，Envoy 会自动地为已解析的主机名称进行 SAN 认证，并且通过 SNI 指定主机名称。</p>
 </div>
 <blockquote id="dns-cache-circuit-breakers">
-<div><p>Dynamic forward proxy uses circuit breakers built in to the DNS cache with the configuration
-of <a class="reference internal" href="../../../api-v3/extensions/common/dynamic_forward_proxy/v3/dns_cache.proto.html#envoy-v3-api-field-extensions-common-dynamic-forward-proxy-v3-dnscacheconfig-dns-cache-circuit-breaker"><span class="std std-ref">DNS cache circuit breakers</span></a>. By default, this behavior is enabled by the runtime feature <cite>envoy.reloadable_features.enable_dns_cache_circuit_breakers</cite>.
-If this runtime feature is disabled, cluster circuit breakers will be used even when setting the configuration
-of <a class="reference internal" href="../../../api-v3/extensions/common/dynamic_forward_proxy/v3/dns_cache.proto.html#envoy-v3-api-field-extensions-common-dynamic-forward-proxy-v3-dnscacheconfig-dns-cache-circuit-breaker"><span class="std std-ref">DNS cache circuit breakers</span></a>.</p>
+<div><p>动态转发代理对 DNS 缓存使用内置的熔断器，
+通过配置 <a class="reference internal" href="../../../api-v3/extensions/common/dynamic_forward_proxy/v3/dns_cache.proto.html#envoy-v3-api-field-extensions-common-dynamic-forward-proxy-v3-dnscacheconfig-dns-cache-circuit-breaker"><span class="std std-ref">DNS 缓存熔断器</span></a> 来实现。
+默认情况下，此行为被运行时特性 <cite>envoy.reloadable_features.enable_dns_cache_circuit_breakers</cite> 启用。
+如果这个运行时特性被禁用，即使对 <a class="reference internal" href="../../../api-v3/extensions/common/dynamic_forward_proxy/v3/dns_cache.proto.html#envoy-v3-api-field-extensions-common-dynamic-forward-proxy-v3-dnscacheconfig-dns-cache-circuit-breaker"><span class="std std-ref">DNS 缓存熔断器</span></a> 进行了设置，但集群熔断器依旧会被使用。</p>
 </div></blockquote>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">admin</span><span class="p">:</span>
   <span class="nt">access_log_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/tmp/admin_access.log</span>
@@ -333,10 +332,9 @@ of <a class="reference internal" href="../../../api-v3/extensions/common/dynamic
             <span class="nt">trusted_ca</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">filename</span><span class="p">:</span> <span class="nv">/etc/ssl/certs/ca-certificates.crt</span><span class="p p-Indicator">}</span>
 </pre></div>
 </div>
-<div class="section" id="statistics">
-<h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
-<p>The dynamic forward proxy DNS cache outputs statistics in the dns_cache.&lt;dns_cache_name&gt;.*
-namespace.</p>
+<div class="section" id="id2">
+<h2>统计<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>动态转发代理 DNS 缓存输出统计在 dns_cache.&lt;dns_cache_name&gt;.* 命名空间中。</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -344,48 +342,48 @@ namespace.</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>dns_query_attempt</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of DNS query attempts.</p></td>
+<td><p>DNS 查询尝试次数。</p></td>
 </tr>
 <tr class="row-odd"><td><p>dns_query_success</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of DNS query successes.</p></td>
+<td><p>DNS 查询成功次数。</p></td>
 </tr>
 <tr class="row-even"><td><p>dns_query_failure</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of DNS query failures.</p></td>
+<td><p>DNS 查询失败次数。</p></td>
 </tr>
 <tr class="row-odd"><td><p>host_address_changed</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of DNS queries that resulted in a host address change.</p></td>
+<td><p>导致主机地址更改的 DNS 查询次数。</p></td>
 </tr>
 <tr class="row-even"><td><p>host_added</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of hosts that have been added to the cache.</p></td>
+<td><p>已经被添加到缓存的主机数。</p></td>
 </tr>
 <tr class="row-odd"><td><p>host_removed</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of hosts that have been removed from the cache.</p></td>
+<td><p>已经从缓存被删除的主机数。</p></td>
 </tr>
 <tr class="row-even"><td><p>num_hosts</p></td>
 <td><p>Gauge</p></td>
-<td><p>Number of hosts that are currently in the cache.</p></td>
+<td><p>当前在缓存中的主机数。</p></td>
 </tr>
 <tr class="row-odd"><td><p>dns_rq_pending_overflow</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of dns pending request overflow.</p></td>
+<td><p>待处理请求溢出的 DNS 数。</p></td>
 </tr>
 </tbody>
 </table>
-<p>The dynamic forward proxy DNS cache circuit breakers outputs statistics in the dns_cache.&lt;dns_cache_name&gt;.circuit_breakers*
-namespace.</p>
+<p>动态转发代理 DNS 缓存熔断器输出统计在 <em>dns_cache.&lt;dns_cache_name&gt;.circuit_breakers</em>
+命名空间。</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -393,19 +391,19 @@ namespace.</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>rq_pending_open</p></td>
 <td><p>Gauge</p></td>
-<td><p>Whether the requests circuit breaker is closed (0) or open (1)</p></td>
+<td><p>请求熔断器是关闭 (0) 还是开启 (1)</p></td>
 </tr>
 <tr class="row-odd"><td><p>rq_pending_remaining</p></td>
 <td><p>Gauge</p></td>
-<td><p>Number of remaining requests until the circuit breaker opens</p></td>
+<td><p>直到熔断器开启，剩余的请求数</p></td>
 </tr>
 </tbody>
 </table>
