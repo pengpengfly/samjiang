@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Redis &mdash; envoy 1.16.0-b7b2a5 documentation</title>
+  <title>Redis &mdash; envoy 1.16.0-48b0f3 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-b7b2a5
+                1.16.0-48b0f3
               </div>
             
           
@@ -203,7 +203,7 @@
             
   <div class="section" id="redis">
 <span id="config-health-checkers-redis"></span><h1>Redis<a class="headerlink" href="#redis" title="Permalink to this headline">¶</a></h1>
-<p>Redis 健康检查器是一个用于检查 Redis 上游主机的定制健康检查器（名为 <code class="code docutils literal notranslate"><span class="pre">envoy.health_checkers.redis</span></code>）。通过发送 Redis PING 命令并期望 PONG 响应进行工作。上游 Redis 服务器可以通过 PONG 以外的任何响应来立即导致运行健康检查失败。或者，Envoy 可以在用户指定的密钥上执行 EXISTS。如果密钥不存在，则将其视为通过健康检查。这允许用户通过将指定的 <a class="reference internal" href="../../../api-v3/config/health_checker/redis/v2/redis.proto.html#envoy-v3-api-field-config-health-checker-redis-v2-redis-key"><span class="std std-ref">密钥</span></a> 设置为任意值并等待流量排空来标记 Redis 实例以进行维护。</p>
+<p>Redis 健康检查器是一个用于检查 Redis 上游主机的定制健康检查器（名为 <code class="code docutils literal notranslate"><span class="pre">envoy.health_checkers.redis</span></code>）。通过发送 Redis PING 命令并期望 PONG 响应进行工作。上游 Redis 服务器可以通过 PONG 以外的任何响应来立即导致运行健康检查失败。或者，Envoy 可以在用户指定的键上执行 EXISTS。如果键不存在，则将其视为通过健康检查。这允许用户通过将指定的 <a class="reference internal" href="../../../api-v3/config/health_checker/redis/v2/redis.proto.html#envoy-v3-api-field-config-health-checker-redis-v2-redis-key"><span class="std std-ref">键</span></a> 设置为任意值并等待流量排空来标记 Redis 实例以进行维护。</p>
 <p><a class="reference internal" href="../../../api-v3/config/core/v3/health_check.proto.html#envoy-v3-api-msg-config-core-v3-healthcheck-customhealthcheck"><span class="std std-ref">custom_health_check</span></a> 作为 Redis 运行状况健康检查器的一个配置示例如下:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">custom_health_check</span><span class="p">:</span>
   <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">envoy.health_checkers.redis</span>
