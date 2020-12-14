@@ -20,7 +20,7 @@ gRPC HTTP/1.1 Bridge Filter :ref:`configuration overview <config_http_filters_gr
 config.filter.http.grpc_http1_bridge.v2.Config
 ----------------------------------------------
 
-`[config.filter.http.grpc_http1_bridge.v2.Config proto] <https://github.com/envoyproxy/envoy/blob/48b0f333a583e7555ee7bd265d68cdf642d1ff40/api/envoy/config/filter/http/grpc_http1_bridge/v2/config.proto#L19>`_
+`[config.filter.http.grpc_http1_bridge.v2.Config proto] <https://github.com/envoyproxy/envoy/blob/303d70d0a8475e5b19167380ccb780f049d8d2c0/api/envoy/config/filter/http/grpc_http1_bridge/v2/config.proto#L19>`_
 
 gRPC HTTP/1.1 Bridge filter config.
 

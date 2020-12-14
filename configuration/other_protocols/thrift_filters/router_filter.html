@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Router &mdash; envoy 1.16.0-48b0f3 documentation</title>
+  <title>路由 &mdash; envoy 1.16.0-303d70 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-48b0f3
+                1.16.0-303d70
               </div>
             
           
@@ -117,7 +117,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../other_protocols.html">其他协议</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="thrift_filters.html">Thrift 过滤器</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="rate_limit_filter.html">Rate limit</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Router</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">路由</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../dubbo_filters/dubbo_filters.html">Dubbo 过滤器</a></li>
@@ -183,7 +183,7 @@
         
           <li><a href="thrift_filters.html">Thrift 过滤器</a> &raquo;</li>
         
-      <li>Router</li>
+      <li>路由</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -202,18 +202,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="router">
-<span id="config-thrift-filters-router"></span><h1>Router<a class="headerlink" href="#router" title="Permalink to this headline">¶</a></h1>
-<p>The router filter implements Thrift forwarding. It will be used in almost all Thrift proxying
-scenarios. The filter’s main job is to follow the instructions specified in the configured
-<a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/route.proto.html#envoy-v3-api-msg-extensions-filters-network-thrift-proxy-v3-routeconfiguration"><span class="std std-ref">route table</span></a>.</p>
+  <div class="section" id="config-thrift-filters-router">
+<span id="id1"></span><h1>路由<a class="headerlink" href="#config-thrift-filters-router" title="Permalink to this headline">¶</a></h1>
+<p>路由过滤器实现了 Thrift 转发。几乎所有的 Thrift 代理场景都会用到它。过滤器的主要工作就是遵从配置在
+<a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/route.proto.html#envoy-v3-api-msg-extensions-filters-network-thrift-proxy-v3-routeconfiguration"><span class="std std-ref">路由表</span></a> 中指定的指令。</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../../api-v3/config/filter/thrift/router/v2alpha1/router.proto.html#envoy-v3-api-msg-config-filter-thrift-router-v2alpha1-router"><span class="std std-ref">v3 API reference</span></a></p></li>
-<li><p>This filter should be configured with the name <em>envoy.filters.thrift.router</em>.</p></li>
+<li><p><a class="reference internal" href="../../../api-v3/config/filter/thrift/router/v2alpha1/router.proto.html#envoy-v3-api-msg-config-filter-thrift-router-v2alpha1-router"><span class="std std-ref">v3 API 参考</span></a></p></li>
+<li><p>此过滤器的名称应该被配置为 <em>envoy.filters.thrift.router</em>。</p></li>
 </ul>
-<div class="section" id="statistics">
-<h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
-<p>The filter outputs statistics in the <em>thrift.&lt;stat_prefix&gt;.</em> namespace.</p>
+<div class="section" id="id2">
+<h2>统计<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>过滤器输出的统计信息都在 <em>thrift.&lt;stat_prefix&gt;.</em> 命名空间内。</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -221,27 +220,27 @@ scenarios. The filter’s main job is to follow the instructions specified in th
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>route_missing</p></td>
 <td><p>Counter</p></td>
-<td><p>Total requests with no route found.</p></td>
+<td><p>未找到路由的请求总数。</p></td>
 </tr>
 <tr class="row-odd"><td><p>unknown_cluster</p></td>
 <td><p>Counter</p></td>
-<td><p>Total requests with a route that has an unknown cluster.</p></td>
+<td><p>具有未知集群路由的请求总数。</p></td>
 </tr>
 <tr class="row-even"><td><p>upstream_rq_maintenance_mode</p></td>
 <td><p>Counter</p></td>
-<td><p>Total requests with a destination cluster in maintenance mode.</p></td>
+<td><p>目标集群处于维护模式下的请求总数。</p></td>
 </tr>
 <tr class="row-odd"><td><p>no_healthy_upstream</p></td>
 <td><p>Counter</p></td>
-<td><p>Total requests with no healthy upstream endpoints available.</p></td>
+<td><p>没有健康的上游端点可用的请求总数。</p></td>
 </tr>
 </tbody>
 </table>
