@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Jaeger Native Tracing &mdash; envoy 1.16.0-4d5a2d documentation</title>
+  <title>Jaeger Native Tracing &mdash; envoy 1.16.0-f53416 documentation</title>
   
 
   
@@ -48,8 +48,8 @@
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Jaeger Tracing" href="jaeger_tracing.html" />
-    <link rel="prev" title="gRPC Bridge" href="grpc_bridge.html" /> 
+    <link rel="next" title="Jaeger 追踪" href="jaeger_tracing.html" />
+    <link rel="prev" title="gRPC 网桥" href="grpc_bridge.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -76,7 +76,7 @@
             
             
               <div class="version">
-                1.16.0-4d5a2d
+                1.16.0-f53416
               </div>
             
           
@@ -115,12 +115,12 @@
 <li class="toctree-l3"><a class="reference internal" href="ext_authz.html">External Authorization Filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fault_injection.html">故障注入过滤器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="front_proxy.html">前端代理</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grpc_bridge.html">gRPC Bridge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grpc_bridge.html">gRPC 网桥</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Jaeger Native Tracing</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#running-the-sandbox">Running the Sandbox</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="jaeger_tracing.html">Jaeger Tracing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jaeger_tracing.html">Jaeger 追踪</a></li>
 <li class="toctree-l3"><a class="reference internal" href="load_reporting_service.html">负载报告服务 (LRS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lua.html">Lua 过滤器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mysql.html">MySQL Filter</a></li>
@@ -226,11 +226,11 @@ The three containers will be deployed inside a virtual network called <code clas
 </div>
 <p>All incoming requests are routed via the front Envoy, which is acting as a reverse proxy
 sitting on the edge of the <code class="docutils literal notranslate"><span class="pre">envoymesh</span></code> network. Port <code class="docutils literal notranslate"><span class="pre">8000</span></code> is exposed
-by docker compose (see <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/4d5a2dd1e7362bde9a8221559041c78516a3d36d//examples/jaeger-native-tracing/docker-compose.yaml">/examples/jaeger-native-tracing/docker-compose.yaml</a>). Notice that
+by docker compose (see <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/f53416dc78772656bb27d776f432a844564ad673//examples/jaeger-native-tracing/docker-compose.yaml">/examples/jaeger-native-tracing/docker-compose.yaml</a>). Notice that
 all Envoys are configured to collect request traces (e.g., http_connection_manager/config/tracing setup in
-<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/4d5a2dd1e7362bde9a8221559041c78516a3d36d//examples/jaeger-native-tracing/front-envoy-jaeger.yaml">/examples/jaeger-native-tracing/front-envoy-jaeger.yaml</a>) and setup to propagate the spans generated
+<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/f53416dc78772656bb27d776f432a844564ad673//examples/jaeger-native-tracing/front-envoy-jaeger.yaml">/examples/jaeger-native-tracing/front-envoy-jaeger.yaml</a>) and setup to propagate the spans generated
 by the Jaeger tracer to a Jaeger cluster (trace driver setup
-in <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/4d5a2dd1e7362bde9a8221559041c78516a3d36d//examples/jaeger-native-tracing/front-envoy-jaeger.yaml">/examples/jaeger-native-tracing/front-envoy-jaeger.yaml</a>).</p>
+in <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/f53416dc78772656bb27d776f432a844564ad673//examples/jaeger-native-tracing/front-envoy-jaeger.yaml">/examples/jaeger-native-tracing/front-envoy-jaeger.yaml</a>).</p>
 <p>Before routing a request to the appropriate service Envoy or the application, Envoy will take
 care of generating the appropriate spans for tracing (parent/child context spans).
 At a high-level, each span records the latency of upstream API calls as well as information
@@ -239,7 +239,7 @@ needed to correlate the span with other related spans (e.g., the trace ID).</p>
 propagating the traces to the Jaeger service cluster. However, in order to fully take advantage
 of tracing, the application has to propagate trace headers that Envoy generates, while making
 calls to other services. In the sandbox we have provided, the simple flask app
-(see trace function in <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/4d5a2dd1e7362bde9a8221559041c78516a3d36d//examples/front-proxy/service.py">/examples/front-proxy/service.py</a>) acting as service1 propagates
+(see trace function in <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/f53416dc78772656bb27d776f432a844564ad673//examples/front-proxy/service.py">/examples/front-proxy/service.py</a>) acting as service1 propagates
 the trace headers while making an outbound call to service2.</p>
 <div class="section" id="running-the-sandbox">
 <h2>Running the Sandbox<a class="headerlink" href="#running-the-sandbox" title="Permalink to this headline">¶</a></h2>
@@ -336,10 +336,10 @@ to service2, as well as the latency incurred at each hop.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="jaeger_tracing.html" class="btn btn-neutral float-right" title="Jaeger Tracing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="jaeger_tracing.html" class="btn btn-neutral float-right" title="Jaeger 追踪" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="grpc_bridge.html" class="btn btn-neutral float-left" title="gRPC Bridge" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="grpc_bridge.html" class="btn btn-neutral float-left" title="gRPC 网桥" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

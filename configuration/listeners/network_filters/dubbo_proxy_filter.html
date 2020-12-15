@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Dubbo proxy &mdash; envoy 1.16.0-4d5a2d documentation</title>
+  <title>Dubbo 代理 &mdash; envoy 1.16.0-f53416 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-4d5a2d
+                1.16.0-f53416
               </div>
             
           
@@ -113,7 +113,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../runtime.html">Runtime</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../listener_filters/listener_filters.html">Listener filters</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="network_filters.html">Network filters</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Dubbo proxy</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Dubbo 代理</a></li>
 <li class="toctree-l4"><a class="reference internal" href="client_ssl_auth_filter.html">客户端 TLS 认证</a></li>
 <li class="toctree-l4"><a class="reference internal" href="echo_filter.html">Echo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="direct_response_filter.html">Direct response</a></li>
@@ -205,7 +205,7 @@
         
           <li><a href="network_filters.html">Network filters</a> &raquo;</li>
         
-      <li>Dubbo proxy</li>
+      <li>Dubbo 代理</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -224,21 +224,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="dubbo-proxy">
-<span id="config-network-filters-dubbo-proxy"></span><h1>Dubbo proxy<a class="headerlink" href="#dubbo-proxy" title="Permalink to this headline">¶</a></h1>
-<p>The dubbo proxy filter decodes the RPC protocol between dubbo clients
-and servers. the decoded RPC information is converted to metadata.
-the metadata includes the basic request ID, request type, serialization type,
-and the required service name, method name, parameter name,
-and parameter value for routing.</p>
+  <div class="section" id="dubbo">
+<span id="config-network-filters-dubbo-proxy"></span><h1>Dubbo 代理<a class="headerlink" href="#dubbo" title="Permalink to this headline">¶</a></h1>
+<p>Dubbo 代理过滤器解码 dubbo 客户端与服务端之间的 RPC 协议。解码的信息会被转换为元数据。元数据主要包含基础请求 ID、请求类型、序列化类型以及路由所需要的服务名称、方法名称、参数名称和参数值。</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/network/dubbo_proxy/v3/dubbo_proxy.proto.html#envoy-v3-api-msg-extensions-filters-network-dubbo-proxy-v3-dubboproxy"><span class="std std-ref">v3 API reference</span></a></p></li>
-<li><p>This filter should be configured with the name <em>envoy.filters.network.dubbo_proxy</em>.</p></li>
+<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/network/dubbo_proxy/v3/dubbo_proxy.proto.html#envoy-v3-api-msg-extensions-filters-network-dubbo-proxy-v3-dubboproxy"><span class="std std-ref">v3 API 参考</span></a></p></li>
+<li><p>过滤器的名称应该被配置为 <em>envoy.filters.network.dubbo_proxy</em> 。</p></li>
 </ul>
-<div class="section" id="statistics">
-<span id="config-network-filters-dubbo-proxy-stats"></span><h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
-<p>Every configured dubbo proxy filter has statistics rooted at <em>dubbo.&lt;stat_prefix&gt;.</em> with the
-following statistics:</p>
+<div class="section" id="config-network-filters-dubbo-proxy-stats">
+<span id="id1"></span><h2>统计<a class="headerlink" href="#config-network-filters-dubbo-proxy-stats" title="Permalink to this headline">¶</a></h2>
+<p>每个配置的 dubbo 代理过滤器统计以 <em>dubbo.&lt;stat_prefix&gt;.</em> 为跟，统计信息如下：</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -246,101 +241,98 @@ following statistics:</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>request</p></td>
 <td><p>Counter</p></td>
-<td><p>Total requests</p></td>
+<td><p>请求总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>request_twoway</p></td>
 <td><p>Counter</p></td>
-<td><p>Total twoway requests</p></td>
+<td><p>双向请求总数</p></td>
 </tr>
 <tr class="row-even"><td><p>request_oneway</p></td>
 <td><p>Counter</p></td>
-<td><p>Total oneway requests</p></td>
+<td><p>单向请求总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>request_event</p></td>
 <td><p>Counter</p></td>
-<td><p>Total event requests</p></td>
+<td><p>事件请求总数</p></td>
 </tr>
 <tr class="row-even"><td><p>request_decoding_error</p></td>
 <td><p>Counter</p></td>
-<td><p>Total decoding error requests</p></td>
+<td><p>解码异常请求总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>request_decoding_success</p></td>
 <td><p>Counter</p></td>
-<td><p>Total decoding success requests</p></td>
+<td><p>解码成功请求总数</p></td>
 </tr>
 <tr class="row-even"><td><p>request_active</p></td>
 <td><p>Gauge</p></td>
-<td><p>Total active requests</p></td>
+<td><p>活跃请求总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>response</p></td>
 <td><p>Counter</p></td>
-<td><p>Total responses</p></td>
+<td><p>响应总数</p></td>
 </tr>
 <tr class="row-even"><td><p>response_success</p></td>
 <td><p>Counter</p></td>
-<td><p>Total success responses</p></td>
+<td><p>成功响应总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>response_error</p></td>
 <td><p>Counter</p></td>
-<td><p>Total responses that protocol parse error</p></td>
+<td><p>协议解析异常的响应总数</p></td>
 </tr>
 <tr class="row-even"><td><p>response_error_caused_connection_close</p></td>
 <td><p>Counter</p></td>
-<td><p>Total responses that caused by the downstream connection close</p></td>
+<td><p>下游关闭连接导致的响应总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>response_business_exception</p></td>
 <td><p>Counter</p></td>
-<td><p>Total responses that the protocol contains exception information returned by the business layer</p></td>
+<td><p>协议包含业务层返回异常的响应总数</p></td>
 </tr>
 <tr class="row-even"><td><p>response_decoding_error</p></td>
 <td><p>Counter</p></td>
-<td><p>Total decoding error responses</p></td>
+<td><p>解码异常响应总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>response_decoding_success</p></td>
 <td><p>Counter</p></td>
-<td><p>Total decoding success responses</p></td>
+<td><p>解码成功响应总数</p></td>
 </tr>
 <tr class="row-even"><td><p>response_error</p></td>
 <td><p>Counter</p></td>
-<td><p>Total responses that protocol parse error</p></td>
+<td><p>协议解析异常响应总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>local_response_success</p></td>
 <td><p>Counter</p></td>
-<td><p>Total local responses</p></td>
+<td><p>本地响应总数</p></td>
 </tr>
 <tr class="row-even"><td><p>local_response_error</p></td>
 <td><p>Counter</p></td>
-<td><p>Total local responses that encoding error</p></td>
+<td><p>本地编码异常响应总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>local_response_business_exception</p></td>
 <td><p>Counter</p></td>
-<td><p>Total local responses that the protocol contains business exception</p></td>
+<td><p>本地协议包含业务异常的相应总数</p></td>
 </tr>
 <tr class="row-even"><td><p>cx_destroy_local_with_active_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Connections destroyed locally with an active query</p></td>
+<td><p>本地销毁的有活跃查询的连接总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>cx_destroy_remote_with_active_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Connections destroyed remotely with an active query</p></td>
+<td><p>远端销毁的有活跃查询的连接总数</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="implement-custom-filter-based-on-the-dubbo-proxy-filter">
-<h2>Implement custom filter based on the dubbo proxy filter<a class="headerlink" href="#implement-custom-filter-based-on-the-dubbo-proxy-filter" title="Permalink to this headline">¶</a></h2>
-<p>If you want to implement a custom filter based on the dubbo protocol,
-the dubbo proxy filter like HTTP also provides a very convenient way to expand,
-the first step is to implement the DecoderFilter interface, and give the filter named, such as testFilter,
-the second step is to add your configuration, configuration method refer to the following sample</p>
+<div class="section" id="id2">
+<h2>基于 dubbo 代理过滤器实现自定义过滤器<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>如果你想要基于 dubbo 协议实现一个自定义过滤器，dubbo 过滤器特提供了类似于 HTTP 的一种非常方便的扩展方式，首先第一步就是实现 DecoderFilter 接口，并给出过滤器的名称，例如 testFilter，第二步就是添加你自己的配置，配置方法可以参考下面的示例：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">filter_chains</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="nt">filters</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">envoy.filters.network.dubbo_proxy</span>

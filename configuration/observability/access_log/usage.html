@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Access logging &mdash; envoy 1.16.0-4d5a2d documentation</title>
+  <title>Access logging &mdash; envoy 1.16.0-f53416 documentation</title>
   
 
   
@@ -47,7 +47,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="安全" href="../../security/security.html" />
-    <link rel="prev" title="Statistics" href="stats.html" /> 
+    <link rel="prev" title="统计" href="stats.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-4d5a2d
+                1.16.0-f53416
               </div>
             
           
@@ -115,7 +115,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../application_logging.html">Application logging</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="access_log.html">Access Logs</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l4"><a class="reference internal" href="stats.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="stats.html">统计</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Access logging</a></li>
 </ul>
 </li>
@@ -571,7 +571,7 @@ none of the headers are present ‘-‘ symbol will be in the log.</p>
 where NAMESPACE is the filter namespace used when setting the metadata, KEY is an optional
 lookup up key in the namespace with the option of specifying nested keys separated by ‘:’,
 and Z is an optional parameter denoting string truncation up to Z characters long. Dynamic Metadata
-can be set by filters using the <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/4d5a2dd1e7362bde9a8221559041c78516a3d36d/include/envoy/stream_info/stream_info.h">StreamInfo</a> API:
+can be set by filters using the <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/f53416dc78772656bb27d776f432a844564ad673/include/envoy/stream_info/stream_info.h">StreamInfo</a> API:
 <em>setDynamicMetadata</em>. The data will be logged as a JSON string. For example, for the following dynamic metadata:</p>
 <p><code class="docutils literal notranslate"><span class="pre">com.test.my_filter:</span> <span class="pre">{&quot;test_key&quot;:</span> <span class="pre">&quot;foo&quot;,</span> <span class="pre">&quot;test_object&quot;:</span> <span class="pre">{&quot;inner_key&quot;:</span> <span class="pre">&quot;bar&quot;}}</span></code></p>
 <ul class="simple">
@@ -741,7 +741,7 @@ length is ignored</p>
         <a href="../../security/security.html" class="btn btn-neutral float-right" title="安全" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="stats.html" class="btn btn-neutral float-left" title="Statistics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="stats.html" class="btn btn-neutral float-left" title="统计" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

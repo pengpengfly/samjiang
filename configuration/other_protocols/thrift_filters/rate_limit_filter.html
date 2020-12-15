@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Rate limit &mdash; envoy 1.16.0-4d5a2d documentation</title>
+  <title>限流 &mdash; envoy 1.16.0-f53416 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-4d5a2d
+                1.16.0-f53416
               </div>
             
           
@@ -116,7 +116,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../other_features/other_features.html">其他特性</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../other_protocols.html">其他协议</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="thrift_filters.html">Thrift 过滤器</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Rate limit</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">限流</a></li>
 <li class="toctree-l4"><a class="reference internal" href="router_filter.html">路由</a></li>
 </ul>
 </li>
@@ -183,7 +183,7 @@
         
           <li><a href="thrift_filters.html">Thrift 过滤器</a> &raquo;</li>
         
-      <li>Rate limit</li>
+      <li>限流</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -202,25 +202,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="rate-limit">
-<span id="config-thrift-filters-rate-limit"></span><h1>Rate limit<a class="headerlink" href="#rate-limit" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="config-thrift-filters-rate-limit">
+<span id="id1"></span><h1>限流<a class="headerlink" href="#config-thrift-filters-rate-limit" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>Global rate limiting <a class="reference internal" href="../../../intro/arch_overview/other_features/global_rate_limiting.html#arch-overview-global-rate-limit"><span class="std std-ref">architecture overview</span></a></p></li>
+<li><p>全局限流 <a class="reference internal" href="../../../intro/arch_overview/other_features/global_rate_limiting.html#arch-overview-global-rate-limit"><span class="std std-ref">架构概览</span></a></p></li>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/filters/ratelimit/v3/rate_limit.proto.html#envoy-v3-api-msg-extensions-filters-network-thrift-proxy-filters-ratelimit-v3-ratelimit"><span class="std std-ref">v3 API reference</span></a></p></li>
-<li><p>This filter should be configured with the name <em>envoy.filters.thrift.rate_limit</em>.</p></li>
+<li><p>此过滤器的名称应该被配置为 <em>envoy.filters.thrift.rate_limit</em> 。</p></li>
 </ul>
-<p>The Thrift rate limit filter will call the rate limit service when the request’s route has one or
-more <a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/route.proto.html#envoy-v3-api-field-extensions-filters-network-thrift-proxy-v3-routeaction-rate-limits"><span class="std std-ref">rate limit configurations</span></a> that
-match the filter’s stage setting. More than one configuration can apply to a request. Each
-configuration results in a descriptor being sent to the rate limit service.</p>
-<p>If the rate limit service is called, and the response for any of the descriptors is over limit, an
-application exception indicating an internal error is returned.</p>
-<p>If there is an error in calling the rate limit service or it returns an error and
-<a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/filters/ratelimit/v3/rate_limit.proto.html#envoy-v3-api-field-extensions-filters-network-thrift-proxy-filters-ratelimit-v3-ratelimit-failure-mode-deny"><span class="std std-ref">failure_mode_deny</span></a> is set to
-true, an application exception indicating an internal error is returned.</p>
-<div class="section" id="statistics">
-<span id="config-thrift-filters-rate-limit-stats"></span><h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
-<p>The filter outputs statistics in the <em>cluster.&lt;route target cluster&gt;.ratelimit.</em> namespace.</p>
+<p>当请求的路由有一个或者多个与过滤器状态配置相匹配的 <a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/route.proto.html#envoy-v3-api-field-extensions-filters-network-thrift-proxy-v3-routeaction-rate-limits"><span class="std std-ref">限流配置</span></a> 时，Thrift 限流过滤器将会调用限流服务。一个请求可以应用于多个配置。每一个配置都会向限流服务发送一个描述符。</p>
+<p>如果限流服务被调用，并且任何描述符的响应都会超过限制，就会返回一个显示内部错误的应用程序异常。</p>
+<p>如果在调用限流服务时发生了错误，或者有错误返回，且 <a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/filters/ratelimit/v3/rate_limit.proto.html#envoy-v3-api-field-extensions-filters-network-thrift-proxy-filters-ratelimit-v3-ratelimit-failure-mode-deny"><span class="std std-ref">failure_mode_deny</span></a> 被设置为 true，则返回一个显示内部错误的应用程序异常。</p>
+<div class="section" id="config-thrift-filters-rate-limit-stats">
+<span id="id2"></span><h2>统计<a class="headerlink" href="#config-thrift-filters-rate-limit-stats" title="Permalink to this headline">¶</a></h2>
+<p>过滤器的输出统计在 <em>cluster.&lt;route target cluster&gt;.ratelimit.</em> 命名空间中。</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -228,29 +222,27 @@ true, an application exception indicating an internal error is returned.</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>ok</p></td>
 <td><p>Counter</p></td>
-<td><p>Total under limit responses from the rate limit service.</p></td>
+<td><p>来自限流服务的低于限制的响应总数。</p></td>
 </tr>
 <tr class="row-odd"><td><p>error</p></td>
 <td><p>Counter</p></td>
-<td><p>Total errors contacting the rate limit service.</p></td>
+<td><p>访问限流服务的错误总数。</p></td>
 </tr>
 <tr class="row-even"><td><p>over_limit</p></td>
 <td><p>Counter</p></td>
-<td><p>Total over limit responses from the rate limit service.</p></td>
+<td><p>来自限流服务的超限响应的总数。</p></td>
 </tr>
 <tr class="row-odd"><td><p>failure_mode_allowed</p></td>
 <td><p>Counter</p></td>
-<td><p>Total requests that were error(s) but were allowed through because
-of <a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/filters/ratelimit/v3/rate_limit.proto.html#envoy-v3-api-field-extensions-filters-network-thrift-proxy-filters-ratelimit-v3-ratelimit-failure-mode-deny"><span class="std std-ref">failure_mode_deny</span></a> set to
-false.</p></td>
+<td><p>由于 <a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/filters/ratelimit/v3/rate_limit.proto.html#envoy-v3-api-field-extensions-filters-network-thrift-proxy-filters-ratelimit-v3-ratelimit-failure-mode-deny"><span class="std std-ref">failure_mode_deny</span></a> 被设置为 false，导致的被允许通过的错误请求总数。</p></td>
 </tr>
 </tbody>
 </table>

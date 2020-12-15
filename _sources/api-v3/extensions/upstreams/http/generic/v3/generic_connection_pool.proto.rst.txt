@@ -9,7 +9,7 @@ Generic Connection Pool
 extensions.upstreams.http.generic.v3.GenericConnectionPoolProto
 ---------------------------------------------------------------
 
-`[extensions.upstreams.http.generic.v3.GenericConnectionPoolProto proto] <https://github.com/envoyproxy/envoy/blob/4d5a2dd1e7362bde9a8221559041c78516a3d36d/api/envoy/extensions/upstreams/http/generic/v3/generic_connection_pool.proto#L16>`_
+`[extensions.upstreams.http.generic.v3.GenericConnectionPoolProto proto] <https://github.com/envoyproxy/envoy/blob/f53416dc78772656bb27d776f432a844564ad673/api/envoy/extensions/upstreams/http/generic/v3/generic_connection_pool.proto#L16>`_
 
 A connection pool which forwards downstream HTTP as TCP or HTTP to upstream,
 based on CONNECT configuration.
