@@ -9,7 +9,7 @@ Omit host metadata retry predicate
 config.retry.omit_host_metadata.v2.OmitHostMetadataConfig
 ---------------------------------------------------------
 
-`[config.retry.omit_host_metadata.v2.OmitHostMetadataConfig proto] <https://github.com/envoyproxy/envoy/blob/f53416dc78772656bb27d776f432a844564ad673/api/envoy/config/retry/omit_host_metadata/v2/omit_host_metadata_config.proto#L21>`_
+`[config.retry.omit_host_metadata.v2.OmitHostMetadataConfig proto] <https://github.com/envoyproxy/envoy/blob/666f25cdfac02b8a415643f36dda8f55687db9a2/api/envoy/config/retry/omit_host_metadata/v2/omit_host_metadata_config.proto#L21>`_
 
 A retry host predicate that can be used to reject a host based on
 predefined metadata match criteria.

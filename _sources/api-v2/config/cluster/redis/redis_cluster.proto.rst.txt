@@ -55,7 +55,7 @@ Example:
 config.cluster.redis.RedisClusterConfig
 ---------------------------------------
 
-`[config.cluster.redis.RedisClusterConfig proto] <https://github.com/envoyproxy/envoy/blob/f53416dc78772656bb27d776f432a844564ad673/api/envoy/config/cluster/redis/redis_cluster.proto#L55>`_
+`[config.cluster.redis.RedisClusterConfig proto] <https://github.com/envoyproxy/envoy/blob/666f25cdfac02b8a415643f36dda8f55687db9a2/api/envoy/config/cluster/redis/redis_cluster.proto#L55>`_
 
 
 .. code-block:: json

@@ -9,7 +9,7 @@ Semantic Version
 type.SemanticVersion
 --------------------
 
-`[type.SemanticVersion proto] <https://github.com/envoyproxy/envoy/blob/f53416dc78772656bb27d776f432a844564ad673/api/envoy/type/semantic_version.proto#L16>`_
+`[type.SemanticVersion proto] <https://github.com/envoyproxy/envoy/blob/666f25cdfac02b8a415643f36dda8f55687db9a2/api/envoy/type/semantic_version.proto#L16>`_
 
 Envoy uses SemVer (https://semver.org/). Major/minor versions indicate
 expected behaviors and APIs, the patch version field is used only
