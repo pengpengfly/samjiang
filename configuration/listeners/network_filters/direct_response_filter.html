@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Direct response &mdash; envoy 1.16.0-666f25 documentation</title>
+  <title>直接响应 &mdash; envoy 1.16.0-718ce1 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-666f25
+                1.16.0-718ce1
               </div>
             
           
@@ -116,7 +116,7 @@
 <li class="toctree-l4"><a class="reference internal" href="dubbo_proxy_filter.html">Dubbo 代理</a></li>
 <li class="toctree-l4"><a class="reference internal" href="client_ssl_auth_filter.html">客户端 TLS 认证</a></li>
 <li class="toctree-l4"><a class="reference internal" href="echo_filter.html">Echo</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Direct response</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">直接响应</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ext_authz_filter.html">External Authorization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="kafka_broker_filter.html">Kafka Broker filter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="local_rate_limit_filter.html">Local rate limit</a></li>
@@ -205,7 +205,7 @@
         
           <li><a href="network_filters.html">Network filters</a> &raquo;</li>
         
-      <li>Direct response</li>
+      <li>直接响应</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -224,15 +224,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="direct-response">
-<span id="config-network-filters-direct-response"></span><h1>Direct response<a class="headerlink" href="#direct-response" title="Permalink to this headline">¶</a></h1>
-<p>The direct response filter is a trivial network filter used to respond
-immediately to new downstream connections with an optional canned response. It
-can be used, for example, as a terminal filter in filter chains to collect
-telemetry for blocked traffic. This filter should be configured with the name
-<em>envoy.filters.network.direct_response</em>.</p>
+  <div class="section" id="config-network-filters-direct-response">
+<span id="id1"></span><h1>直接响应<a class="headerlink" href="#config-network-filters-direct-response" title="Permalink to this headline">¶</a></h1>
+<p>直接响应过滤器是一个不重要的网络过滤器，使用一个可选的预设响应立即响应新的下游连接。例如，它可以用作过滤器链中的末端过滤器来收集阻塞流量的遥测数据。过滤器应该以名称 <em>envoy.filters.network.direct_response</em> 来配置。</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../../api-v3/config/listener/v3/listener_components.proto.html#envoy-v3-api-field-config-listener-v3-filter-name"><span class="std std-ref">v3 API reference</span></a></p></li>
+<li><p><a class="reference internal" href="../../../api-v3/config/listener/v3/listener_components.proto.html#envoy-v3-api-field-config-listener-v3-filter-name"><span class="std std-ref">v3 API 参考</span></a></p></li>
 </ul>
 </div>
 

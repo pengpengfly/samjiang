@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Config load check tool &mdash; envoy 1.16.0-666f25 documentation</title>
+  <title>配置加载检查工具 &mdash; envoy 1.16.0-718ce1 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-666f25
+                1.16.0-718ce1
               </div>
             
           
@@ -107,7 +107,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../building.html">构建</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref_configs.html">参考配置</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="tools.html">工具</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Config load check tool</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">配置加载检查工具</a></li>
 <li class="toctree-l3"><a class="reference internal" href="route_table_check_tool.html">Route table check tool</a></li>
 <li class="toctree-l3"><a class="reference internal" href="schema_validator_check_tool.html">Schema 验证器检查工具</a></li>
 </ul>
@@ -170,7 +170,7 @@
         
           <li><a href="tools.html">工具</a> &raquo;</li>
         
-      <li>Config load check tool</li>
+      <li>配置加载检查工具</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -189,28 +189,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="config-load-check-tool">
-<span id="install-tools-config-load-check-tool"></span><h1>Config load check tool<a class="headerlink" href="#config-load-check-tool" title="Permalink to this headline">¶</a></h1>
-<p>The config load check tool checks that a configuration file in JSON format is written using valid JSON
-and conforms to the Envoy JSON schema. This tool leverages the configuration test in
-<code class="docutils literal notranslate"><span class="pre">test/config_test/config_test.cc</span></code>. The test loads the JSON configuration file and runs server configuration
-initialization with it.</p>
+  <div class="section" id="install-tools-config-load-check-tool">
+<span id="id1"></span><h1>配置加载检查工具<a class="headerlink" href="#install-tools-config-load-check-tool" title="Permalink to this headline">¶</a></h1>
+<p>配置加载检查工具检查 JSON 格式的配置文件是否有效，并且需要符合 Envoy JSON schema。该工具引用``test/config_test/config_test.cc``
+测试加载 JSON 配置文件并使用它运行服务器初始化配置。</p>
 <dl>
-<dt>Input</dt><dd><p>The tool expects a PATH to the root of a directory that holds JSON Envoy configuration files. The tool
-will recursively go through the file system tree and run a configuration test for each file found. Keep in mind that
-the tool will try to load all files found in the path.</p>
+<dt>输入</dt><dd><p>该工具需要指向一个包含 Envoy JSON 格式的配置文件路径，该工具将递归地遍历文件系统树，并对找到的每个文件运行配置测试。
+请记住，该工具将尝试加载路径中找到的所有文件。</p>
 </dd>
-<dt>Output</dt><dd><p>The tool will output Envoy logs as it initializes the server configuration with the config it is currently testing.
-If there are configuration files where the JSON file is malformed or is does not conform to the Envoy JSON schema, the
-tool will exit with status EXIT_FAILURE. If the tool successfully loads all configuration files found it will
-exit with status EXIT_SUCCESS.</p>
+<dt>输出</dt><dd><p>该工具使用当前测试的配置或初始化服务器配置时输出 Envoy 日志。如果存在错误格式的 JSON 文件
+或不符合 Envoy JSON 架构的配置文件，工具将退出并返回 exit_FAILURE 状态码。如果该工具成功加载
+所有找到的配置文件，它将退出并返回 EXIT_SUCCESS 状态码。</p>
 </dd>
-<dt>Building</dt><dd><p>The tool can be built locally using Bazel.</p>
+<dt>构建</dt><dd><p>该工具可以在本地使用 Bazel 构建。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bazel</span> <span class="n">build</span> <span class="o">//</span><span class="n">test</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">config_load_check</span><span class="p">:</span><span class="n">config_load_check_tool</span>
 </pre></div>
 </div>
 </dd>
-<dt>Running</dt><dd><p>The tool takes a path as described above.</p>
+<dt>运行</dt><dd><p>该工具使用下述路径。:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bazel</span><span class="o">-</span><span class="nb">bin</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">config_load_check</span><span class="o">/</span><span class="n">config_load_check_tool</span> <span class="n">PATH</span>
 </pre></div>
 </div>

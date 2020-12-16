@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Threading model &mdash; envoy 1.16.0-666f25 documentation</title>
+  <title>线程模型 &mdash; envoy 1.16.0-718ce1 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-666f25
+                1.16.0-718ce1
               </div>
             
           
@@ -106,7 +106,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../arch_overview.html">架构概览</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="intro.html">介绍</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="terminology.html">术语</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Threading model</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">线程模型</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../listeners/listeners_toc.html">监听器</a></li>
@@ -185,7 +185,7 @@
         
           <li><a href="intro.html">介绍</a> &raquo;</li>
         
-      <li>Threading model</li>
+      <li>线程模型</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -204,25 +204,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="threading-model">
-<span id="arch-overview-threading"></span><h1>Threading model<a class="headerlink" href="#threading-model" title="Permalink to this headline">¶</a></h1>
-<p>Envoy uses a single process with multiple threads architecture. A single <em>primary</em> thread controls
-various sporadic coordination tasks while some number of <em>worker</em> threads perform listening,
-filtering, and forwarding. Once a connection is accepted by a listener, the connection spends the
-rest of its lifetime bound to a single worker thread. This allows the majority of Envoy to be
-largely single threaded (embarrassingly parallel) with a small amount of more complex code handling
-coordination between the worker threads. Generally Envoy is written to be 100% non-blocking and for
-most workloads we recommend configuring the number of worker threads to be equal to the number of
-hardware threads on the machine.</p>
-<div class="section" id="listener-connection-balancing">
-<h2>Listener connection balancing<a class="headerlink" href="#listener-connection-balancing" title="Permalink to this headline">¶</a></h2>
-<p>By default, there is no coordination between worker threads. This means that all worker threads
-independently attempt to accept connections on each listener and rely on the kernel to perform
-adequate balancing between threads. For most workloads, the kernel does a very good job of
-balancing incoming connections. However, for some workloads, particularly those that have a small
-number of very long lived connections (e.g., service mesh HTTP2/gRPC egress), it may be desirable
-to have Envoy forcibly balance connections between worker threads. To support this behavior,
-Envoy allows for different types of <a class="reference internal" href="../../../api-v3/config/listener/v3/listener.proto.html#envoy-v3-api-field-config-listener-v3-listener-connection-balance-config"><span class="std std-ref">connection balancing</span></a> to be configured on each <a class="reference internal" href="../listeners/listeners.html#arch-overview-listeners"><span class="std std-ref">listener</span></a>.</p>
+  <div class="section" id="arch-overview-threading">
+<span id="id1"></span><h1>线程模型<a class="headerlink" href="#arch-overview-threading" title="Permalink to this headline">¶</a></h1>
+<p>Envoy 使用单进程-多线程架构。一个 <em>primary</em> 线程处理各种轻量协调任务，同时多个 <em>worker</em> 线程处理监听、过滤、转发。
+当一个连接被监听器接受，连接的剩余生命周期将绑定在当前 <em>worker</em> 线程。这使得 Envoy 大部分代码近似单线程运行（高度并行），
+只有少量的复杂代码用于实现 <em>worker</em> 线程之间的协调。Envoy 基本实现了 100% 的非阻塞，对于大多数工作负载，
+我们建议将 <em>worker</em> 线程数配置为物理机器的线程数。</p>
+<div class="section" id="id2">
+<h2>监听器连接均衡<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>默认情况下，<em>worker</em> 线程之间没有协调。这表示所有 <em>worker</em> 线程都独立的尝试从每一个监听器接受连接，
+然后依赖内核在线程之间执行适当的均衡。对于大多数工作负载，内核都可以很好的均衡传入的连接。但是，
+对于某些工作负载，特别是那些只有少量但非常长寿命的连接的工作负载（例如，服务网格 HTTP2/gRPC egress），
+则可能希望让 Envoy 强制平衡工作线程之间的连接。为了支持这种行为，
+Envoy 允许为每个 <a class="reference internal" href="../listeners/listeners.html#arch-overview-listeners"><span class="std std-ref">监听器</span></a> 配置不同类型的 <a class="reference internal" href="../../../api-v3/config/listener/v3/listener.proto.html#envoy-v3-api-field-config-listener-v3-listener-connection-balance-config"><span class="std std-ref">连接均衡</span></a>。</p>
 </div>
 </div>
 
