@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Upstream Cluster from SNI &mdash; envoy 1.16.0-718ce1 documentation</title>
+  <title>SNI的上游集群 &mdash; envoy 1.16.0-4165bd documentation</title>
   
 
   
@@ -47,7 +47,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="SNI dynamic forward proxy" href="sni_dynamic_forward_proxy_filter.html" />
-    <link rel="prev" title="Thrift proxy" href="thrift_proxy_filter.html" /> 
+    <link rel="prev" title="Thrift 代理" href="thrift_proxy_filter.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-718ce1
+                1.16.0-4165bd
               </div>
             
           
@@ -128,14 +128,14 @@
 <li class="toctree-l4"><a class="reference internal" href="redis_proxy_filter.html">Redis proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="rocketmq_proxy_filter.html">RocketMQ proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tcp_proxy_filter.html">TCP proxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="thrift_proxy_filter.html">Thrift proxy</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Upstream Cluster from SNI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thrift_proxy_filter.html">Thrift 代理</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">SNI的上游集群</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sni_dynamic_forward_proxy_filter.html">SNI dynamic forward proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="zookeeper_proxy_filter.html">ZooKeeper 代理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../udp_filters/udp_filters.html">UDP 监听器过滤器</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lds.html">Listener discovery service (LDS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lds.html">监听器发现服务（LDS）</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../http/http.html">HTTP</a></li>
@@ -205,7 +205,7 @@
         
           <li><a href="network_filters.html">Network filters</a> &raquo;</li>
         
-      <li>Upstream Cluster from SNI</li>
+      <li>SNI的上游集群</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -224,16 +224,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="upstream-cluster-from-sni">
-<span id="config-network-filters-sni-cluster"></span><h1>Upstream Cluster from SNI<a class="headerlink" href="#upstream-cluster-from-sni" title="Permalink to this headline">¶</a></h1>
-<p>The <cite>sni_cluster</cite> is a network filter that uses the SNI value in a TLS
-connection as the upstream cluster name. The filter will not modify the
-upstream cluster for non-TLS connections. This filter should be configured
-with the name <em>envoy.filters.network.sni_cluster</em>.</p>
-<p>This filter has no configuration. It must be installed before the
-<a class="reference internal" href="tcp_proxy_filter.html#config-network-filters-tcp-proxy"><span class="std std-ref">tcp_proxy</span></a> filter.</p>
+  <div class="section" id="sni">
+<span id="config-network-filters-sni-cluster"></span><h1>SNI的上游集群<a class="headerlink" href="#sni" title="Permalink to this headline">¶</a></h1>
+<p><cite>sni_cluster</cite> 是一个在TLS连接中使用SNI值作为上游集群名称的网络过滤器。在非TLS连接中，此过滤器不会修改上游集群。此过滤器应该以名称 <em>envoy.filters.network.sni_cluster</em> 来配置。</p>
+<p>这个过滤器没有配置项。必须在 <a class="reference internal" href="tcp_proxy_filter.html#config-network-filters-tcp-proxy"><span class="std std-ref">tcp_proxy</span></a> 过滤器之前安装。</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../../api-v3/config/listener/v3/listener_components.proto.html#envoy-v3-api-field-config-listener-v3-filter-name"><span class="std std-ref">v3 API reference</span></a></p></li>
+<li><p><a class="reference internal" href="../../../api-v3/config/listener/v3/listener_components.proto.html#envoy-v3-api-field-config-listener-v3-filter-name"><span class="std std-ref">v3 API reference</span></a>。</p></li>
 </ul>
 </div>
 
@@ -248,7 +244,7 @@ with the name <em>envoy.filters.network.sni_cluster</em>.</p>
         <a href="sni_dynamic_forward_proxy_filter.html" class="btn btn-neutral float-right" title="SNI dynamic forward proxy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="thrift_proxy_filter.html" class="btn btn-neutral float-left" title="Thrift proxy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="thrift_proxy_filter.html" class="btn btn-neutral float-left" title="Thrift 代理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

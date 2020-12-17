@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Health check &mdash; envoy 1.16.0-718ce1 documentation</title>
+  <title>健康检查 &mdash; envoy 1.16.0-4165bd documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-718ce1
+                1.16.0-4165bd
               </div>
             
           
@@ -131,8 +131,7 @@
 <li class="toctree-l4"><a class="reference internal" href="grpc_stats_filter.html">gRPC Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="grpc_web_filter.html">gRPC-Web</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gzip_filter.html">Gzip</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Health check</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id1">健康检查</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">健康检查</a></li>
 <li class="toctree-l4"><a class="reference internal" href="header_to_metadata_filter.html">Envoy Header-To-Metadata Filter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ip_tagging_filter.html">IP Tagging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="jwt_authn_filter.html">JWT Authentication</a></li>
@@ -216,7 +215,7 @@
         
           <li><a href="http_filters.html">HTTP filters</a> &raquo;</li>
         
-      <li>Health check</li>
+      <li>健康检查</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -235,24 +234,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="health-check">
-<span id="config-http-filters-health-check"></span><h1>Health check<a class="headerlink" href="#health-check" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><p>Health check filter <a class="reference internal" href="../../../intro/arch_overview/upstream/health_checking.html#arch-overview-health-checking-filter"><span class="std std-ref">architecture overview</span></a></p></li>
-<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/http/health_check/v3/health_check.proto.html#envoy-v3-api-msg-extensions-filters-http-health-check-v3-healthcheck"><span class="std std-ref">v3 API reference</span></a></p></li>
-<li><p>This filter should be configured with the name <em>envoy.filters.http.health_check</em>.</p></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Note that the filter will automatically fail health checks and set the
-<a class="reference internal" href="router_filter.html#config-http-filters-router-x-envoy-immediate-health-check-fail"><span class="std std-ref">x-envoy-immediate-health-check-fail</span></a> header if the
-<a class="reference internal" href="../../../operations/admin.html#operations-admin-interface-healthcheck-fail"><span class="std std-ref">/healthcheck/fail</span></a> admin endpoint has been
-called. (The <a class="reference internal" href="../../../operations/admin.html#operations-admin-interface-healthcheck-ok"><span class="std std-ref">/healthcheck/ok</span></a> admin endpoint
-reverses this behavior).</p>
-</div>
-</div>
-<div class="section" id="id1">
-<h1>健康检查<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="config-http-filters-health-check">
+<span id="id1"></span><h1>健康检查<a class="headerlink" href="#config-http-filters-health-check" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p>健康检查过滤器 <a class="reference internal" href="../../../intro/arch_overview/upstream/health_checking.html#arch-overview-health-checking-filter"><span class="std std-ref">架构概述</span></a></p></li>
 <li><p><a class="reference internal" href="../../../api-v3/extensions/filters/http/health_check/v3/health_check.proto.html#envoy-v3-api-msg-extensions-filters-http-health-check-v3-healthcheck"><span class="std std-ref">v3 API reference</span></a></p></li>
@@ -260,8 +243,7 @@ reverses this behavior).</p>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>请注意如果调用了管理端点:ref:<cite>/healthcheck/fail &lt;operations_admin_interface_healthcheck_fail&gt;</cite>，过滤器将会自动
-地在健康检查中失败并标示:ref:<cite>x-envoy-immediate-health-check-fail &lt;config_http_filters_router_x-envoy-immediate-health-check-fail&gt;`标头。（:ref:</cite>/healthcheck/ok &lt;operations_admin_interface_healthcheck_ok&gt;` 管理端点可以逆反此行为）。</p>
+<p>请注意如果调用了管理端点 <a class="reference internal" href="../../../operations/admin.html#operations-admin-interface-healthcheck-fail"><span class="std std-ref">/healthcheck/fail</span></a> ，过滤器将会自动地在健康检查中失败并标示 <a class="reference internal" href="router_filter.html#config-http-filters-router-x-envoy-immediate-health-check-fail"><span class="std std-ref">x-envoy-immediate-health-check-fail</span></a> 标头。（ <a class="reference internal" href="../../../operations/admin.html#operations-admin-interface-healthcheck-ok"><span class="std std-ref">/healthcheck/ok</span></a> 管理端点可以逆反此行为）。</p>
 </div>
 </div>
 

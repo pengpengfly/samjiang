@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Thrift proxy &mdash; envoy 1.16.0-718ce1 documentation</title>
+  <title>Thrift 代理 &mdash; envoy 1.16.0-4165bd documentation</title>
   
 
   
@@ -46,7 +46,7 @@
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Upstream Cluster from SNI" href="sni_cluster_filter.html" />
+    <link rel="next" title="SNI的上游集群" href="sni_cluster_filter.html" />
     <link rel="prev" title="TCP proxy" href="tcp_proxy_filter.html" /> 
 </head>
 
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-718ce1
+                1.16.0-4165bd
               </div>
             
           
@@ -128,14 +128,14 @@
 <li class="toctree-l4"><a class="reference internal" href="redis_proxy_filter.html">Redis proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="rocketmq_proxy_filter.html">RocketMQ proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tcp_proxy_filter.html">TCP proxy</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Thrift proxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sni_cluster_filter.html">Upstream Cluster from SNI</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Thrift 代理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sni_cluster_filter.html">SNI的上游集群</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sni_dynamic_forward_proxy_filter.html">SNI dynamic forward proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="zookeeper_proxy_filter.html">ZooKeeper 代理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../udp_filters/udp_filters.html">UDP 监听器过滤器</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lds.html">Listener discovery service (LDS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lds.html">监听器发现服务（LDS）</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../http/http.html">HTTP</a></li>
@@ -205,7 +205,7 @@
         
           <li><a href="network_filters.html">Network filters</a> &raquo;</li>
         
-      <li>Thrift proxy</li>
+      <li>Thrift 代理</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -224,59 +224,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="thrift-proxy">
-<span id="config-network-filters-thrift-proxy"></span><h1>Thrift proxy<a class="headerlink" href="#thrift-proxy" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="thrift">
+<span id="config-network-filters-thrift-proxy"></span><h1>Thrift 代理<a class="headerlink" href="#thrift" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/thrift_proxy.proto.html#envoy-v3-api-msg-extensions-filters-network-thrift-proxy-v3-thriftproxy"><span class="std std-ref">v3 API reference</span></a></p></li>
-<li><p>This filter should be configured with the name <em>envoy.filters.network.thrift_proxy</em>.</p></li>
+<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/thrift_proxy.proto.html#envoy-v3-api-msg-extensions-filters-network-thrift-proxy-v3-thriftproxy"><span class="std std-ref">v3 API 参考</span></a></p></li>
+<li><p>过滤器应该以名称 <em>envoy.filters.network.thrift_proxy</em> 来配置。</p></li>
 </ul>
-<div class="section" id="cluster-protocol-options">
-<h2>Cluster Protocol Options<a class="headerlink" href="#cluster-protocol-options" title="Permalink to this headline">¶</a></h2>
-<p>Thrift connections to upstream hosts can be configured by adding an entry to the appropriate
-Cluster’s <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-typed-extension-protocol-options"><span class="std std-ref">extension_protocol_options</span></a>
-keyed by <cite>envoy.filters.network.thrift_proxy</cite>. The
-<a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/thrift_proxy.proto.html#envoy-v3-api-msg-extensions-filters-network-thrift-proxy-v3-thriftprotocoloptions"><span class="std std-ref">ThriftProtocolOptions</span></a>
-message describes the available options.</p>
+<div class="section" id="id1">
+<h2>集群协议选项<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>到上游主机的 Thrift 连接可以通过向适当的集群中的 <a class="reference internal" href="../../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-typed-extension-protocol-options"><span class="std std-ref">extension_protocol_options</span></a> 添加一个由 <cite>envoy.filters.network.thrift_proxy</cite> 作为键的记录来配置。
+<a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/thrift_proxy.proto.html#envoy-v3-api-msg-extensions-filters-network-thrift-proxy-v3-thriftprotocoloptions"><span class="std std-ref">ThriftProtocolOptions</span></a> 消息中描述了可用的选项。</p>
 </div>
-<div class="section" id="thrift-request-metadata">
-<h2>Thrift Request Metadata<a class="headerlink" href="#thrift-request-metadata" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/thrift_proxy.proto.html#envoy-v3-api-enum-value-extensions-filters-network-thrift-proxy-v3-transporttype-header"><span class="std std-ref">HEADER transport</span></a>
-and <a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/thrift_proxy.proto.html#envoy-v3-api-enum-value-extensions-filters-network-thrift-proxy-v3-protocoltype-twitter"><span class="std std-ref">TWITTER protocol</span></a>
-support metadata. In particular, the
-<a class="reference external" href="https://github.com/apache/thrift/blob/master/doc/specs/HeaderFormat.md">Header transport</a>
-supports informational key/value pairs and the Twitter protocol transmits
-<a class="reference external" href="https://github.com/twitter/finagle/blob/master/finagle-thrift/src/main/thrift/tracing.thrift">tracing and request context data</a>.</p>
-<div class="section" id="header-transport-metadata">
-<h3>Header Transport Metadata<a class="headerlink" href="#header-transport-metadata" title="Permalink to this headline">¶</a></h3>
-<p>Header transport key/value pairs are available for routing as
-<a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/route.proto.html#envoy-v3-api-field-extensions-filters-network-thrift-proxy-v3-routematch-headers"><span class="std std-ref">headers</span></a>.</p>
+<div class="section" id="id2">
+<h2>Thrift 请求元数据<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/thrift_proxy.proto.html#envoy-v3-api-enum-value-extensions-filters-network-thrift-proxy-v3-transporttype-header"><span class="std std-ref">头传输</span></a> 和 <a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/thrift_proxy.proto.html#envoy-v3-api-enum-value-extensions-filters-network-thrift-proxy-v3-protocoltype-twitter"><span class="std std-ref">TWITTER 协议</span></a> 支持元数据。
+特别地 <a class="reference external" href="https://github.com/apache/thrift/blob/master/doc/specs/HeaderFormat.md">头传输</a> 支持键值（key/value）对信息和 Twitter 协议传输支持 <a class="reference external" href="https://github.com/twitter/finagle/blob/master/finagle-thrift/src/main/thrift/tracing.thrift">追踪和请求上下文数据</a> 。</p>
+<div class="section" id="id5">
+<h3>头传输元数据<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>头传输键值对可以作为路由 <a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/route.proto.html#envoy-v3-api-field-extensions-filters-network-thrift-proxy-v3-routematch-headers"><span class="std std-ref">头</span></a> 。</p>
 </div>
-<div class="section" id="twitter-protocol-metadata">
-<h3>Twitter Protocol Metadata<a class="headerlink" href="#twitter-protocol-metadata" title="Permalink to this headline">¶</a></h3>
-<p>Twitter protocol request contexts are converted into headers which are available for routing as
-<a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/route.proto.html#envoy-v3-api-field-extensions-filters-network-thrift-proxy-v3-routematch-headers"><span class="std std-ref">headers</span></a>.
-In addition, the following fields are presented as headers:</p>
+<div class="section" id="twitter">
+<h3>Twitter 协议元数据<a class="headerlink" href="#twitter" title="Permalink to this headline">¶</a></h3>
+<p>Twitter 协议请求上下文被转换为可作为 <a class="reference internal" href="../../../api-v3/extensions/filters/network/thrift_proxy/v3/route.proto.html#envoy-v3-api-field-extensions-filters-network-thrift-proxy-v3-routematch-headers"><span class="std std-ref">头</span></a> 路由的头。此外，以下字段都可以作为头：</p>
 <dl class="simple">
-<dt>Client Identifier</dt><dd><p>The ClientId’s <cite>name</cite> field (nested in the RequestHeader <cite>client_id</cite> field) becomes the
-<cite>:client-id</cite> header.</p>
+<dt>客户端标识</dt><dd><p>ClientId 的 <cite>name</cite> 字段成为（嵌套在 RequestHeader 的 <cite>client_id</cite> 中） <cite>:client-id</cite> 头。</p>
 </dd>
-<dt>Destination</dt><dd><p>The RequestHeader <cite>dest</cite> field becomes the <cite>:dest</cite> header.</p>
+<dt>目的地</dt><dd><p>RequestHeader 的 <cite>dest</cite> 字段成为 <cite>:dest</cite> 头。</p>
 </dd>
-<dt>Delegations</dt><dd><p>Each Delegation from the RequestHeader <cite>delegations</cite> field is added as a header. The header
-name is the prefix <cite>:d:</cite> followed by the Delegation’s <cite>src</cite>. The value is the Delegation’s
-<cite>dst</cite> field.</p>
+<dt>授权（Delegations）</dt><dd><p>来自 RequestHeader <cite>delegations</cite> 字段中的每个 Delegation 作为头被添加，头名称的前缀是 <cite>:d:</cite> 后面紧跟 Delegation 的 <cite>src</cite> 。
+值是 Delegation 的 <cite>dst</cite> 字段。</p>
 </dd>
 </dl>
 </div>
-<div class="section" id="metadata-interoperability">
-<h3>Metadata Interoperability<a class="headerlink" href="#metadata-interoperability" title="Permalink to this headline">¶</a></h3>
-<p>Request metadata that is available for routing (see above) is automatically converted between wire
-formats when translation between downstream and upstream connections occurs. Twitter protocol
-request contexts, client id, destination, and delegations are therefore presented as Header
-transport key/value pairs, named as above. Similarly, Header transport key/value pairs are
-presented as Twitter protocol RequestContext values, unless they match the special names described
-above. For instance, a downstream Header transport request with the info key “:client-id” is
-translated to an upstream Twitter protocol request with a ClientId value.</p>
+<div class="section" id="id6">
+<h3>元数据互操作性<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>当下游和上游连接之间发生转换时，可用于路由的请求元数据（见上下文）将在连接格式之间自动转换。Twitter 协议请求上下文、客户端标识、目的地和 delegations 被表示如上所述的为头传输键值对。
+类似地，头传输键值对可以被表示为 Twitter 协议请求上下文，除非他们与上面描述的特殊名称匹配。例如，带有信息键 “:client-id” 的下游头传输请求被转换为具有 ClientId 值的上游 Twitter 协议请求。</p>
 </div>
 </div>
 </div>
@@ -289,7 +272,7 @@ translated to an upstream Twitter protocol request with a ClientId value.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="sni_cluster_filter.html" class="btn btn-neutral float-right" title="Upstream Cluster from SNI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="sni_cluster_filter.html" class="btn btn-neutral float-right" title="SNI的上游集群" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="tcp_proxy_filter.html" class="btn btn-neutral float-left" title="TCP proxy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
