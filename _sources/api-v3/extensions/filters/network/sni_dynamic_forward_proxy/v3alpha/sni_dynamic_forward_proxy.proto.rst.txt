@@ -12,7 +12,7 @@ SNI dynamic forward proxy
 extensions.filters.network.sni_dynamic_forward_proxy.v3alpha.FilterConfig
 -------------------------------------------------------------------------
 
-`[extensions.filters.network.sni_dynamic_forward_proxy.v3alpha.FilterConfig proto] <https://github.com/envoyproxy/envoy/blob/4165bd5082e8d1209ba6697031773c71573fb6b6/api/envoy/extensions/filters/network/sni_dynamic_forward_proxy/v3alpha/sni_dynamic_forward_proxy.proto#L24>`_
+`[extensions.filters.network.sni_dynamic_forward_proxy.v3alpha.FilterConfig proto] <https://github.com/envoyproxy/envoy/blob/61bbb72c0d244ece44f25f5b7f941e1ceb7eade9/api/envoy/extensions/filters/network/sni_dynamic_forward_proxy/v3alpha/sni_dynamic_forward_proxy.proto#L24>`_
 
 Configuration for the SNI-based dynamic forward proxy filter. See the
 :ref:`architecture overview <arch_overview_http_dynamic_forward_proxy>` for

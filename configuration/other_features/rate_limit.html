@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Rate limit service &mdash; envoy 1.16.0-4165bd documentation</title>
+  <title>限流服务 &mdash; envoy 1.16.0-61bbb7 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-4165bd
+                1.16.0-61bbb7
               </div>
             
           
@@ -114,8 +114,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../security/security.html">安全</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../operations/operations.html">操作</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="other_features.html">其他特性</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Rate limit service</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#grpc-service-idl">gRPC service IDL</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">限流服务</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#grpc-idl">gRPC 服务 IDL</a></li>
 </ul>
 </li>
 </ul>
@@ -179,7 +179,7 @@
         
           <li><a href="other_features.html">其他特性</a> &raquo;</li>
         
-      <li>Rate limit service</li>
+      <li>限流服务</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -198,20 +198,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="rate-limit-service">
-<span id="config-rate-limit-service"></span><h1>Rate limit service<a class="headerlink" href="#rate-limit-service" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference internal" href="../../intro/arch_overview/other_features/global_rate_limiting.html#arch-overview-global-rate-limit"><span class="std std-ref">rate limit service</span></a> configuration specifies the global rate
-limit service Envoy should talk to when it needs to make global rate limit decisions. If no rate
-limit service is configured, a “null” service will be used which will always return OK if called.</p>
+  <div class="section" id="config-rate-limit-service">
+<span id="id1"></span><h1>限流服务<a class="headerlink" href="#config-rate-limit-service" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="../../intro/arch_overview/other_features/global_rate_limiting.html#arch-overview-global-rate-limit"><span class="std std-ref">限流服务</span></a> 配置指定了全局限流服务，当 Envoy 需要对全局限流服务做决定的时候，会与其进行通信。如果没有配置限流服务，则将使用一个在调用时永远返回 OK 的 “null” 服务。</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../api-v3/config/ratelimit/v3/rls.proto.html#envoy-v3-api-msg-config-ratelimit-v3-ratelimitserviceconfig"><span class="std std-ref">v3 API reference</span></a></p></li>
+<li><p><a class="reference internal" href="../../api-v3/config/ratelimit/v3/rls.proto.html#envoy-v3-api-msg-config-ratelimit-v3-ratelimitserviceconfig"><span class="std std-ref">v3 API 参考</span></a></p></li>
 </ul>
-<div class="section" id="grpc-service-idl">
-<h2>gRPC service IDL<a class="headerlink" href="#grpc-service-idl" title="Permalink to this headline">¶</a></h2>
-<p>Envoy expects the rate limit service to support the gRPC IDL specified in
-<a class="reference internal" href="../../api-v3/service/ratelimit/v3/rls.proto.html#envoy-v3-api-file-envoy-service-ratelimit-v3-rls-proto"><span class="std std-ref">rls.proto</span></a>. See the IDL documentation
-for more information on how the API works. See Lyft’s reference implementation
-<a class="reference external" href="https://github.com/lyft/ratelimit">here</a>.</p>
+<div class="section" id="grpc-idl">
+<h2>gRPC 服务 IDL<a class="headerlink" href="#grpc-idl" title="Permalink to this headline">¶</a></h2>
+<p>Envoy 期望限流服务能够支持在 <a class="reference internal" href="../../api-v3/service/ratelimit/v3/rls.proto.html#envoy-v3-api-file-envoy-service-ratelimit-v3-rls-proto"><span class="std std-ref">rls.proto</span></a> 中指定的 gRPC IDL（Interactive Data Language 互动式数据语言）。更多关于 API 是如何工作的信息，可以查看 IDL 文档。在 <a class="reference external" href="https://github.com/lyft/ratelimit">这儿</a> 查看 Lyft 的配置实现。</p>
 </div>
 </div>
 
