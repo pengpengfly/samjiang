@@ -20,7 +20,7 @@ Kafka Broker :ref:`configuration overview <config_network_filters_kafka_broker>`
 extensions.filters.network.kafka_broker.v3.KafkaBroker
 ------------------------------------------------------
 
-`[extensions.filters.network.kafka_broker.v3.KafkaBroker proto] <https://github.com/envoyproxy/envoy/blob/61bbb72c0d244ece44f25f5b7f941e1ceb7eade9/api/envoy/extensions/filters/network/kafka_broker/v3/kafka_broker.proto#L17>`_
+`[extensions.filters.network.kafka_broker.v3.KafkaBroker proto] <https://github.com/envoyproxy/envoy/blob/a14af30dfda62020e68ccd5cc25b6cd971eef227/api/envoy/extensions/filters/network/kafka_broker/v3/kafka_broker.proto#L17>`_
 
 
 .. code-block:: json

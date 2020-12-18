@@ -20,7 +20,7 @@ CORS Filter :ref:`configuration overview <config_http_filters_cors>`.
 extensions.filters.http.cors.v3.Cors
 ------------------------------------
 
-`[extensions.filters.http.cors.v3.Cors proto] <https://github.com/envoyproxy/envoy/blob/61bbb72c0d244ece44f25f5b7f941e1ceb7eade9/api/envoy/extensions/filters/http/cors/v3/cors.proto#L17>`_
+`[extensions.filters.http.cors.v3.Cors proto] <https://github.com/envoyproxy/envoy/blob/a14af30dfda62020e68ccd5cc25b6cd971eef227/api/envoy/extensions/filters/http/cors/v3/cors.proto#L17>`_
 
 Cors filter config.
 

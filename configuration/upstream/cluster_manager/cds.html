@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cluster discovery service &mdash; envoy 1.16.0-61bbb7 documentation</title>
+  <title>集群发现服务（CDS） &mdash; envoy 1.16.0-a14af3 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-61bbb7
+                1.16.0-a14af3
               </div>
             
           
@@ -114,7 +114,7 @@
 <li class="toctree-l4"><a class="reference internal" href="overview.html">概览</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cluster_stats.html">Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cluster_runtime.html">Runtime</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Cluster discovery service</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">集群发现服务（CDS）</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cluster_hc.html">Health checking</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cluster_circuit_breakers.html">Circuit breaking</a></li>
 </ul>
@@ -187,7 +187,7 @@
         
           <li><a href="cluster_manager.html">集群管理器</a> &raquo;</li>
         
-      <li>Cluster discovery service</li>
+      <li>集群发现服务（CDS）</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -206,22 +206,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cluster-discovery-service">
-<span id="config-cluster-manager-cds"></span><h1>Cluster discovery service<a class="headerlink" href="#cluster-discovery-service" title="Permalink to this headline">¶</a></h1>
-<p>The cluster discovery service (CDS) is an optional API that Envoy will call to dynamically fetch
-cluster manager members. Envoy will reconcile the API response and add, modify, or remove known
-clusters depending on what is required.</p>
+  <div class="section" id="cds">
+<span id="config-cluster-manager-cds"></span><h1>集群发现服务（CDS）<a class="headerlink" href="#cds" title="Permalink to this headline">¶</a></h1>
+<p>集群发现服务 (Cluster Discovery Service - CDS) 是 Envoy 调用的一个可选 API，用来动态获取集群管理器成员。Envoy 将协调 API 响应，并根据需要添加、修改或删除已知集群。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Any clusters that are statically defined within the Envoy configuration cannot be modified or
-removed via the CDS API.</p>
+<p>不能通过 CDS API 修改或删除 Envoy 配置中静态定义的任何群集。</p>
 </div>
 <ul class="simple">
 <li><p><a class="reference internal" href="../../overview/xds_api.html#v2-grpc-streaming-endpoints"><span class="std std-ref">v3 CDS API</span></a></p></li>
 </ul>
-<div class="section" id="statistics">
-<h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
-<p>CDS has a <a class="reference internal" href="../../overview/mgmt_server.html#subscription-statistics"><span class="std std-ref">statistics</span></a> tree rooted at <em>cluster_manager.cds.</em></p>
+<div class="section" id="id1">
+<h2>统计<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>CDS 有一个以 <em>cluster_manager.cds.</em> 为根的 <a class="reference internal" href="../../overview/mgmt_server.html#subscription-statistics"><span class="std std-ref">统计树</span></a> 。</p>
 </div>
 </div>
 
