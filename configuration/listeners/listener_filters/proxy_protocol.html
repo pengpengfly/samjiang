@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Proxy Protocol &mdash; envoy 1.16.0-a14af3 documentation</title>
+  <title>代理协议 &mdash; envoy 1.16.0-6771ef documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-a14af3
+                1.16.0-6771ef
               </div>
             
           
@@ -115,7 +115,7 @@
 <li class="toctree-l4"><a class="reference internal" href="http_inspector.html">HTTP 检视</a></li>
 <li class="toctree-l4"><a class="reference internal" href="original_dst_filter.html">Original Destination</a></li>
 <li class="toctree-l4"><a class="reference internal" href="original_src_filter.html">Original Source</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Proxy Protocol</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">代理协议</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tls_inspector.html">TLS 检查器</a></li>
 </ul>
 </li>
@@ -191,7 +191,7 @@
         
           <li><a href="listener_filters.html">Listener filters</a> &raquo;</li>
         
-      <li>Proxy Protocol</li>
+      <li>代理协议</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -210,30 +210,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="proxy-protocol">
-<span id="config-listener-filters-proxy-protocol"></span><h1>Proxy Protocol<a class="headerlink" href="#proxy-protocol" title="Permalink to this headline">¶</a></h1>
-<p>This listener filter adds support for
-<a class="reference external" href="https://www.haproxy.org/download/1.9/doc/proxy-protocol.txt">HAProxy Proxy Protocol</a>.</p>
-<p>In this mode, the downstream connection is assumed to come from a proxy
-which places the original coordinates (IP, PORT) into a connection-string.
-Envoy then extracts these and uses them as the remote address.</p>
-<p>In Proxy Protocol v2 there exists the concept of extensions (TLV)
-tags that are optional. If the type of the TLV is added to the filter’s configuration,
-the TLV will be emitted as dynamic metadata with user-specified key.</p>
-<p>This implementation supports both version 1 and version 2, it
-automatically determines on a per-connection basis which of the two
-versions is present. Note: if the filter is enabled, the Proxy Protocol
-must be present on the connection (either version 1 or version 2),
-the standard does not allow parsing to determine if it is present or not.</p>
-<p>If there is a protocol error or an unsupported address family
-(e.g. AF_UNIX) the connection will be closed and an error thrown.</p>
+  <div class="section" id="config-listener-filters-proxy-protocol">
+<span id="id1"></span><h1>代理协议<a class="headerlink" href="#config-listener-filters-proxy-protocol" title="Permalink to this headline">¶</a></h1>
+<p>此监听器过滤器添加了对 <a class="reference external" href="https://www.haproxy.org/download/1.9/doc/proxy-protocol.txt">HAProxy 代理协议</a> 的支持。</p>
+<p>在这种模式下，假定下游连接来自于一个将原始信息（IP、PORT）置于连接字符中（connection-string）的代理。随后 Envoy 会提取那些信息且将它们当作远端地址来使用。</p>
+<p>在代理协议 v2 中，存在可选的扩展（TLV）标记概念。如果在过滤器的配置中添加了 TLV 的类型，则 TLV 将作为带有用户指定密钥的动态元数据被发出。</p>
+<p>这种实现同时支持版本 v1 和版本 v2，它会基于每一个连接（per-connection）来自动决定使用两个版本中的哪个。注意：如果开启了过滤器，代理协议必须存在于连接中（版本 1 或者版本 2），因为标准不允许通过解析来确定它是否存在。</p>
+<p>如果有协议错误或者不支持的地址簇（比如 AF_UNIX），则连接将被关闭且抛出错误。</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../../../api-v3/config/listener/v3/listener_components.proto.html#envoy-v3-api-field-config-listener-v3-filter-name"><span class="std std-ref">v3 API reference</span></a></p></li>
 <li><p>This filter should be configured with the name <em>envoy.filters.listener.proxy_protocol</em>.</p></li>
 </ul>
-<div class="section" id="statistics">
-<h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
-<p>This filter emits the following statistics:</p>
+<div class="section" id="id2">
+<h2>统计<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>此过滤器会发出一下统计信息：</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -241,15 +231,15 @@ the standard does not allow parsing to determine if it is present or not.</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>downstream_cx_proxy_proto_error</p></td>
 <td><p>Counter</p></td>
-<td><p>Total proxy protocol errors</p></td>
+<td><p>代理协议错误总数</p></td>
 </tr>
 </tbody>
 </table>
