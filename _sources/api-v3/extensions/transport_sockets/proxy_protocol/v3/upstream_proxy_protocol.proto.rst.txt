@@ -19,7 +19,7 @@ This extension may be referenced by the qualified name *envoy.transport_sockets.
 extensions.transport_sockets.proxy_protocol.v3.ProxyProtocolUpstreamTransport
 -----------------------------------------------------------------------------
 
-`[extensions.transport_sockets.proxy_protocol.v3.ProxyProtocolUpstreamTransport proto] <https://github.com/envoyproxy/envoy/blob/0d07b193306c11d6e33352427f84ff67e4340cd8/api/envoy/extensions/transport_sockets/proxy_protocol/v3/upstream_proxy_protocol.proto#L19>`_
+`[extensions.transport_sockets.proxy_protocol.v3.ProxyProtocolUpstreamTransport proto] <https://github.com/envoyproxy/envoy/blob/c84cacb3e6e0e093a3ffe3bc7dc9a4df507f9e01/api/envoy/extensions/transport_sockets/proxy_protocol/v3/upstream_proxy_protocol.proto#L19>`_
 
 Configuration for PROXY protocol socket
 

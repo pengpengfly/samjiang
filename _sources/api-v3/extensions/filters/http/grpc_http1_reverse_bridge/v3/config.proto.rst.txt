@@ -21,7 +21,7 @@ gRPC HTTP/1.1 Reverse Bridge :ref:`configuration overview
 extensions.filters.http.grpc_http1_reverse_bridge.v3.FilterConfig
 -----------------------------------------------------------------
 
-`[extensions.filters.http.grpc_http1_reverse_bridge.v3.FilterConfig proto] <https://github.com/envoyproxy/envoy/blob/0d07b193306c11d6e33352427f84ff67e4340cd8/api/envoy/extensions/filters/http/grpc_http1_reverse_bridge/v3/config.proto#L19>`_
+`[extensions.filters.http.grpc_http1_reverse_bridge.v3.FilterConfig proto] <https://github.com/envoyproxy/envoy/blob/c84cacb3e6e0e093a3ffe3bc7dc9a4df507f9e01/api/envoy/extensions/filters/http/grpc_http1_reverse_bridge/v3/config.proto#L19>`_
 
 gRPC reverse bridge filter configuration
 
@@ -55,7 +55,7 @@ withhold_grpc_frames
 extensions.filters.http.grpc_http1_reverse_bridge.v3.FilterConfigPerRoute
 -------------------------------------------------------------------------
 
-`[extensions.filters.http.grpc_http1_reverse_bridge.v3.FilterConfigPerRoute proto] <https://github.com/envoyproxy/envoy/blob/0d07b193306c11d6e33352427f84ff67e4340cd8/api/envoy/extensions/filters/http/grpc_http1_reverse_bridge/v3/config.proto#L35>`_
+`[extensions.filters.http.grpc_http1_reverse_bridge.v3.FilterConfigPerRoute proto] <https://github.com/envoyproxy/envoy/blob/c84cacb3e6e0e093a3ffe3bc7dc9a4df507f9e01/api/envoy/extensions/filters/http/grpc_http1_reverse_bridge/v3/config.proto#L35>`_
 
 gRPC reverse bridge filter configuration per virtualhost/route/weighted-cluster level.
 

@@ -20,7 +20,7 @@ PROXY protocol listener filter.
 extensions.filters.listener.proxy_protocol.v3.ProxyProtocol
 -----------------------------------------------------------
 
-`[extensions.filters.listener.proxy_protocol.v3.ProxyProtocol proto] <https://github.com/envoyproxy/envoy/blob/0d07b193306c11d6e33352427f84ff67e4340cd8/api/envoy/extensions/filters/listener/proxy_protocol/v3/proxy_protocol.proto#L17>`_
+`[extensions.filters.listener.proxy_protocol.v3.ProxyProtocol proto] <https://github.com/envoyproxy/envoy/blob/c84cacb3e6e0e093a3ffe3bc7dc9a4df507f9e01/api/envoy/extensions/filters/listener/proxy_protocol/v3/proxy_protocol.proto#L17>`_
 
 
 .. code-block:: json
@@ -40,7 +40,7 @@ rules
 extensions.filters.listener.proxy_protocol.v3.ProxyProtocol.KeyValuePair
 ------------------------------------------------------------------------
 
-`[extensions.filters.listener.proxy_protocol.v3.ProxyProtocol.KeyValuePair proto] <https://github.com/envoyproxy/envoy/blob/0d07b193306c11d6e33352427f84ff67e4340cd8/api/envoy/extensions/filters/listener/proxy_protocol/v3/proxy_protocol.proto#L21>`_
+`[extensions.filters.listener.proxy_protocol.v3.ProxyProtocol.KeyValuePair proto] <https://github.com/envoyproxy/envoy/blob/c84cacb3e6e0e093a3ffe3bc7dc9a4df507f9e01/api/envoy/extensions/filters/listener/proxy_protocol/v3/proxy_protocol.proto#L21>`_
 
 
 .. code-block:: json
@@ -69,7 +69,7 @@ key
 extensions.filters.listener.proxy_protocol.v3.ProxyProtocol.Rule
 ----------------------------------------------------------------
 
-`[extensions.filters.listener.proxy_protocol.v3.ProxyProtocol.Rule proto] <https://github.com/envoyproxy/envoy/blob/0d07b193306c11d6e33352427f84ff67e4340cd8/api/envoy/extensions/filters/listener/proxy_protocol/v3/proxy_protocol.proto#L30>`_
+`[extensions.filters.listener.proxy_protocol.v3.ProxyProtocol.Rule proto] <https://github.com/envoyproxy/envoy/blob/c84cacb3e6e0e093a3ffe3bc7dc9a4df507f9e01/api/envoy/extensions/filters/listener/proxy_protocol/v3/proxy_protocol.proto#L30>`_
 
 A Rule defines what metadata to apply when a header is present or missing.
 

@@ -9,7 +9,7 @@ Extension configuration
 config.core.v3.TypedExtensionConfig
 -----------------------------------
 
-`[config.core.v3.TypedExtensionConfig proto] <https://github.com/envoyproxy/envoy/blob/0d07b193306c11d6e33352427f84ff67e4340cd8/api/envoy/config/core/v3/extension.proto#L20>`_
+`[config.core.v3.TypedExtensionConfig proto] <https://github.com/envoyproxy/envoy/blob/c84cacb3e6e0e093a3ffe3bc7dc9a4df507f9e01/api/envoy/config/core/v3/extension.proto#L20>`_
 
 Message type for extension configuration.
 .
@@ -45,7 +45,7 @@ typed_config
 config.core.v3.ExtensionConfigSource
 ------------------------------------
 
-`[config.core.v3.ExtensionConfigSource proto] <https://github.com/envoyproxy/envoy/blob/0d07b193306c11d6e33352427f84ff67e4340cd8/api/envoy/config/core/v3/extension.proto#L44>`_
+`[config.core.v3.ExtensionConfigSource proto] <https://github.com/envoyproxy/envoy/blob/c84cacb3e6e0e093a3ffe3bc7dc9a4df507f9e01/api/envoy/config/core/v3/extension.proto#L44>`_
 
 Configuration source specifier for a late-bound extension configuration. The
 parent resource is warmed until all the initial extension configurations are
