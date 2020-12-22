@@ -20,7 +20,7 @@ Rate limit :ref:`configuration overview <config_http_filters_rate_limit>`.
 config.filter.http.rate_limit.v2.RateLimit
 ------------------------------------------
 
-`[config.filter.http.rate_limit.v2.RateLimit proto] <https://github.com/envoyproxy/envoy/blob/c84cacb3e6e0e093a3ffe3bc7dc9a4df507f9e01/api/envoy/config/filter/http/rate_limit/v2/rate_limit.proto#L24>`_
+`[config.filter.http.rate_limit.v2.RateLimit proto] <https://github.com/envoyproxy/envoy/blob/c4834c34b485fa791c8f9cd6a7b64ba16758463b/api/envoy/config/filter/http/rate_limit/v2/rate_limit.proto#L24>`_
 
 
 .. code-block:: json

@@ -19,7 +19,7 @@ This extension may be referenced by the qualified name *envoy.transport_sockets.
 config.transport_socket.alts.v2alpha.Alts
 -----------------------------------------
 
-`[config.transport_socket.alts.v2alpha.Alts proto] <https://github.com/envoyproxy/envoy/blob/c84cacb3e6e0e093a3ffe3bc7dc9a4df507f9e01/api/envoy/config/transport_socket/alts/v2alpha/alts.proto#L20>`_
+`[config.transport_socket.alts.v2alpha.Alts proto] <https://github.com/envoyproxy/envoy/blob/c4834c34b485fa791c8f9cd6a7b64ba16758463b/api/envoy/config/transport_socket/alts/v2alpha/alts.proto#L20>`_
 
 Configuration for ALTS transport socket. This provides Google's ALTS protocol to Envoy.
 https://cloud.google.com/security/encryption-in-transit/application-layer-transport-security/
