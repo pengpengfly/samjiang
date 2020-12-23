@@ -9,7 +9,7 @@ Trace service
 service.trace.v2.StreamTracesResponse
 -------------------------------------
 
-`[service.trace.v2.StreamTracesResponse proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/service/trace/v2/trace_service.proto#L31>`_
+`[service.trace.v2.StreamTracesResponse proto] <https://github.com/envoyproxy/envoy/blob/042ede35acac07c2abb485f4e81b63edd7d1a359/api/envoy/service/trace/v2/trace_service.proto#L31>`_
 
 
 .. code-block:: json
@@ -24,7 +24,7 @@ service.trace.v2.StreamTracesResponse
 service.trace.v2.StreamTracesMessage
 ------------------------------------
 
-`[service.trace.v2.StreamTracesMessage proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/service/trace/v2/trace_service.proto#L34>`_
+`[service.trace.v2.StreamTracesMessage proto] <https://github.com/envoyproxy/envoy/blob/042ede35acac07c2abb485f4e81b63edd7d1a359/api/envoy/service/trace/v2/trace_service.proto#L34>`_
 
 
 .. code-block:: json
@@ -53,7 +53,7 @@ spans
 service.trace.v2.StreamTracesMessage.Identifier
 -----------------------------------------------
 
-`[service.trace.v2.StreamTracesMessage.Identifier proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/service/trace/v2/trace_service.proto#L35>`_
+`[service.trace.v2.StreamTracesMessage.Identifier proto] <https://github.com/envoyproxy/envoy/blob/042ede35acac07c2abb485f4e81b63edd7d1a359/api/envoy/service/trace/v2/trace_service.proto#L35>`_
 
 
 .. code-block:: json

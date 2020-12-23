@@ -20,7 +20,7 @@ IP tagging :ref:`configuration overview <config_http_filters_ip_tagging>`.
 config.filter.http.ip_tagging.v2.IPTagging
 ------------------------------------------
 
-`[config.filter.http.ip_tagging.v2.IPTagging proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/config/filter/http/ip_tagging/v2/ip_tagging.proto#L21>`_
+`[config.filter.http.ip_tagging.v2.IPTagging proto] <https://github.com/envoyproxy/envoy/blob/042ede35acac07c2abb485f4e81b63edd7d1a359/api/envoy/config/filter/http/ip_tagging/v2/ip_tagging.proto#L21>`_
 
 
 .. code-block:: json
@@ -47,7 +47,7 @@ ip_tags
 config.filter.http.ip_tagging.v2.IPTagging.IPTag
 ------------------------------------------------
 
-`[config.filter.http.ip_tagging.v2.IPTagging.IPTag proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/config/filter/http/ip_tagging/v2/ip_tagging.proto#L40>`_
+`[config.filter.http.ip_tagging.v2.IPTagging.IPTag proto] <https://github.com/envoyproxy/envoy/blob/042ede35acac07c2abb485f4e81b63edd7d1a359/api/envoy/config/filter/http/ip_tagging/v2/ip_tagging.proto#L40>`_
 
 Supplies the IP tag name and the IP address subnets.
 
@@ -78,7 +78,7 @@ ip_list
 Enum config.filter.http.ip_tagging.v2.IPTagging.RequestType
 -----------------------------------------------------------
 
-`[config.filter.http.ip_tagging.v2.IPTagging.RequestType proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/config/filter/http/ip_tagging/v2/ip_tagging.proto#L28>`_
+`[config.filter.http.ip_tagging.v2.IPTagging.RequestType proto] <https://github.com/envoyproxy/envoy/blob/042ede35acac07c2abb485f4e81b63edd7d1a359/api/envoy/config/filter/http/ip_tagging/v2/ip_tagging.proto#L28>`_
 
 The type of requests the filter should apply to. The supported types
 are internal, external or both. The

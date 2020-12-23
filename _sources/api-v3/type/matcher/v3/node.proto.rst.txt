@@ -9,7 +9,7 @@ Node matcher
 type.matcher.v3.NodeMatcher
 ---------------------------
 
-`[type.matcher.v3.NodeMatcher proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/type/matcher/v3/node.proto#L19>`_
+`[type.matcher.v3.NodeMatcher proto] <https://github.com/envoyproxy/envoy/blob/042ede35acac07c2abb485f4e81b63edd7d1a359/api/envoy/type/matcher/v3/node.proto#L19>`_
 
 Specifies the way to match a Node.
 The match follows AND semantics.
