@@ -9,7 +9,7 @@ Metrics service
 service.metrics.v3.StreamMetricsResponse
 ----------------------------------------
 
-`[service.metrics.v3.StreamMetricsResponse proto] <https://github.com/envoyproxy/envoy/blob/c4834c34b485fa791c8f9cd6a7b64ba16758463b/api/envoy/service/metrics/v3/metrics_service.proto#L29>`_
+`[service.metrics.v3.StreamMetricsResponse proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/service/metrics/v3/metrics_service.proto#L29>`_
 
 
 .. code-block:: json
@@ -24,7 +24,7 @@ service.metrics.v3.StreamMetricsResponse
 service.metrics.v3.StreamMetricsMessage
 ---------------------------------------
 
-`[service.metrics.v3.StreamMetricsMessage proto] <https://github.com/envoyproxy/envoy/blob/c4834c34b485fa791c8f9cd6a7b64ba16758463b/api/envoy/service/metrics/v3/metrics_service.proto#L34>`_
+`[service.metrics.v3.StreamMetricsMessage proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/service/metrics/v3/metrics_service.proto#L34>`_
 
 
 .. code-block:: json
@@ -52,7 +52,7 @@ envoy_metrics
 service.metrics.v3.StreamMetricsMessage.Identifier
 --------------------------------------------------
 
-`[service.metrics.v3.StreamMetricsMessage.Identifier proto] <https://github.com/envoyproxy/envoy/blob/c4834c34b485fa791c8f9cd6a7b64ba16758463b/api/envoy/service/metrics/v3/metrics_service.proto#L38>`_
+`[service.metrics.v3.StreamMetricsMessage.Identifier proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/service/metrics/v3/metrics_service.proto#L38>`_
 
 
 .. code-block:: json

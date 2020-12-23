@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Runtime &mdash; envoy 1.16.0-c4834c documentation</title>
+  <title>运行时 &mdash; envoy 1.16.0-91c45f documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-c4834c
+                1.16.0-91c45f
               </div>
             
           
@@ -113,13 +113,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../observability/observability.html">可观测性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../security/security.html">安全</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="operations.html">操作</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Runtime</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#virtual-file-system">Virtual file system</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#atomicity">Atomicity</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#protobuf-and-json-representation">Protobuf and JSON representation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comments">Comments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#using-runtime-overrides-for-deprecated-features">Using runtime overrides for deprecated features</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#statistics">Statistics</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">运行时</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#config-virtual-filesystem">虚拟文件系统</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#config-runtime-atomicity">原子性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#protobuf-json">Protobuf 和 JSON 描述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#config-runtime-comments">注释</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#config-runtime-deprecation">使用运行时复写处理弃用特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">统计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="overload_manager/overload_manager.html">Overload manager</a></li>
@@ -186,7 +186,7 @@
         
           <li><a href="operations.html">操作</a> &raquo;</li>
         
-      <li>Runtime</li>
+      <li>运行时</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -205,22 +205,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="runtime">
-<span id="config-runtime"></span><h1>Runtime<a class="headerlink" href="#runtime" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference internal" href="../../intro/arch_overview/operations/runtime.html#arch-overview-runtime"><span class="std std-ref">runtime configuration</span></a> specifies a virtual file system tree that
-contains re-loadable configuration elements. This virtual file system can be realized via a series
-of local file system, static bootstrap configuration, RTDS and admin console derived overlays.</p>
+  <div class="section" id="config-runtime">
+<span id="id1"></span><h1>运行时<a class="headerlink" href="#config-runtime" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="../../intro/arch_overview/operations/runtime.html#arch-overview-runtime"><span class="std std-ref">运行时配置</span></a> 详述了一个包含有可重复加载配置元素的虚拟文件系统。可以通过
+一系列本地文件系统、静态 bootstrap 配置、RTDS 和管理控制台衍生的 overlays 来实现虚拟文件系统。</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-runtime"><span class="std std-ref">v3 API reference</span></a></p></li>
+<li><p><a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-runtime"><span class="std std-ref">v3 API 参考</span></a></p></li>
 </ul>
-<div class="section" id="virtual-file-system">
-<span id="config-virtual-filesystem"></span><h2>Virtual file system<a class="headerlink" href="#virtual-file-system" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="layering">
-<span id="config-runtime-layering"></span><h3>Layering<a class="headerlink" href="#layering" title="Permalink to this headline">¶</a></h3>
-<p>The runtime can be viewed as a virtual file system consisting of multiple layers. The <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-layeredruntime"><span class="std std-ref">layered
-runtime</span></a> bootstrap configuration specifies this
-layering. Runtime settings in later layers override earlier layers. A typical configuration might
-be:</p>
+<div class="section" id="config-virtual-filesystem">
+<span id="id2"></span><h2>虚拟文件系统<a class="headerlink" href="#config-virtual-filesystem" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="config-runtime-layering">
+<span id="id3"></span><h3>分层<a class="headerlink" href="#config-runtime-layering" title="Permalink to this headline">¶</a></h3>
+<p>运行时可被视为是一个包含多层的虚拟文件系统。<a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-layeredruntime"><span class="std std-ref">层级运行时</span></a>
+bootstrap 配置详述了这个分层。后一层中的运行时设置会覆盖前一层。一种典型的配置会是：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">layers</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">static_layer_0</span>
   <span class="nt">static_layer</span><span class="p">:</span>
@@ -234,174 +231,119 @@ be:</p>
   <span class="nt">admin_layer</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
 </pre></div>
 </div>
-<p>In the deprecated <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-runtime"><span class="std std-ref">runtime</span></a> bootstrap
-configuration, the layering was implicit and fixed:</p>
+<p>在弃用的 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-runtime"><span class="std std-ref">运行时</span></a> bootstrap 配置中，分层是隐式且固定的：</p>
 <ol class="arabic simple">
-<li><p><a class="reference internal" href="#config-runtime-bootstrap"><span class="std std-ref">Static bootstrap configuration</span></a></p></li>
-<li><p><a class="reference internal" href="#config-runtime-local-disk"><span class="std std-ref">Local disk file system</span></a></p></li>
-<li><p><a class="reference internal" href="#config-runtime-local-disk"><span class="std std-ref">Local disk file system *override_subdirectory*</span></a></p></li>
-<li><p><a class="reference internal" href="#config-runtime-admin"><span class="std std-ref">Admin console overrides</span></a></p></li>
+<li><p><a class="reference internal" href="#config-runtime-bootstrap"><span class="std std-ref">静态 bootstrap 配置</span></a></p></li>
+<li><p><a class="reference internal" href="#config-runtime-local-disk"><span class="std std-ref">本地磁盘文件系统</span></a></p></li>
+<li><p><a class="reference internal" href="#config-runtime-local-disk"><span class="std std-ref">本地磁盘文件系统  *override_subdirectory*</span></a></p></li>
+<li><p><a class="reference internal" href="#config-runtime-admin"><span class="std std-ref">管理控制台覆盖</span></a></p></li>
 </ol>
-<p>with values in higher layers overriding corresponding values in lower layers.</p>
+<p>高层中的值会覆盖低层中相应的值。</p>
 </div>
-<div class="section" id="file-system-layout">
-<span id="config-runtime-file-system"></span><h3>File system layout<a class="headerlink" href="#file-system-layout" title="Permalink to this headline">¶</a></h3>
-<p>Various sections of the configuration guide describe the runtime settings that are available.
-For example, <a class="reference internal" href="../upstream/cluster_manager/cluster_runtime.html#config-cluster-manager-cluster-runtime"><span class="std std-ref">here</span></a> are the runtime settings for
-upstream clusters.</p>
-<p>Each ‘.’ in a runtime key indicates a new directory in the hierarchy,
-The terminal portion of a path is the file. The contents of the file constitute the runtime value.
-When reading numeric values from a file, spaces and new lines will be ignored.</p>
-<p><em>numerator</em> or <em>denominator</em> are reserved keywords and may not appear in any directory.</p>
+<div class="section" id="config-runtime-file-system">
+<span id="id4"></span><h3>文件系统布局<a class="headerlink" href="#config-runtime-file-system" title="Permalink to this headline">¶</a></h3>
+<p>配置指南中的不同部分描述了可用的运行时配置。例如，<a class="reference internal" href="../upstream/cluster_manager/cluster_runtime.html#config-cluster-manager-cluster-runtime"><span class="std std-ref">这儿</span></a> 是针对上游集群的运行时设置。</p>
+<p>在运行时中的每个‘.’指示了层次结构中的新目录，路径的末端部分是文件。文件的内容构成了运行时的值。当从一个文件读取数值时，空格和新行将会被忽略。</p>
+<p><em>numerator</em> 或 <em>denominator</em> 是预留的关键字，不能出现在任何目录中。</p>
 </div>
-<div class="section" id="static-bootstrap">
-<span id="config-runtime-bootstrap"></span><h3>Static bootstrap<a class="headerlink" href="#static-bootstrap" title="Permalink to this headline">¶</a></h3>
-<p>A static base runtime may be specified in the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-runtime-base"><span class="std std-ref">bootstrap configuration</span></a> via a <a class="reference internal" href="#config-runtime-proto-json"><span class="std std-ref">protobuf JSON representation</span></a>.</p>
+<div class="section" id="bootstrap">
+<span id="config-runtime-bootstrap"></span><h3>静态 bootstrap<a class="headerlink" href="#bootstrap" title="Permalink to this headline">¶</a></h3>
+<p>一个静态的基础运行时可以在 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-runtime-base"><span class="std std-ref">bootstrap 配置</span></a> 中通过一个:ref:<cite>protobuf JSON 描述 &lt;config_runtime_proto_json&gt;</cite> 来指定。</p>
 </div>
-<div class="section" id="local-disk-file-system">
-<span id="config-runtime-local-disk"></span><h3>Local disk file system<a class="headerlink" href="#local-disk-file-system" title="Permalink to this headline">¶</a></h3>
-<p>When the <a class="reference internal" href="#config-runtime-file-system"><span class="std std-ref">runtime virtual file system</span></a> is realized on a local
-disk, it is rooted at <em>symlink_root</em> +
-<em>subdirectory</em>. For example, the <em>health_check.min_interval</em> key would have the following full
-file system path (using the symbolic link):</p>
+<div class="section" id="config-runtime-local-disk">
+<span id="id5"></span><h3>本地磁盘文件系统<a class="headerlink" href="#config-runtime-local-disk" title="Permalink to this headline">¶</a></h3>
+<p>当在本地磁盘上实现了 <a class="reference internal" href="#config-runtime-file-system"><span class="std std-ref">运行时虚拟文件系统</span></a> 时，它的根在 <em>symlink_root</em> + <em>subdirectory</em>。例如，<em>health_check.min_interval</em> 键将有用如下的全文件系统路径（使用符号链接）：</p>
 <p><code class="docutils literal notranslate"><span class="pre">/srv/runtime/current/envoy/health_check/min_interval</span></code></p>
-<div class="section" id="overrides">
-<span id="config-runtime-local-disk-overrides"></span><h4>Overrides<a class="headerlink" href="#overrides" title="Permalink to this headline">¶</a></h4>
-<p>An arbitrary number of disk file system layers can be overlaid in the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-layeredruntime"><span class="std std-ref">layered
-runtime</span></a> bootstrap configuration.</p>
-<p>In the deprecated <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-runtime"><span class="std std-ref">runtime</span></a> bootstrap configuration,
-there was a distinguished file system override. Assume that the folder <code class="docutils literal notranslate"><span class="pre">/srv/runtime/v1</span></code> points to
-the actual file system path where global runtime configurations are stored. The following would be a
-typical configuration setting for runtime:</p>
+<div class="section" id="config-runtime-local-disk-overrides">
+<span id="id6"></span><h4>覆盖<a class="headerlink" href="#config-runtime-local-disk-overrides" title="Permalink to this headline">¶</a></h4>
+<p>任意数量的磁盘文件系统层可以在 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-layeredruntime"><span class="std std-ref">层级运行时</span></a> bootstrap 配置中进行覆盖。</p>
+<p>在弃用的 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-runtime"><span class="std std-ref">运行时</span></a> bootstrap 配置中，有一个可分辨的文件系统覆盖。假定文件夹  <code class="docutils literal notranslate"><span class="pre">/srv/runtime/v1</span></code> 指向存储在全局运行时配置中的实际文件系统路径。下面将会是一个针对运行时设置的典型配置：</p>
 <ul class="simple">
 <li><p><em>symlink_root</em>: <code class="docutils literal notranslate"><span class="pre">/srv/runtime/current</span></code></p></li>
 <li><p><em>subdirectory</em>: <code class="docutils literal notranslate"><span class="pre">envoy</span></code></p></li>
 <li><p><em>override_subdirectory</em>: <code class="docutils literal notranslate"><span class="pre">envoy_override</span></code></p></li>
 </ul>
-<p>Where <code class="docutils literal notranslate"><span class="pre">/srv/runtime/current</span></code> is a symbolic link to <code class="docutils literal notranslate"><span class="pre">/srv/runtime/v1</span></code>.</p>
+<p>其中 <code class="docutils literal notranslate"><span class="pre">/srv/runtime/current</span></code> 是一个链接至 <code class="docutils literal notranslate"><span class="pre">/srv/runtime/v1</span></code> 的符号链接。</p>
 </div>
-<div class="section" id="cluster-specific-subdirectories">
-<span id="config-runtime-local-disk-service-cluster-subdirs"></span><h4>Cluster-specific subdirectories<a class="headerlink" href="#cluster-specific-subdirectories" title="Permalink to this headline">¶</a></h4>
-<p>In the deprecated <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-runtime"><span class="std std-ref">runtime</span></a> bootstrap configuration,
-the <em>override_subdirectory</em> is used along with the <a class="reference internal" href="../../operations/cli.html#cmdoption-service-cluster"><code class="xref std std-option docutils literal notranslate"><span class="pre">--service-cluster</span></code></a> CLI option. Assume
-that <a class="reference internal" href="../../operations/cli.html#cmdoption-service-cluster"><code class="xref std std-option docutils literal notranslate"><span class="pre">--service-cluster</span></code></a> has been set to <code class="docutils literal notranslate"><span class="pre">my-cluster</span></code>. Envoy will first look for the
-<em>health_check.min_interval</em> key in the following full file system path:</p>
+<div class="section" id="config-runtime-local-disk-service-cluster-subdirs">
+<span id="id7"></span><h4>特定于集群的子目录<a class="headerlink" href="#config-runtime-local-disk-service-cluster-subdirs" title="Permalink to this headline">¶</a></h4>
+<p>在弃用的 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-runtime"><span class="std std-ref">运行时</span></a> bootstrap 配置中， <em>override_subdirectory</em> 和命令行选项中的 <a class="reference internal" href="../../operations/cli.html#cmdoption-service-cluster"><code class="xref std std-option docutils literal notranslate"><span class="pre">--service-cluster</span></code></a> 一起使用。假定 <a class="reference internal" href="../../operations/cli.html#cmdoption-service-cluster"><code class="xref std std-option docutils literal notranslate"><span class="pre">--service-cluster</span></code></a> 选项被设置为 <code class="docutils literal notranslate"><span class="pre">my-cluster</span></code> 。Envoy 会首先在下面的全文件系统路径中查找 <em>health_check.min_interval</em> 键：</p>
 <p><code class="docutils literal notranslate"><span class="pre">/srv/runtime/current/envoy_override/my-cluster/health_check/min_interval</span></code></p>
-<p>If found, the value will override any value found in the primary lookup path. This allows the user
-to customize the runtime values for individual clusters on top of global defaults.</p>
-<p>With the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-layeredruntime"><span class="std std-ref">layered runtime</span></a> bootstrap
-configuration, it is possible to specialize on service cluster via the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-runtimelayer-disklayer-append-service-cluster"><span class="std std-ref">append_service_cluster</span></a> option at any
-disk layer.</p>
+<p>如果找到，则找到的的值值会对主查找路径中找到的任意值进行覆盖。这允许用户在全局默认值之上自定义单个集群的运行时值。</p>
+<p>使用 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-layeredruntime"><span class="std std-ref">层级运行时</span></a> bootstrap 配置，在任意磁盘层上通过 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-runtimelayer-disklayer-append-service-cluster"><span class="std std-ref">append_service_cluster</span></a> 选项来在服务集群上进行定制化是可能的。</p>
 </div>
-<div class="section" id="updating-runtime-values-via-symbolic-link-swap">
-<span id="config-runtime-symbolic-link-swap"></span><h4>Updating runtime values via symbolic link swap<a class="headerlink" href="#updating-runtime-values-via-symbolic-link-swap" title="Permalink to this headline">¶</a></h4>
-<p>There are two steps to update any runtime value. First, create a hard copy of the entire runtime
-tree and update the desired runtime values. Second, atomically swap the symbolic link root from the
-old tree to the new runtime tree, using the equivalent of the following command:</p>
+<div class="section" id="config-runtime-symbolic-link-swap">
+<span id="id8"></span><h4>通过符号链接交换来更新运行时<a class="headerlink" href="#config-runtime-symbolic-link-swap" title="Permalink to this headline">¶</a></h4>
+<p>更新任意运行时的值，需要分两步走。第一步，创建一个完整运行时树的硬拷贝，然后更新期望的运行时值。第二步，使用等同于如下的命令来实现符号链接根从旧运行时树到新运行时树的自动交换：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/srv/runtime:~$ ln -s /srv/runtime/v2 new &amp;&amp; mv -Tf new current</span>
 </pre></div>
 </div>
-<p>It’s beyond the scope of this document how the file system data is deployed, garbage collected, etc.</p>
+<p>文件系统数据的部署、垃圾回收等不在此文档的讨论范畴内。</p>
 </div>
 </div>
-<div class="section" id="runtime-discovery-service-rtds">
-<span id="config-runtime-rtds"></span><h3>Runtime Discovery Service (RTDS)<a class="headerlink" href="#runtime-discovery-service-rtds" title="Permalink to this headline">¶</a></h3>
-<p>One or more runtime layers may be specified and delivered by specifying a <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-runtimelayer-rtds-layer"><span class="std std-ref">rtds_layer</span></a>. This points the runtime layer at a
-regular <a class="reference internal" href="../../api-docs/xds_protocol.html#xds-protocol"><span class="std std-ref">xDS</span></a> endpoint, subscribing to a single xDS resource for the given
-layer. The resource type for these layers is a <a class="reference internal" href="../../api-v3/service/runtime/v3/rtds.proto.html#envoy-v3-api-msg-service-runtime-v3-runtime"><span class="std std-ref">Runtime message</span></a>.</p>
+<div class="section" id="rtds">
+<span id="config-runtime-rtds"></span><h3>运行时发现服务（RTDS）<a class="headerlink" href="#rtds" title="Permalink to this headline">¶</a></h3>
+<p>通过设定 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-runtimelayer-rtds-layer"><span class="std std-ref">rtds_layer</span></a> 来指定和传送一个或多个运行时层。这将运行时层指向常规的 <a class="reference internal" href="../../api-docs/xds_protocol.html#xds-protocol"><span class="std std-ref">xDS</span></a> 端点，能为给定的层订阅单个的 xDS 资源。那些层的资源类型是一种 <a class="reference internal" href="../../api-v3/service/runtime/v3/rtds.proto.html#envoy-v3-api-msg-service-runtime-v3-runtime"><span class="std std-ref">运行时消息</span></a>。</p>
 </div>
-<div class="section" id="admin-console">
-<span id="config-runtime-admin"></span><h3>Admin console<a class="headerlink" href="#admin-console" title="Permalink to this headline">¶</a></h3>
-<p>Values can be viewed at the
-<a class="reference internal" href="../../operations/admin.html#operations-admin-interface-runtime"><span class="std std-ref">/runtime admin endpoint</span></a>. Values can be modified and
-added at the <a class="reference internal" href="../../operations/admin.html#operations-admin-interface-runtime-modify"><span class="std std-ref">/runtime_modify admin endpoint</span></a>. If
-runtime is not configured, an empty provider is used which has the effect of using all defaults
-built into the code, except for any values added via <cite>/runtime_modify</cite>.</p>
+<div class="section" id="config-runtime-admin">
+<span id="id9"></span><h3>管理控制台<a class="headerlink" href="#config-runtime-admin" title="Permalink to this headline">¶</a></h3>
+<p>可以在 <a class="reference internal" href="../../operations/admin.html#operations-admin-interface-runtime"><span class="std std-ref">/runtime admin endpoint</span></a> 中查看值。可以在  <a class="reference internal" href="../../operations/admin.html#operations-admin-interface-runtime-modify"><span class="std std-ref">/runtime_modify admin endpoint</span></a> 中对值进行修改和添加。如果没有配置运行时，就会使用空的 provider，这和使用内置于代码中的所有默认值是一样的，除了那些通过 <cite>/runtime_modify</cite> 来添加的值。</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>Use the <a class="reference internal" href="../../operations/admin.html#operations-admin-interface-runtime-modify"><span class="std std-ref">/runtime_modify</span></a> endpoint with care.
-Changes are effectively immediately. It is <strong>critical</strong> that the admin interface is <a class="reference internal" href="../../operations/admin.html#operations-admin-interface-security"><span class="std std-ref">properly
-secured</span></a>.</p>
+<p>使用 <a class="reference internal" href="../../operations/admin.html#operations-admin-interface-runtime-modify"><span class="std std-ref">/runtime_modify</span></a> 端点的时候要小心。变化会立即生效。
+管理接口 <a class="reference internal" href="../../operations/admin.html#operations-admin-interface-security"><span class="std std-ref">正确的配置安全</span></a> 是非常重要的。</p>
 </div>
-<p>At most one admin layer may be specified. If a non-empty <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-layeredruntime"><span class="std std-ref">layered runtime</span></a> bootstrap configuration is specified with an
-absent admin layer, any mutating admin console actions will elicit a 503 response.</p>
+<p>最多可指定一个管理层。如果指定了一个管理层缺失的非空 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-layeredruntime"><span class="std std-ref">层级运行时</span></a> bootstrap 配置，任何改变管理控制台的操作将会引发 503 响应。</p>
 </div>
 </div>
-<div class="section" id="atomicity">
-<span id="config-runtime-atomicity"></span><h2>Atomicity<a class="headerlink" href="#atomicity" title="Permalink to this headline">¶</a></h2>
-<p>The runtime will reload and a new snapshot will be generated in a variety of situations, i.e.:</p>
+<div class="section" id="config-runtime-atomicity">
+<span id="id10"></span><h2>原子性<a class="headerlink" href="#config-runtime-atomicity" title="Permalink to this headline">¶</a></h2>
+<p>在下列情形中，运行时将重新加载并生成一个新的快照：</p>
 <ul class="simple">
-<li><p>When a file move operation is detected under the symlink root or the symlink root changes.</p></li>
-<li><p>When an admin console override is added or modified.</p></li>
+<li><p>当在符号链接根（symlink root）下检测到有文件移动操作发生或符号链接根发生变化时。</p></li>
+<li><p>当添加或修改管理控制台覆盖时。</p></li>
 </ul>
-<p>All runtime layers are evaluated during a snapshot. Layers with errors are ignored and excluded from
-the effective layers, see <a class="reference internal" href="#runtime-stats"><span class="std std-ref">num_layers</span></a>. Walking the symlink root will take a
-non-zero amount of time, so if true atomicity is desired, the runtime directory should be immutable
-and symlink changes should be used to orchestrate updates.</p>
-<p>Disk layers with the same symlink root will only trigger a single refresh when a file movement is
-detected. Disk layers with overlapping symlink root paths that are not identical may trigger
-multiple reloads when a file movement is detected.</p>
+<p>所有的运行时层在快照期间都会被评估。错误层会被忽略并从有效层里面剔除，可查看 <a class="reference internal" href="#runtime-stats"><span class="std std-ref">num_layers</span></a>。遍历符号链接根将花费一些很少的时间，因此如果期望真正的原子性，则运行时目录应该是不可变的且符号链接变化应该被用来对更新进行编排。</p>
+<p>当检测到文件移动时，相同符号链接根的磁盘层将仅仅触发一次刷新。不完全相同的重叠符号链接根路径的磁盘层，在检测到文件移动时，可能会触发多次重新加载。</p>
 </div>
-<div class="section" id="protobuf-and-json-representation">
-<span id="config-runtime-proto-json"></span><h2>Protobuf and JSON representation<a class="headerlink" href="#protobuf-and-json-representation" title="Permalink to this headline">¶</a></h2>
-<p>The runtime <a class="reference internal" href="#config-runtime-file-system"><span class="std std-ref">file system</span></a> can be represented inside a proto3
-message as a <a class="reference external" href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#google.protobuf.Struct">google.protobuf.Struct</a>
-modeling a JSON object with the following rules:</p>
+<div class="section" id="protobuf-json">
+<span id="config-runtime-proto-json"></span><h2>Protobuf 和 JSON 描述<a class="headerlink" href="#protobuf-json" title="Permalink to this headline">¶</a></h2>
+<p>运行时 <a class="reference internal" href="#config-runtime-file-system"><span class="std std-ref">文件系统</span></a> 可以在一个 proto3 消息中表示为  <a class="reference external" href="https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#google.protobuf.Struct">google.protobuf.Struct</a> ，且以如下规则为 JSON 对象建模：</p>
 <ul class="simple">
-<li><p>Dot separators map to tree edges.</p></li>
-<li><p>Scalar leaves (integer, strings, booleans, doubles) are represented with their respective JSON type.</p></li>
+<li><p>点分隔符映射至树边缘。</p></li>
+<li><p>变量叶子（整数、字符、布尔、双精度）均以他们自身的 JSON 类型来表示。 (integer, strings, booleans, doubles) are represented with their respective JSON type.</p></li>
 <li><p><a class="reference internal" href="../../api-v3/type/v3/percent.proto.html#envoy-v3-api-msg-type-v3-fractionalpercent"><span class="std std-ref">FractionalPercent</span></a> is represented with via its
 <a class="reference external" href="https://developers.google.com/protocol-buffers/docs/proto3#json">canonical JSON encoding</a>.</p></li>
 </ul>
-<p>An example representation of a setting for the <em>health_check.min_interval</em> key in YAML is:</p>
+<p>关于 <em>health_check.min_interval</em> 键值在 YAML 文件中的示例如下：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">health_check</span><span class="p">:</span>
   <span class="nt">min_interval</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Integer values that are parsed from doubles are rounded down to the nearest whole number.</p>
+<p>从双精度解析而来的整数会向下取舍为最接近的整数。</p>
 </div>
 </div>
-<div class="section" id="comments">
-<span id="config-runtime-comments"></span><h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h2>
-<p>Lines starting with <code class="docutils literal notranslate"><span class="pre">#</span></code> as the first character are treated as comments.</p>
-<p>Comments can be used to provide context on an existing value. Comments are also useful in an
-otherwise empty file to keep a placeholder for deployment in a time of need.</p>
+<div class="section" id="config-runtime-comments">
+<span id="id11"></span><h2>注释<a class="headerlink" href="#config-runtime-comments" title="Permalink to this headline">¶</a></h2>
+<p>第一个字母以 <code class="docutils literal notranslate"><span class="pre">#</span></code> 开头的行被视为注释。</p>
+<p>注释可被用来在对现有值提供上下文。注释在其他空文件中也很有用，以便在需要时保留占位符以便部署。</p>
 </div>
-<div class="section" id="using-runtime-overrides-for-deprecated-features">
-<span id="config-runtime-deprecation"></span><h2>Using runtime overrides for deprecated features<a class="headerlink" href="#using-runtime-overrides-for-deprecated-features" title="Permalink to this headline">¶</a></h2>
-<p>The Envoy runtime is also a part of the Envoy feature deprecation process.</p>
-<p>As described in the Envoy <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/c4834c34b485fa791c8f9cd6a7b64ba16758463b/CONTRIBUTING.md#breaking-change-policy">breaking change policy</a>,
-feature deprecation in Envoy is in 3 phases: warn-by-default, fail-by-default, and code removal.</p>
-<p>In the first phase, Envoy logs a warning to the warning log that the feature is deprecated and
-increments the <a class="reference internal" href="#runtime-stats"><span class="std std-ref">deprecated_feature_use</span></a> runtime stat.
-Users are encouraged to go to <a class="reference internal" href="../../version_history/version_history.html#deprecated"><span class="std std-ref">deprecated</span></a> to see how to
-migrate to the new code path and make sure it is suitable for their use case.</p>
-<p>In the second phase the field will be tagged as disallowed_by_default
-and use of that configuration field will cause the config to be rejected by default.
-This disallowed mode can be overridden in runtime configuration by setting
-envoy.deprecated_features:full_fieldname or envoy.deprecated_features:full_enum_value
-to true. For example, for a deprecated field
-<code class="docutils literal notranslate"><span class="pre">Foo.Bar.Eep</span></code> set <code class="docutils literal notranslate"><span class="pre">envoy.deprecated_features:Foo.bar.Eep</span></code> to
-<code class="docutils literal notranslate"><span class="pre">true</span></code>. There is a production example using static runtime to allow both fail-by-default fields here:
-<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/c4834c34b485fa791c8f9cd6a7b64ba16758463b/configs/using_deprecated_config.v2.yaml">configs/using_deprecated_config.v2.yaml</a>
-Use of these override is <strong>strongly discouraged</strong> so please use with caution and switch to the new fields
-as soon as possible. Fatal-by-default configuration indicates that the removal of the old code paths is
-imminent. It is far better for both Envoy users and for Envoy contributors if any bugs or feature gaps
-with the new code paths are flushed out ahead of time, rather than after the code is removed!</p>
+<div class="section" id="config-runtime-deprecation">
+<span id="id12"></span><h2>使用运行时复写处理弃用特性<a class="headerlink" href="#config-runtime-deprecation" title="Permalink to this headline">¶</a></h2>
+<p>Envoy 运行时也是 Envoy 功能弃用流程的一部分。</p>
+<p>如在 Envoy <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/CONTRIBUTING.md#breaking-change-policy">重大变更策略</a> 中所描述，Envoy 中的功能弃用分三个阶段：warn-by-default、fail-by-default 和 代码移除（code removal）。</p>
+<p>在第一阶段，Envoy 在告警日志中会打印告警，表明功能要被弃用且会增加 <a class="reference internal" href="#runtime-stats"><span class="std std-ref">deprecated_feature_use</span></a> 运行时统计。鼓励用户去 <a class="reference internal" href="../../version_history/version_history.html#deprecated"><span class="std std-ref">弃用</span></a> 中查看如何迁移到新的代码路径，确保这能够适用于他们的用例。</p>
+<p>在第二阶段，字段将被标记为 disallowed_by_default，默认情况下，使用此字段进行配置将会导致配置被拒绝。这种禁止模式可在运行时配置中通过将 envoy.deprecated_features:full_fieldname 或 envoy.deprecated_features:full_enum_value 设置为 true 来进行覆盖。例如，对于一个弃用字段 <code class="docutils literal notranslate"><span class="pre">Foo.Bar.Eep</span></code> ，将 <code class="docutils literal notranslate"><span class="pre">envoy.deprecated_features:Foo.bar.Eep</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code> 。这有一个生产例子，使用静态运行时来允许 fail-by-default 字段，可查看这儿 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/configs/using_deprecated_config.v2.yaml">configs/using_deprecated_config.v2.yaml</a> 。<strong>极其不鼓励</strong> 去使用这些覆盖，所以使用时请注意，应尽早切换至新字段。Fatal-by-default 配置预示了旧代码路径的移除是迫在眉睫了。如果新代码路径中的任何缺陷或者功能问题能够提前被清除，而不是在代码移除之后，这对于Envoy 用户和 Envoy 贡献者来说都是非常好的！</p>
 <div class="admonition attention" id="runtime-stats">
 <p class="admonition-title">Attention</p>
-<p>Versions of Envoy prior to 1.14.1 cannot parse runtime booleans from integer values and require
-an explicit “true” or “false”. Mistakenly placing an integer such as “0” to represent “false”
-will lead to usage of the default value. This is especially important to keep in mind for case of
-runtime overrides for <a class="reference internal" href="../../version_history/version_history.html#deprecated"><span class="std std-ref">deprecated features</span></a>, as it will can potentially result
-in unexpected Envoy behaviors.</p>
+<p>版本高于 1.14.1 的 Envoy，不能够将整数值解析为运行时布尔值，这需要显示的设定为“true”或者“false”。如果错误的让诸如“0”这样的整数值代表“false”的话，会导致直接使用默认值。这一点对于 <a class="reference internal" href="../../version_history/version_history.html#deprecated"><span class="std std-ref">弃用功能</span></a> 的运行时覆盖尤为重要，因为这将会导致非预期的 Envoy 行为。</p>
 </div>
 </div>
-<div class="section" id="statistics">
-<h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
-<p>The file system runtime provider emits some statistics in the <em>runtime.</em> namespace.</p>
+<div class="section" id="id13">
+<h2>统计<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>文件系统运行时提供者会在 <em>runtime.</em> 命名空间下发出一些统计。</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -409,47 +351,47 @@ in unexpected Envoy behaviors.</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>admin_overrides_active</p></td>
 <td><p>Gauge</p></td>
-<td><p>1 if any admin overrides are active otherwise 0</p></td>
+<td><p>如有任何管理覆盖处于激活状态则为 1 ，否则为 0。</p></td>
 </tr>
 <tr class="row-odd"><td><p>deprecated_feature_use</p></td>
 <td><p>Counter</p></td>
-<td><p>Total number of times deprecated features were used. Detailed information about the feature used will be logged to warning logs in the form “Using deprecated option ‘X’ from file Y”.</p></td>
+<td><p>使用弃用功能的次数。使用功能的详细信息将会以“从文件 Y 使用弃用选项‘X’”的格式被记录在告警日志中。</p></td>
 </tr>
 <tr class="row-even"><td><p>deprecated_feature_seen_since_process_start</p></td>
 <td><p>Gauge</p></td>
-<td><p>Number of times deprecated features were used. This is not carried over during hot restarts.</p></td>
+<td><p>使用弃用功能的次数。这在热重启期间不会计入统计。</p></td>
 </tr>
 <tr class="row-odd"><td><p>load_error</p></td>
 <td><p>Counter</p></td>
-<td><p>Total number of load attempts that resulted in an error in any layer</p></td>
+<td><p>在任何层中导致错误的加载尝试总数</p></td>
 </tr>
 <tr class="row-even"><td><p>load_success</p></td>
 <td><p>Counter</p></td>
-<td><p>Total number of load attempts that were successful at all layers</p></td>
+<td><p>在所有层中加载尝试成功的总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>num_keys</p></td>
 <td><p>Gauge</p></td>
-<td><p>Number of keys currently loaded</p></td>
+<td><p>当前加载的键（key）数</p></td>
 </tr>
 <tr class="row-even"><td><p>num_layers</p></td>
 <td><p>Gauge</p></td>
-<td><p>Number of layers currently active (without loading errors)</p></td>
+<td><p>当前活跃的层数（没有加载错误）</p></td>
 </tr>
 <tr class="row-odd"><td><p>override_dir_exists</p></td>
 <td><p>Counter</p></td>
-<td><p>Total number of loads that did use an override directory</p></td>
+<td><p>使用覆盖目录的负载总数</p></td>
 </tr>
 <tr class="row-even"><td><p>override_dir_not_exists</p></td>
 <td><p>Counter</p></td>
-<td><p>Total number of loads that did not use an override directory</p></td>
+<td><p>不使用覆盖目录的负载总数</p></td>
 </tr>
 </tbody>
 </table>

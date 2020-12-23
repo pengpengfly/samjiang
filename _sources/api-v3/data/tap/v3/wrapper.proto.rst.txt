@@ -9,7 +9,7 @@ Tap data wrappers
 data.tap.v3.TraceWrapper
 ------------------------
 
-`[data.tap.v3.TraceWrapper proto] <https://github.com/envoyproxy/envoy/blob/c4834c34b485fa791c8f9cd6a7b64ba16758463b/api/envoy/data/tap/v3/wrapper.proto#L20>`_
+`[data.tap.v3.TraceWrapper proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/data/tap/v3/wrapper.proto#L20>`_
 
 Wrapper for all fully buffered and streamed tap traces that Envoy emits. This is required for
 sending traces over gRPC APIs or more easily persisting binary messages to files.

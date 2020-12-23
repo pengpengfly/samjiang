@@ -21,7 +21,7 @@ Adaptive Concurrency Control :ref:`configuration overview
 extensions.filters.http.adaptive_concurrency.v3.GradientControllerConfig
 ------------------------------------------------------------------------
 
-`[extensions.filters.http.adaptive_concurrency.v3.GradientControllerConfig proto] <https://github.com/envoyproxy/envoy/blob/c4834c34b485fa791c8f9cd6a7b64ba16758463b/api/envoy/extensions/filters/http/adaptive_concurrency/v3/adaptive_concurrency.proto#L25>`_
+`[extensions.filters.http.adaptive_concurrency.v3.GradientControllerConfig proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/extensions/filters/http/adaptive_concurrency/v3/adaptive_concurrency.proto#L25>`_
 
 Configuration parameters for the gradient controller.
 
@@ -54,7 +54,7 @@ min_rtt_calc_params
 extensions.filters.http.adaptive_concurrency.v3.GradientControllerConfig.ConcurrencyLimitCalculationParams
 ----------------------------------------------------------------------------------------------------------
 
-`[extensions.filters.http.adaptive_concurrency.v3.GradientControllerConfig.ConcurrencyLimitCalculationParams proto] <https://github.com/envoyproxy/envoy/blob/c4834c34b485fa791c8f9cd6a7b64ba16758463b/api/envoy/extensions/filters/http/adaptive_concurrency/v3/adaptive_concurrency.proto#L31>`_
+`[extensions.filters.http.adaptive_concurrency.v3.GradientControllerConfig.ConcurrencyLimitCalculationParams proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/extensions/filters/http/adaptive_concurrency/v3/adaptive_concurrency.proto#L31>`_
 
 Parameters controlling the periodic recalculation of the concurrency limit from sampled request
 latencies.
@@ -85,7 +85,7 @@ concurrency_update_interval
 extensions.filters.http.adaptive_concurrency.v3.GradientControllerConfig.MinimumRTTCalculationParams
 ----------------------------------------------------------------------------------------------------
 
-`[extensions.filters.http.adaptive_concurrency.v3.GradientControllerConfig.MinimumRTTCalculationParams proto] <https://github.com/envoyproxy/envoy/blob/c4834c34b485fa791c8f9cd6a7b64ba16758463b/api/envoy/extensions/filters/http/adaptive_concurrency/v3/adaptive_concurrency.proto#L48>`_
+`[extensions.filters.http.adaptive_concurrency.v3.GradientControllerConfig.MinimumRTTCalculationParams proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/extensions/filters/http/adaptive_concurrency/v3/adaptive_concurrency.proto#L48>`_
 
 Parameters controlling the periodic minRTT recalculation.
 
@@ -147,7 +147,7 @@ buffer
 extensions.filters.http.adaptive_concurrency.v3.AdaptiveConcurrency
 -------------------------------------------------------------------
 
-`[extensions.filters.http.adaptive_concurrency.v3.AdaptiveConcurrency proto] <https://github.com/envoyproxy/envoy/blob/c4834c34b485fa791c8f9cd6a7b64ba16758463b/api/envoy/extensions/filters/http/adaptive_concurrency/v3/adaptive_concurrency.proto#L91>`_
+`[extensions.filters.http.adaptive_concurrency.v3.AdaptiveConcurrency proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/extensions/filters/http/adaptive_concurrency/v3/adaptive_concurrency.proto#L91>`_
 
 
 .. code-block:: json

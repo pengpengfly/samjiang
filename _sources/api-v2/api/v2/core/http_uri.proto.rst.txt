@@ -9,7 +9,7 @@ HTTP Service URI
 core.HttpUri
 ------------
 
-`[core.HttpUri proto] <https://github.com/envoyproxy/envoy/blob/c4834c34b485fa791c8f9cd6a7b64ba16758463b/api/envoy/api/v2/core/http_uri.proto#L19>`_
+`[core.HttpUri proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/api/v2/core/http_uri.proto#L19>`_
 
 Envoy external URI descriptor
 

@@ -9,7 +9,7 @@ Default Socket Interface configuration
 extensions.network.socket_interface.v3.DefaultSocketInterface
 -------------------------------------------------------------
 
-`[extensions.network.socket_interface.v3.DefaultSocketInterface proto] <https://github.com/envoyproxy/envoy/blob/c4834c34b485fa791c8f9cd6a7b64ba16758463b/api/envoy/extensions/network/socket_interface/v3/default_socket_interface.proto#L15>`_
+`[extensions.network.socket_interface.v3.DefaultSocketInterface proto] <https://github.com/envoyproxy/envoy/blob/91c45f41a06878cd3731589b751479ae6d554abe/api/envoy/extensions/network/socket_interface/v3/default_socket_interface.proto#L15>`_
 
 Configuration for default socket interface that relies on OS dependent syscall to create
 sockets.
