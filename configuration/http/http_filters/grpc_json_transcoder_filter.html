@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gRPC-JSON transcoder &mdash; envoy 1.16.0-7245b2 documentation</title>
+  <title>gRPC-JSON 转码器 &mdash; envoy 1.16.0-b601d7 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-7245b2
+                1.16.0-b601d7
               </div>
             
           
@@ -114,7 +114,7 @@
 <li class="toctree-l4"><a class="reference internal" href="adaptive_concurrency_filter.html">Adaptive Concurrency</a></li>
 <li class="toctree-l4"><a class="reference internal" href="admission_control_filter.html">Admission Control</a></li>
 <li class="toctree-l4"><a class="reference internal" href="aws_lambda_filter.html">AWS Lambda</a></li>
-<li class="toctree-l4"><a class="reference internal" href="aws_request_signing_filter.html">AWS Request Signing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aws_request_signing_filter.html">AWS 请求签名</a></li>
 <li class="toctree-l4"><a class="reference internal" href="buffer_filter.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cdn_loop_filter.html">CDN-Loop header</a></li>
 <li class="toctree-l4"><a class="reference internal" href="compressor_filter.html">Compressor</a></li>
@@ -127,7 +127,7 @@
 <li class="toctree-l4"><a class="reference internal" href="fault_filter.html">Fault Injection</a></li>
 <li class="toctree-l4"><a class="reference internal" href="grpc_http1_bridge_filter.html">gRPC HTTP/1.1 bridge</a></li>
 <li class="toctree-l4"><a class="reference internal" href="grpc_http1_reverse_bridge_filter.html">gRPC HTTP/1.1 reverse bridge</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">gRPC-JSON transcoder</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">gRPC-JSON 转码器</a></li>
 <li class="toctree-l4"><a class="reference internal" href="grpc_stats_filter.html">gRPC Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="grpc_web_filter.html">gRPC-Web</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gzip_filter.html">Gzip</a></li>
@@ -215,7 +215,7 @@
         
           <li><a href="http_filters.html">HTTP filters</a> &raquo;</li>
         
-      <li>gRPC-JSON transcoder</li>
+      <li>gRPC-JSON 转码器</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -234,49 +234,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="grpc-json-transcoder">
-<span id="config-http-filters-grpc-json-transcoder"></span><h1>gRPC-JSON transcoder<a class="headerlink" href="#grpc-json-transcoder" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="grpc-json">
+<span id="config-http-filters-grpc-json-transcoder"></span><h1>gRPC-JSON 转码器<a class="headerlink" href="#grpc-json" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>gRPC <a class="reference internal" href="../../../intro/arch_overview/other_protocols/grpc.html#arch-overview-grpc"><span class="std std-ref">architecture overview</span></a></p></li>
-<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/http/grpc_json_transcoder/v3/transcoder.proto.html#envoy-v3-api-msg-extensions-filters-http-grpc-json-transcoder-v3-grpcjsontranscoder"><span class="std std-ref">v3 API reference</span></a></p></li>
-<li><p>This filter should be configured with the name <em>envoy.filters.http.grpc_json_transcoder</em>.</p></li>
+<li><p>gRPC <a class="reference internal" href="../../../intro/arch_overview/other_protocols/grpc.html#arch-overview-grpc"><span class="std std-ref">架构概览</span></a></p></li>
+<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/http/grpc_json_transcoder/v3/transcoder.proto.html#envoy-v3-api-msg-extensions-filters-http-grpc-json-transcoder-v3-grpcjsontranscoder"><span class="std std-ref">v3 API 参考</span></a></p></li>
+<li><p>此过滤器的名称应该被配置为 <em>envoy.filters.http.grpc_json_transcoder</em>。</p></li>
 </ul>
-<p>This is a filter which allows a RESTful JSON API client to send requests to Envoy over HTTP
-and get proxied to a gRPC service. The HTTP mapping for the gRPC service has to be defined by
-<a class="reference external" href="https://cloud.google.com/service-management/reference/rpc/google.api#http">custom options</a>.</p>
-<div class="section" id="json-mapping">
-<h2>JSON mapping<a class="headerlink" href="#json-mapping" title="Permalink to this headline">¶</a></h2>
-<p>The protobuf to JSON mapping is defined <a class="reference external" href="https://developers.google.com/protocol-buffers/docs/proto3#json">here</a>. For
-gRPC stream request parameters, Envoy expects an array of messages, and it returns an array of messages for stream
-response parameters.</p>
+<p>这是一个过滤器，它允许 RESTful JSON API 客户端通过 HTTP 向 Envoy 发送请求并代理到 gRPC 服务。gRPC 服务的 HTTP 映射必须由 <a class="reference external" href="https://cloud.google.com/service-management/reference/rpc/google.api#http">自定义选项</a> 定义。</p>
+<div class="section" id="json">
+<h2>JSON 映射<a class="headerlink" href="#json" title="Permalink to this headline">¶</a></h2>
+<p>从 protobuf 到 JSON 的映射在`这里 &lt;<a class="reference external" href="https://developers.google.com/protocol-buffers/docs/proto3#json">https://developers.google.com/protocol-buffers/docs/proto3#json</a>&gt;`_ 定义。对于 gRPC 流请求参数，Envoy 需要一个消息数组，并为流响应参数返回一个消息数组。</p>
 </div>
-<div class="section" id="how-to-generate-proto-descriptor-set">
-<span id="config-grpc-json-generate-proto-descriptor-set"></span><h2>How to generate proto descriptor set<a class="headerlink" href="#how-to-generate-proto-descriptor-set" title="Permalink to this headline">¶</a></h2>
-<p>Envoy has to know the proto descriptor of your gRPC service in order to do the transcoding.</p>
-<p>To generate a protobuf descriptor set for the gRPC service, you’ll also need to clone the
-googleapis repository from GitHub before running protoc, as you’ll need annotations.proto
-in your include path, to define the HTTP mapping.</p>
+<div class="section" id="proto">
+<span id="config-grpc-json-generate-proto-descriptor-set"></span><h2>如何生成 proto 描述符集<a class="headerlink" href="#proto" title="Permalink to this headline">¶</a></h2>
+<p>Envoy 必须知道你的 gRPC 服务的 proto 描述符才能进行转码。</p>
+<p>要为 gRPC 服务生成 protobuf 描述符集，你还需要在运行 protoc 之前从 GitHub 克隆 googleapis，因为在 include 路径中需要 annotations.proto 来定义 HTTP 映射。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/googleapis/googleapis
 <span class="nv">GOOGLEAPIS_DIR</span><span class="o">=</span>&lt;your-local-googleapis-folder&gt;
 </pre></div>
 </div>
-<p>Then run protoc to generate the descriptor set from bookstore.proto:</p>
+<p>然后运行 protoc 从 bookstore.proto 生成描述符集：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>protoc -I<span class="k">$(</span>GOOGLEAPIS_DIR<span class="k">)</span> -I. --include_imports --include_source_info <span class="se">\</span>
   --descriptor_set_out<span class="o">=</span>proto.pb test/proto/bookstore.proto
 </pre></div>
 </div>
-<p>If you have more than one proto source files, you can pass all of them in one command.</p>
+<p>如果你有多个 proto 源文件，则可以通过一个命令传递所有这些源文件。</p>
 </div>
-<div class="section" id="route-configs-for-transcoded-requests">
-<h2>Route configs for transcoded requests<a class="headerlink" href="#route-configs-for-transcoded-requests" title="Permalink to this headline">¶</a></h2>
-<p>The route configs to be used with the gRPC-JSON transcoder should be identical to the gRPC route.
-The requests processed by the transcoder filter will have <cite>/&lt;package&gt;.&lt;service&gt;/&lt;method&gt;</cite> path and
-<cite>POST</cite> method. The route configs for those requests should match on <cite>/&lt;package&gt;.&lt;service&gt;/&lt;method&gt;</cite>,
-not the incoming request path. This allows the routes to be used for both gRPC requests and
-gRPC-JSON transcoded requests.</p>
-<p>For example, with the following proto example, the router will process <cite>/helloworld.Greeter/SayHello</cite>
-as the path, so the route config prefix <cite>/say</cite> won’t match requests to <cite>SayHello</cite>. If you want to
-match the incoming request path, set <cite>match_incoming_request_route</cite> to true.</p>
+<div class="section" id="id2">
+<h2>转码请求的路由配置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>与 gRPC-JSON 转码器一起使用的路由配置应与 gRPC 路由完全相同。由转码过滤器处理的请求将具有 <cite>/&lt;package&gt;.&lt;service&gt;/&lt;method&gt;</cite> 路径和 POST 方法。这些请求的路由配置应与 <cite>/&lt;package&gt;.&lt;service&gt;/&lt;method&gt;</cite> 匹配，而不和传入的请求路径匹配。这样就可以允许路由同时用于 gRPC 请求和 gRPC-JSON 转码请求。</p>
+<p>例如，在下面的 proto 示例中，路由器将处理 <cite>/helloworld.Greeter/SayHello</cite> 作为路径，因此路由配置前缀 <cite>/say</cite> 将不匹配对 <cite>SayHello</cite> 的请求。如果要匹配传入的请求路径，请将 <cite>match_incoming_request_route</cite> 设置为 true。</p>
 <div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">helloworld</span><span class="p">;</span>
 
 <span class="c1">// The greeting service definition.</span>
@@ -291,35 +279,21 @@ match the incoming request path, set <cite>match_incoming_request_route</cite> t
 </pre></div>
 </div>
 </div>
-<div class="section" id="sending-arbitrary-content">
-<h2>Sending arbitrary content<a class="headerlink" href="#sending-arbitrary-content" title="Permalink to this headline">¶</a></h2>
-<p>By default, when transcoding occurs, gRPC-JSON encodes the message output of a gRPC service method into
-JSON and sets the HTTP response <cite>Content-Type</cite> header to <cite>application/json</cite>. To send arbitrary content,
-a gRPC service method can use
-<a class="reference external" href="https://github.com/googleapis/googleapis/blob/master/google/api/httpbody.proto">google.api.HttpBody</a>
-as its output message type. The implementation needs to set
-<a class="reference external" href="https://github.com/googleapis/googleapis/blob/master/google/api/httpbody.proto#L68">content_type</a>
-(which sets the value of the HTTP response <cite>Content-Type</cite> header) and
-<a class="reference external" href="https://github.com/googleapis/googleapis/blob/master/google/api/httpbody.proto#L71">data</a>
-(which sets the HTTP response body) accordingly.
-Multiple <a class="reference external" href="https://github.com/googleapis/googleapis/blob/master/google/api/httpbody.proto">google.api.HttpBody</a>
-can be send by the gRPC server in the server streaming case.
-In this case, HTTP response header <cite>Content-Type</cite> will use the <cite>content-type</cite> from the first
-<a class="reference external" href="https://github.com/googleapis/googleapis/blob/master/google/api/httpbody.proto">google.api.HttpBody</a>.</p>
+<div class="section" id="id3">
+<h2>发送任意内容<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>默认情况下，发生转码时，gRPC-JSON 将 gRPC 服务方法的消息输出编码为 JSON，并将 HTTP 响应 <cite>Content-Type</cite> 头部设置为 <cite>application/json</cite>。要发送任意内容，gRPC 服务方法可以使用 <a class="reference external" href="https://github.com/googleapis/googleapis/blob/master/google/api/httpbody.proto">google.api.HttpBody</a> 作为其输出消息类型。该实现需要相应地设置 <a class="reference external" href="https://github.com/googleapis/googleapis/blob/master/google/api/httpbody.proto#L68">content_type</a> （设置 HTTP 响应 <cite>Content-Type</cite> 头部的值）和 <a class="reference external" href="https://github.com/googleapis/googleapis/blob/master/google/api/httpbody.proto">data &lt;https://github.com/googleapis/googleapis/blob/master/google/api/httpbody.proto#L71&gt;`_（设置 HTTP 响应体）。gRPC 服务器可以在流传输的情况下发送多个 `google.api.HttpBody</a> 。在这种情况下，HTTP 响应头部 <cite>Content-Type</cite> 将使用第一个 <a class="reference external" href="https://github.com/googleapis/googleapis/blob/master/google/api/httpbody.proto">google.api.HttpBody</a> 中的 <cite>content-type</cite>。</p>
 </div>
-<div class="section" id="headers">
-<h2>Headers<a class="headerlink" href="#headers" title="Permalink to this headline">¶</a></h2>
-<p>gRPC-JSON forwards the following headers to the gRPC server:</p>
+<div class="section" id="id5">
+<h2>头部<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>gRPC-JSON 将以下头部转发到 gRPC 服务器：</p>
 <ul class="simple">
-<li><p><cite>x-envoy-original-path</cite>, containing the value of the original path of HTTP request</p></li>
-<li><p><cite>x-envoy-original-method</cite>, containing the value of the original method of HTTP request</p></li>
+<li><p><cite>x-envoy-original-path</cite>, 包含源 HTTP 请求路径的值</p></li>
+<li><p><cite>x-envoy-original-method</cite>, 包含源 HTTP 请求方法的值</p></li>
 </ul>
 </div>
-<div class="section" id="sample-envoy-configuration">
-<h2>Sample Envoy configuration<a class="headerlink" href="#sample-envoy-configuration" title="Permalink to this headline">¶</a></h2>
-<p>Here’s a sample Envoy configuration that proxies to a gRPC server running on localhost:50051. Port 51051 proxies
-gRPC requests and uses the gRPC-JSON transcoder filter to provide the RESTful JSON mapping. I.e., you can make either
-gRPC or RESTful JSON requests to localhost:51051.</p>
+<div class="section" id="envoy">
+<h2>Envoy 配置示例<a class="headerlink" href="#envoy" title="Permalink to this headline">¶</a></h2>
+<p>这是一个代理到运行在 localhost:50051 gRPC 服务器的 Envoy 示例配置。端口 51051 代理 gRPC 请求，并使用 gRPC-JSON 转码过滤器提供 RESTful JSON 映射。即你可以向 localhost:50051 发出 gRPC 或 RESTful JSON 请求。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">admin</span><span class="p">:</span>
   <span class="nt">access_log_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/tmp/admin_access.log</span>
   <span class="nt">address</span><span class="p">:</span>

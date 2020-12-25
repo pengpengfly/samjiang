@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Well Known Dynamic Metadata &mdash; envoy 1.16.0-7245b2 documentation</title>
+  <title>众所周知的动态元数据 &mdash; envoy 1.16.0-b601d7 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-7245b2
+                1.16.0-b601d7
               </div>
             
           
@@ -116,8 +116,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../other_features/other_features.html">其他特性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../other_protocols/other_protocols.html">其他协议</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="advanced.html">高级配置</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Well Known Dynamic Metadata</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#shared-dynamic-metadata">Shared Dynamic Metadata</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">众所周知的动态元数据</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#shared-dynamic-metadata">共享动态元数据</a></li>
 </ul>
 </li>
 </ul>
@@ -179,7 +179,7 @@
         
           <li><a href="advanced.html">高级配置</a> &raquo;</li>
         
-      <li>Well Known Dynamic Metadata</li>
+      <li>众所周知的动态元数据</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -199,33 +199,27 @@
            <div itemprop="articleBody">
             
   <div class="section" id="well-known-dynamic-metadata">
-<span id="id1"></span><h1>Well Known Dynamic Metadata<a class="headerlink" href="#well-known-dynamic-metadata" title="Permalink to this headline">¶</a></h1>
-<p>Filters can emit dynamic metadata via the <em>setDynamicMetadata</em> routine in the
-<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7245b2cbc0a3d9193dd03760904d96484d992503/include/envoy/stream_info/stream_info.h">StreamInfo</a> interface on a
-<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7245b2cbc0a3d9193dd03760904d96484d992503/include/envoy/network/connection.h">Connection</a>. This metadata emitted by a filter can be
-consumed by other filters and useful features can be built by stacking such filters. For example,
-a logging filter can consume dynamic metadata from an RBAC filter to log details about runtime
-shadow rule behavior. Another example is where an RBAC filter permits/restricts MySQL/MongoDB operations
-by looking at the operational metadata emitted by the MongoDB filter.</p>
-<p>The following Envoy filters emit dynamic metadata that other filters can leverage.</p>
+<span id="id1"></span><h1>众所周知的动态元数据<a class="headerlink" href="#well-known-dynamic-metadata" title="Permalink to this headline">¶</a></h1>
+<p>过滤器可以通过 <em>setDynamicMetadata</em> 来发送动态元数据，而通常在 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/b601d75096b9c05925658b801457395d035449f2/include/envoy/network/connection.h">连接</a> 中的 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/b601d75096b9c05925658b801457395d035449f2/include/envoy/stream_info/stream_info.h">StreamInfo</a> 接口中。过滤器发送的元数据可以被其他过滤器所消费，可以通过级联这种过滤器来构建有用的特性。比如，一个日志过滤器可以消费来自 RBAC 过滤器的动态元数据，以此来记录运行时影子规则的详细日志信息。另外一个例子是 RBAC 过滤器通过查看由 MongoDB 过滤器发出的操作元数据，来对 MySQL/MongoDB 的操作作出许可/限制。</p>
+<p>如下 Envoy 过滤器发出动态元数据，然后数据被其他过滤器所使用。</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../http/http_filters/ext_authz_filter.html#config-http-filters-ext-authz-dynamic-metadata"><span class="std std-ref">External Authorization Filter</span></a></p></li>
-<li><p><a class="reference internal" href="../listeners/network_filters/ext_authz_filter.html#config-network-filters-ext-authz-dynamic-metadata"><span class="std std-ref">External Authorization Network Filter</span></a></p></li>
-<li><p><a class="reference internal" href="../listeners/network_filters/mongo_proxy_filter.html#config-network-filters-mongo-proxy-dynamic-metadata"><span class="std std-ref">Mongo Proxy Filter</span></a></p></li>
-<li><p><a class="reference internal" href="../listeners/network_filters/mysql_proxy_filter.html#config-network-filters-mysql-proxy-dynamic-metadata"><span class="std std-ref">MySQL Proxy Filter</span></a></p></li>
-<li><p><a class="reference internal" href="../listeners/network_filters/postgres_proxy_filter.html#config-network-filters-postgres-proxy-dynamic-metadata"><span class="std std-ref">Postgres Proxy Filter</span></a></p></li>
-<li><p><a class="reference internal" href="../http/http_filters/rbac_filter.html#config-http-filters-rbac-dynamic-metadata"><span class="std std-ref">Role Based Access Control (RBAC) Filter</span></a></p></li>
-<li><p><a class="reference internal" href="../listeners/network_filters/rbac_filter.html#config-network-filters-rbac-dynamic-metadata"><span class="std std-ref">Role Based Access Control (RBAC) Network Filter</span></a></p></li>
-<li><p><a class="reference internal" href="../listeners/network_filters/zookeeper_proxy_filter.html#config-network-filters-zookeeper-proxy-dynamic-metadata"><span class="std std-ref">ZooKeeper Proxy Filter</span></a></p></li>
+<li><p><a class="reference internal" href="../http/http_filters/ext_authz_filter.html#config-http-filters-ext-authz-dynamic-metadata"><span class="std std-ref">外部授权过滤器</span></a></p></li>
+<li><p><a class="reference internal" href="../listeners/network_filters/ext_authz_filter.html#config-network-filters-ext-authz-dynamic-metadata"><span class="std std-ref">外部授权网络过滤器</span></a></p></li>
+<li><p><a class="reference internal" href="../listeners/network_filters/mongo_proxy_filter.html#config-network-filters-mongo-proxy-dynamic-metadata"><span class="std std-ref">Mongo 代理过滤器</span></a></p></li>
+<li><p><a class="reference internal" href="../listeners/network_filters/mysql_proxy_filter.html#config-network-filters-mysql-proxy-dynamic-metadata"><span class="std std-ref">MySQL 代理过滤器</span></a></p></li>
+<li><p><a class="reference internal" href="../listeners/network_filters/postgres_proxy_filter.html#config-network-filters-postgres-proxy-dynamic-metadata"><span class="std std-ref">Postgres 代理过滤器</span></a></p></li>
+<li><p><a class="reference internal" href="../http/http_filters/rbac_filter.html#config-http-filters-rbac-dynamic-metadata"><span class="std std-ref">基于角色的访问控制（RBAC）过滤器</span></a></p></li>
+<li><p><a class="reference internal" href="../listeners/network_filters/rbac_filter.html#config-network-filters-rbac-dynamic-metadata"><span class="std std-ref">基于角色的访问控制（RBAC）网络过滤器</span></a></p></li>
+<li><p><a class="reference internal" href="../listeners/network_filters/zookeeper_proxy_filter.html#config-network-filters-zookeeper-proxy-dynamic-metadata"><span class="std std-ref">ZooKeeper 代理过滤器</span></a></p></li>
 </ul>
-<p>The following Envoy filters can be configured to consume dynamic metadata emitted by other filters.</p>
+<p>如下 Envoy 过滤器可以通过配置来消费由其他过滤器发出动态元数据。</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../api-v3/extensions/filters/http/ext_authz/v3/ext_authz.proto.html#envoy-v3-api-field-extensions-filters-http-ext-authz-v3-extauthz-metadata-context-namespaces"><span class="std std-ref">External Authorization Filter via the metadata context namespaces</span></a></p></li>
-<li><p><a class="reference internal" href="../http/http_filters/rate_limit_filter.html#config-http-filters-rate-limit-override-dynamic-metadata"><span class="std std-ref">RateLimit Filter limit override</span></a></p></li>
+<li><p><a class="reference internal" href="../../api-v3/extensions/filters/http/ext_authz/v3/ext_authz.proto.html#envoy-v3-api-field-extensions-filters-http-ext-authz-v3-extauthz-metadata-context-namespaces"><span class="std std-ref">使用元数据上下文命名空间的外部授权过滤器</span></a></p></li>
+<li><p><a class="reference internal" href="../http/http_filters/rate_limit_filter.html#config-http-filters-rate-limit-override-dynamic-metadata"><span class="std std-ref">限制覆盖的 RateLimit 过滤器</span></a></p></li>
 </ul>
 <div class="section" id="shared-dynamic-metadata">
-<span id="id2"></span><h2>Shared Dynamic Metadata<a class="headerlink" href="#shared-dynamic-metadata" title="Permalink to this headline">¶</a></h2>
-<p>Dynamic metadata that is set by multiple filters is placed in the common key namespace <cite>envoy.common</cite>. Refer to the corresponding rules when setting this metadata.</p>
+<span id="id2"></span><h2>共享动态元数据<a class="headerlink" href="#shared-dynamic-metadata" title="Permalink to this headline">¶</a></h2>
+<p>通过多个过滤器设置的动态元数据位于公共的密钥命名空间（common key namespace） <cite>envoy.common</cite> 中。当设置此类元数据时，可查看与其对应的规则。</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 13%" />
@@ -234,28 +228,28 @@ by looking at the operational metadata emitted by the MongoDB filter.</p>
 <col style="width: 38%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Rules</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
+<th class="head"><p>规则</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>access_log_hint</p></td>
 <td><p>boolean</p></td>
-<td><p>Whether access loggers should log the request.</p></td>
-<td><p>When this metadata is already set: A <cite>true</cite> value should not be overwritten by a <cite>false</cite> value, while a <cite>false</cite> value can be overwritten by a <cite>true</cite> value.</p></td>
+<td><p>访问记录器是否要记录请求。</p></td>
+<td><p>当此元数据已经设置为：<cite>true</cite> 值不应该被 <cite>false</cite> 值覆盖，而 <cite>false</cite> 值可以被 <cite>true</cite> 覆盖。</p></td>
 </tr>
 </tbody>
 </table>
-<p>The following Envoy filters emit shared dynamic metadata.</p>
+<p>如下 Envoy 过滤器发出共享动态元数据。</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../http/http_filters/rbac_filter.html#config-http-filters-rbac-dynamic-metadata"><span class="std std-ref">Role Based Access Control (RBAC) Filter</span></a></p></li>
-<li><p><a class="reference internal" href="../listeners/network_filters/rbac_filter.html#config-network-filters-rbac-dynamic-metadata"><span class="std std-ref">Role Based Access Control (RBAC) Network Filter</span></a></p></li>
+<li><p><a class="reference internal" href="../http/http_filters/rbac_filter.html#config-http-filters-rbac-dynamic-metadata"><span class="std std-ref">基于角色的访问控制（RBAC）过滤器</span></a></p></li>
+<li><p><a class="reference internal" href="../listeners/network_filters/rbac_filter.html#config-network-filters-rbac-dynamic-metadata"><span class="std std-ref">基于角色的访问控制（RBAC）网络过滤器</span></a></p></li>
 </ul>
-<p>The following filters consume shared dynamic metadata.</p>
+<p>如下 Envoy 过滤器消费共享动态元数据。</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../../api-v3/config/accesslog/v3/accesslog.proto.html#envoy-v3-api-msg-config-accesslog-v3-metadatafilter"><span class="std std-ref">Metadata Access Log Filter</span></a></p></li>
+<li><p><a class="reference internal" href="../../api-v3/config/accesslog/v3/accesslog.proto.html#envoy-v3-api-msg-config-accesslog-v3-metadatafilter"><span class="std std-ref">元数据访问日志过滤器</span></a></p></li>
 </ul>
 </div>
 </div>

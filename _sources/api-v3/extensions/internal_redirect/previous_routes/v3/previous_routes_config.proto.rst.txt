@@ -9,7 +9,7 @@ Previous routes internal redirect predicate
 extensions.internal_redirect.previous_routes.v3.PreviousRoutesConfig
 --------------------------------------------------------------------
 
-`[extensions.internal_redirect.previous_routes.v3.PreviousRoutesConfig proto] <https://github.com/envoyproxy/envoy/blob/7245b2cbc0a3d9193dd03760904d96484d992503/api/envoy/extensions/internal_redirect/previous_routes/v3/previous_routes_config.proto#L17>`_
+`[extensions.internal_redirect.previous_routes.v3.PreviousRoutesConfig proto] <https://github.com/envoyproxy/envoy/blob/b601d75096b9c05925658b801457395d035449f2/api/envoy/extensions/internal_redirect/previous_routes/v3/previous_routes_config.proto#L17>`_
 
 An internal redirect predicate that rejects redirect targets that are pointing
 to a route that has been followed by a previous redirect from the current route.

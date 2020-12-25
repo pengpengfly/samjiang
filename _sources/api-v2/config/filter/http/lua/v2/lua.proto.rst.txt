@@ -20,7 +20,7 @@ Lua :ref:`configuration overview <config_http_filters_lua>`.
 config.filter.http.lua.v2.Lua
 -----------------------------
 
-`[config.filter.http.lua.v2.Lua proto] <https://github.com/envoyproxy/envoy/blob/7245b2cbc0a3d9193dd03760904d96484d992503/api/envoy/config/filter/http/lua/v2/lua.proto#L18>`_
+`[config.filter.http.lua.v2.Lua proto] <https://github.com/envoyproxy/envoy/blob/b601d75096b9c05925658b801457395d035449f2/api/envoy/config/filter/http/lua/v2/lua.proto#L18>`_
 
 
 .. code-block:: json
