@@ -20,7 +20,7 @@ Tap :ref:`configuration overview <config_http_filters_tap>`.
 extensions.filters.http.tap.v3.Tap
 ----------------------------------
 
-`[extensions.filters.http.tap.v3.Tap proto] <https://github.com/envoyproxy/envoy/blob/2349356a719e00d7bbb12c6f97d2ead9e966d424/api/envoy/extensions/filters/http/tap/v3/tap.proto#L20>`_
+`[extensions.filters.http.tap.v3.Tap proto] <https://github.com/envoyproxy/envoy/blob/2109ae29a053d19f3f3f05a10fc7568667527d63/api/envoy/extensions/filters/http/tap/v3/tap.proto#L20>`_
 
 Top level configuration for the tap filter.
 

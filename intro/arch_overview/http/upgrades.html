@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>HTTP 升级 &mdash; envoy 1.16.0-234935 documentation</title>
+  <title>HTTP 升级 &mdash; envoy 1.16.0-2109ae documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-234935
+                1.16.0-2109ae
               </div>
             
           
@@ -107,7 +107,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../intro/intro.html">介绍</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../listeners/listeners_toc.html">监听器</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="http.html">HTTP</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="http_connection_management.html">HTTP connection management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="http_connection_management.html">HTTP 连接管理</a></li>
 <li class="toctree-l4"><a class="reference internal" href="http_filters.html">HTTP 过滤器</a></li>
 <li class="toctree-l4"><a class="reference internal" href="http_routing.html">HTTP 路由</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">HTTP 升级</a></li>
@@ -284,7 +284,7 @@
 <p>Envoy 还支持将原始 TCP 请求转化为 HTTP/2 CONNECT 请求，这是通过提前预备的安全链路来代理多路传输的 TCP 请求，并且可以分摊 TLS 握手的成本。
 例如设置代理 SMTP 的流程如下：</p>
 <p>[SMTP Upstream] — raw SMTP — [L2 Envoy]  — SMTP tunneled over HTTP/2  — [L1 Envoy]  — raw SMTP  — [Client]</p>
-<p>如果运行 <code class="docutils literal notranslate"><span class="pre">bazel-bin/source/exe/envoy-static</span> <span class="pre">–config-path</span> <span class="pre">configs/encapsulate_in_connect.yaml</span> <span class="pre">–base-id</span> <span class="pre">1</span> <span class="pre">and</span> <span class="pre">bazel-bin/source/exe/envoy-static</span> <span class="pre">–config-path</span> <span class="pre">configs/terminate_connect.yaml</span></code> 则能在示例配置 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/2349356a719e00d7bbb12c6f97d2ead9e966d424/configs/">文件</a> 中找到对应的示例。
+<p>如果运行 <code class="docutils literal notranslate"><span class="pre">bazel-bin/source/exe/envoy-static</span> <span class="pre">–config-path</span> <span class="pre">configs/encapsulate_in_connect.yaml</span> <span class="pre">–base-id</span> <span class="pre">1</span> <span class="pre">and</span> <span class="pre">bazel-bin/source/exe/envoy-static</span> <span class="pre">–config-path</span> <span class="pre">configs/terminate_connect.yaml</span></code> 则能在示例配置 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/2109ae29a053d19f3f3f05a10fc7568667527d63/configs/">文件</a> 中找到对应的示例。
 其中将要运行两个 Envoy ，第一个会监听 10000 端口 上的 TCP 流量，接着会将其封装为 HTTP/2 请求；另一个会监听 10001 端口上的 HTTP/2 请求，去掉请求的请求头，接着将原始 TCP 请求转到上游，在本示例中是 google.com。</p>
 </div>
 </div>
