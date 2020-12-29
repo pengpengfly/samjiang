@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SNI dynamic forward proxy &mdash; envoy 1.16.0-386b2c documentation</title>
+  <title>SNI 动态转发代理 &mdash; envoy 1.16.0-9e929f documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-386b2c
+                1.16.0-9e929f
               </div>
             
           
@@ -130,7 +130,7 @@
 <li class="toctree-l4"><a class="reference internal" href="tcp_proxy_filter.html">TCP proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="thrift_proxy_filter.html">Thrift 代理</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sni_cluster_filter.html">SNI的上游集群</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">SNI dynamic forward proxy</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">SNI 动态转发代理</a></li>
 <li class="toctree-l4"><a class="reference internal" href="zookeeper_proxy_filter.html">ZooKeeper 代理</a></li>
 </ul>
 </li>
@@ -205,7 +205,7 @@
         
           <li><a href="network_filters.html">网络过滤器</a> &raquo;</li>
         
-      <li>SNI dynamic forward proxy</li>
+      <li>SNI 动态转发代理</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -224,26 +224,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="sni-dynamic-forward-proxy">
-<span id="config-network-filters-sni-dynamic-forward-proxy"></span><h1>SNI dynamic forward proxy<a class="headerlink" href="#sni-dynamic-forward-proxy" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="sni">
+<span id="config-network-filters-sni-dynamic-forward-proxy"></span><h1>SNI 动态转发代理<a class="headerlink" href="#sni" title="Permalink to this headline">¶</a></h1>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>SNI dynamic forward proxy support should be considered alpha and not production ready.</p>
+<p>SNI 动态转发代理目前还在 alpha 阶段，还不能用于生产环境。</p>
 </div>
-<p>Through the combination of <a class="reference internal" href="../listener_filters/tls_inspector.html#config-listener-filters-tls-inspector"><span class="std std-ref">TLS inspector</span></a> listener filter,
-this network filter and the
-<a class="reference internal" href="../../../api-v2/config/cluster/dynamic_forward_proxy/v2alpha/cluster.proto.html#envoy-api-msg-config-cluster-dynamic-forward-proxy-v2alpha-clusterconfig"><span class="std std-ref">dynamic forward proxy cluster</span></a>,
-Envoy supports SNI based dynamic forward proxy. The implementation works just like the
-<a class="reference internal" href="../../../intro/arch_overview/http/http_proxy.html#arch-overview-http-dynamic-forward-proxy"><span class="std std-ref">HTTP dynamic forward proxy</span></a>, but using the value in
-SNI as target host instead.</p>
-<p>The following is a complete configuration that configures both this filter
-as well as the <a class="reference internal" href="../../../api-v2/config/cluster/dynamic_forward_proxy/v2alpha/cluster.proto.html#envoy-api-msg-config-cluster-dynamic-forward-proxy-v2alpha-clusterconfig"><span class="std std-ref">dynamic forward proxy cluster</span></a>. Both filter and cluster
-must be configured together and point to the same DNS cache parameters for Envoy to operate as an
-SNI dynamic forward proxy.</p>
+<p>通过 <a class="reference internal" href="../listener_filters/tls_inspector.html#config-listener-filters-tls-inspector"><span class="std std-ref">TLS 检查</span></a> 网络监听过滤器，这个网络过滤器和 <a class="reference internal" href="../../../api-v2/config/cluster/dynamic_forward_proxy/v2alpha/cluster.proto.html#envoy-api-msg-config-cluster-dynamic-forward-proxy-v2alpha-clusterconfig"><span class="std std-ref">动态转发代理集群</span></a> 的组合，Envoy 支持基于 SNI 的动态转发代理。
+该实现的机制与 <a class="reference internal" href="../../../intro/arch_overview/http/http_proxy.html#arch-overview-http-dynamic-forward-proxy"><span class="std std-ref">HTTP 动态转发代理</span></a> 类似，但使用 SNI 中的值作为目标主机。</p>
+<p>以下是完整的配置，该配置包含了这个过滤器和 <a class="reference internal" href="../../../api-v2/config/cluster/dynamic_forward_proxy/v2alpha/cluster.proto.html#envoy-api-msg-config-cluster-dynamic-forward-proxy-v2alpha-clusterconfig"><span class="std std-ref">动态转发代理集群</span></a> 。过滤器和集群都必须一起配置并且指向相同的 DNS 缓存参数，以便让 Envoy 作为 SNI 动态转发代理。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The following config doesn’t terminate TLS in listener, so there is no need to configure TLS context
-in cluster. The TLS handshake is passed through by Envoy.</p>
+<p>下面的配置没有终止监听器的 TLS，因此不需要在集群中配置 TLS 上下文，TLS 握手机制由 Envoy 传递。</p>
 </div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">admin</span><span class="p">:</span>
   <span class="nt">access_log_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/tmp/admin_access.log</span>
