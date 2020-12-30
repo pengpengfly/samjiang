@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Mongo proxy &mdash; envoy 1.16.0-6e98b7 documentation</title>
+  <title>Mongo 代理 &mdash; envoy 1.16.0-9ed848 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-6e98b7
+                1.16.0-9ed848
               </div>
             
           
@@ -117,10 +117,10 @@
 <li class="toctree-l4"><a class="reference internal" href="client_ssl_auth_filter.html">客户端 TLS 认证</a></li>
 <li class="toctree-l4"><a class="reference internal" href="echo_filter.html">Echo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="direct_response_filter.html">直接响应</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ext_authz_filter.html">External Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_authz_filter.html">外部授权</a></li>
 <li class="toctree-l4"><a class="reference internal" href="kafka_broker_filter.html">Kafka Broker 过滤器</a></li>
 <li class="toctree-l4"><a class="reference internal" href="local_rate_limit_filter.html">本地限流</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Mongo proxy</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Mongo 代理</a></li>
 <li class="toctree-l4"><a class="reference internal" href="mysql_proxy_filter.html">MySQL proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="postgres_proxy_filter.html">Postgres proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="rate_limit_filter.html">限流</a></li>
@@ -205,7 +205,7 @@
         
           <li><a href="network_filters.html">网络过滤器</a> &raquo;</li>
         
-      <li>Mongo proxy</li>
+      <li>Mongo 代理</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -224,22 +224,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="mongo-proxy">
-<span id="config-network-filters-mongo-proxy"></span><h1>Mongo proxy<a class="headerlink" href="#mongo-proxy" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="mongo">
+<span id="config-network-filters-mongo-proxy"></span><h1>Mongo 代理<a class="headerlink" href="#mongo" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>MongoDB <a class="reference internal" href="../../../intro/arch_overview/other_protocols/mongo.html#arch-overview-mongo"><span class="std std-ref">architecture overview</span></a></p></li>
-<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/network/mongo_proxy/v3/mongo_proxy.proto.html#envoy-v3-api-msg-extensions-filters-network-mongo-proxy-v3-mongoproxy"><span class="std std-ref">v3 API reference</span></a></p></li>
-<li><p>This filter should be configured with the name <em>envoy.filters.network.mongo_proxy</em>.</p></li>
+<li><p>MongoDB <a class="reference internal" href="../../../intro/arch_overview/other_protocols/mongo.html#arch-overview-mongo"><span class="std std-ref">架构概览</span></a></p></li>
+<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/network/mongo_proxy/v3/mongo_proxy.proto.html#envoy-v3-api-msg-extensions-filters-network-mongo-proxy-v3-mongoproxy"><span class="std std-ref">v3 API 参考</span></a></p></li>
+<li><p>过滤器的名称应该配置为 <em>envoy.filters.network.mongo_proxy</em> 。</p></li>
 </ul>
-<div class="section" id="fault-injection">
-<span id="config-network-filters-mongo-proxy-fault-injection"></span><h2>Fault injection<a class="headerlink" href="#fault-injection" title="Permalink to this headline">¶</a></h2>
-<p>The Mongo proxy filter supports fault injection. See the v3 API reference for how to
-configure.</p>
+<div class="section" id="config-network-filters-mongo-proxy-fault-injection">
+<span id="id1"></span><h2>故障注入<a class="headerlink" href="#config-network-filters-mongo-proxy-fault-injection" title="Permalink to this headline">¶</a></h2>
+<p>Mongo 代理过滤器支持故障注入。通过查看 v3 API 参考如何配置。</p>
 </div>
-<div class="section" id="statistics">
-<span id="config-network-filters-mongo-proxy-stats"></span><h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
-<p>Every configured MongoDB proxy filter has statistics rooted at <em>mongo.&lt;stat_prefix&gt;.</em> with the
-following statistics:</p>
+<div class="section" id="config-network-filters-mongo-proxy-stats">
+<span id="id2"></span><h2>统计<a class="headerlink" href="#config-network-filters-mongo-proxy-stats" title="Permalink to this headline">¶</a></h2>
+<p>每个配置的 MongoDB 代理过滤器都有以 <em>mongo.&lt;stat_prefix&gt;.</em> 为根，且有如下所示的统计信息：</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -247,128 +245,123 @@ following statistics:</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>decoding_error</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of MongoDB protocol decoding errors</p></td>
+<td><p>MongoDB 协议解码异常数</p></td>
 </tr>
 <tr class="row-odd"><td><p>delay_injected</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of times the delay is injected</p></td>
+<td><p>注入延迟的次数</p></td>
 </tr>
 <tr class="row-even"><td><p>op_get_more</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of OP_GET_MORE messages</p></td>
+<td><p>OP_GET_MORE 信息数</p></td>
 </tr>
 <tr class="row-odd"><td><p>op_insert</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of OP_INSERT messages</p></td>
+<td><p>OP_INSERT 信息数</p></td>
 </tr>
 <tr class="row-even"><td><p>op_kill_cursors</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of OP_KILL_CURSORS messages</p></td>
+<td><p>OP_KILL_CURSORS 信息数</p></td>
 </tr>
 <tr class="row-odd"><td><p>op_query</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of OP_QUERY messages</p></td>
+<td><p>OP_QUERY 信息数</p></td>
 </tr>
 <tr class="row-even"><td><p>op_query_tailable_cursor</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of OP_QUERY with tailable cursor flag set</p></td>
+<td><p>设置可裁剪光标标志的 OP_QUERY 数</p></td>
 </tr>
 <tr class="row-odd"><td><p>op_query_no_cursor_timeout</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of OP_QUERY with no cursor timeout flag set</p></td>
+<td><p>未设置光标超时标志的 OP_QUERY 数</p></td>
 </tr>
 <tr class="row-even"><td><p>op_query_await_data</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of OP_QUERY with await data flag set</p></td>
+<td><p>设置等待数据标志的 OP_QUERY 数</p></td>
 </tr>
 <tr class="row-odd"><td><p>op_query_exhaust</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of OP_QUERY with exhaust flag set</p></td>
+<td><p>设置耗尽标志的 OP_QUERY 数</p></td>
 </tr>
 <tr class="row-even"><td><p>op_query_no_max_time</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of queries without maxTimeMS set</p></td>
+<td><p>未设置 maxTimeMS 的查询数</p></td>
 </tr>
 <tr class="row-odd"><td><p>op_query_scatter_get</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of scatter get queries</p></td>
+<td><p>分散获取查询数</p></td>
 </tr>
 <tr class="row-even"><td><p>op_query_multi_get</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of multi get queries</p></td>
+<td><p>多重获取查询数</p></td>
 </tr>
 <tr class="row-odd"><td><p>op_query_active</p></td>
 <td><p>Gauge</p></td>
-<td><p>Number of active queries</p></td>
+<td><p>活跃查询数</p></td>
 </tr>
 <tr class="row-even"><td><p>op_reply</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of OP_REPLY messages</p></td>
+<td><p>OP_REPLY 信息数</p></td>
 </tr>
 <tr class="row-odd"><td><p>op_reply_cursor_not_found</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of OP_REPLY with cursor not found flag set</p></td>
+<td><p>设置未找到光标标志的 OP_REPLY 数</p></td>
 </tr>
 <tr class="row-even"><td><p>op_reply_query_failure</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of OP_REPLY with query failure flag set</p></td>
+<td><p>设置查询失败标志的 OP_REPLY 数</p></td>
 </tr>
 <tr class="row-odd"><td><p>op_reply_valid_cursor</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of OP_REPLY with a valid cursor</p></td>
+<td><p>有效光标的 OP_REPLY 数</p></td>
 </tr>
 <tr class="row-even"><td><p>cx_destroy_local_with_active_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Connections destroyed locally with an active query</p></td>
+<td><p>使用活跃查询在本地销毁连接</p></td>
 </tr>
 <tr class="row-odd"><td><p>cx_destroy_remote_with_active_rq</p></td>
 <td><p>Counter</p></td>
-<td><p>Connections destroyed remotely with an active query</p></td>
+<td><p>使用活跃查询在远程销毁连接</p></td>
 </tr>
 <tr class="row-even"><td><p>cx_drain_close</p></td>
 <td><p>Counter</p></td>
-<td><p>Connections gracefully closed on reply boundaries during server drain</p></td>
+<td><p>在服务器耗尽期间，连接在边界上正常关闭数</p></td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="scatter-gets">
-<h3>Scatter gets<a class="headerlink" href="#scatter-gets" title="Permalink to this headline">¶</a></h3>
-<p>Envoy defines a <em>scatter get</em> as any query that does not use an <em>_id</em> field as a query parameter.
-Envoy looks in both the top level document as well as within a <em>$query</em> field for <em>_id</em>.</p>
+<div class="section" id="id3">
+<h3>分散获取<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Envoy 将 <em>scatter get</em> 定义为不使用 <em>_id</em> 字段作为查询参数的任何查询。
+Envoy 在最高级文档和 <em>$query</em> 字段中查找 <em>_id</em> 。</p>
 </div>
-<div class="section" id="multi-gets">
-<h3>Multi gets<a class="headerlink" href="#multi-gets" title="Permalink to this headline">¶</a></h3>
-<p>Envoy defines a <em>multi get</em> as any query that does use an <em>_id</em> field as a query parameter, but
-where <em>_id</em> is not a scalar value (i.e., a document or an array). Envoy looks in both the top level
-document as well as within a <em>$query</em> field for <em>_id</em>.</p>
+<div class="section" id="id4">
+<h3>批量获取<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Envoy 将 <em>multi get</em> 定义为使用 <em>_id</em> 字段作为查询参数的任何查询，但其中 <em>_id</em> 不是标量（scalar）值（例如文档或数组）。Envoy 在最高级文档和 <em>$query</em> 字段中查找 <em>_id</em> 。</p>
 </div>
-<div class="section" id="comment-parsing">
-<span id="config-network-filters-mongo-proxy-comment-parsing"></span><h3>$comment parsing<a class="headerlink" href="#comment-parsing" title="Permalink to this headline">¶</a></h3>
-<p>If a query has a top level <em>$comment</em> field (typically in addition to a <em>$query</em> field), Envoy will
-parse it as JSON and look for the following structure:</p>
+<div class="section" id="comment">
+<span id="config-network-filters-mongo-proxy-comment-parsing"></span><h3>$comment 解析<a class="headerlink" href="#comment" title="Permalink to this headline">¶</a></h3>
+<p>如果一个请求中包含一个顶级的 <em>$comment</em> 字段（通常除了 <em>$query</em> 字段），Envoy 将会把他解析为 JSON 并如下结构所示：</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;callingFunction&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <dl class="simple">
-<dt>callingFunction</dt><dd><p><em>(required, string)</em> the function that made the query. If available, the function will be used
-in <a class="reference internal" href="#config-network-filters-mongo-proxy-callsite-stats"><span class="std std-ref">callsite</span></a> query statistics.</p>
+<dt>callingFunction</dt><dd><p><em>(required, string)</em> 进行查询的函数。如果可用，这个函数将会被用于在 <a class="reference internal" href="#config-network-filters-mongo-proxy-callsite-stats"><span class="std std-ref">调用点</span></a> 查询统计信息。</p>
 </dd>
 </dl>
 </div>
-<div class="section" id="per-command-statistics">
-<h3>Per command statistics<a class="headerlink" href="#per-command-statistics" title="Permalink to this headline">¶</a></h3>
-<p>The MongoDB filter will gather statistics for commands in the <em>mongo.&lt;stat_prefix&gt;.cmd.&lt;cmd&gt;.</em>
-namespace.</p>
+<div class="section" id="id5">
+<h3>命令统计<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>MongoDB 过滤器将收集在 <em>mongo.&lt;stat_prefix&gt;.cmd.&lt;cmd&gt;.</em> 命名空间中命令的统计信息。</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -376,35 +369,34 @@ namespace.</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>total</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of commands</p></td>
+<td><p>命令数</p></td>
 </tr>
 <tr class="row-odd"><td><p>reply_num_docs</p></td>
 <td><p>Histogram</p></td>
-<td><p>Number of documents in reply</p></td>
+<td><p>回复文件数</p></td>
 </tr>
 <tr class="row-even"><td><p>reply_size</p></td>
 <td><p>Histogram</p></td>
-<td><p>Size of the reply in bytes</p></td>
+<td><p>回复字节大小</p></td>
 </tr>
 <tr class="row-odd"><td><p>reply_time_ms</p></td>
 <td><p>Histogram</p></td>
-<td><p>Command time in milliseconds</p></td>
+<td><p>以毫秒为单位的命令时间</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="per-collection-query-statistics">
-<span id="config-network-filters-mongo-proxy-collection-stats"></span><h3>Per collection query statistics<a class="headerlink" href="#per-collection-query-statistics" title="Permalink to this headline">¶</a></h3>
-<p>The MongoDB filter will gather statistics for queries in the
-<em>mongo.&lt;stat_prefix&gt;.collection.&lt;collection&gt;.query.</em> namespace.</p>
+<div class="section" id="config-network-filters-mongo-proxy-collection-stats">
+<span id="id6"></span><h3>集合统计查询<a class="headerlink" href="#config-network-filters-mongo-proxy-collection-stats" title="Permalink to this headline">¶</a></h3>
+<p>MongoDB 过滤器将收集在 <em>mongo.&lt;stat_prefix&gt;.collection.&lt;collection&gt;.query.</em> 命名空间中查询的统计信息。</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -412,93 +404,82 @@ namespace.</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>total</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of queries</p></td>
+<td><p>查询数</p></td>
 </tr>
 <tr class="row-odd"><td><p>scatter_get</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of scatter gets</p></td>
+<td><p>分散获取数</p></td>
 </tr>
 <tr class="row-even"><td><p>multi_get</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of multi gets</p></td>
+<td><p>多重获取数</p></td>
 </tr>
 <tr class="row-odd"><td><p>reply_num_docs</p></td>
 <td><p>Histogram</p></td>
-<td><p>Number of documents in reply</p></td>
+<td><p>回复文件数</p></td>
 </tr>
 <tr class="row-even"><td><p>reply_size</p></td>
 <td><p>Histogram</p></td>
-<td><p>Size of the reply in bytes</p></td>
+<td><p>回复字节大小</p></td>
 </tr>
 <tr class="row-odd"><td><p>reply_time_ms</p></td>
 <td><p>Histogram</p></td>
-<td><p>Query time in milliseconds</p></td>
+<td><p>以毫秒为单位的查询时间</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="per-collection-and-callsite-query-statistics">
-<span id="config-network-filters-mongo-proxy-callsite-stats"></span><h3>Per collection and callsite query statistics<a class="headerlink" href="#per-collection-and-callsite-query-statistics" title="Permalink to this headline">¶</a></h3>
-<p>If the application provides the <a class="reference internal" href="#config-network-filters-mongo-proxy-comment-parsing"><span class="std std-ref">calling function</span></a> in the <em>$comment</em> field, Envoy will generate
-per callsite statistics. These statistics match the <a class="reference internal" href="#config-network-filters-mongo-proxy-collection-stats"><span class="std std-ref">per collection statistics</span></a> but are found in the
-<em>mongo.&lt;stat_prefix&gt;.collection.&lt;collection&gt;.callsite.&lt;callsite&gt;.query.</em> namespace.</p>
+<div class="section" id="config-network-filters-mongo-proxy-callsite-stats">
+<span id="id7"></span><h3>每个集合和调用点查询统计信息<a class="headerlink" href="#config-network-filters-mongo-proxy-callsite-stats" title="Permalink to this headline">¶</a></h3>
+<p>如果应用在 <em>$comment</em> 字段中提供了 <a class="reference internal" href="#config-network-filters-mongo-proxy-comment-parsing"><span class="std std-ref">调用函数</span></a>，Envoy 将会生成每个调用点的统计信息。
+这些统计信息与 <a class="reference internal" href="#config-network-filters-mongo-proxy-collection-stats"><span class="std std-ref">每个集合的统计信息</span></a> 相互匹配，但这仅会在 <em>mongo.&lt;stat_prefix&gt;.collection.&lt;collection&gt;.callsite.&lt;callsite&gt;.query.</em> 命名空间中找到。</p>
 </div>
 </div>
-<div class="section" id="runtime">
-<span id="config-network-filters-mongo-proxy-runtime"></span><h2>Runtime<a class="headerlink" href="#runtime" title="Permalink to this headline">¶</a></h2>
-<p>The Mongo proxy filter supports the following runtime settings:</p>
+<div class="section" id="config-network-filters-mongo-proxy-runtime">
+<span id="id8"></span><h2>运行时<a class="headerlink" href="#config-network-filters-mongo-proxy-runtime" title="Permalink to this headline">¶</a></h2>
+<p>Mongo 代理过滤器支持如下所示的运行时设置：</p>
 <dl class="simple">
-<dt>mongo.connection_logging_enabled</dt><dd><p>% of connections that will have logging enabled. Defaults to 100. This allows only a % of
-connections to have logging, but for all messages on those connections to be logged.</p>
+<dt>mongo.connection_logging_enabled</dt><dd><p>连接的百分比表示将会启用日志记录。默认为 100。这仅表示只有一部分的连接会被记录日志，但是所有连接的信息都会被记录日志。</p>
 </dd>
-<dt>mongo.proxy_enabled</dt><dd><p>% of connections that will have the proxy enabled at all. Defaults to 100.</p>
+<dt>mongo.proxy_enabled</dt><dd><p>连接的百分比表示将会启用代理。默认为 100。</p>
 </dd>
-<dt>mongo.logging_enabled</dt><dd><p>% of messages that will be logged. Defaults to 100. If less than 100, queries may be logged
-without replies, etc.</p>
+<dt>mongo.logging_enabled</dt><dd><p>消息的百分比表示将会被日志记录。默认为 100。如果少于 100，则可以只记录查询而不进行答复等。</p>
 </dd>
-<dt>mongo.mongo.drain_close_enabled</dt><dd><p>% of connections that will be drain closed if the server is draining and would otherwise
-attempt a drain close. Defaults to 100.</p>
+<dt>mongo.mongo.drain_close_enabled</dt><dd><p>连接的百分比表示如果服务器正在关闭，则将关闭连接，否则将尝试关闭连接。默认为 100。</p>
 </dd>
-<dt>mongo.fault.fixed_delay.percent</dt><dd><p>Probability of an eligible MongoDB operation to be affected by
-the injected fault when there is no active fault.
-Defaults to the <em>percentage</em> specified in the config.</p>
+<dt>mongo.fault.fixed_delay.percent</dt><dd><p>当没有响应故障时，合格的 MongoDB 操作会受注入故障影响的概率。默认为配置中指定的 <em>percentage</em> 。</p>
 </dd>
-<dt>mongo.fault.fixed_delay.duration_ms</dt><dd><p>The delay duration in milliseconds. Defaults to the <em>duration_ms</em> specified in the config.</p>
+<dt>mongo.fault.fixed_delay.duration_ms</dt><dd><p>延迟持续时间为毫秒。默认为配置中指定的 <em>duration_ms</em> 。</p>
 </dd>
 </dl>
 </div>
-<div class="section" id="access-log-format">
-<h2>Access log format<a class="headerlink" href="#access-log-format" title="Permalink to this headline">¶</a></h2>
-<p>The access log format is not customizable and has the following layout:</p>
+<div class="section" id="id9">
+<h2>访问日志格式<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>访问日志格式不能定制，如下所示：</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="nt">&quot;upstream_host&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <dl class="simple">
-<dt>time</dt><dd><p>System time that complete message was parsed, including milliseconds.</p>
+<dt>time</dt><dd><p>解析完整消息的系统时间，包括毫秒。</p>
 </dd>
-<dt>message</dt><dd><p>Textual expansion of the message. Whether the message is fully expanded depends on the context.
-Sometimes summary data is presented to avoid extremely large log sizes.</p>
+<dt>message</dt><dd><p>消息的文本扩展。消息是否完全扩展取决于上下文。有时会显示总结数据避免非常大的日志大小。</p>
 </dd>
-<dt>upstream_host</dt><dd><p>The upstream host that the connection is proxying to, if available. This is populated if the
-filter is used along with the <a class="reference internal" href="tcp_proxy_filter.html#config-network-filters-tcp-proxy"><span class="std std-ref">TCP proxy filter</span></a>.</p>
+<dt>upstream_host</dt><dd><p>连接到代理的上游地址，如果可用。如果过滤器与 <a class="reference internal" href="tcp_proxy_filter.html#config-network-filters-tcp-proxy"><span class="std std-ref">TCP 代理过滤器</span></a> 一同使用则会被填充。</p>
 </dd>
 </dl>
 </div>
-<div class="section" id="dynamic-metadata">
-<span id="config-network-filters-mongo-proxy-dynamic-metadata"></span><h2>Dynamic Metadata<a class="headerlink" href="#dynamic-metadata" title="Permalink to this headline">¶</a></h2>
-<p>The Mongo filter emits the following dynamic metadata when enabled via the
-<a class="reference internal" href="../../../api-v3/extensions/filters/network/mongo_proxy/v3/mongo_proxy.proto.html#envoy-v3-api-field-extensions-filters-network-mongo-proxy-v3-mongoproxy-emit-dynamic-metadata"><span class="std std-ref">configuration</span></a>.
-This dynamic metadata is available as key-value pairs where the key
-represents the database and the collection being accessed, and the value is
-a list of operations performed on the collection.</p>
+<div class="section" id="config-network-filters-mongo-proxy-dynamic-metadata">
+<span id="id10"></span><h2>动态元数据<a class="headerlink" href="#config-network-filters-mongo-proxy-dynamic-metadata" title="Permalink to this headline">¶</a></h2>
+<p>当通过 <a class="reference internal" href="../../../api-v3/extensions/filters/network/mongo_proxy/v3/mongo_proxy.proto.html#envoy-v3-api-field-extensions-filters-network-mongo-proxy-v3-mongoproxy-emit-dynamic-metadata"><span class="std std-ref">配置</span></a> 启用 Mongo 过滤器时，Mongo 过滤器将会发出以下元数据。
+这些动态元数据以键-值对来使用，其中键表示正在访问的数据库和集合，而值是对集合执行的操作的列表。</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -506,19 +487,19 @@ a list of operations performed on the collection.</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>key</p></td>
 <td><p>string</p></td>
-<td><p>The resource name in <em>db.collection</em> format.</p></td>
+<td><p><em>db.collection</em> 格式资源名称。</p></td>
 </tr>
 <tr class="row-odd"><td><p>value</p></td>
 <td><p>array</p></td>
-<td><p>A list of strings representing the operations executed on the resource (insert/update/query/delete).</p></td>
+<td><p>表示在资源上执行操作的字符串列表（插入/更新/查询/删除）。</p></td>
 </tr>
 </tbody>
 </table>

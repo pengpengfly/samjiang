@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>External Authorization &mdash; envoy 1.16.0-6e98b7 documentation</title>
+  <title>外部授权 &mdash; envoy 1.16.0-9ed848 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-6e98b7
+                1.16.0-9ed848
               </div>
             
           
@@ -117,10 +117,10 @@
 <li class="toctree-l4"><a class="reference internal" href="client_ssl_auth_filter.html">客户端 TLS 认证</a></li>
 <li class="toctree-l4"><a class="reference internal" href="echo_filter.html">Echo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="direct_response_filter.html">直接响应</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">External Authorization</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">外部授权</a></li>
 <li class="toctree-l4"><a class="reference internal" href="kafka_broker_filter.html">Kafka Broker 过滤器</a></li>
 <li class="toctree-l4"><a class="reference internal" href="local_rate_limit_filter.html">本地限流</a></li>
-<li class="toctree-l4"><a class="reference internal" href="mongo_proxy_filter.html">Mongo proxy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mongo_proxy_filter.html">Mongo 代理</a></li>
 <li class="toctree-l4"><a class="reference internal" href="mysql_proxy_filter.html">MySQL proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="postgres_proxy_filter.html">Postgres proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="rate_limit_filter.html">限流</a></li>
@@ -205,7 +205,7 @@
         
           <li><a href="network_filters.html">网络过滤器</a> &raquo;</li>
         
-      <li>External Authorization</li>
+      <li>外部授权</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -224,28 +224,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="external-authorization">
-<span id="config-network-filters-ext-authz"></span><h1>External Authorization<a class="headerlink" href="#external-authorization" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="config-network-filters-ext-authz">
+<span id="id1"></span><h1>外部授权<a class="headerlink" href="#config-network-filters-ext-authz" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>External authorization <a class="reference internal" href="../../../intro/arch_overview/security/ext_authz_filter.html#arch-overview-ext-authz"><span class="std std-ref">architecture overview</span></a></p></li>
-<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/network/ext_authz/v3/ext_authz.proto.html#envoy-v3-api-msg-extensions-filters-network-ext-authz-v3-extauthz"><span class="std std-ref">Network filter v3 API reference</span></a></p></li>
-<li><p>This filter should be configured with the name <em>envoy.filters.network.ext_authz</em>.</p></li>
+<li><p>外部授权 <a class="reference internal" href="../../../intro/arch_overview/security/ext_authz_filter.html#arch-overview-ext-authz"><span class="std std-ref">架构概览</span></a></p></li>
+<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/network/ext_authz/v3/ext_authz.proto.html#envoy-v3-api-msg-extensions-filters-network-ext-authz-v3-extauthz"><span class="std std-ref">网络过滤器 v3 API 参考</span></a></p></li>
+<li><p>过滤器的名称应该配置为 <em>envoy.filters.network.ext_authz</em> 。</p></li>
 </ul>
-<p>The external authorization network filter calls an external authorization service to check if the
-incoming request is authorized or not. If the request is deemed unauthorized by the network filter
-then the connection will be closed.</p>
+<p>外部授权网络过滤器调用外部授权服务去检查传入请求是否被授权。如果请求被网络过滤器视为未经授权那么连接将会被关闭。</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>It is recommended that this filter is configured first in the filter chain so that requests are
-authorized prior to rest of the filters processing the request.</p>
+<p>建议在过滤器链中首先配置此过滤器，以便可以在其他过滤器处理请求之前授权请求。</p>
 </div>
-<p>The content of the request that are passed to an authorization service is specified by
-<a class="reference internal" href="../../../api-v3/service/auth/v3/external_auth.proto.html#envoy-v3-api-msg-service-auth-v3-checkrequest"><span class="std std-ref">CheckRequest</span></a>.</p>
-<p id="config-network-filters-ext-authz-network-configuration">The network filter, gRPC service, can be configured as follows. You can see all the configuration
-options at <a class="reference internal" href="../../../api-v3/extensions/filters/network/ext_authz/v3/ext_authz.proto.html#envoy-v3-api-msg-extensions-filters-network-ext-authz-v3-extauthz"><span class="std std-ref">Network filter</span></a>.</p>
-<div class="section" id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<p>A sample filter configuration could be:</p>
+<p>传递到授权服务的请求内容由 <a class="reference internal" href="../../../api-v3/service/auth/v3/external_auth.proto.html#envoy-v3-api-msg-service-auth-v3-checkrequest"><span class="std std-ref">CheckRequest</span></a> 来决定。</p>
+<p id="config-network-filters-ext-authz-network-configuration">网络过滤器、gRPC 服务都可以在下面配置。你可以在 <a class="reference internal" href="../../../api-v3/extensions/filters/network/ext_authz/v3/ext_authz.proto.html#envoy-v3-api-msg-extensions-filters-network-ext-authz-v3-extauthz"><span class="std std-ref">网络过滤器</span></a> 上看到所有的配置选项。</p>
+<div class="section" id="id2">
+<h2>示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>一个简单的过滤器配置如下：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">filters</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">envoy.filters.network.ext_authz</span>
     <span class="nt">typed_config</span><span class="p">:</span>
@@ -272,9 +267,9 @@ options at <a class="reference internal" href="../../../api-v3/extensions/filter
 </pre></div>
 </div>
 </div>
-<div class="section" id="statistics">
-<h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
-<p>The network filter outputs statistics in the <em>config.ext_authz.</em> namespace.</p>
+<div class="section" id="id3">
+<h2>统计信息<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>网络过滤器在 <em>config.ext_authz.</em> 命名空间中输出统计信息。</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -282,52 +277,50 @@ options at <a class="reference internal" href="../../../api-v3/extensions/filter
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>total</p></td>
 <td><p>Counter</p></td>
-<td><p>Total responses from the filter.</p></td>
+<td><p>来自过滤器的响应总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>error</p></td>
 <td><p>Counter</p></td>
-<td><p>Total errors contacting the external service.</p></td>
+<td><p>连接外部服务的异常总数</p></td>
 </tr>
 <tr class="row-even"><td><p>denied</p></td>
 <td><p>Counter</p></td>
-<td><p>Total responses from the authorizations service that were to deny the traffic.</p></td>
+<td><p>来自授权服务的拒绝的响应总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>disabled</p></td>
 <td><p>Counter</p></td>
-<td><p>Total requests that are allowed without calling external services due to the filter is disabled.</p></td>
+<td><p>由于过滤器未启用而未调用外部服务的通过请求总数</p></td>
 </tr>
 <tr class="row-even"><td><p>failure_mode_allowed</p></td>
 <td><p>Counter</p></td>
-<td><p>Total requests that were error(s) but were allowed through
-because of failure_mode_allow set to true.</p></td>
+<td><p>由于 failure_mode_allow 设置为 true 而允许的请求异常总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>ok</p></td>
 <td><p>Counter</p></td>
-<td><p>Total responses from the authorization service that were to allow the traffic.</p></td>
+<td><p>来自授权服务的允许通过的响应总数</p></td>
 </tr>
 <tr class="row-even"><td><p>cx_closed</p></td>
 <td><p>Counter</p></td>
-<td><p>Total connections that were closed.</p></td>
+<td><p>关闭的连接总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>active</p></td>
 <td><p>Gauge</p></td>
-<td><p>Total currently active requests in transit to the authorization service.</p></td>
+<td><p>当前传输到授权服务的活跃请求总数</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="dynamic-metadata">
-<h2>Dynamic Metadata<a class="headerlink" href="#dynamic-metadata" title="Permalink to this headline">¶</a></h2>
-<p id="config-network-filters-ext-authz-dynamic-metadata">The External Authorization filter emits dynamic metadata as an opaque <code class="docutils literal notranslate"><span class="pre">google.protobuf.Struct</span></code>
-<em>only</em> when the gRPC authorization server returns a <a class="reference internal" href="../../../api-v3/service/auth/v3/external_auth.proto.html#envoy-v3-api-msg-service-auth-v3-checkresponse"><span class="std std-ref">CheckResponse</span></a> with a filled <a class="reference internal" href="../../../api-v3/service/auth/v3/external_auth.proto.html#envoy-v3-api-field-service-auth-v3-checkresponse-dynamic-metadata"><span class="std std-ref">dynamic_metadata</span></a> field.</p>
+<div class="section" id="id4">
+<h2>动态元数据<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p id="config-network-filters-ext-authz-dynamic-metadata">只有当 gRPC 授权服务返回一个包含 <a class="reference internal" href="../../../api-v3/service/auth/v3/external_auth.proto.html#envoy-v3-api-msg-service-auth-v3-checkresponse"><span class="std std-ref">检查响应</span></a> 字段的 <a class="reference internal" href="../../../api-v3/service/auth/v3/external_auth.proto.html#envoy-v3-api-field-service-auth-v3-checkresponse-dynamic-metadata"><span class="std std-ref">dynamic_metadata</span></a> 时，外部授权过滤器才会将动态元数据以不透明的 <code class="docutils literal notranslate"><span class="pre">google.protobuf.Struct</span></code> 的形式发出。</p>
 </div>
 </div>
 

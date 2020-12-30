@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Route matching &mdash; envoy 1.16.0-6e98b7 documentation</title>
+  <title>路由匹配 &mdash; envoy 1.16.0-9ed848 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-6e98b7
+                1.16.0-9ed848
               </div>
             
           
@@ -111,7 +111,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../http.html">HTTP</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="http_conn_man.html">HTTP 连接管理器</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="overview.html">概览</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Route matching</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">路由匹配</a></li>
 <li class="toctree-l4"><a class="reference internal" href="traffic_splitting.html">Traffic Shifting/Splitting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="header_casing.html">HTTP/1.1 头部大小写转换</a></li>
 <li class="toctree-l4"><a class="reference internal" href="headers.html">HTTP header manipulation</a></li>
@@ -193,7 +193,7 @@
         
           <li><a href="http_conn_man.html">HTTP 连接管理器</a> &raquo;</li>
         
-      <li>Route matching</li>
+      <li>路由匹配</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -212,16 +212,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="route-matching">
-<span id="config-http-conn-man-route-table-route-matching"></span><h1>Route matching<a class="headerlink" href="#route-matching" title="Permalink to this headline">¶</a></h1>
-<p>When Envoy matches a route, it uses the following procedure:</p>
+  <div class="section" id="config-http-conn-man-route-table-route-matching">
+<span id="id1"></span><h1>路由匹配<a class="headerlink" href="#config-http-conn-man-route-table-route-matching" title="Permalink to this headline">¶</a></h1>
+<p>当 Envoy 匹配到一条路由时，它使用如下流程：</p>
 <ol class="arabic simple">
-<li><p>The HTTP request’s <em>host</em> or <em>:authority</em> header is matched to a <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-virtualhost"><span class="std std-ref">virtual host</span></a>.</p></li>
-<li><p>Each <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-route"><span class="std std-ref">route entry</span></a> in the virtual host is checked,
-<em>in order</em>. If there is a match, the route is used and no further route checks are made.</p></li>
-<li><p>Independently, each <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-virtualcluster"><span class="std std-ref">virtual cluster</span></a> in the
-virtual host is checked, <em>in order</em>. If there is a match, the virtual cluster is used and no
-further virtual cluster checks are made.</p></li>
+<li><p>HTTP 请求的 <em>host</em> 或 <em>:authority</em> 头部会和一个 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-virtualhost"><span class="std std-ref">虚拟主机</span></a> 相匹配。</p></li>
+<li><p>虚拟主机中的每一个 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-route"><span class="std std-ref">路由条目</span></a> 都会 <em>按顺序地</em> 逐个被检查。
+如果匹配到了，则使用此路由且不再做其它路由检查。</p></li>
+<li><p>虚拟主机中的每一个 <a class="reference internal" href="../../../api-v3/config/route/v3/route_components.proto.html#envoy-v3-api-msg-config-route-v3-virtualcluster"><span class="std std-ref">虚拟集群</span></a>
+都会独立地 <em>按顺序地</em> 被逐个检查。如果匹配到了，则使用此虚拟集群且不再做其它虚拟集群检查。</p></li>
 </ol>
 </div>
 

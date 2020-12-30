@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>CSRF Filter &mdash; envoy 1.16.0-6e98b7 documentation</title>
+  <title>CSRF 过滤器 &mdash; envoy 1.16.0-9ed848 documentation</title>
   
 
   
@@ -76,7 +76,7 @@
             
             
               <div class="version">
-                1.16.0-6e98b7
+                1.16.0-9ed848
               </div>
             
           
@@ -111,8 +111,8 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../start.html#id4">沙盒</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="cache.html">缓存过滤器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cors.html">CORS 过滤器</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">CSRF Filter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#running-the-sandboxes">Running the Sandboxes</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">CSRF 过滤器</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">运行沙盒</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ext_authz.html">External Authorization Filter</a></li>
@@ -185,7 +185,7 @@
         
           <li><a href="../start.html">开始</a> &raquo;</li>
         
-      <li>CSRF Filter</li>
+      <li>CSRF 过滤器</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -204,34 +204,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="csrf-filter">
-<span id="install-sandboxes-csrf"></span><h1>CSRF Filter<a class="headerlink" href="#csrf-filter" title="Permalink to this headline">¶</a></h1>
-<p>Cross-Site Request Forgery (CSRF) is an attack that occurs when a malicious
-third-party website exploits a vulnerability that allows them to submit an
-undesired request on a user’s behalf. To mitigate this attack this filter
-checks where a request is coming from to determine if the request’s origin
-is the same as it’s destination.</p>
-<p>To help demonstrate how front-envoy can enforce CSRF policies, we are releasing
-a <a class="reference external" href="https://docs.docker.com/compose/">docker compose</a> sandbox that
-deploys a service with both a frontend and backed. This service will be started
-on two different virtual machines with different origins.</p>
-<p>The frontend has a field to input the remote domain of where you would like to
-send POST requests along with radio buttons to select the remote domain’s CSRF
-enforcement. The CSRF enforcement choices are:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Disabled: CSRF is disabled on the requested route. This will result in a
-successful request since there is no CSRF enforcement.</p></li>
-<li><p>Shadow Mode: CSRF is not enforced on the requested route but will record
-if the request contains a valid source origin.</p></li>
-<li><p>Enabled: CSRF is enabled and will return a 403 (Forbidden) status code when
-a request is made from a different origin.</p></li>
-<li><p>Ignored: CSRF is enabled but the request type is a GET. This should bypass
-the CSRF filter and return successfully.</p></li>
+  <div class="section" id="csrf">
+<span id="install-sandboxes-csrf"></span><h1>CSRF 过滤器<a class="headerlink" href="#csrf" title="Permalink to this headline">¶</a></h1>
+<p>跨站请求伪造（CSRF）是一种攻击，当恶意的第三方站点利用一个可以让他们以用户的行为方式来提交非期望的请求时，这种攻击就发生了。为了减轻这种攻击，此过滤器会检查请求的来源，以确定请求的来源和目的地是否相同。</p>
+<p>为了演示 front-envoy 是如何强制执行 CSRF 策略的，我们发布了一个 <a class="reference external" href="https://docs.docker.com/compose/">docker compose</a> 沙盒环境，来同时部署一个前端和后端服务。此服务将在两个具有不同来源的不同虚拟机上启动。</p>
+<dl class="simple">
+<dt>前端有一个字段用来输入你希望发送 POST 请求的远程域，以及一个单选按钮，按钮用于选择远程域 CSRF 强制项。CSRF 强制选项有：</dt><dd><ul class="simple">
+<li><p>禁止：CSRF 在请求路由中被禁止。因为没有 CSRF 强制执行功能，这将使得请求能够成功。</p></li>
+<li><p>影子模式：CSRF 在请求路由中没有被强制执行，但是将会记录请求是否包含有效的来源信息。</p></li>
+<li><p>开启：CSRF 处于开启状态，当请求来自于一个不同的来源时，会返回一个 403（禁止）状态码。</p></li>
+<li><p>忽略：CSRF 处于开启状态，但是请求的类型是 GET。这将绕过 CSRF 过滤器且成功返回。</p></li>
 </ul>
-</div></blockquote>
-<div class="section" id="running-the-sandboxes">
-<h2>Running the Sandboxes<a class="headerlink" href="#running-the-sandboxes" title="Permalink to this headline">¶</a></h2>
+</dd>
+</dl>
+<div class="section" id="id1">
+<h2>运行沙盒<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>以下文档说明了上述对于 Envoy 容器编译环境进行设置的过程。</p>
 <div class="section" id="docker">
 <h3>步骤 1：安装 Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h3>
@@ -266,59 +253,50 @@ the CSRF filter and return successfully.</p></li>
 </div>
 </div>
 </div>
-<div class="section" id="step-3-start-all-of-our-containers">
-<h3>Step 3: Start all of our containers<a class="headerlink" href="#step-3-start-all-of-our-containers" title="Permalink to this headline">¶</a></h3>
-<p>Switch to the <code class="docutils literal notranslate"><span class="pre">samesite</span></code> directory in the <code class="docutils literal notranslate"><span class="pre">csrf</span></code> example, and start the containers:</p>
+<div class="section" id="id2">
+<h3>步骤 3：启动我们的所有容器<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>在 <code class="docutils literal notranslate"><span class="pre">csrf</span></code> 示例中，切换至 <code class="docutils literal notranslate"><span class="pre">samesite</span></code> 目录，然后启动容器：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">pwd</span>
 <span class="go">envoy/examples/csrf/samesite</span>
 <span class="gp">$</span> docker-compose pull
 <span class="gp">$</span> docker-compose up --build -d
 <span class="gp">$</span> docker-compose ps
 
-<span class="go">          Name                        Command              State                            Ports</span>
+<span class="go">          名称                        命令                状态                            端口</span>
 <span class="go">----------------------------------------------------------------------------------------------------------------------</span>
 <span class="go">samesite_front-envoy_1      /docker-entrypoint.sh /bin ... Up      10000/tcp, 0.0.0.0:8000-&gt;8000/tcp, 0.0.0.0:8001-&gt;8001/tcp</span>
 <span class="go">samesite_service_1          /bin/sh -c /usr/local/bin/ ... Up      10000/tcp, 8000/tcp</span>
 </pre></div>
 </div>
-<p>Now, switch to the <code class="docutils literal notranslate"><span class="pre">crosssite</span></code> directory in the <code class="docutils literal notranslate"><span class="pre">csrf</span></code> example, and start the containers:</p>
+<p>现在，在 <code class="docutils literal notranslate"><span class="pre">csrf</span></code> 示例中，切换至 <code class="docutils literal notranslate"><span class="pre">crosssite</span></code> 目录，然后启动容器：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">pwd</span>
 <span class="go">envoy/examples/csrf/crosssite</span>
 <span class="gp">$</span> docker-compose up --build -d
 <span class="gp">$</span> docker-compose ps
 
-<span class="go">          Name                       Command                State                            Ports</span>
+<span class="go">          名称                       命令                  状态                            端口</span>
 <span class="go">----------------------------------------------------------------------------------------------------------------------</span>
 <span class="go">crosssite_front-envoy_1      /bin/sh -c /usr/local/bin/ ... Up      10000/tcp, 0.0.0.0:8002-&gt;8000/tcp, 0.0.0.0:8003-&gt;8001/tcp</span>
 <span class="go">crosssite_service_1          /docker-entrypoint.sh /bin ... Up      10000/tcp, 8000/tcp</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="step-4-test-envoy-s-csrf-capabilities">
-<h3>Step 4: Test Envoy’s CSRF capabilities<a class="headerlink" href="#step-4-test-envoy-s-csrf-capabilities" title="Permalink to this headline">¶</a></h3>
-<p>You can now open a browser at <a class="reference external" href="http://localhost:8002">http://localhost:8002</a> to view your <code class="docutils literal notranslate"><span class="pre">crosssite</span></code> frontend service.</p>
-<p>Enter the IP of the <code class="docutils literal notranslate"><span class="pre">samesite</span></code> machine to demonstrate cross-site requests. Requests
-with the enabled enforcement will fail. By default this field will be populated
-with <code class="docutils literal notranslate"><span class="pre">localhost</span></code>.</p>
-<p>To demonstrate same-site requests open the frontend service for <code class="docutils literal notranslate"><span class="pre">samesite</span></code> at <a class="reference external" href="http://localhost:8000">http://localhost:8000</a>
-and enter the IP address of the <code class="docutils literal notranslate"><span class="pre">samesite</span></code> machine as the destination.</p>
-<p>Results of the cross-site request will be shown on the page under <em>Request Results</em>.
-Your browser’s <code class="docutils literal notranslate"><span class="pre">CSRF</span></code> enforcement logs can be found in the browser console and in the
-network tab.</p>
-<p>For example:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Failed to load resource: the server responded with a status of 403 (Forbidden)</span>
+<div class="section" id="envoy-csrf">
+<h3>步骤 4：测试 Envoy 的 CSRF 能力<a class="headerlink" href="#envoy-csrf" title="Permalink to this headline">¶</a></h3>
+<p>现在，你可以打开一个浏览器，输入 <a class="reference external" href="http://localhost:8002">http://localhost:8002</a> 来查看 <code class="docutils literal notranslate"><span class="pre">crosssite</span></code> 前端服务。</p>
+<p>输入 <code class="docutils literal notranslate"><span class="pre">samesite</span></code> 机器的 IP 来演示跨站点请求。开启了强制执行功能的请求将会失败。默认情况下，此字段将填充为 <code class="docutils literal notranslate"><span class="pre">localhost</span></code>。</p>
+<p>为了演示同站点请求，在 <a class="reference external" href="http://localhost:8000">http://localhost:8000</a> 中打开 <code class="docutils literal notranslate"><span class="pre">samesite</span></code> 前端服务，将 <code class="docutils literal notranslate"><span class="pre">samesite</span></code> 机器的 IP 地址当作目的地来输入。</p>
+<p>跨站点请求的结果将展示在页面的 <em>Request Results</em> 下。你会在浏览器控制台和网络选项卡中找到浏览器的 <code class="docutils literal notranslate"><span class="pre">CSRF</span></code> 强制执行日志。</p>
+<p>例如：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">加载资源失败：服务器返回了 403（禁止） 状态码</span>
 </pre></div>
 </div>
-<p>If you change the destination to be the same as one displaying the website and
-set the <code class="docutils literal notranslate"><span class="pre">CSRF</span></code> enforcement to enabled the request will go through successfully.</p>
+<p>如果你将目的地址改为和展示网站一样，且开启了 <code class="docutils literal notranslate"><span class="pre">CSRF</span></code> 强制执行，则请求能顺利通过。</p>
 </div>
-<div class="section" id="step-5-check-stats-of-backend-via-admin">
-<h3>Step 5: Check stats of backend via admin<a class="headerlink" href="#step-5-check-stats-of-backend-via-admin" title="Permalink to this headline">¶</a></h3>
-<p>When Envoy runs, it can listen to <code class="docutils literal notranslate"><span class="pre">admin</span></code> requests if a port is configured. In
-the example configs, the backend admin is bound to port <code class="docutils literal notranslate"><span class="pre">8001</span></code>.</p>
-<p>If you browse to <a class="reference external" href="http://localhost:8001/stats">http://localhost:8001/stats</a> you will be able to view
-all of the Envoy stats for the backend. You should see the CORS stats for
-invalid and valid origins increment as you make requests from the frontend cluster.</p>
+<div class="section" id="admin">
+<h3>步骤 5：通过 admin 来查看后端统计<a class="headerlink" href="#admin" title="Permalink to this headline">¶</a></h3>
+<p>当 Envoy 运行时，如果配置了监听端口，它能够监听 <code class="docutils literal notranslate"><span class="pre">admin</span></code> 请求。在示例配置中，后端 admin 被绑定到了 <code class="docutils literal notranslate"><span class="pre">8001</span></code> 端口。</p>
+<p>如果你浏览 <a class="reference external" href="http://localhost:8001/stats">http://localhost:8001/stats</a>，你将能够看到后端的所有 Envoy 统计。当你从前置集群发出请求时，你应该能够看到无效和有效来源的 CORS 统计信息在增加。</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>http.ingress_http.csrf.missing_source_origin: 0
 http.ingress_http.csrf.request_invalid: 1
 http.ingress_http.csrf.request_valid: 0
