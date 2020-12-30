@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>CDN-Loop header &mdash; envoy 1.16.0-9e929f documentation</title>
+  <title>CDN-Loop 头部 &mdash; envoy 1.16.0-6e98b7 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-9e929f
+                1.16.0-6e98b7
               </div>
             
           
@@ -112,11 +112,11 @@
 <li class="toctree-l3"><a class="reference internal" href="../http_conn_man/http_conn_man.html">HTTP 连接管理器</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="http_filters.html">HTTP filters</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="adaptive_concurrency_filter.html">Adaptive Concurrency</a></li>
-<li class="toctree-l4"><a class="reference internal" href="admission_control_filter.html">Admission Control</a></li>
+<li class="toctree-l4"><a class="reference internal" href="admission_control_filter.html">准入控制</a></li>
 <li class="toctree-l4"><a class="reference internal" href="aws_lambda_filter.html">AWS Lambda</a></li>
 <li class="toctree-l4"><a class="reference internal" href="aws_request_signing_filter.html">AWS 请求签名</a></li>
 <li class="toctree-l4"><a class="reference internal" href="buffer_filter.html">Buffer</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">CDN-Loop header</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">CDN-Loop 头部</a></li>
 <li class="toctree-l4"><a class="reference internal" href="compressor_filter.html">Compressor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cors_filter.html">CORS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="csrf_filter.html">CSRF</a></li>
@@ -215,7 +215,7 @@
         
           <li><a href="http_filters.html">HTTP filters</a> &raquo;</li>
         
-      <li>CDN-Loop header</li>
+      <li>CDN-Loop 头部</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -234,39 +234,34 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cdn-loop-header">
-<span id="config-http-filters-cdn-loop"></span><h1>CDN-Loop header<a class="headerlink" href="#cdn-loop-header" title="Permalink to this headline">¶</a></h1>
-<p>The CDN-Loop header filter participates in the cross-CDN loop detection protocol specified by <a class="reference external" href="https://tools.ietf.org/html/rfc8586">RFC
-8586</a>. The CDN-Loop header filter performs two actions.
-First, the filter checks to see how many times a particular CDN identifier has appeared in the
-CDN-Loop header. Next, if the check passes, the filter then appends the CDN identifier to the
-CDN-Loop header and passes the request to the next upstream filter. If the check fails, the filter
-stops processing on the request and returns an error response.</p>
-<p>RFC 8586 is particular in how the CDN-Loop header should be modified. As such:</p>
+  <div class="section" id="cdn-loop">
+<span id="config-http-filters-cdn-loop"></span><h1>CDN-Loop 头部<a class="headerlink" href="#cdn-loop" title="Permalink to this headline">¶</a></h1>
+<p>CDN-Loop 头部过滤器参与 <a class="reference external" href="https://tools.ietf.org/html/rfc8586">RFC 8586</a>  定义的 cross-CDN 循环检测协议。
+CDN-Loop 头部过滤器有两个作用。首先，过滤器会检测 CDN-Loop 头部中特定的 CDN 标识出现过的次数。
+其次，在通过第一步校验后，过滤器会在 CDN-Loop 头部中追加一个 CDN 标识，然后将请求传递给下游过滤器。如果校验失败，
+过滤器会终止该请求的处理并返回一个包含错误信息的响应。</p>
+<p>RFC 8586 在如何修改 CDN-Loop 头部方面有特别的规定。例如：</p>
 <ul class="simple">
-<li><p>other filters in the filter chain should not modify the CDN-Loop header and</p></li>
-<li><p>the HTTP route configuration’s <a class="reference internal" href="../../../api-v3/config/route/v3/route.proto.html#envoy-v3-api-field-config-route-v3-routeconfiguration-request-headers-to-add"><span class="std std-ref">request_headers_to_add</span></a> or
-<a class="reference internal" href="../../../api-v3/config/route/v3/route.proto.html#envoy-v3-api-field-config-route-v3-routeconfiguration-request-headers-to-remove"><span class="std std-ref">request_headers_to_remove</span></a> fields should
-not contain the CDN-Loop header.</p></li>
+<li><p>在过滤器链路上的的其他过滤器不能修改 CDN-Loop 头部，且</p></li>
+<li><p>HTTP 路由配置的 <a class="reference internal" href="../../../api-v3/config/route/v3/route.proto.html#envoy-v3-api-field-config-route-v3-routeconfiguration-request-headers-to-add"><span class="std std-ref">请求头部增加</span></a>
+或 <a class="reference internal" href="../../../api-v3/config/route/v3/route.proto.html#envoy-v3-api-field-config-route-v3-routeconfiguration-request-headers-to-remove"><span class="std std-ref">请求头部删除</span></a>
+应不包含 CDN-Loop 头部。</p></li>
 </ul>
-<p>The filter will coalesce multiple CDN-Loop headers into a single, comma-separated header.</p>
-<div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>The filter is configured with the name <em>envoy.filters.http.cdn_loop</em>.</p>
-<p>The <a class="reference external" href="config_http_filters_cdn_loop">filter config</a> has two fields.</p>
+<p>过滤器会将多个 CDN-Loop 头部合并成一个，以逗号分隔。</p>
+<div class="section" id="id1">
+<h2>配置<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>此过滤器的名称应该被配置为 <em>envoy.filters.http.cdn_loop</em> 。</p>
+<p><a class="reference external" href="config_http_filters_cdn_loop">过滤器配置</a> 有两个字段。</p>
 <ul class="simple">
-<li><p>The <em>cdn_id</em> field sets the identifier that the filter will look for within and append to the
-CDN-Loop header. RFC 8586 calls this field the “cdn-id”; “cdn-id” can either be a pseudonym or a
-hostname the CDN provider has control of. The <em>cdn_id</em> field must not be empty.</p></li>
-<li><p>The <em>max_allowed_occurrences</em> field controls how many times <em>cdn_id</em> can appear in the CDN-Loop
-header on downstream requests (before the filter appends <em>cdn_id</em> to the header). If the <em>cdn_id</em>
-appears more than <em>max_allowed_occurrences</em> times in the header, the filter will reject the
-downstream’s request. Most users should configure <em>max_allowed_occurrences</em> to be 0 (the
-default).</p></li>
+<li><p><em>cdn_id</em> 字段设置过滤器查找和追加在 CDN-Loop 头部中的标识； RFC 8586 称该字段为 “cdn-id”;
+“cdn-id” 可以是 CDN 提供的、可控的化名或主机名。<em>cdn_id</em> 字段必须非空。</p></li>
+<li><p><em>max_allowed_occurrences</em> 字段控制下游请求 CDN-Loop 头部中 <em>cdn_id</em> 可以出现的次数。
+（在过滤器追加 <em>cdn_id</em> 到头部前） 如果头部中 <em>cdn_id</em> 出现的次数大于 <em>max_allowed_occurrences</em>，
+过滤器将拒绝此次下游请求。大多数用户应将 <em>max_allowed_occurrences</em> 设置为 0 （默认值）。</p></li>
 </ul>
 </div>
-<div class="section" id="response-code-details">
-<h2>Response Code Details<a class="headerlink" href="#response-code-details" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>响应码详情<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 33%" />
@@ -274,20 +269,19 @@ default).</p></li>
 <col style="width: 33%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>HTTP Status</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>HTTP 状态</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>invalid_cdn_loop_header</p></td>
-<td><p>400 (Bad Request)</p></td>
-<td><p>The CDN-Loop header in the downstream is invalid or unparseable.</p></td>
+<td><p>400 （错误的请求）</p></td>
+<td><p>下游系统的 CDN-Loop 头部无效或无法转义。</p></td>
 </tr>
 <tr class="row-odd"><td><p>cdn_loop_detected</p></td>
-<td><p>502 (Bad Gateway)</p></td>
-<td><p>The <em>cdn_id</em> value appears more than <em>max_allowed_occurrences</em> in the CDN-Loop header,
-indicating a loop between CDNs.</p></td>
+<td><p>502 （错误网关）</p></td>
+<td><p>CDN-Loop 头部中 <em>cdn_id</em> 的值超过了 <em>max_allowed_occurrences</em>，说明在 CDN 中存在循环。</p></td>
 </tr>
 </tbody>
 </table>
