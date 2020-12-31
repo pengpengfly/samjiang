@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Redis proxy &mdash; envoy 1.16.0-9ed848 documentation</title>
+  <title>Redis 代理 &mdash; envoy 1.16.0-4bc8a2 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-9ed848
+                1.16.0-4bc8a2
               </div>
             
           
@@ -125,7 +125,7 @@
 <li class="toctree-l4"><a class="reference internal" href="postgres_proxy_filter.html">Postgres proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="rate_limit_filter.html">限流</a></li>
 <li class="toctree-l4"><a class="reference internal" href="rbac_filter.html">Role Based Access Control (RBAC) Network Filter</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Redis proxy</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Redis 代理</a></li>
 <li class="toctree-l4"><a class="reference internal" href="rocketmq_proxy_filter.html">RocketMQ proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tcp_proxy_filter.html">TCP proxy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="thrift_proxy_filter.html">Thrift 代理</a></li>
@@ -205,7 +205,7 @@
         
           <li><a href="network_filters.html">网络过滤器</a> &raquo;</li>
         
-      <li>Redis proxy</li>
+      <li>Redis 代理</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -224,17 +224,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="redis-proxy">
-<span id="config-network-filters-redis-proxy"></span><h1>Redis proxy<a class="headerlink" href="#redis-proxy" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="redis">
+<span id="config-network-filters-redis-proxy"></span><h1>Redis 代理<a class="headerlink" href="#redis" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>Redis <a class="reference internal" href="../../../intro/arch_overview/other_protocols/redis.html#arch-overview-redis"><span class="std std-ref">architecture overview</span></a></p></li>
-<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/network/redis_proxy/v3/redis_proxy.proto.html#envoy-v3-api-msg-extensions-filters-network-redis-proxy-v3-redisproxy"><span class="std std-ref">v3 API reference</span></a></p></li>
-<li><p>This filter should be configured with the name <em>envoy.filters.network.redis_proxy</em>.</p></li>
+<li><p>Redis <a class="reference internal" href="../../../intro/arch_overview/other_protocols/redis.html#arch-overview-redis"><span class="std std-ref">架构概览</span></a></p></li>
+<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/network/redis_proxy/v3/redis_proxy.proto.html#envoy-v3-api-msg-extensions-filters-network-redis-proxy-v3-redisproxy"><span class="std std-ref">v3 API 参考</span></a></p></li>
+<li><p>过滤器的名称应该配置为 <em>envoy.filters.network.redis_proxy</em> 。</p></li>
 </ul>
-<div class="section" id="statistics">
-<span id="config-network-filters-redis-proxy-stats"></span><h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
-<p>Every configured Redis proxy filter has statistics rooted at <em>redis.&lt;stat_prefix&gt;.</em> with the
-following statistics:</p>
+<div class="section" id="config-network-filters-redis-proxy-stats">
+<span id="id1"></span><h2>统计信息<a class="headerlink" href="#config-network-filters-redis-proxy-stats" title="Permalink to this headline">¶</a></h2>
+<p>每个配置的 Redis 代理过滤器都有以 <em>redis.&lt;stat_prefix&gt;.</em> 为根如下所示的统计信息：</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -242,59 +241,58 @@ following statistics:</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>downstream_cx_active</p></td>
 <td><p>Gauge</p></td>
-<td><p>Total active connections</p></td>
+<td><p>活跃连接总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>downstream_cx_protocol_error</p></td>
 <td><p>Counter</p></td>
-<td><p>Total protocol errors</p></td>
+<td><p>协议异常数</p></td>
 </tr>
 <tr class="row-even"><td><p>downstream_cx_rx_bytes_buffered</p></td>
 <td><p>Gauge</p></td>
-<td><p>Total received bytes currently buffered</p></td>
+<td><p>当前缓冲中接收的字节数</p></td>
 </tr>
 <tr class="row-odd"><td><p>downstream_cx_rx_bytes_total</p></td>
 <td><p>Counter</p></td>
-<td><p>Total bytes received</p></td>
+<td><p>接收的字节数</p></td>
 </tr>
 <tr class="row-even"><td><p>downstream_cx_total</p></td>
 <td><p>Counter</p></td>
-<td><p>Total connections</p></td>
+<td><p>总连接数</p></td>
 </tr>
 <tr class="row-odd"><td><p>downstream_cx_tx_bytes_buffered</p></td>
 <td><p>Gauge</p></td>
-<td><p>Total sent bytes currently buffered</p></td>
+<td><p>当前缓冲中发送的字节</p></td>
 </tr>
 <tr class="row-even"><td><p>downstream_cx_tx_bytes_total</p></td>
 <td><p>Counter</p></td>
-<td><p>Total bytes sent</p></td>
+<td><p>发送的字节数</p></td>
 </tr>
 <tr class="row-odd"><td><p>downstream_cx_drain_close</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of connections closed due to draining</p></td>
+<td><p>由于排空而关闭的连接数</p></td>
 </tr>
 <tr class="row-even"><td><p>downstream_rq_active</p></td>
 <td><p>Gauge</p></td>
-<td><p>Total active requests</p></td>
+<td><p>活跃的请求数</p></td>
 </tr>
 <tr class="row-odd"><td><p>downstream_rq_total</p></td>
 <td><p>Counter</p></td>
-<td><p>Total requests</p></td>
+<td><p>请求数</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="splitter-statistics">
-<h2>Splitter statistics<a class="headerlink" href="#splitter-statistics" title="Permalink to this headline">¶</a></h2>
-<p>The Redis filter will gather statistics for the command splitter in the
-<em>redis.&lt;stat_prefix&gt;.splitter.</em> with the following statistics:</p>
+<div class="section" id="splitter">
+<h2>拆分器（Splitter）统计信息<a class="headerlink" href="#splitter" title="Permalink to this headline">¶</a></h2>
+<p>Redis 过滤器将使用以下所示统计信息收集 <em>redis.&lt;stat_prefix&gt;.splitter.</em> 中命令拆分器的统计信息：</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -302,28 +300,26 @@ following statistics:</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>invalid_request</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of requests with an incorrect number of arguments</p></td>
+<td><p>参数数目不正确的请求数</p></td>
 </tr>
 <tr class="row-odd"><td><p>unsupported_command</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of commands issued which are not recognized by the command splitter</p></td>
+<td><p>命令拆分器无法识别发出的命令数</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="per-command-statistics">
-<h2>Per command statistics<a class="headerlink" href="#per-command-statistics" title="Permalink to this headline">¶</a></h2>
-<p>The Redis filter will gather statistics for commands in the
-<em>redis.&lt;stat_prefix&gt;.command.&lt;command&gt;.</em> namespace. By default latency stats are in milliseconds and can be
-changed to microseconds by setting the configuration parameter <a class="reference internal" href="../../../api-v3/extensions/filters/network/redis_proxy/v3/redis_proxy.proto.html#envoy-v3-api-field-extensions-filters-network-redis-proxy-v3-redisproxy-latency-in-micros"><span class="std std-ref">latency_in_micros</span></a> to true.</p>
+<div class="section" id="id2">
+<h2>命令统计信息<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Redis 过滤器将会收集 <em>redis.&lt;stat_prefix&gt;.command.&lt;command&gt;.</em> 命名空间中命令的统计信息。默认情况下延迟信息以毫秒为单位，并且可以通过设置配置参数 <a class="reference internal" href="../../../api-v3/extensions/filters/network/redis_proxy/v3/redis_proxy.proto.html#envoy-v3-api-field-extensions-filters-network-redis-proxy-v3-redisproxy-latency-in-micros"><span class="std std-ref">latency_in_micros</span></a> 为 true 更改为微秒。</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -331,66 +327,56 @@ changed to microseconds by setting the configuration parameter <a class="referen
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>total</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of commands</p></td>
+<td><p>命令数</p></td>
 </tr>
 <tr class="row-odd"><td><p>success</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of commands that were successful</p></td>
+<td><p>成功命令数</p></td>
 </tr>
 <tr class="row-even"><td><p>error</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of commands that returned a partial or complete error response</p></td>
+<td><p>返回部分或完整异常响应的命令数</p></td>
 </tr>
 <tr class="row-odd"><td><p>latency</p></td>
 <td><p>Histogram</p></td>
-<td><p>Command execution time in milliseconds (including delay faults)</p></td>
+<td><p>命令执行时间毫秒（包含延迟故障）</p></td>
 </tr>
 <tr class="row-even"><td><p>error_fault</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of commands that had an error fault injected</p></td>
+<td><p>注入异常故障的命令数</p></td>
 </tr>
 <tr class="row-odd"><td><p>delay_fault</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of commands that had a delay fault injected</p></td>
+<td><p>注入延迟故障的命令数</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="runtime">
-<span id="config-network-filters-redis-proxy-per-command-stats"></span><h2>Runtime<a class="headerlink" href="#runtime" title="Permalink to this headline">¶</a></h2>
-<p>The Redis proxy filter supports the following runtime settings:</p>
+<div class="section" id="config-network-filters-redis-proxy-per-command-stats">
+<span id="id3"></span><h2>运行时<a class="headerlink" href="#config-network-filters-redis-proxy-per-command-stats" title="Permalink to this headline">¶</a></h2>
+<p>Redis 代理过滤器支持如下所示的运行时设置：</p>
 <dl class="simple">
-<dt>redis.drain_close_enabled</dt><dd><p>% of connections that will be drain closed if the server is draining and would otherwise
-attempt a drain close. Defaults to 100.</p>
+<dt>redis.drain_close_enabled</dt><dd><p>连接的百分比表示如果服务器正在关闭，则将关闭连接，否则将尝试关闭连接。默认为 100。</p>
 </dd>
 </dl>
 </div>
-<div class="section" id="fault-injection">
-<span id="config-network-filters-redis-proxy-fault-injection"></span><h2>Fault Injection<a class="headerlink" href="#fault-injection" title="Permalink to this headline">¶</a></h2>
-<p>The Redis filter can perform fault injection. Currently, Delay and Error faults are supported.
-Delay faults delay a request, and Error faults respond with an error. Moreover, errors can be delayed.</p>
-<p>Note that the Redis filter does not check for correctness in your configuration - it is the user’s
-responsibility to make sure both the default and runtime percentages are correct! This is because
-percentages can be changed during runtime, and validating correctness at request time is expensive.
-If multiple faults are specified, the fault injection percentage should not exceed 100% for a given
-fault and Redis command combination. For example, if two faults are specified; one applying to GET at 60
-%, and one applying to all commands at 50%, that is a bad configuration as GET now has 110% chance of
-applying a fault. This means that every request will have a fault.</p>
-<p>If a delay is injected, the delay is additive - if the request took 400ms and a delay of 100ms
-is injected, then the total request latency is 500ms. Also, due to implementation of the redis protocol,
-a delayed request will delay everything that comes in after it, due to the proxy’s need to respect the
-order of commands it receives.</p>
-<p>Note that faults must have a <cite>fault_enabled</cite> field, and are not enabled by default (if no default value
-or runtime key are set).</p>
-<p>Example configuration:</p>
+<div class="section" id="config-network-filters-redis-proxy-fault-injection">
+<span id="id4"></span><h2>故障注入<a class="headerlink" href="#config-network-filters-redis-proxy-fault-injection" title="Permalink to this headline">¶</a></h2>
+<p>Redis 过滤器可以执行故障注入。当前，延迟和异常故障都是支持的。延迟故障延迟请求，异常故障以异常响应。此外，异常也可以延迟。</p>
+<p>注意，Redis 过滤器不会检查配置的正确性，因为这是用户负责确保默认值和运行时百分比都是正确的。这是因为百分比可以在运行时被修改，同时在请求时验证正确性是非常昂贵的。
+如果指定了多个故障，对于默认的故障和 Redis 命令组合注入故障百分比之和不会超过 100%。例如，如果指定了两个故障，一个应用于 60% 的 GET 请求，另一个应用于所有命令的 50%，这显然是一个错误的配置，因为 GET 请求有 110% 的机会应用错误。
+这也就意味每个请求都会有一个错误。</p>
+<p>如果注入一个延迟，那么延迟是会累加的。如果请求花费 400ms 再注入 100ms 的延迟，那么总的请求延迟就是 500ms。此外，由于 Redis 协议的实施，因为代理需要维护它所收到的命令顺序，所以延迟请求将会延迟在他之后的所有请求。</p>
+<p>注意，故障必须有一个 <cite>fault_enabled</cite> 字段，并且默认情况下是不启用的（如果没有默认值或在运行时设置值）。</p>
+<p>配置示例：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">faults</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="nt">fault_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ERROR</span>
   <span class="nt">fault_enabled</span><span class="p">:</span>
@@ -409,8 +395,7 @@ or runtime key are set).</p>
     <span class="nt">delay</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2s</span>
 </pre></div>
 </div>
-<p>This creates two faults- an error, applying only to GET commands at 10%, and a delay, applying to all
-commands at 10%. This means that 20% of GET commands will have a fault applied, as discussed earlier.</p>
+<p>这个示例创建了两个故障，一个应用于 10% 的 GET 请求异常。另一个应用于 10% 的所有命令延迟。这就意味着 20% 的 GET 命令将应用一个错误，如前所述的一样。</p>
 </div>
 </div>
 
