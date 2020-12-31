@@ -10,7 +10,7 @@ Use the Original source address on upstream connections.
 config.filter.http.original_src.v2alpha1.OriginalSrc
 ----------------------------------------------------
 
-`[config.filter.http.original_src.v2alpha1.OriginalSrc proto] <https://github.com/envoyproxy/envoy/blob/4bc8a2989c8c40c8830a70255b92fc7e18e81ce2/api/envoy/config/filter/http/original_src/v2alpha1/original_src.proto#L22>`_
+`[config.filter.http.original_src.v2alpha1.OriginalSrc proto] <https://github.com/envoyproxy/envoy/blob/26b3eda2c9e67571763eb125b27587275e504272/api/envoy/config/filter/http/original_src/v2alpha1/original_src.proto#L22>`_
 
 The Original Src filter binds upstream connections to the original source address determined
 for the request. This address could come from something like the Proxy Protocol filter, or it

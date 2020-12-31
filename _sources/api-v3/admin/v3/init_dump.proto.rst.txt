@@ -9,7 +9,7 @@ InitDump
 admin.v3.UnreadyTargetsDumps
 ----------------------------
 
-`[admin.v3.UnreadyTargetsDumps proto] <https://github.com/envoyproxy/envoy/blob/4bc8a2989c8c40c8830a70255b92fc7e18e81ce2/api/envoy/admin/v3/init_dump.proto#L17>`_
+`[admin.v3.UnreadyTargetsDumps proto] <https://github.com/envoyproxy/envoy/blob/26b3eda2c9e67571763eb125b27587275e504272/api/envoy/admin/v3/init_dump.proto#L17>`_
 
 Dumps of unready targets of envoy init managers. Envoy's admin fills this message with init managers,
 which provides the information of their unready targets.
@@ -34,7 +34,7 @@ unready_targets_dumps
 admin.v3.UnreadyTargetsDumps.UnreadyTargetsDump
 -----------------------------------------------
 
-`[admin.v3.UnreadyTargetsDumps.UnreadyTargetsDump proto] <https://github.com/envoyproxy/envoy/blob/4bc8a2989c8c40c8830a70255b92fc7e18e81ce2/api/envoy/admin/v3/init_dump.proto#L19>`_
+`[admin.v3.UnreadyTargetsDumps.UnreadyTargetsDump proto] <https://github.com/envoyproxy/envoy/blob/26b3eda2c9e67571763eb125b27587275e504272/api/envoy/admin/v3/init_dump.proto#L19>`_
 
 Message of unready targets information of an init manager.
 
