@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Extension configuration &mdash; envoy 1.16.0-37c525 documentation</title>
+  <title>扩展配置 &mdash; envoy 1.16.0-e199d0 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-37c525
+                1.16.0-e199d0
               </div>
             
           
@@ -111,8 +111,8 @@
 <li class="toctree-l3"><a class="reference internal" href="versioning.html">版本控制</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bootstrap.html">Bootstrap 配置</a></li>
 <li class="toctree-l3"><a class="reference internal" href="examples.html">示例</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Extension configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#discovery-service">Discovery service</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">扩展配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#config-overview-extension-discovery">发现服务</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="xds_api.html">xDS API endpoints</a></li>
@@ -185,7 +185,7 @@
         
           <li><a href="overview.html">概览</a> &raquo;</li>
         
-      <li>Extension configuration</li>
+      <li>扩展配置</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -204,15 +204,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="extension-configuration">
-<span id="config-overview-extension-configuration"></span><h1>Extension configuration<a class="headerlink" href="#extension-configuration" title="Permalink to this headline">¶</a></h1>
-<p>Each configuration resource in Envoy has a type URL in the <cite>typed_config</cite>. This
-type corresponds to a versioned schema. If the type URL uniquely identifies an
-extension capable of interpreting the configuration, then the extension is
-selected regardless of the <cite>name</cite> field. In this case the <cite>name</cite> field becomes
-optional and can be used as an identifier or as an annotation for the
-particular instance of the extension configuration. For example, the following
-filter configuration snippet is permitted:</p>
+  <div class="section" id="config-overview-extension-configuration">
+<span id="id1"></span><h1>扩展配置<a class="headerlink" href="#config-overview-extension-configuration" title="Permalink to this headline">¶</a></h1>
+<p>Envoy 中的每一个配置资源，在 <cite>typed_config</cite> 中都有一个类型 URL。此类型对应于一个带版本的 schema。如果一个类型 URL 能够唯一标识解释性配置的可扩展能力，则此扩展会被选择，而不会去考虑  <cite>name</cite> 字段。在此情况下，<cite>name</cite> 字段是可选的，可以被当作一个标识符或可扩展配置特定实例的注解来使用。比如，允许如下所示的的过滤器配置片段：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">front-http-proxy</span>
 <span class="nt">typed_config</span><span class="p">:</span>
   <span class="s">&quot;@type&quot;</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager</span>
@@ -233,11 +227,7 @@ filter configuration snippet is permitted:</p>
       <span class="nt">dynamic_stats</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
-<p>In case the control plane lacks the schema definitions for an extension,
-<cite>udpa.type.v1.TypedStruct</cite> should be used as a generic container. The type URL
-inside it is then used by a client to convert the contents to a typed
-configuration resource. For example, the above example could be written as
-follows:</p>
+<p>以防控制面缺乏对扩展的 schema 定义能力，<cite>udpa.type.v1.TypedStruct</cite> 应该被用来作为一个通用容器。容器内的类型 URL 就可以被客户端用来将内容转换为特定类型的配置资源。比如，上述示例也可以写为如下所示的例子：</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">front-http-proxy</span>
 <span class="nt">typed_config</span><span class="p">:</span>
   <span class="s">&quot;@type&quot;</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">type.googleapis.com/udpa.type.v1.TypedStruct</span>
@@ -260,18 +250,13 @@ follows:</p>
         <span class="nt">type_url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type.googleapis.com/envoy.extensions.filters.http.router.v3Router</span>
 </pre></div>
 </div>
-<div class="section" id="discovery-service">
-<span id="config-overview-extension-discovery"></span><h2>Discovery service<a class="headerlink" href="#discovery-service" title="Permalink to this headline">¶</a></h2>
-<p>Extension configuration can be supplied dynamically from an <a class="reference internal" href="../../api-docs/xds_protocol.html#xds-protocol"><span class="std std-ref">xDS
-management server</span></a> using <a class="reference internal" href="../../api-v3/service/extension/v3/config_discovery.proto.html#envoy-v3-api-file-envoy-service-extension-v3-config-discovery-proto"><span class="std std-ref">ExtensionConfiguration discovery
-service</span></a>.
-The name field in the extension configuration acts as the resource identifier.
-For example, HTTP connection manager supports <a class="reference internal" href="../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpfilter-config-discovery"><span class="std std-ref">dynamic filter
-re-configuration</span></a>
-for HTTP filters.</p>
+<div class="section" id="config-overview-extension-discovery">
+<span id="id2"></span><h2>发现服务<a class="headerlink" href="#config-overview-extension-discovery" title="Permalink to this headline">¶</a></h2>
+<p>扩展配置可以使用 <a class="reference internal" href="../../api-v3/service/extension/v3/config_discovery.proto.html#envoy-v3-api-file-envoy-service-extension-v3-config-discovery-proto"><span class="std std-ref">ExtensionConfiguration 发现服务</span></a> 的 <a class="reference internal" href="../../api-docs/xds_protocol.html#xds-protocol"><span class="std std-ref">xDS 管理服务器</span></a> 来动态提供。扩展配置中的 name 字段充当资源标识符。比如，HTTP 连接管理器支持 HTTP 过滤器的 <a class="reference internal" href="../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpfilter-config-discovery"><span class="std std-ref">动态过滤器重配置</span></a>。</p>
 <p>Extension config discovery service has a <a class="reference internal" href="mgmt_server.html#subscription-statistics"><span class="std std-ref">statistics</span></a> tree rooted at
 <em>&lt;stat_prefix&gt;.extension_config_discovery.&lt;extension_config_name&gt;</em>. In addition
 to the common subscription statistics, it also provides the following:</p>
+<p>扩展配置发现服务有一个以 <em>&lt;stat_prefix&gt;.extension_config_discovery.&lt;extension_config_name&gt;</em> 为根的 <a class="reference internal" href="mgmt_server.html#subscription-statistics"><span class="std std-ref">统计</span></a> 树。除了公共订阅统计，它还提供如下统计：</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -279,19 +264,19 @@ to the common subscription statistics, it also provides the following:</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>config_reload</p></td>
 <td><p>Counter</p></td>
-<td><p>Total number of successful configuration updates</p></td>
+<td><p>配置更新成功的总数</p></td>
 </tr>
 <tr class="row-odd"><td><p>config_fail</p></td>
 <td><p>Counter</p></td>
-<td><p>Total number of failed configuration updates</p></td>
+<td><p>配置更新失败的总数</p></td>
 </tr>
 </tbody>
 </table>

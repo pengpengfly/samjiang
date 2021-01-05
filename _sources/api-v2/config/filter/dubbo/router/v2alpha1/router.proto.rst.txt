@@ -10,7 +10,7 @@ Dubbo router :ref:`configuration overview <config_dubbo_filters_router>`.
 config.filter.dubbo.router.v2alpha1.Router
 ------------------------------------------
 
-`[config.filter.dubbo.router.v2alpha1.Router proto] <https://github.com/envoyproxy/envoy/blob/37c525746d1b2dc79f90e9563a34e46ec139c6f3/api/envoy/config/filter/dubbo/router/v2alpha1/router.proto#L17>`_
+`[config.filter.dubbo.router.v2alpha1.Router proto] <https://github.com/envoyproxy/envoy/blob/e199d0879fa59582a32627ce3b76cd1cf6d58cca/api/envoy/config/filter/dubbo/router/v2alpha1/router.proto#L17>`_
 
 
 .. code-block:: json
