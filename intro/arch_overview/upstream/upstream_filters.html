@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Upstream network filters &mdash; envoy 1.16.0-e199d0 documentation</title>
+  <title>上游网络过滤器 &mdash; envoy 1.16.0-65dee2 documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-e199d0
+                1.16.0-65dee2
               </div>
             
           
@@ -116,7 +116,7 @@
 <li class="toctree-l4"><a class="reference internal" href="aggregate_cluster.html">聚合集群</a></li>
 <li class="toctree-l4"><a class="reference internal" href="outlier.html">异常点检测</a></li>
 <li class="toctree-l4"><a class="reference internal" href="circuit_breaking.html">断路</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Upstream network filters</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">上游网络过滤器</a></li>
 <li class="toctree-l4"><a class="reference internal" href="load_reporting_service.html">负载上报服务 (LRS)</a></li>
 </ul>
 </li>
@@ -193,7 +193,7 @@
         
           <li><a href="upstream.html">上游集群</a> &raquo;</li>
         
-      <li>Upstream network filters</li>
+      <li>上游网络过滤器</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -212,16 +212,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="upstream-network-filters">
-<span id="arch-overview-upstream-filters"></span><h1>Upstream network filters<a class="headerlink" href="#upstream-network-filters" title="Permalink to this headline">¶</a></h1>
-<p>Upstream clusters provide an ability to inject network level (L3/L4)
-filters. It should be noted that a network filter needs to
-be registered in code as an upstream filter before usage. Currently,
-there are no upstream filters available in Envoy out of the box.
-The filters apply to the connection to the upstream hosts, using the same API presented by listeners for
-the downstream connections. The write-callbacks are invoked for any chunk of
-data sent to the upstream host, and the read-callbacks are invoked for data
-received from the upstream host.</p>
+  <div class="section" id="arch-overview-upstream-filters">
+<span id="id1"></span><h1>上游网络过滤器<a class="headerlink" href="#arch-overview-upstream-filters" title="Permalink to this headline">¶</a></h1>
+<p>上游集群提供了注入网络级（L3/L4）过滤器的能力。需要注意的是，网络过滤器在使用前需要在代码中先注册为上游过滤器。目前，Envoy 中还没有开箱即用的上游过滤器可用。过滤器应用于到上游主机的连接，使用监听器为下游连接提供的相同 API，来对发送到上游主机的任何数据块进行写回调，对从上游主机接收的数据进行读回调。</p>
 </div>
 
 

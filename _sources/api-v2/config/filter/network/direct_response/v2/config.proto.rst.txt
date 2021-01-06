@@ -20,7 +20,7 @@ Direct response :ref:`configuration overview <config_network_filters_direct_resp
 config.filter.network.direct_response.v2.Config
 -----------------------------------------------
 
-`[config.filter.network.direct_response.v2.Config proto] <https://github.com/envoyproxy/envoy/blob/e199d0879fa59582a32627ce3b76cd1cf6d58cca/api/envoy/config/filter/network/direct_response/v2/config.proto#L20>`_
+`[config.filter.network.direct_response.v2.Config proto] <https://github.com/envoyproxy/envoy/blob/65dee2d25e929f3942f8fece7fbee5d02de4b760/api/envoy/config/filter/network/direct_response/v2/config.proto#L20>`_
 
 
 .. code-block:: json

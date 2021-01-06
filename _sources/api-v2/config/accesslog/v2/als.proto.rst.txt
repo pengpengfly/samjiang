@@ -9,7 +9,7 @@ gRPC Access Log Service (ALS)
 config.accesslog.v2.HttpGrpcAccessLogConfig
 -------------------------------------------
 
-`[config.accesslog.v2.HttpGrpcAccessLogConfig proto] <https://github.com/envoyproxy/envoy/blob/e199d0879fa59582a32627ce3b76cd1cf6d58cca/api/envoy/config/accesslog/v2/als.proto#L26>`_
+`[config.accesslog.v2.HttpGrpcAccessLogConfig proto] <https://github.com/envoyproxy/envoy/blob/65dee2d25e929f3942f8fece7fbee5d02de4b760/api/envoy/config/accesslog/v2/als.proto#L26>`_
 
 Configuration for the built-in *envoy.access_loggers.http_grpc*
 :ref:`AccessLog <envoy_api_msg_config.filter.accesslog.v2.AccessLog>`. This configuration will
@@ -68,7 +68,7 @@ additional_response_trailers_to_log
 config.accesslog.v2.TcpGrpcAccessLogConfig
 ------------------------------------------
 
-`[config.accesslog.v2.TcpGrpcAccessLogConfig proto] <https://github.com/envoyproxy/envoy/blob/e199d0879fa59582a32627ce3b76cd1cf6d58cca/api/envoy/config/accesslog/v2/als.proto#L45>`_
+`[config.accesslog.v2.TcpGrpcAccessLogConfig proto] <https://github.com/envoyproxy/envoy/blob/65dee2d25e929f3942f8fece7fbee5d02de4b760/api/envoy/config/accesslog/v2/als.proto#L45>`_
 
 Configuration for the built-in *envoy.access_loggers.tcp_grpc* type. This configuration will
 populate *StreamAccessLogsMessage.tcp_logs*.
@@ -101,7 +101,7 @@ common_config
 config.accesslog.v2.CommonGrpcAccessLogConfig
 ---------------------------------------------
 
-`[config.accesslog.v2.CommonGrpcAccessLogConfig proto] <https://github.com/envoyproxy/envoy/blob/e199d0879fa59582a32627ce3b76cd1cf6d58cca/api/envoy/config/accesslog/v2/als.proto#L51>`_
+`[config.accesslog.v2.CommonGrpcAccessLogConfig proto] <https://github.com/envoyproxy/envoy/blob/65dee2d25e929f3942f8fece7fbee5d02de4b760/api/envoy/config/accesslog/v2/als.proto#L51>`_
 
 Common configuration for gRPC access logs.
 

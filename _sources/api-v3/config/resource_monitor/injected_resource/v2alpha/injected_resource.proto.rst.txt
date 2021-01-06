@@ -19,7 +19,7 @@ This extension may be referenced by the qualified name *envoy.resource_monitors.
 config.resource_monitor.injected_resource.v2alpha.InjectedResourceConfig
 ------------------------------------------------------------------------
 
-`[config.resource_monitor.injected_resource.v2alpha.InjectedResourceConfig proto] <https://github.com/envoyproxy/envoy/blob/e199d0879fa59582a32627ce3b76cd1cf6d58cca/api/envoy/config/resource_monitor/injected_resource/v2alpha/injected_resource.proto#L19>`_
+`[config.resource_monitor.injected_resource.v2alpha.InjectedResourceConfig proto] <https://github.com/envoyproxy/envoy/blob/65dee2d25e929f3942f8fece7fbee5d02de4b760/api/envoy/config/resource_monitor/injected_resource/v2alpha/injected_resource.proto#L19>`_
 
 The injected resource monitor allows injecting a synthetic resource pressure into Envoy
 via a text file, which must contain a floating-point number in the range [0..1] representing

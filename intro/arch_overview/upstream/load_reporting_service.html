@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>负载上报服务 (LRS) &mdash; envoy 1.16.0-e199d0 documentation</title>
+  <title>负载上报服务 (LRS) &mdash; envoy 1.16.0-65dee2 documentation</title>
   
 
   
@@ -47,7 +47,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="可观察性" href="../observability/observability.html" />
-    <link rel="prev" title="Upstream network filters" href="upstream_filters.html" /> 
+    <link rel="prev" title="上游网络过滤器" href="upstream_filters.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-e199d0
+                1.16.0-65dee2
               </div>
             
           
@@ -116,7 +116,7 @@
 <li class="toctree-l4"><a class="reference internal" href="aggregate_cluster.html">聚合集群</a></li>
 <li class="toctree-l4"><a class="reference internal" href="outlier.html">异常点检测</a></li>
 <li class="toctree-l4"><a class="reference internal" href="circuit_breaking.html">断路</a></li>
-<li class="toctree-l4"><a class="reference internal" href="upstream_filters.html">Upstream network filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="upstream_filters.html">上游网络过滤器</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">负载上报服务 (LRS)</a></li>
 </ul>
 </li>
@@ -216,7 +216,7 @@
 <span id="arch-overview-load-reporting-service"></span><h1>负载上报服务 (LRS)<a class="headerlink" href="#lrs" title="Permalink to this headline">¶</a></h1>
 <p>负载上报服务提供了一种机制，使 Envoy 可以定期向管理服务器发送负载报告。</p>
 <p>这将启动一个与管理服务器的双向流。连接后，管理服务器可以发送一个 <a class="reference internal" href="../../../api-v3/service/load_stats/v3/lrs.proto.html#envoy-v3-api-msg-service-load-stats-v3-loadstatsresponse"><span class="std std-ref">LoadStatsResponse</span></a> 给它有兴趣获取负载报告的节点。这个节点中的 Envoy 将开始发送 <a class="reference internal" href="../../../api-v3/service/load_stats/v3/lrs.proto.html#envoy-v3-api-msg-service-load-stats-v3-loadstatsrequest"><span class="std std-ref">LoadStatsRequest</span></a>。这是根据 <a class="reference internal" href="../../../api-v3/service/load_stats/v3/lrs.proto.html#envoy-v3-api-field-service-load-stats-v3-loadstatsresponse-load-reporting-interval"><span class="std std-ref">负载上报时间间隔</span></a> 定期进行的。</p>
-<p>负载上报服务的配置可以参考 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e199d0879fa59582a32627ce3b76cd1cf6d58cca//examples/load-reporting-service/service-envoy-w-lrs.yaml">/examples/load-reporting-service/service-envoy-w-lrs.yaml</a>。</p>
+<p>负载上报服务的配置可以参考 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/65dee2d25e929f3942f8fece7fbee5d02de4b760//examples/load-reporting-service/service-envoy-w-lrs.yaml">/examples/load-reporting-service/service-envoy-w-lrs.yaml</a>。</p>
 </div>
 
 
@@ -230,7 +230,7 @@
         <a href="../observability/observability.html" class="btn btn-neutral float-right" title="可观察性" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="upstream_filters.html" class="btn btn-neutral float-left" title="Upstream network filters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="upstream_filters.html" class="btn btn-neutral float-left" title="上游网络过滤器" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

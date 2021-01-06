@@ -20,7 +20,7 @@ AwsRequestSigning :ref:`configuration overview <config_http_filters_aws_request_
 config.filter.http.aws_request_signing.v2alpha.AwsRequestSigning
 ----------------------------------------------------------------
 
-`[config.filter.http.aws_request_signing.v2alpha.AwsRequestSigning proto] <https://github.com/envoyproxy/envoy/blob/e199d0879fa59582a32627ce3b76cd1cf6d58cca/api/envoy/config/filter/http/aws_request_signing/v2alpha/aws_request_signing.proto#L20>`_
+`[config.filter.http.aws_request_signing.v2alpha.AwsRequestSigning proto] <https://github.com/envoyproxy/envoy/blob/65dee2d25e929f3942f8fece7fbee5d02de4b760/api/envoy/config/filter/http/aws_request_signing/v2alpha/aws_request_signing.proto#L20>`_
 
 Top level configuration for the AWS request signing filter.
 
