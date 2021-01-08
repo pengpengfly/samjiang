@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>CSRF &mdash; envoy 1.16.0-65dee2 documentation</title>
+  <title>CSRF &mdash; envoy 1.16.0-19bdbc documentation</title>
   
 
   
@@ -46,7 +46,7 @@
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Decompressor" href="decompressor_filter.html" />
+    <link rel="next" title="解压缩器" href="decompressor_filter.html" />
     <link rel="prev" title="CORS" href="cors_filter.html" /> 
 </head>
 
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-65dee2
+                1.16.0-19bdbc
               </div>
             
           
@@ -120,7 +120,7 @@
 <li class="toctree-l4"><a class="reference internal" href="compressor_filter.html">Compressor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cors_filter.html">CORS</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">CSRF</a></li>
-<li class="toctree-l4"><a class="reference internal" href="decompressor_filter.html">Decompressor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="decompressor_filter.html">解压缩器</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dynamic_forward_proxy_filter.html">动态转发代理</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dynamodb_filter.html">DynamoDB</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ext_authz_filter.html">External Authorization</a></li>
@@ -236,85 +236,61 @@
             
   <div class="section" id="csrf">
 <span id="config-http-filters-csrf"></span><h1>CSRF<a class="headerlink" href="#csrf" title="Permalink to this headline">¶</a></h1>
-<p>This is a filter which prevents Cross-Site Request Forgery based on a route or virtual host settings.
-At it’s simplest, CSRF is an attack that occurs when a malicious third-party
-exploits a vulnerability that allows them to submit an undesired request on the
-user’s behalf.</p>
-<p>A real-life example is cited in section 1 of <a class="reference external" href="https://seclab.stanford.edu/websec/csrf/csrf.pdf">Robust Defenses for Cross-Site Request Forgery</a>:</p>
+<p>此过滤器可以用来防止基于路由或虚拟主机设置的跨站点请求伪造。简单来说，CSRF 是这样一种攻击方式：恶意的第三方利用漏洞，使得他们可以仿冒用户提交非正常的请求。</p>
+<p>在章节 1 的 <a class="reference external" href="https://seclab.stanford.edu/websec/csrf/csrf.pdf">对跨站点请求伪造的强大防御</a> 中有一个真实的例子：</p>
 <blockquote>
-<div><p>“For example, in late 2007 [42], Gmail had a CSRF vulnerability. When a Gmail user visited
-a malicious site, the malicious site could generate a request to Gmail that Gmail treated
-as part of its ongoing session with the victim. In November 2007, a web attacker exploited
-this CSRF vulnerability to inject an email filter into David Airey’s Gmail account [1].”</p>
+<div><p>“例如，在 2007 年末[42]，Gmail 有一个 CSRF 漏洞。当 Gmail 用户访问恶意站点时，恶意站点能够为 Gmail 生成一个请求，
+Gmail 将其视为与受害者进行持续会话的一部分。在 2007 年 11 月，一位网站攻击者利用此 CSRF 漏洞向 David Airey 的
+Gmail 账号[1]中注入了电子邮箱过滤器。”</p>
 </div></blockquote>
-<p>There are many ways to mitigate CSRF, some of which have been outlined in the
-<a class="reference external" href="https://github.com/OWASP/CheatSheetSeries/blob/5a1044e38778b42a19c6adbb4dfef7a0fb071099/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.md">OWASP Prevention Cheat Sheet</a>.
-This filter employs a stateless mitigation pattern known as origin verification.</p>
-<p>This pattern relies on two pieces of information used in determining if
-a request originated from the same host.
-* The origin that caused the user agent to issue the request (source origin).
-* The origin that the request is going to (target origin).</p>
-<p>When the filter is evaluating a request, it ensures both pieces of information are present
-and compares their values. If the source origin is missing or the origins do not match
-the request is rejected. The exception to this being if the source origin has been
-added to the policy as valid. Because CSRF attacks specifically target state-changing
-requests, the filter only acts on HTTP requests that have a state-changing method
-(POST, PUT, etc.).</p>
+<p>有很多种方法来减轻 CSRF 攻击，有一些已经在 <a class="reference external" href="https://github.com/OWASP/CheatSheetSeries/blob/5a1044e38778b42a19c6adbb4dfef7a0fb071099/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.md">OWASP 预防备忘单</a> 罗列出来了。
+此过滤器采用了一种称之为来源验证的无状态减轻攻击模式。</p>
+<p>此种模式依赖以下两条用于确定请求是否来自同一个主机的信息：
+* 导致用户代理发布请求的源（请求源）。
+* 请求将要发送到的源（目的源）。</p>
+<p>当过滤器评估一个请求时，必须确保上述信息都是存在的，且要比较它们的值。如果请求源缺失或者来源不匹配，则请求被拒绝。例外的情况是，如果请求源被视为有效且已经被添加到了策略中。因为 CSRF 攻击专门针对状态改变的请求，因此过滤器仅对具有状态改变方法（POST、PUT 等）的 HTTP 请求起作用。</p>
 <blockquote>
 <div><div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Due to differing functionality between browsers this filter will determine
-a request’s source origin from the Origin header. If that is not present it will
-fall back to the host and port value from the requests Referer header.</p>
+<p>由于各浏览器之间的功能不尽相同，此过滤器将通过信息头部来决定请求的来源，如果这些信息不存在，它将会返回请求头部引用中主机和端口的值。</p>
 </div>
 </div></blockquote>
-<p>For more information on CSRF please refer to the pages below.</p>
+<p>关于 CSRF 的更多信息，可参与下面页内容。</p>
 <ul>
 <li><p><a class="reference external" href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29">https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29</a></p></li>
 <li><p><a class="reference external" href="https://seclab.stanford.edu/websec/csrf/csrf.pdf">https://seclab.stanford.edu/websec/csrf/csrf.pdf</a></p></li>
-<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/http/csrf/v3/csrf.proto.html#envoy-v3-api-msg-extensions-filters-http-csrf-v3-csrfpolicy"><span class="std std-ref">v3 API reference</span></a></p>
+<li><p><a class="reference internal" href="../../../api-v3/extensions/filters/http/csrf/v3/csrf.proto.html#envoy-v3-api-msg-extensions-filters-http-csrf-v3-csrfpolicy"><span class="std std-ref">v3 API 参考</span></a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This filter should be configured with the name <em>envoy.filters.http.csrf</em>.</p>
+<p>此过滤器的名称应该配置为 <em>envoy.filters.http.csrf</em>。</p>
 </div>
 </li>
 </ul>
-<div class="section" id="configuration">
-<span id="csrf-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>The CSRF filter supports the ability to extend the source origins it will consider
-valid. The reason it is able to do this while still mitigating cross-site request
-forgery attempts is because the target origin has already been reached by the time
-front-envoy is applying the filter. This means that while endpoints may support
-cross-origin requests they are still protected from malicious third-parties who
-have not been allowlisted.</p>
-<p>It’s important to note that requests should generally originate from the same
-origin as the target but there are use cases where that may not be possible.
-For example, if you are hosting a static site on a third-party vendor but need
-to make requests for tracking purposes.</p>
+<div class="section" id="csrf-configuration">
+<span id="id2"></span><h2>配置<a class="headerlink" href="#csrf-configuration" title="Permalink to this headline">¶</a></h2>
+<p>CSRF 过滤器支持扩展能力，用来扩展它认为有效的请求源。它之所以能够做到这一点，且同时又能减轻了跨站点
+请求伪造的企图的原因，在于 front-envoy 应用过滤器时已经达到了目的源。这就意味着虽然端点可能支持跨源请求，
+但它们依旧受到保护，以避免那些不被允许的恶意的第三方的攻击。</p>
+<p>需要注意的是，请求通常应该来自与目标相同的来源，但有些用例可能做到这一点。比如，你正在第三方供应商上托管了一个静态网站，但是又需要因追踪目的发出一些请求。</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Additional origins can be either an exact string, regex pattern, prefix string,
-or suffix string. It’s advised to be cautious when adding regex, prefix, or suffix
-origins since an ambiguous origin can pose a security vulnerability.</p>
+<p>其他的来源可以是精确的字符串、正则表达式、前缀字符串或者后缀字符串。当添加正则表达式、前缀或后缀来源时，
+建议谨慎行事，因为不明确的来源可能会造成安全漏洞。</p>
 </div>
 </div>
-<div class="section" id="runtime">
-<span id="csrf-runtime"></span><h2>Runtime<a class="headerlink" href="#runtime" title="Permalink to this headline">¶</a></h2>
-<p>The fraction of requests for which the filter is enabled can be configured via the <a class="reference internal" href="../../../api-v3/config/core/v3/base.proto.html#envoy-v3-api-field-config-core-v3-runtimefractionalpercent-runtime-key"><span class="std std-ref">runtime_key</span></a> value of the <a class="reference internal" href="../../../api-v3/extensions/filters/http/csrf/v3/csrf.proto.html#envoy-v3-api-field-extensions-filters-http-csrf-v3-csrfpolicy-filter-enabled"><span class="std std-ref">filter_enabled</span></a> field.</p>
-<p>The fraction of requests for which the filter is enabled in shadow-only mode can be configured via
-the <a class="reference internal" href="../../../api-v3/config/core/v3/base.proto.html#envoy-v3-api-field-config-core-v3-runtimefractionalpercent-runtime-key"><span class="std std-ref">runtime_key</span></a> value of the
-<a class="reference internal" href="../../../api-v3/extensions/filters/http/csrf/v3/csrf.proto.html#envoy-v3-api-field-extensions-filters-http-csrf-v3-csrfpolicy-shadow-enabled"><span class="std std-ref">shadow_enabled</span></a> field.
-When enabled in shadow-only mode, the filter will evaluate the request’s <em>Origin</em> and <em>Destination</em>
-to determine if it’s valid but will not enforce any policies.</p>
+<div class="section" id="csrf-runtime">
+<span id="id3"></span><h2>运行时<a class="headerlink" href="#csrf-runtime" title="Permalink to this headline">¶</a></h2>
+<p>可以通过 <a class="reference internal" href="../../../api-v3/extensions/filters/http/csrf/v3/csrf.proto.html#envoy-v3-api-field-extensions-filters-http-csrf-v3-csrfpolicy-filter-enabled"><span class="std std-ref">filter_enabled</span></a> 字段中的 <a class="reference internal" href="../../../api-v3/config/core/v3/base.proto.html#envoy-v3-api-field-config-core-v3-runtimefractionalpercent-runtime-key"><span class="std std-ref">runtime_key</span></a> 值来配置启用过滤器的请求占比。</p>
+<p>可以通过 <a class="reference internal" href="../../../api-v3/extensions/filters/http/csrf/v3/csrf.proto.html#envoy-v3-api-field-extensions-filters-http-csrf-v3-csrfpolicy-shadow-enabled"><span class="std std-ref">shadow_enabled</span></a> 字段中的
+<a class="reference internal" href="../../../api-v3/config/core/v3/base.proto.html#envoy-v3-api-field-config-core-v3-runtimefractionalpercent-runtime-key"><span class="std std-ref">runtime_key</span></a> 值来配置仅在影子模式下启用过滤器的请求占比。仅当在影子模式下，过滤器将评估请求的 <em>Origin</em> 和 <em>Destination</em> 来决定它是否是有效的，但是不会强制执行任何策略。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If both <code class="docutils literal notranslate"><span class="pre">filter_enabled</span></code> and <code class="docutils literal notranslate"><span class="pre">shadow_enabled</span></code> are on, the <code class="docutils literal notranslate"><span class="pre">filter_enabled</span></code>
-flag will take precedence.</p>
+<p>如果同时开启了 <code class="docutils literal notranslate"><span class="pre">filter_enabled</span></code> 和 <code class="docutils literal notranslate"><span class="pre">shadow_enabled</span></code>，则 <code class="docutils literal notranslate"><span class="pre">filter_enabled</span></code> 标记位会优先起作用。</p>
 </div>
 </div>
-<div class="section" id="statistics">
-<span id="csrf-statistics"></span><h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
-<p>The CSRF filter outputs statistics in the &lt;stat_prefix&gt;.csrf.* namespace.</p>
+<div class="section" id="csrf-statistics">
+<span id="id4"></span><h2>统计<a class="headerlink" href="#csrf-statistics" title="Permalink to this headline">¶</a></h2>
+<p>CSRF 过滤器输出的统计信息在 &lt;stat_prefix&gt;.csrf.* 命名空间下。</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -322,23 +298,23 @@ flag will take precedence.</p>
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>类型</p></th>
+<th class="head"><p>描述</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>missing_source_origin</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of requests that are missing a source origin header.</p></td>
+<td><p>请求源头部缺失的请求总数。</p></td>
 </tr>
 <tr class="row-odd"><td><p>request_invalid</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of requests whose source and target origins do not match.</p></td>
+<td><p>请求源和目的源不匹配的请求总数。</p></td>
 </tr>
 <tr class="row-even"><td><p>request_valid</p></td>
 <td><p>Counter</p></td>
-<td><p>Number of requests whose source and target origins match.</p></td>
+<td><p>请求源和目的源匹配的请求总数。</p></td>
 </tr>
 </tbody>
 </table>
@@ -353,7 +329,7 @@ flag will take precedence.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="decompressor_filter.html" class="btn btn-neutral float-right" title="Decompressor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="decompressor_filter.html" class="btn btn-neutral float-right" title="解压缩器" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="cors_filter.html" class="btn btn-neutral float-left" title="CORS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
