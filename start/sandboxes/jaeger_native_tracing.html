@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Jaeger Native Tracing &mdash; envoy 1.16.0-19bdbc documentation</title>
+  <title>Jaeger 原生追踪 &mdash; envoy 1.16.0-8deacf documentation</title>
   
 
   
@@ -76,7 +76,7 @@
             
             
               <div class="version">
-                1.16.0-19bdbc
+                1.16.0-8deacf
               </div>
             
           
@@ -116,8 +116,8 @@
 <li class="toctree-l3"><a class="reference internal" href="fault_injection.html">故障注入过滤器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="front_proxy.html">前端代理</a></li>
 <li class="toctree-l3"><a class="reference internal" href="grpc_bridge.html">gRPC 网桥</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Jaeger Native Tracing</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#running-the-sandbox">Running the Sandbox</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Jaeger 原生追踪</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">运行沙盒</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="jaeger_tracing.html">Jaeger 追踪</a></li>
@@ -185,7 +185,7 @@
         
           <li><a href="../start.html">开始</a> &raquo;</li>
         
-      <li>Jaeger Native Tracing</li>
+      <li>Jaeger 原生追踪</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -204,45 +204,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="jaeger-native-tracing">
-<span id="install-sandboxes-jaeger-native-tracing"></span><h1>Jaeger Native Tracing<a class="headerlink" href="#jaeger-native-tracing" title="Permalink to this headline">¶</a></h1>
-<p>The Jaeger tracing sandbox demonstrates Envoy’s <a class="reference internal" href="../../intro/arch_overview/observability/tracing.html#arch-overview-tracing"><span class="std std-ref">request tracing</span></a>
-capabilities using <a class="reference external" href="https://jaegertracing.io/">Jaeger</a> as the tracing provider and Jaeger’s native
-<a class="reference external" href="https://github.com/jaegertracing/jaeger-client-cpp">C++ client</a> as a plugin. Using Jaeger with its
-native client instead of with Envoy’s builtin Zipkin client has the following advantages:</p>
+  <div class="section" id="jaeger">
+<span id="install-sandboxes-jaeger-native-tracing"></span><h1>Jaeger 原生追踪<a class="headerlink" href="#jaeger" title="Permalink to this headline">¶</a></h1>
+<p>Jaeger 追踪沙盒使用 <a class="reference external" href="https://jaegertracing.io/">Jaeger</a> 作为追踪提供程序，并使用 Jaeger 的原生
+<a class="reference external" href="https://github.com/jaegertracing/jaeger-client-cpp">C++ 客户端</a>
+作为插件，演示了 Envoy 的 <a class="reference internal" href="../../intro/arch_overview/observability/tracing.html#arch-overview-tracing"><span class="std std-ref">请求追踪</span></a> 功能。 使用 Jaeger 及其原生客户端而不是 Envoy 内置的 Zipkin 客户端具有以下优点：</p>
 <ul class="simple">
-<li><p>Trace propagation will work with the other services using Jaeger without needing to make
-configuration <a class="reference external" href="https://github.com/jaegertracing/jaeger-client-go#zipkin-http-b3-compatible-header-propagation">changes</a>.</p></li>
-<li><p>A variety of different <a class="reference external" href="https://www.jaegertracing.io/docs/sampling/#client-sampling-configuration">sampling strategies</a>
-can be used, including probabilistic or remote where sampling can be centrally controlled from Jaeger’s backend.</p></li>
-<li><p>Spans are sent to the collector in a more efficient binary encoding.</p></li>
+<li><p>追踪传播将与 Jaeger 的其他服务一起使用，而无需进行配置 <a class="reference external" href="https://github.com/jaegertracing/jaeger-client-go#zipkin-http-b3-compatible-header-propagation">更改</a>。</p></li>
+<li><p>可以使用各种不同的 <a class="reference external" href="https://www.jaegertracing.io/docs/sampling/#client-sampling-configuration">采样策略</a>
+，包括概率采样或可以从 Jaeger 的后端集中控制的远程采样。</p></li>
+<li><p>跨度以更有效的二进制编码发送到收集器。</p></li>
 </ul>
-<p>This sandbox is very similar to the front proxy architecture described above, with one difference:
-service1 makes an API call to service2 before returning a response.
-The three containers will be deployed inside a virtual network called <code class="docutils literal notranslate"><span class="pre">envoymesh</span></code>.</p>
+<p>该沙盒与前面描述的前端代理体系结构非常相似，但有一个区别： service1 在返回响应之前对 service2 进行 API 调用。 这三个容器将部署在称为 <code class="docutils literal notranslate"><span class="pre">envoymesh</span></code> 的虚拟网络中。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The jaeger native tracing sandbox only works on x86-64.</p>
+<p>Jaeger 原生追踪只能工作在 x86-64 架构。</p>
 </div>
-<p>All incoming requests are routed via the front Envoy, which is acting as a reverse proxy
-sitting on the edge of the <code class="docutils literal notranslate"><span class="pre">envoymesh</span></code> network. Port <code class="docutils literal notranslate"><span class="pre">8000</span></code> is exposed
-by docker compose (see <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/19bdbcd450a1d368e473a4aabc1cd7e2bdea65bf//examples/jaeger-native-tracing/docker-compose.yaml">/examples/jaeger-native-tracing/docker-compose.yaml</a>). Notice that
-all Envoys are configured to collect request traces (e.g., http_connection_manager/config/tracing setup in
-<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/19bdbcd450a1d368e473a4aabc1cd7e2bdea65bf//examples/jaeger-native-tracing/front-envoy-jaeger.yaml">/examples/jaeger-native-tracing/front-envoy-jaeger.yaml</a>) and setup to propagate the spans generated
-by the Jaeger tracer to a Jaeger cluster (trace driver setup
-in <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/19bdbcd450a1d368e473a4aabc1cd7e2bdea65bf//examples/jaeger-native-tracing/front-envoy-jaeger.yaml">/examples/jaeger-native-tracing/front-envoy-jaeger.yaml</a>).</p>
-<p>Before routing a request to the appropriate service Envoy or the application, Envoy will take
-care of generating the appropriate spans for tracing (parent/child context spans).
-At a high-level, each span records the latency of upstream API calls as well as information
-needed to correlate the span with other related spans (e.g., the trace ID).</p>
-<p>One of the most important benefits of tracing from Envoy is that it will take care of
-propagating the traces to the Jaeger service cluster. However, in order to fully take advantage
-of tracing, the application has to propagate trace headers that Envoy generates, while making
-calls to other services. In the sandbox we have provided, the simple flask app
-(see trace function in <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/19bdbcd450a1d368e473a4aabc1cd7e2bdea65bf//examples/front-proxy/service.py">/examples/front-proxy/service.py</a>) acting as service1 propagates
-the trace headers while making an outbound call to service2.</p>
-<div class="section" id="running-the-sandbox">
-<h2>Running the Sandbox<a class="headerlink" href="#running-the-sandbox" title="Permalink to this headline">¶</a></h2>
+<p>所有的传入请求都通过前端 Envoy 路由，该前端 Envoy 是作为位于 <code class="docutils literal notranslate"><span class="pre">envoymesh</span></code> 网络边缘的反向代理。<code class="docutils literal notranslate"><span class="pre">8000</span></code> 端口由 docker compose 公开（请参阅 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/8deacfb9c1c61e53ff65ea4217174164d49e39d2//examples/jaeger-native-tracing/docker-compose.yaml">/examples/jaeger-native-tracing/docker-compose.yaml</a>）。请注意，所有 Envoy 都进行了配置，用来收集请求的追踪（例如， <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/8deacfb9c1c61e53ff65ea4217174164d49e39d2//examples/jaeger-native-tracing/front-envoy-jaeger.yaml">/examples/jaeger-native-tracing/front-envoy-jaeger.yaml</a> 中的 http_connection_manager/config/tracing 设置）并进行设置以传播 Jaeger 所生成的跨度（spans），并将 Jaeger 追踪器生成的 span 传播到 Jaeger 集群中（追踪驱动在 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/8deacfb9c1c61e53ff65ea4217174164d49e39d2//examples/jaeger-native-tracing/front-envoy-jaeger.yaml">/examples/jaeger-native-tracing/front-envoy-jaeger.yaml</a> 中设置）。</p>
+<p>在将请求路由到适当的服务 Envoy 或应用程序之前，Envoy 将负责生成用于追踪的适当跨度（父/子上下文跨度）。在较高层级上，每个跨度都记录上游 API 调用的延迟以及将跨度与其他相关跨度关联的所需信息（例如，追踪 ID）。</p>
+<p>从 Envoy 进行追踪的最重要好处之一是，它将负责将追踪信息传播到 Jaeger 服务集群。但是，为了充分利用追踪的优势，应用程序必须传播 Envoy 生成的追踪头部信息，同时调用其他服务。在我们提供的沙盒当中，有个简单 flask 应用程序（请参阅 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/8deacfb9c1c61e53ff65ea4217174164d49e39d2//examples/front-proxy/service.py">/examples/front-proxy/service.py</a> 中的追踪功能 ）在对 service2 进行出站调用时作为 service1 传播追踪标头。</p>
+<div class="section" id="id4">
+<h2>运行沙盒<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>以下文档说明了上述对于 Envoy 容器编译环境进行设置的过程。</p>
 <div class="section" id="docker">
 <h3>步骤 1：安装 Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h3>
@@ -277,9 +259,9 @@ the trace headers while making an outbound call to service2.</p>
 </div>
 </div>
 </div>
-<div class="section" id="step-3-build-the-sandbox">
-<h3>Step 3: Build the sandbox<a class="headerlink" href="#step-3-build-the-sandbox" title="Permalink to this headline">¶</a></h3>
-<p>To build this sandbox example, and start the example apps run the following commands:</p>
+<div class="section" id="id5">
+<h3>步骤 3: 构建沙盒<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>要构建这个沙盒示例，并启动示例应用程序，请运行以下命令:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">pwd</span>
 <span class="go">envoy/examples/jaeger-native-tracing</span>
 <span class="gp">$</span> docker-compose pull
@@ -295,9 +277,9 @@ the trace headers while making an outbound call to service2.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="step-4-generate-some-load">
-<h3>Step 4: Generate some load<a class="headerlink" href="#step-4-generate-some-load" title="Permalink to this headline">¶</a></h3>
-<p>You can now send a request to service1 via the front-envoy as follows:</p>
+<div class="section" id="id6">
+<h3>步骤 4: 生成一些负载<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>你现在可以通过 front-envoy 向 service1 发送以下请求:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> curl -v localhost:8000/trace/1
 <span class="go">*   Trying 192.168.99.100...</span>
 <span class="go">* Connected to 192.168.99.100 (192.168.99.100) port 8000 (#0)</span>
@@ -318,12 +300,9 @@ the trace headers while making an outbound call to service2.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="step-5-view-the-traces-in-jaeger-ui">
-<h3>Step 5: View the traces in Jaeger UI<a class="headerlink" href="#step-5-view-the-traces-in-jaeger-ui" title="Permalink to this headline">¶</a></h3>
-<p>Point your browser to <a class="reference external" href="http://localhost:16686">http://localhost:16686</a> . You should see the Jaeger dashboard.
-Set the service to “front-proxy” and hit ‘Find Traces’. You should see traces from the front-proxy.
-Click on a trace to explore the path taken by the request from front-proxy to service1
-to service2, as well as the latency incurred at each hop.</p>
+<div class="section" id="id7">
+<h3>步骤 5: 在 Jaeger 图形界面中查看追踪<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>用浏览器打开 <a class="reference external" href="http://localhost:16686">http://localhost:16686</a>。你应该可以看到 Jaeger 仪表盘。将服务设置为 “front-proxy” 然后点击 ‘Find Traces’。你应该看到 front-proxy 的追踪信息。单击追踪，来查看从 front-proxy 到 service1 再到 service2 的请求路径，以及每一跳产生的延迟。</p>
 </div>
 </div>
 </div>

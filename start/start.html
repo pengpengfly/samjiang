@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>开始 &mdash; envoy 1.16.0-19bdbc documentation</title>
+  <title>开始 &mdash; envoy 1.16.0-8deacf documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-19bdbc
+                1.16.0-8deacf
               </div>
             
           
@@ -114,7 +114,7 @@
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/fault_injection.html">故障注入过滤器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/front_proxy.html">前端代理</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/grpc_bridge.html">gRPC 网桥</a></li>
-<li class="toctree-l3"><a class="reference internal" href="sandboxes/jaeger_native_tracing.html">Jaeger Native Tracing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sandboxes/jaeger_native_tracing.html">Jaeger 原生追踪</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/jaeger_tracing.html">Jaeger 追踪</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/load_reporting_service.html">负载报告服务 (LRS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sandboxes/lua.html">Lua 过滤器</a></li>
@@ -205,9 +205,9 @@
 <div class="section" id="id2">
 <h2>快速开始运行简单示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>这些指导说明使用 Envoy 仓库中的文件来运行示例。下面的章节对配置文件和相同配置下的执行步骤做了更详细的解释。</p>
-<p>在 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/19bdbcd450a1d368e473a4aabc1cd7e2bdea65bf/configs/google_com_proxy.v2.yaml">configs/google_com_proxy.v2.yaml</a>  中提供了一个非常简单的 Envoy 配置，可以用来验证基本的纯 HTTP 代理。但这并不代表真实的 Envoy 部署：</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ docker pull envoyproxy/envoy-dev:19bdbcd450a1d368e473a4aabc1cd7e2bdea65bf
-$ docker run --rm -d -p 10000:10000 envoyproxy/envoy-dev:19bdbcd450a1d368e473a4aabc1cd7e2bdea65bf
+<p>在 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/8deacfb9c1c61e53ff65ea4217174164d49e39d2/configs/google_com_proxy.v2.yaml">configs/google_com_proxy.v2.yaml</a>  中提供了一个非常简单的 Envoy 配置，可以用来验证基本的纯 HTTP 代理。但这并不代表真实的 Envoy 部署：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ docker pull envoyproxy/envoy-dev:8deacfb9c1c61e53ff65ea4217174164d49e39d2
+$ docker run --rm -d -p 10000:10000 envoyproxy/envoy-dev:8deacfb9c1c61e53ff65ea4217174164d49e39d2
 $ curl -v localhost:10000
 </pre></div>
 </div>
@@ -279,7 +279,7 @@ $ curl -v localhost:10000
 <div class="section" id="envoy-docker">
 <h2>使用 Envoy Docker 镜像<a class="headerlink" href="#envoy-docker" title="Permalink to this headline">¶</a></h2>
 <p>创建一个简单的 Dockerfile 运行 Envoy，这需要假定在你本地的目录中有 envoy.yaml （如上描述）文件。</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FROM envoyproxy/envoy-dev:19bdbcd450a1d368e473a4aabc1cd7e2bdea65bf
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FROM envoyproxy/envoy-dev:8deacfb9c1c61e53ff65ea4217174164d49e39d2
 COPY envoy.yaml /etc/envoy/envoy.yaml
 </pre></div>
 </div>
@@ -356,8 +356,8 @@ $ docker run -d -v `pwd`/logs:/var/log --name envoy -e ENVOY_UID=777 -p 9901:990
 <li class="toctree-l2"><a class="reference internal" href="sandboxes/grpc_bridge.html#id3">发送请求到键/值存储</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="sandboxes/jaeger_native_tracing.html">Jaeger Native Tracing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="sandboxes/jaeger_native_tracing.html#running-the-sandbox">Running the Sandbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sandboxes/jaeger_native_tracing.html">Jaeger 原生追踪</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sandboxes/jaeger_native_tracing.html#id4">运行沙盒</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sandboxes/jaeger_tracing.html">Jaeger 追踪</a><ul>
