@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>xDS API endpoints &mdash; envoy 1.16.0-7c4228 documentation</title>
+  <title>xDS API 端点 &mdash; envoy 1.16.0-e77e0f documentation</title>
   
 
   
@@ -74,7 +74,7 @@
             
             
               <div class="version">
-                1.16.0-7c4228
+                1.16.0-e77e0f
               </div>
             
           
@@ -112,11 +112,11 @@
 <li class="toctree-l3"><a class="reference internal" href="bootstrap.html">Bootstrap 配置</a></li>
 <li class="toctree-l3"><a class="reference internal" href="examples.html">示例</a></li>
 <li class="toctree-l3"><a class="reference internal" href="extension.html">扩展配置</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">xDS API endpoints</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#grpc-streaming-endpoints">gRPC streaming endpoints</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#rest-endpoints">REST endpoints</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#aggregated-discovery-service">Aggregated Discovery Service</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#delta-endpoints">Delta endpoints</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">xDS API 端点</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#grpc">gRPC 流端点</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rest">REST 端点</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#config-overview-ads">聚合发现服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delta">Delta 端点</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="mgmt_server.html">管理服务器</a></li>
@@ -188,7 +188,7 @@
         
           <li><a href="overview.html">概览</a> &raquo;</li>
         
-      <li>xDS API endpoints</li>
+      <li>xDS API 端点</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -207,16 +207,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="xds-api-endpoints">
-<span id="config-overview-management-server"></span><h1>xDS API endpoints<a class="headerlink" href="#xds-api-endpoints" title="Permalink to this headline">¶</a></h1>
-<p>An xDS management server will implement the below endpoints as required for
-gRPC and/or REST serving. In both streaming gRPC and
-REST-JSON cases, a <a class="reference internal" href="../../api-v3/service/discovery/v3/discovery.proto.html#envoy-v3-api-msg-service-discovery-v3-discoveryrequest"><span class="std std-ref">DiscoveryRequest</span></a> is sent and a
-<a class="reference internal" href="../../api-v3/service/discovery/v3/discovery.proto.html#envoy-v3-api-msg-service-discovery-v3-discoveryresponse"><span class="std std-ref">DiscoveryResponse</span></a> received following the
-<a class="reference internal" href="../../api-docs/xds_protocol.html#xds-protocol"><span class="std std-ref">xDS protocol</span></a>.</p>
-<p>Below we describe endpoints for the v2 and v3 transport API versions.</p>
-<div class="section" id="grpc-streaming-endpoints">
-<span id="v2-grpc-streaming-endpoints"></span><h2>gRPC streaming endpoints<a class="headerlink" href="#grpc-streaming-endpoints" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="xds-api">
+<span id="config-overview-management-server"></span><h1>xDS API 端点<a class="headerlink" href="#xds-api" title="Permalink to this headline">¶</a></h1>
+<p>xDS 管理服务器将根据 gRPC 和/或 REST 服务的要求实现以下端点。在 gRPC 流和 REST-JSON 两种情况下，都按照 <a class="reference internal" href="../../api-docs/xds_protocol.html#xds-protocol"><span class="std std-ref">xDS 协议</span></a> 发送 <a class="reference internal" href="../../api-v3/service/discovery/v3/discovery.proto.html#envoy-v3-api-msg-service-discovery-v3-discoveryrequest"><span class="std std-ref">DiscoveryRequest</span></a> 并接收 <a class="reference internal" href="../../api-v3/service/discovery/v3/discovery.proto.html#envoy-v3-api-msg-service-discovery-v3-discoveryresponse"><span class="std std-ref">DiscoveryResponse</span></a> 。</p>
+<p>下面我们描述了 v2 和 v3 传输 API 版本的端点。</p>
+<div class="section" id="grpc">
+<span id="v2-grpc-streaming-endpoints"></span><h2>gRPC 流端点<a class="headerlink" href="#grpc" title="Permalink to this headline">¶</a></h2>
 <dl class="http post">
 <dt id="post--envoy.api.v2.ClusterDiscoveryService-StreamClusters">
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.api.v2.ClusterDiscoveryService/StreamClusters</code><a class="headerlink" href="#post--envoy.api.v2.ClusterDiscoveryService-StreamClusters" title="Permalink to this definition">¶</a></dt>
@@ -227,8 +223,7 @@ REST-JSON cases, a <a class="reference internal" href="../../api-v3/service/disc
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.service.cluster.v3.ClusterDiscoveryService/StreamClusters</code><a class="headerlink" href="#post--envoy.service.cluster.v3.ClusterDiscoveryService-StreamClusters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>See <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7c4228b85c9b328af7042081e7c802e7a19d6141/api/service/cluster/v3/cds.proto">cds.proto</a> for the service definition. This is used by Envoy
-as a client when</p>
+<p>有关服务定义，请参见 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/service/cluster/v3/cds.proto">cds.proto</a> 。当以下内容</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">cds_config</span><span class="p">:</span>
   <span class="nt">api_config_source</span><span class="p">:</span>
     <span class="nt">api_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">GRPC</span>
@@ -238,7 +233,7 @@ as a client when</p>
         <span class="nt">cluster_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_xds_cluster</span>
 </pre></div>
 </div>
-<p>is set in the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-dynamic-resources"><span class="std std-ref">dynamic_resources</span></a> of the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-bootstrap"><span class="std std-ref">Bootstrap</span></a> config.</p>
+<p>在 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-bootstrap"><span class="std std-ref">Bootstrap</span></a> 配置的 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-dynamic-resources"><span class="std std-ref">dynamic_resources</span></a> 中设置时，Envoy 会将其用作客户端。</p>
 <dl class="http post">
 <dt id="post--envoy.api.v2.EndpointDiscoveryService-StreamEndpoints">
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.api.v2.EndpointDiscoveryService/StreamEndpoints</code><a class="headerlink" href="#post--envoy.api.v2.EndpointDiscoveryService-StreamEndpoints" title="Permalink to this definition">¶</a></dt>
@@ -249,8 +244,7 @@ as a client when</p>
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.service.endpoint.v3.EndpointDiscoveryService/StreamEndpoints</code><a class="headerlink" href="#post--envoy.service.endpoint.v3.EndpointDiscoveryService-StreamEndpoints" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>See <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7c4228b85c9b328af7042081e7c802e7a19d6141/api/envoy/service/endpoint/v3/eds.proto">eds.proto</a>
-for the service definition. This is used by Envoy as a client when</p>
+<p>有关服务定义，请参见 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/service/endpoint/v3/eds.proto">eds.proto</a> 。当以下内容</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">eds_config</span><span class="p">:</span>
   <span class="nt">api_config_source</span><span class="p">:</span>
     <span class="nt">api_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">GRPC</span>
@@ -260,7 +254,7 @@ for the service definition. This is used by Envoy as a client when</p>
         <span class="nt">cluster_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_xds_cluster</span>
 </pre></div>
 </div>
-<p>is set in the <a class="reference internal" href="../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-eds-cluster-config"><span class="std std-ref">eds_cluster_config</span></a> field of the <a class="reference internal" href="../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-msg-config-cluster-v3-cluster"><span class="std std-ref">Cluster</span></a> config.</p>
+<p>在 <a class="reference internal" href="../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-msg-config-cluster-v3-cluster"><span class="std std-ref">Cluster</span></a> 配置的 <a class="reference internal" href="../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-eds-cluster-config"><span class="std std-ref">eds_cluster_config</span></a> 字段中设置时，Envoy 会将其用作客户端。</p>
 <dl class="http post">
 <dt id="post--envoy.api.v2.ListenerDiscoveryService-StreamListeners">
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.api.v2.ListenerDiscoveryService/StreamListeners</code><a class="headerlink" href="#post--envoy.api.v2.ListenerDiscoveryService-StreamListeners" title="Permalink to this definition">¶</a></dt>
@@ -271,8 +265,7 @@ for the service definition. This is used by Envoy as a client when</p>
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.service.listener.v3.ListenerDiscoveryService/StreamListeners</code><a class="headerlink" href="#post--envoy.service.listener.v3.ListenerDiscoveryService-StreamListeners" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>See <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7c4228b85c9b328af7042081e7c802e7a19d6141/api/envoy/service/listener/v3/lds.proto">lds.proto</a>
-for the service definition. This is used by Envoy as a client when</p>
+<p>有关服务定义，请参见 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/service/listener/v3/lds.proto">lds.proto</a> 。当以下内容</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lds_config</span><span class="p">:</span>
   <span class="nt">api_config_source</span><span class="p">:</span>
     <span class="nt">api_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">GRPC</span>
@@ -282,7 +275,7 @@ for the service definition. This is used by Envoy as a client when</p>
         <span class="nt">cluster_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_xds_cluster</span>
 </pre></div>
 </div>
-<p>is set in the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-dynamic-resources"><span class="std std-ref">dynamic_resources</span></a> of the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-bootstrap"><span class="std std-ref">Bootstrap</span></a> config.</p>
+<p>在 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-bootstrap"><span class="std std-ref">Bootstrap</span></a> 配置的 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-dynamic-resources"><span class="std std-ref">dynamic_resources</span></a> 中设置时，Envoy 会将其用作客户端。</p>
 <dl class="http post">
 <dt id="post--envoy.api.v2.RouteDiscoveryService-StreamRoutes">
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.api.v2.RouteDiscoveryService/StreamRoutes</code><a class="headerlink" href="#post--envoy.api.v2.RouteDiscoveryService-StreamRoutes" title="Permalink to this definition">¶</a></dt>
@@ -293,8 +286,7 @@ for the service definition. This is used by Envoy as a client when</p>
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.service.route.v3.RouteDiscoveryService/StreamRoutes</code><a class="headerlink" href="#post--envoy.service.route.v3.RouteDiscoveryService-StreamRoutes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>See <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7c4228b85c9b328af7042081e7c802e7a19d6141/api/envoy/service/route/v3/rds.proto">rds.proto</a>
-for the service definition. This is used by Envoy as a client when</p>
+<p>有关服务定义，请参见 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/service/route/v3/rds.proto">rds.proto</a> 。当以下内容</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">route_config_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_route_name</span>
 <span class="nt">config_source</span><span class="p">:</span>
   <span class="nt">api_config_source</span><span class="p">:</span>
@@ -305,8 +297,7 @@ for the service definition. This is used by Envoy as a client when</p>
         <span class="nt">cluster_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_xds_cluster</span>
 </pre></div>
 </div>
-<p>is set in the <a class="reference internal" href="../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-rds"><span class="std std-ref">rds</span></a> field
-of the <a class="reference internal" href="../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-msg-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager"><span class="std std-ref">HttpConnectionManager</span></a> config.</p>
+<p>在 <a class="reference internal" href="../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-msg-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager"><span class="std std-ref">HttpConnectionManager</span></a> 配置的 <a class="reference internal" href="../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-rds"><span class="std std-ref">rds</span></a> 字段中设置时，Envoy 会将其用作客户端。</p>
 <dl class="http post">
 <dt id="post--envoy.api.v2.ScopedRoutesDiscoveryService-StreamScopedRoutes">
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.api.v2.ScopedRoutesDiscoveryService/StreamScopedRoutes</code><a class="headerlink" href="#post--envoy.api.v2.ScopedRoutesDiscoveryService-StreamScopedRoutes" title="Permalink to this definition">¶</a></dt>
@@ -317,8 +308,7 @@ of the <a class="reference internal" href="../../api-v3/extensions/filters/netwo
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.service.route.v3.ScopedRoutesDiscoveryService/StreamScopedRoutes</code><a class="headerlink" href="#post--envoy.service.route.v3.ScopedRoutesDiscoveryService-StreamScopedRoutes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>See <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7c4228b85c9b328af7042081e7c802e7a19d6141/api/envoy/service/route/v3/srds.proto">srds.proto</a>
-for the service definition. This is used by Envoy as a client when</p>
+<p>有关服务定义，请参见 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/service/route/v3/srds.proto">srds.proto</a> 。当以下内容</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_scoped_route_name</span>
 <span class="nt">scoped_rds</span><span class="p">:</span>
   <span class="nt">config_source</span><span class="p">:</span>
@@ -330,8 +320,7 @@ for the service definition. This is used by Envoy as a client when</p>
           <span class="nt">cluster_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_xds_cluster</span>
 </pre></div>
 </div>
-<p>is set in the <a class="reference internal" href="../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-scoped-routes"><span class="std std-ref">scoped_routes</span></a>
-field of the <a class="reference internal" href="../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-msg-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager"><span class="std std-ref">HttpConnectionManager</span></a> config.</p>
+<p>在 <a class="reference internal" href="../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-msg-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager"><span class="std std-ref">HttpConnectionManager</span></a> 配置的 <a class="reference internal" href="../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-scoped-routes"><span class="std std-ref">scoped_routes</span></a> 字段中设置时，Envoy 会将其用作客户端。</p>
 <dl class="http post">
 <dt id="post--envoy.service.discovery.v2.SecretDiscoveryService-StreamSecrets">
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.service.discovery.v2.SecretDiscoveryService/StreamSecrets</code><a class="headerlink" href="#post--envoy.service.discovery.v2.SecretDiscoveryService-StreamSecrets" title="Permalink to this definition">¶</a></dt>
@@ -342,8 +331,7 @@ field of the <a class="reference internal" href="../../api-v3/extensions/filters
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.service.secret.v3.SecretDiscoveryService/StreamSecrets</code><a class="headerlink" href="#post--envoy.service.secret.v3.SecretDiscoveryService-StreamSecrets" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>See <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7c4228b85c9b328af7042081e7c802e7a19d6141/api/envoy/service/secret/v3/sds.proto">sds.proto</a>
-for the service definition. This is used by Envoy as a client when</p>
+<p>有关服务定义，请参见 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/service/secret/v3/sds.proto">sds.proto</a> 。当以下内容</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_secret_name</span>
 <span class="nt">config_source</span><span class="p">:</span>
   <span class="nt">api_config_source</span><span class="p">:</span>
@@ -354,8 +342,7 @@ for the service definition. This is used by Envoy as a client when</p>
         <span class="nt">cluster_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_xds_cluster</span>
 </pre></div>
 </div>
-<p>is set inside a <a class="reference internal" href="../../api-v3/extensions/transport_sockets/tls/v3/secret.proto.html#envoy-v3-api-msg-extensions-transport-sockets-tls-v3-sdssecretconfig"><span class="std std-ref">SdsSecretConfig</span></a> message. This message
-is used in various places such as the <a class="reference internal" href="../../api-v3/extensions/transport_sockets/tls/v3/tls.proto.html#envoy-v3-api-msg-extensions-transport-sockets-tls-v3-commontlscontext"><span class="std std-ref">CommonTlsContext</span></a>.</p>
+<p>在 <a class="reference internal" href="../../api-v3/extensions/transport_sockets/tls/v3/secret.proto.html#envoy-v3-api-msg-extensions-transport-sockets-tls-v3-sdssecretconfig"><span class="std std-ref">SdsSecretConfig</span></a> 消息中设置时， Envoy 会将其用作客户端。这种消息在各种地方都使用，如 <a class="reference internal" href="../../api-v3/extensions/transport_sockets/tls/v3/tls.proto.html#envoy-v3-api-msg-extensions-transport-sockets-tls-v3-commontlscontext"><span class="std std-ref">CommonTlsContext</span></a> 。</p>
 <dl class="http post">
 <dt id="post--envoy.service.discovery.v2.RuntimeDiscoveryService-StreamRuntime">
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.service.discovery.v2.RuntimeDiscoveryService/StreamRuntime</code><a class="headerlink" href="#post--envoy.service.discovery.v2.RuntimeDiscoveryService-StreamRuntime" title="Permalink to this definition">¶</a></dt>
@@ -366,8 +353,7 @@ is used in various places such as the <a class="reference internal" href="../../
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.service.runtime.v3.RuntimeDiscoveryService/StreamRuntime</code><a class="headerlink" href="#post--envoy.service.runtime.v3.RuntimeDiscoveryService-StreamRuntime" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>See <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7c4228b85c9b328af7042081e7c802e7a19d6141/api/envoy/service/runtime/v3/rtds.proto">rtds.proto</a>
-for the service definition. This is used by Envoy as a client when</p>
+<p>有关服务定义，请参见 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/service/runtime/v3/rtds.proto">rtds.proto</a> 。当以下内容</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_runtime_layer_name</span>
 <span class="nt">config_source</span><span class="p">:</span>
   <span class="nt">api_config_source</span><span class="p">:</span>
@@ -378,11 +364,11 @@ for the service definition. This is used by Envoy as a client when</p>
         <span class="nt">cluster_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_xds_cluster</span>
 </pre></div>
 </div>
-<p>is set inside the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-runtimelayer-rtds-layer"><span class="std std-ref">rtds_layer</span></a>
-field.</p>
+<p>在 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-runtimelayer-rtds-layer"><span class="std std-ref">rtds_layer</span></a>
+字段中设置时，Envoy 会将其用作客户端。</p>
 </div>
-<div class="section" id="rest-endpoints">
-<h2>REST endpoints<a class="headerlink" href="#rest-endpoints" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="rest">
+<h2>REST 端点<a class="headerlink" href="#rest" title="Permalink to this headline">¶</a></h2>
 <dl class="http post">
 <dt id="post--v2-discovery-clusters">
 <code class="sig-name descname">POST </code><code class="sig-name descname">/v2/discovery:clusters</code><a class="headerlink" href="#post--v2-discovery-clusters" title="Permalink to this definition">¶</a></dt>
@@ -393,8 +379,7 @@ field.</p>
 <code class="sig-name descname">POST </code><code class="sig-name descname">/v3/discovery:clusters</code><a class="headerlink" href="#post--v3-discovery-clusters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>See <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7c4228b85c9b328af7042081e7c802e7a19d6141/api/envoy/service/cluster/v3/cds.proto">cds.proto</a>
-for the service definition. This is used by Envoy as a client when</p>
+<p>有关服务定义，请参见 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/service/cluster/v3/cds.proto">cds.proto</a> 。当以下内容</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">cds_config</span><span class="p">:</span>
   <span class="nt">api_config_source</span><span class="p">:</span>
     <span class="nt">api_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">REST</span>
@@ -402,7 +387,7 @@ for the service definition. This is used by Envoy as a client when</p>
     <span class="nt">cluster_names</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">some_xds_cluster</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
-<p>is set in the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-dynamic-resources"><span class="std std-ref">dynamic_resources</span></a> of the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-bootstrap"><span class="std std-ref">Bootstrap</span></a> config.</p>
+<p>在 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-bootstrap"><span class="std std-ref">Bootstrap</span></a> 配置的 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-dynamic-resources"><span class="std std-ref">dynamic_resources</span></a> 中设置时，Envoy 会将其用作客户端。</p>
 <dl class="http post">
 <dt id="post--v2-discovery-endpoints">
 <code class="sig-name descname">POST </code><code class="sig-name descname">/v2/discovery:endpoints</code><a class="headerlink" href="#post--v2-discovery-endpoints" title="Permalink to this definition">¶</a></dt>
@@ -413,8 +398,7 @@ for the service definition. This is used by Envoy as a client when</p>
 <code class="sig-name descname">POST </code><code class="sig-name descname">/v3/discovery:endpoints</code><a class="headerlink" href="#post--v3-discovery-endpoints" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>See <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7c4228b85c9b328af7042081e7c802e7a19d6141/api/envoy/service/endpoint/v3/eds.proto">eds.proto</a>
-for the service definition. This is used by Envoy as a client when</p>
+<p>有关服务定义，请参见 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/service/endpoint/v3/eds.proto">eds.proto</a> 。当以下内容</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">eds_config</span><span class="p">:</span>
   <span class="nt">api_config_source</span><span class="p">:</span>
     <span class="nt">api_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">REST</span>
@@ -422,7 +406,7 @@ for the service definition. This is used by Envoy as a client when</p>
     <span class="nt">cluster_names</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">some_xds_cluster</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
-<p>is set in the <a class="reference internal" href="../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-eds-cluster-config"><span class="std std-ref">eds_cluster_config</span></a> field of the <a class="reference internal" href="../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-msg-config-cluster-v3-cluster"><span class="std std-ref">Cluster</span></a> config.</p>
+<p>在 <a class="reference internal" href="../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-msg-config-cluster-v3-cluster"><span class="std std-ref">Cluster</span></a> 配置的 <a class="reference internal" href="../../api-v3/config/cluster/v3/cluster.proto.html#envoy-v3-api-field-config-cluster-v3-cluster-eds-cluster-config"><span class="std std-ref">eds_cluster_config</span></a> 字段中设置时，Envoy 会将其用作客户端。</p>
 <dl class="http post">
 <dt id="post--v2-discovery-listeners">
 <code class="sig-name descname">POST </code><code class="sig-name descname">/v2/discovery:listeners</code><a class="headerlink" href="#post--v2-discovery-listeners" title="Permalink to this definition">¶</a></dt>
@@ -433,8 +417,7 @@ for the service definition. This is used by Envoy as a client when</p>
 <code class="sig-name descname">POST </code><code class="sig-name descname">/v3/discovery:listeners</code><a class="headerlink" href="#post--v3-discovery-listeners" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>See <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7c4228b85c9b328af7042081e7c802e7a19d6141/api/envoy/service/listener/v3/lds.proto">lds.proto</a>
-for the service definition. This is used by Envoy as a client when</p>
+<p>有关服务定义，请参见 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/service/listener/v3/lds.proto">lds.proto</a> 。当以下内容</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lds_config</span><span class="p">:</span>
   <span class="nt">api_config_source</span><span class="p">:</span>
     <span class="nt">api_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">REST</span>
@@ -442,7 +425,7 @@ for the service definition. This is used by Envoy as a client when</p>
     <span class="nt">cluster_names</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">some_xds_cluster</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
-<p>is set in the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-dynamic-resources"><span class="std std-ref">dynamic_resources</span></a> of the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-bootstrap"><span class="std std-ref">Bootstrap</span></a> config.</p>
+<p>在 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-bootstrap"><span class="std std-ref">Bootstrap</span></a> 配置的 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-dynamic-resources"><span class="std std-ref">dynamic_resources</span></a> 中设置时，Envoy 会将其用作客户端。</p>
 <dl class="http post">
 <dt id="post--v2-discovery-routes">
 <code class="sig-name descname">POST </code><code class="sig-name descname">/v2/discovery:routes</code><a class="headerlink" href="#post--v2-discovery-routes" title="Permalink to this definition">¶</a></dt>
@@ -453,8 +436,7 @@ for the service definition. This is used by Envoy as a client when</p>
 <code class="sig-name descname">POST </code><code class="sig-name descname">/v3/discovery:routes</code><a class="headerlink" href="#post--v3-discovery-routes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>See <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7c4228b85c9b328af7042081e7c802e7a19d6141/api/envoy/service/route/v3/rds.proto">rds.proto</a>
-for the service definition. This is used by Envoy as a client when</p>
+<p>有关服务定义，请参见 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/service/route/v3/rds.proto">rds.proto</a> 。当以下内容</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">route_config_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_route_name</span>
 <span class="nt">config_source</span><span class="p">:</span>
   <span class="nt">api_config_source</span><span class="p">:</span>
@@ -463,38 +445,19 @@ for the service definition. This is used by Envoy as a client when</p>
     <span class="nt">cluster_names</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">some_xds_cluster</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
-<p>is set in the <a class="reference internal" href="../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-rds"><span class="std std-ref">rds</span></a> field of the <a class="reference internal" href="../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-msg-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager"><span class="std std-ref">HttpConnectionManager</span></a> config.</p>
+<p>在 <a class="reference internal" href="../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-msg-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager"><span class="std std-ref">HttpConnectionManager</span></a> 配置的 <a class="reference internal" href="../../api-v3/extensions/filters/network/http_connection_manager/v3/http_connection_manager.proto.html#envoy-v3-api-field-extensions-filters-network-http-connection-manager-v3-httpconnectionmanager-rds"><span class="std std-ref">rds</span></a> 字段中设置时，Envoy 会将其用作客户端。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The management server responding to these endpoints must respond with a <a class="reference internal" href="../../api-v2/api/v2/discovery.proto.html#envoy-api-msg-discoveryresponse"><span class="std std-ref">DiscoveryResponse</span></a>
-along with a HTTP status of 200. Additionally, if the configuration that would be supplied has not changed (as indicated by the version
-supplied by the Envoy client) then the management server can respond with an empty body and a HTTP status of 304.</p>
+<p>响应这些端点的管理服务器必须以 <a class="reference internal" href="../../api-v2/api/v2/discovery.proto.html#envoy-api-msg-discoveryresponse"><span class="std std-ref">DiscoveryResponse</span></a>
+和 HTTP 状态 200 进行响应。此外，如果提供的配置未更改（如 Envoy 客户端提供的版本所示），则管理服务器可以响应具有空的正文，HTTP 状态为 304。</p>
 </div>
 </div>
-<div class="section" id="aggregated-discovery-service">
-<span id="config-overview-ads"></span><h2>Aggregated Discovery Service<a class="headerlink" href="#aggregated-discovery-service" title="Permalink to this headline">¶</a></h2>
-<p>While Envoy fundamentally employs an eventual consistency model, ADS provides an
-opportunity to sequence API update pushes and ensure affinity of a single
-management server for an Envoy node for API updates. ADS allows one or more APIs
-and their resources to be delivered on a single, bidirectional gRPC stream by
-the management server. Without this, some APIs such as RDS and EDS may require
-the management of multiple streams and connections to distinct management
-servers.</p>
-<p>ADS will allow for hitless updates of configuration by appropriate sequencing.
-For example, suppose <em>foo.com</em> was mapped to cluster <em>X</em>. We wish to change the
-mapping in the route table to point <em>foo.com</em> at cluster <em>Y</em>. In order to do
-this, a CDS/EDS update must first be delivered containing both clusters <em>X</em> and
-<em>Y</em>.</p>
-<p>Without ADS, the CDS/EDS/RDS streams may point at distinct management servers,
-or when on the same management server at distinct gRPC streams/connections that
-require coordination. The EDS resource requests may be split across two distinct
-streams, one for <em>X</em> and one for <em>Y</em>. ADS allows these to be coalesced to a
-single stream to a single management server, avoiding the need for distributed
-synchronization to correctly sequence the update. With ADS, the management
-server would deliver the CDS, EDS and then RDS updates on a single stream.</p>
-<p>ADS is only available for gRPC streaming (not REST) and is described more fully
-in <a class="reference internal" href="../../api-docs/xds_protocol.html#xds-protocol-ads"><span class="std std-ref">xDS</span></a>
-document. The gRPC endpoint is:</p>
+<div class="section" id="config-overview-ads">
+<span id="id1"></span><h2>聚合发现服务<a class="headerlink" href="#config-overview-ads" title="Permalink to this headline">¶</a></h2>
+<p>尽管 Envoy 从根本上采用了最终的一致性模型，但 ADS 提供了对 API 更新推送进行排序的机会，并确保单个管理服务器对 Envoy 节点的 API 更新具有亲和力。ADS 允许管理服务器在单个，双向 gRPC 流上交付一个或多个 API 及其资源。否则，某些 API（例如 RDS 和 EDS）可能需要管理多个流以及与不同管理服务器的连接。</p>
+<p>ADS 将允许通过适当的顺序进行无中断的配置更新。例如，假设 <em>foo.com</em> 被映射到集群 <em>X</em>。我们希望在路由表来改变 <em>foo.com</em> 映射到集群 <em>Y</em>。为此，必须首先交付包含集群 <em>X</em> 和集群 <em>Y</em> 的 CDS/EDS 更新。</p>
+<p>如果没有ADS，CDS/EDS/RDS 流可能指向不同的管理服务器，或者指向同一管理服务器上需要协调的不同 gRPC 流/连接。EDS 资源请求可以分为两个不同的流，一个用于 <em>X</em>，另一个用于 <em>Y</em>。ADS 允许将它们合并到单个管理服务器的单个流中，而无需进行分布式同步来正确地对更新进行排序。如果有 ADS，管理服务器将在单个流上交付 CDS，EDS 和 RDS 的更新。</p>
+<p>ADS 仅可用于 gRPC 流式传输（不适用于 REST），并且在 <a class="reference internal" href="../../api-docs/xds_protocol.html#xds-protocol-ads"><span class="std std-ref">xDS</span></a> 文档中有更完整的描述。gRPC 端点是：</p>
 <dl class="http post">
 <dt id="post--envoy.service.discovery.v2.AggregatedDiscoveryService-StreamAggregatedResources">
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.service.discovery.v2.AggregatedDiscoveryService/StreamAggregatedResources</code><a class="headerlink" href="#post--envoy.service.discovery.v2.AggregatedDiscoveryService-StreamAggregatedResources" title="Permalink to this definition">¶</a></dt>
@@ -505,8 +468,7 @@ document. The gRPC endpoint is:</p>
 <code class="sig-name descname">POST </code><code class="sig-name descname">/envoy.service.discovery.v3.AggregatedDiscoveryService/StreamAggregatedResources</code><a class="headerlink" href="#post--envoy.service.discovery.v3.AggregatedDiscoveryService-StreamAggregatedResources" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>See <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7c4228b85c9b328af7042081e7c802e7a19d6141/api/envoy/service/discovery/v3/discovery.proto">discovery.proto</a>
-for the service definition. This is used by Envoy as a client when</p>
+<p>有关服务定义，请参见 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/service/discovery/v3/discovery.proto">discovery.proto</a> 。当以下内容</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ads_config</span><span class="p">:</span>
   <span class="nt">api_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">GRPC</span>
   <span class="nt">transport_api_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;V2|V3&gt;</span>
@@ -515,42 +477,25 @@ for the service definition. This is used by Envoy as a client when</p>
       <span class="nt">cluster_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_ads_cluster</span>
 </pre></div>
 </div>
-<p>is set in the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-dynamic-resources"><span class="std std-ref">dynamic_resources</span></a> of the <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-bootstrap"><span class="std std-ref">Bootstrap</span></a> config.</p>
-<p>When this is set, any of the configuration sources <a class="reference internal" href="#v2-grpc-streaming-endpoints"><span class="std std-ref">above</span></a> can
-be set to use the ADS channel. For example, a LDS config could be changed from</p>
+<p>在 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-msg-config-bootstrap-v3-bootstrap"><span class="std std-ref">Bootstrap</span></a> 配置的 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-dynamic-resources"><span class="std std-ref">dynamic_resources</span></a> 中设置时，Envoy 会将其用作客户端。</p>
+<p>设置此选项后，可以将 <a class="reference internal" href="#v2-grpc-streaming-endpoints"><span class="std std-ref">以上</span></a> 任何配置源设置为使用 ADS 通道。例如，可以将 LDS 配置从</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lds_config</span><span class="p">:</span>
   <span class="nt">api_config_source</span><span class="p">:</span>
     <span class="nt">api_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">REST</span>
     <span class="nt">cluster_names</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">some_xds_cluster</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
-<p>to</p>
+<p>改为</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lds_config</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">ads</span><span class="p">:</span> <span class="p p-Indicator">{}}</span>
 </pre></div>
 </div>
-<p>with the effect that the LDS stream will be directed to <em>some_ads_cluster</em> over
-the shared ADS channel.</p>
+<p>结果是 LDS 流将通过共享的 ADS 通道定向到 <em>some_ads_cluster</em>。</p>
 </div>
-<div class="section" id="delta-endpoints">
-<span id="config-overview-delta"></span><h2>Delta endpoints<a class="headerlink" href="#delta-endpoints" title="Permalink to this headline">¶</a></h2>
-<p>The REST, filesystem, and original gRPC xDS implementations all deliver “state of the world” updates:
-every CDS update must contain every cluster, with the absence of a cluster from an update implying
-that the cluster is gone. For Envoy deployments with huge amounts of resources and even a trickle of
-churn, these state-of-the-world updates can be cumbersome.</p>
-<p>As of 1.12.0, Envoy supports a “delta” variant of xDS (including ADS), where updates only contain
-resources added/changed/removed. Delta xDS is a gRPC (only) protocol. Delta uses different
-request/response protos than SotW (DeltaDiscovery{Request,Response}); see
-<a class="reference external" href="https://github.com/envoyproxy/envoy/blob/7c4228b85c9b328af7042081e7c802e7a19d6141/api/envoy/service/discovery/v3/discovery.proto">discovery.proto</a>. Conceptually, delta should be viewed as
-a new xDS transport type: there is static, filesystem, REST, gRPC-SotW, and now gRPC-delta.
-(Envoy’s implementation of the gRPC-SotW/delta client happens to share most of its code between the
-two, and something similar is likely possible on the server side. However, they are in fact
-incompatible protocols.
-<a class="reference internal" href="../../api-docs/xds_protocol.html#xds-protocol-delta"><span class="std std-ref">The specification of the delta xDS protocol’s behavior is here</span></a>.)</p>
-<p>To use delta, simply set the api_type field of your
-<a class="reference internal" href="../../api-v3/config/core/v3/config_source.proto.html#envoy-v3-api-msg-config-core-v3-apiconfigsource"><span class="std std-ref">ApiConfigSource</span></a> proto(s) to DELTA_GRPC.
-That works for both xDS and ADS; for ADS, it’s the api_type field of
-<a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-dynamic-resources"><span class="std std-ref">DynamicResources.ads_config</span></a>,
-as described in the previous section.</p>
+<div class="section" id="delta">
+<span id="config-overview-delta"></span><h2>Delta 端点<a class="headerlink" href="#delta" title="Permalink to this headline">¶</a></h2>
+<p>REST，文件系统和原始 gRPC xDS 实现都提供全量更新：每个 CDS 更新都必须包含每个集群，更新中没有集群意味着集群已消失。对于具有大量资源甚至是少量流失的 Envoy 部署，这些最新状态的更新可能很麻烦。</p>
+<p>从 1.12.0 版开始, Envoy 支持 xDS（包括 ADS）的“delta”变体, 其中更新仅包含添加/更改/删除的资源。Delta xDS 是 gRPC (仅) 协议。Delta 使用与 SotW（DeltaDiscovery {Request，Response}）不同的请求/响应 proto；请参阅 <a class="reference external" href="https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/service/discovery/v3/discovery.proto">discovery.proto</a> 。从概念上讲，应将 delta 视为一种新的 xDS 传输类型：存在静态，文件系统，REST，gRPC-SotW 和现在的 gRPC-delta。（Envoy 的 gRPC-SotW/delta 客户端实现恰好在两者之间共享了大部分代码，并且在服务器端可能有类似的可能。但是，它们实际上是不兼容的协议。<a class="reference internal" href="../../api-docs/xds_protocol.html#xds-protocol-delta"><span class="std std-ref">delta xDS 协议行为的规范在这里</span></a>。）</p>
+<p>要使用 delta，只需将你 <a class="reference internal" href="../../api-v3/config/core/v3/config_source.proto.html#envoy-v3-api-msg-config-core-v3-apiconfigsource"><span class="std std-ref">ApiConfigSource</span></a> 上原始 api_type 字段设置为 DELTA_GRPC。这对 xDS 和 ADS 都适用；对于 ADS，它是 <a class="reference internal" href="../../api-v3/config/bootstrap/v3/bootstrap.proto.html#envoy-v3-api-field-config-bootstrap-v3-bootstrap-dynamic-resources"><span class="std std-ref">DynamicResources.ads_config</span></a> 的 api_type 字段 ，如上一节所述。</p>
 </div>
 </div>
 
