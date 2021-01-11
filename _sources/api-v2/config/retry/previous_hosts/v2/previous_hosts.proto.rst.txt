@@ -19,7 +19,7 @@ This extension may be referenced by the qualified name *envoy.retry_host_predica
 config.retry.previous_hosts.v2.PreviousHostsPredicate
 -----------------------------------------------------
 
-`[config.retry.previous_hosts.v2.PreviousHostsPredicate proto] <https://github.com/envoyproxy/envoy/blob/1b1316b86c321cb710524f7b3d139a9d5cdeee92/api/envoy/config/retry/previous_hosts/v2/previous_hosts.proto#L14>`_
+`[config.retry.previous_hosts.v2.PreviousHostsPredicate proto] <https://github.com/envoyproxy/envoy/blob/97e7bf1e0f3a91f0970d1d2edcbfc35a1f2b5ec1/api/envoy/config/retry/previous_hosts/v2/previous_hosts.proto#L14>`_
 
 
 .. code-block:: json
