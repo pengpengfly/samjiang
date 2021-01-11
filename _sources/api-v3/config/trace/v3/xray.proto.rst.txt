@@ -10,7 +10,7 @@ Configuration for AWS X-Ray tracer
 config.trace.v3.XRayConfig
 --------------------------
 
-`[config.trace.v3.XRayConfig proto] <https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/config/trace/v3/xray.proto#L23>`_
+`[config.trace.v3.XRayConfig proto] <https://github.com/envoyproxy/envoy/blob/1b1316b86c321cb710524f7b3d139a9d5cdeee92/api/envoy/config/trace/v3/xray.proto#L23>`_
 
 
 .. code-block:: json
@@ -57,7 +57,7 @@ segment_fields
 config.trace.v3.XRayConfig.SegmentFields
 ----------------------------------------
 
-`[config.trace.v3.XRayConfig.SegmentFields proto] <https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/config/trace/v3/xray.proto#L27>`_
+`[config.trace.v3.XRayConfig.SegmentFields proto] <https://github.com/envoyproxy/envoy/blob/1b1316b86c321cb710524f7b3d139a9d5cdeee92/api/envoy/config/trace/v3/xray.proto#L27>`_
 
 
 .. code-block:: json

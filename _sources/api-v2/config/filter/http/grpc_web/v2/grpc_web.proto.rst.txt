@@ -20,7 +20,7 @@ gRPC Web :ref:`configuration overview <config_http_filters_grpc_web>`.
 config.filter.http.grpc_web.v2.GrpcWeb
 --------------------------------------
 
-`[config.filter.http.grpc_web.v2.GrpcWeb proto] <https://github.com/envoyproxy/envoy/blob/e77e0f6007485aaa30d9d40429a4e211f6ddfe52/api/envoy/config/filter/http/grpc_web/v2/grpc_web.proto#L19>`_
+`[config.filter.http.grpc_web.v2.GrpcWeb proto] <https://github.com/envoyproxy/envoy/blob/1b1316b86c321cb710524f7b3d139a9d5cdeee92/api/envoy/config/filter/http/grpc_web/v2/grpc_web.proto#L19>`_
 
 gRPC Web filter config.
 
